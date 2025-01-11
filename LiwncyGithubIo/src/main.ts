@@ -5,6 +5,8 @@ import App from './App.vue'
 import { permission } from "./directives/permission";
 import './mockjs'
 
+import "./assets/css/index.css";
+
 const app = createApp(App)
 
 app.use(Store);

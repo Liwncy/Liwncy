@@ -7,6 +7,7 @@
   >
     <lay-layout
       :class="[
+        'layui-layout-admin',
         appStore.tab ? 'has-tab' : '',
         appStore.collapse ? 'collapse' : '',
         appStore.greyMode ? 'grey-mode' : ''
@@ -321,6 +322,7 @@ export default {
 </script>
 
 <style lang="less">
+//@import url(../../styles/admin.css);
 @media screen and (max-width: 767px) {
   .layui-side {
     position: absolute;
@@ -329,37 +331,37 @@ export default {
 }
 
 /*鼠标经过背景色，增加了improtant，否则设置无效*/
-.layui-header .layui-nav-item .layui-icon:hover {
+.layui-layout-admin .layui-header .layui-nav-item .layui-icon:hover {
   background: whitesmoke !important;
 }
 
 /*面包屑颜色兼容*/
-.layui-header .layui-nav-item .layui-breadcrumb a {
+.layui-layout-admin .layui-header .layui-nav-item .layui-breadcrumb a {
   color: #999 !important;
 }
 
-.layui-header .layui-nav-item .layui-breadcrumb a:nth-last-child(2) {
+.layui-layout-admin .layui-header .layui-nav-item .layui-breadcrumb a:nth-last-child(2) {
   color: #666 !important;
 }
 
 /*图标默认颜色修复，指定 .layui-icon 去掉improtant，否则无法设置图标其他颜色*/
-.layui-header .layui-nav-item .layui-icon {
+.layui-layout-admin .layui-header .layui-nav-item .layui-icon {
   color: #666;
 }
 
 /*取消默认a标签的padding:0 20px，否则扩大图标后容器变形*/
-.layui-header .layui-nav-item > a {
+.layui-layout-admin .layui-header .layui-nav-item > a {
   padding: 0 !important;
 }
 
 /*扩大图标尺寸与所在容器大小一致，默认大小导致鼠标必须点击图标才能触发事件效果*/
-.layui-header .layui-nav-item .layui-icon {
+.layui-layout-admin .layui-header .layui-nav-item .layui-icon {
   height: 50px;
   padding: 20px;
 }
 
 /*增加鼠标经过图标时改变图标颜色，颜色为当前系统主题色*/
-.layui-header .layui-nav-item .layui-icon:hover {
+.layui-layout-admin .layui-header .layui-nav-item .layui-icon:hover {
   color: var(--global-primary-color) !important;
 }
 
