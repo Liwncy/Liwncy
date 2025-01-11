@@ -396,13 +396,13 @@ export default {
   padding-left: 15px;
 }
 
-.layui-logo img {
+.layui-layout-document .layui-logo img {
   margin-top: -5px;
   height: 45px;
   left: 15px;
 }
 
-.layui-logo .title {
+.layui-layout-document .layui-logo .title {
   margin-left: 12px;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.8);
@@ -412,45 +412,45 @@ export default {
   font-weight: 700;
 }
 
-.layui-header > .layui-nav {
+.layui-layout-document .layui-header > .layui-nav {
   background-color: transparent;
 }
 
-.layui-header > .layui-nav .layui-active * {
+.layui-layout-document .layui-header > .layui-nav .layui-active * {
   color: var(--global-checked-color) !important;
 }
 
-.layui-header .layui-local-badge {
+.layui-layout-document .layui-header .layui-local-badge {
   background: transparent;
   line-height: 20px;
   height: 20px;
 }
 
-.layui-badge-rim {
+.layui-layout-document .layui-badge-rim {
   border-radius: 2px;
   border: 1px solid whitesmoke;
   font-size: 12px;
   padding: 3px 10px;
 }
 
-.layui-header .layui-local-badge .layui-tag-text {
+.layui-layout-document .layui-header .layui-local-badge .layui-tag-text {
   font-size: 12px;
 }
 
-.layui-menu-docs {
+.layui-layout-document .layui-menu-docs {
   padding-top: 10px;
 }
 
-.layui-menu-docs .layui-menu-body-title .layui-font-gray {
+.layui-layout-document .layui-menu-docs .layui-menu-body-title .layui-font-gray {
   padding-left: 10px;
 }
 
-.layui-menu li,
-.layui-menu-body-title a {
+.layui-layout-document .layui-menu li,
+.layui-layout-document .layui-menu-body-title a {
   padding: 5px 15px;
 }
 
-.layui-side hr {
+.layui-layout-document .layui-side hr {
   margin: 8px;
 }
 

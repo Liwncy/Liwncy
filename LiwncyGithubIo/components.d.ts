@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     LayAnchor: typeof import('./src/components/LayAnchor.vue')['default']
     LayAvatar: typeof import('@layui/layui-vue')['LayAvatar']
+    LayBacktop: typeof import('@layui/layui-vue')['LayBacktop']
     LayBadge: typeof import('@layui/layui-vue')['LayBadge']
     LayBody: typeof import('@layui/layui-vue')['LayBody']
     LayBreadcrumb: typeof import('@layui/layui-vue')['LayBreadcrumb']
@@ -46,6 +47,7 @@ declare module 'vue' {
     LayQrcode: typeof import('@layui/layui-vue')['LayQrcode']
     LayRadio: typeof import('@layui/layui-vue')['LayRadio']
     LayRow: typeof import('@layui/layui-vue')['LayRow']
+    LayScroll: typeof import('@layui/layui-vue')['LayScroll']
     LaySearch: typeof import('./src/components/LaySearch.vue')['default']
     LaySelect: typeof import('@layui/layui-vue')['LaySelect']
     LaySelectOption: typeof import('@layui/layui-vue')['LaySelectOption']
@@ -62,6 +64,7 @@ declare module 'vue' {
     LayTextarea: typeof import('@layui/layui-vue')['LayTextarea']
     LayTimeline: typeof import('@layui/layui-vue')['LayTimeline']
     LayTimelineItem: typeof import('@layui/layui-vue')['LayTimelineItem']
+    LayTooltip: typeof import('@layui/layui-vue')['LayTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

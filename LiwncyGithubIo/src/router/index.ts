@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import routes from './module/base-routes'
+import blogRoutes from './module/blog-routes'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { useUserStore } from "../store/user";
@@ -8,7 +9,7 @@ NProgress.configure({ showSpinner: false })
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes: [...routes, ...blogRoutes]
 })
 
 /**
