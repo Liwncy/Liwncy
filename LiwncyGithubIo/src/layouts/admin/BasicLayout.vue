@@ -191,8 +191,8 @@
 
 <script lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { useAppStore } from '../store/app'
-import { useUserStore } from '../store/user'
+import { useAppStore } from '../../store/app'
+import { useUserStore } from '../../store/user'
 import GlobalSetup from './global/GlobalSetup.vue'
 import GlobalContent from './global/GlobalContent.vue'
 import GlobalBreadcrumb from './global/GlobalBreadcrumb.vue'
@@ -202,8 +202,8 @@ import GlobalMainMenu from './global/GlobalMainMenu.vue'
 import GlobalMessageTab from './global/GlobalMessageTab.vue'
 import { useRouter } from 'vue-router'
 import { useMenu } from './composable/useMenu'
-import zh_CN from '../lang/zh_CN'
-import en_US from '../lang/en_US'
+import zh_CN from '../../lang/zh_CN'
+import en_US from '../../lang/en_US'
 
 export default {
   components: {

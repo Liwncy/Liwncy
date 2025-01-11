@@ -16,7 +16,7 @@
               :key="index"
             >
               <div class="inform-item-icon">
-                <img src="../../assets/messageSlot/info1.png" alt="" />
+                <img src="../../../assets/messageSlot/info1.png" alt="" />
               </div>
               <div class="inform-item-text">
                 <div>{{ item.title }}</div>
@@ -35,7 +35,7 @@
               :key="index"
             >
               <div class="inform-item-icon">
-                <img src="../../assets/messageSlot/avatar1.png" alt="" />
+                <img src="../../../assets/messageSlot/avatar1.png" alt="" />
               </div>
               <div class="inform-item-text">
                 <div>{{ item.title }}</div>

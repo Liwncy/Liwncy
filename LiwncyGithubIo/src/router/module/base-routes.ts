@@ -1,4 +1,4 @@
-import BasicLayout from '../../layouts/BasicLayout.vue';
+import BasicLayout from '../../layouts/admin/BasicLayout.vue';
 import Login from '../../views/login/index.vue';
 
 
