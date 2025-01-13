@@ -63,11 +63,11 @@
   margin: 0px 15px;
 }
 
-.layui-layout-admin .layui-header .layui-nav.layui-nav-center .layui-nav-item a * {
+.layui-layout-admin .layui-layout-admin .layui-header .layui-nav.layui-nav-center .layui-nav-item a * {
   color: #666;
 }
 
-.layui-layout.has-tab .layui-header {
+.layui-layout-admin .layui-layout.has-tab .layui-header {
   box-shadow: none;
 }
 
@@ -98,56 +98,56 @@
   color: #393d49;
 }
 
-.layui-side {
+.layui-layout-admin .layui-side {
   z-index: 10000;
   background: rgb(34, 36, 37, 98%);
   box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
 }
 
-.layui-side.light {
+.layui-layout-admin .layui-side.light {
   background-color: white !important;
 }
 
-.layui-side.light .layui-logo {
+.layui-layout-admin .layui-side.light .layui-logo {
   border-bottom: 1px solid whitesmoke;
 }
 
-.layui-side .layui-nav {
+.layui-layout-admin .layui-side .layui-nav {
   width: 100%;
   background-color: transparent;
 }
 
-.layui-layout.collapse .layui-logo {
+.layui-layout-admin .layui-layout.collapse .layui-logo {
   width: 60px;
 }
 
 @media screen and (max-width: 767px) {
-  .layui-layout.collapse .layui-side {
+  .layui-layout-admin .layui-layout.collapse .layui-side {
     width: 0 !important;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .layui-layout.collapse .layui-side {
+  .layui-layout-admin .layui-layout.collapse .layui-side {
     width: 60px !important;
   }
 }
 
-.layui-layout.collapse .layui-body {
+.layui-layout-admin .layui-layout.collapse .layui-body {
   left: 60px;
 }
 
-.layui-layout.collapse .layui-header .layui-layout-left {
+.layui-layout-admin .layui-layout.collapse .layui-header .layui-layout-left {
   left: 60px;
 }
 
-.layui-layout .layui-logo,
-.layui-layout .layui-side,
-.layui-layout .layui-body,
-.layui-layout .layui-header .layui-layout-left {
+.layui-layout-admin .layui-layout .layui-logo,
+.layui-layout-admin .layui-layout .layui-side,
+.layui-layout-admin .layui-layout .layui-body,
+.layui-layout-admin .layui-layout .layui-header .layui-layout-left {
   transition: all 0.3s;
 }
 
-.layui-layout {
+.layui-layout-admin .layui-layout {
   height: 100%;
 }

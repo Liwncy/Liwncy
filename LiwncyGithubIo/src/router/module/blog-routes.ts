@@ -7,7 +7,7 @@ import Index from "../../views/blog/index.vue";
 // @ts-ignore
 export default [
     {
-        path: "/blog",
+        path: "/",
         redirect: "/zh-CN/index",
         component: BlogBasicLayout,
         meta: { title: "首页" },
