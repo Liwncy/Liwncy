@@ -18,7 +18,6 @@ import Children from "./document/zh-CN/components/components/Children.vue";
 import Children1 from "./document/zh-CN/components/components/Children1.vue";
 import Children2 from "./document/zh-CN/components/components/Children2.vue";
 
-import "./assets/css/index.css";
 import "./assets/styles/index.css";
 import '@layui/layui-vue/lib/index.css'
 
