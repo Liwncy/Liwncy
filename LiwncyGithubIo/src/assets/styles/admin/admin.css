@@ -6,32 +6,32 @@
   line-height: 50px;
 }
 
-.layui-body {
+.layui-layout-admin .layui-body {
   overflow-x: hidden;
   background-color: whitesmoke;
 }
 
-.layui-body>.global-tab>.layui-tab {
+.layui-layout-admin .layui-body>.global-tab>.layui-tab {
   margin: 0px;
 }
 
-.layui-body>.global-tab>.layui-tab>.layui-tab-content {
+.layui-layout-admin .layui-body>.global-tab>.layui-tab>.layui-tab-content {
   padding: 0px;
 }
 
-.layui-body>.global-tab>.layui-tab>.layui-tab-head {
+.layui-layout-admin .layui-body>.global-tab>.layui-tab>.layui-tab-head {
   z-index: 999;
   display: block;
   width: 100%;
   background-color: white;
 }
 
-.layui-body>.global-tab>.layui-tab>.layui-tab-head>.layui-tab-title {
+.layui-layout-admin .layui-body>.global-tab>.layui-tab>.layui-tab-head>.layui-tab-title {
   border-bottom: none;
   border-left: none;
 }
 
-.layui-body>.global-tab>.layui-tab>.layui-tab-head>.layui-tab-title>li {
+.layui-layout-admin .layui-body>.global-tab>.layui-tab>.layui-tab-head>.layui-tab-title>li {
   color: dimgray;
   font-size: 14px;
   line-height: 40px;
@@ -39,7 +39,7 @@
   border-bottom: none;
 }
 
-.layui-body>.global-tab>.layui-tab>.layui-tab-head>.layui-tab-title>li.layui-this::after {
+.layui-layout-admin .layui-body>.global-tab>.layui-tab>.layui-tab-head>.layui-tab-title>li.layui-this::after {
   border: none;
 }
 
