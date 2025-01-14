@@ -7,6 +7,7 @@ import {
 } from 'vue-router'
 import routes from './module/base-routes'
 import blogRoutes from './module/blog-routes'
+import docsRoutes from './module/docs-routes'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import {useUserStore} from "../store/user";
@@ -14,8 +15,8 @@ import {useUserStore} from "../store/user";
 NProgress.configure({showSpinner: false})
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes: [...routes, ...blogRoutes]
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [...routes, ...blogRoutes, ...docsRoutes]
 })
 
 /**

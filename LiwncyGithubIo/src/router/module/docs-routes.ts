@@ -1,15 +1,15 @@
-import BlogBasicLayout from '@/layouts/blog/BasicLayout.vue';
-import Components from "@/views/blog/components.vue";
-import Resources from "@/views/blog/resources.vue";
-import Guide from "@/views/blog/guide.vue";
-import Index from "@/views/blog/index.vue";
+import DocsBasicLayout from '@/layouts/docs/BasicLayout.vue';
+import Components from "@/views/docs/components.vue";
+import Resources from "@/views/docs/resources.vue";
+import Guide from "@/views/docs/guide.vue";
+import Index from "@/views/docs/index.vue";
 
 // @ts-ignore
 export default [
     {
-        path: "/",
+        path: "/docs",
         redirect: "/zh-CN/index",
-        component: BlogBasicLayout,
+        component: DocsBasicLayout,
         meta: { title: "首页" },
         children: [
             {
@@ -45,7 +45,7 @@ export default [
                     },
                     {
                         path: "/zh-CN/guide/problem",
-                        component: () => import("@/document/zh-CN/guide/problem.md"),
+                        component: () => import('@/document/zh-CN/guide/problem.md'),
                         meta: { title: "问题" },
                     },
                     {

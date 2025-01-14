@@ -1,6 +1,5 @@
-import BasicLayout from '../../layouts/admin/BasicLayout.vue';
-import BlogBasicLayout from '../../layouts/blog/BasicLayout.vue';
-import Login from '../../views/login/index.vue';
+import BasicLayout from '@/layouts/admin/BasicLayout.vue';
+import Login from '@/views/common/login/index.vue';
 
 
 export default [
@@ -22,22 +21,22 @@ export default [
             {
                 path: '/workspace/workbench',
                 name: 'Workbench',
-                component: () => import('../../views/workSpace/workbench/index.vue'),
+                component: () => import('@/views/admin/workSpace/workbench/index.vue'),
                 meta: {title: '工作台', requireAuth: true, affix: true, closable: false},
             },
             {
                 path: '/workspace/console',
-                component: () => import('../../views/workSpace/console/index.vue'),
+                component: () => import('@/views/admin/workSpace/console/index.vue'),
                 meta: {title: '控制台', requireAuth: true},
             },
             {
                 path: '/workspace/analysis',
-                component: () => import('../../views/workSpace/analysis/index.vue'),
+                component: () => import('@/views/admin/workSpace/analysis/index.vue'),
                 meta: {title: '分析页', requireAuth: true},
             },
             {
                 path: '/workspace/monitor',
-                component: () => import('../../views/workSpace/monitor/index.vue'),
+                component: () => import('@/views/admin/workSpace/monitor/index.vue'),
                 meta: {title: '监控页', requireAuth: true},
             }
         ]
@@ -49,22 +48,22 @@ export default [
         children: [
             {
                 path: '/error/401',
-                component: () => import('../../views/error/401.vue'),
+                component: () => import('@/views/common/error/401.vue'),
                 meta: {title: '401'},
             },
             {
                 path: '/error/403',
-                component: () => import('../../views/error/403.vue'),
+                component: () => import('@/views/common/error/403.vue'),
                 meta: {title: '403'},
             },
             {
                 path: '/error/404',
-                component: () => import('../../views/error/404.vue'),
+                component: () => import('@/views/common/error/404.vue'),
                 meta: {title: '404'},
             },
             {
                 path: '/error/500',
-                component: () => import('../../views/error/500.vue'),
+                component: () => import('@/views/common/error/500.vue'),
                 meta: {title: '500'},
             }
         ]
@@ -76,42 +75,42 @@ export default [
         children: [
             {
                 path: '/system/user',
-                component: () => import('../../views/system/user/index.vue'),
+                component: () => import('@/views/admin/system/user/index.vue'),
                 meta: {title: '用户管理', requireAuth: true},
             },
             {
                 path: '/system/role',
-                component: () => import('../../views/system/role/index.vue'),
+                component: () => import('@/views/admin/system/role/index.vue'),
                 meta: {title: '角色管理', requireAuth: true},
             },
             {
                 path: '/system/menu',
-                component: () => import('../../views/system/menu/index.vue'),
+                component: () => import('@/views/admin/system/menu/index.vue'),
                 meta: {title: '菜单管理', requireAuth: true},
             },
             {
                 path: '/system/organization',
-                component: () => import('../../views/system/organization/index.vue'),
+                component: () => import('@/views/admin/system/organization/index.vue'),
                 meta: {title: '机构管理', requireAuth: true},
             },
             {
                 path: '/system/dictionary',
-                component: () => import('../../views/system/dictionary/index.vue'),
+                component: () => import('@/views/admin/system/dictionary/index.vue'),
                 meta: {title: '字典管理', requireAuth: true},
             },
             {
                 path: '/system/file',
-                component: () => import('../../views/system/file/index.vue'),
+                component: () => import('@/views/admin/system/file/index.vue'),
                 meta: {title: '文件管理', requireAuth: true},
             },
             {
                 path: '/system/login',
-                component: () => import('../../views/system/login/index.vue'),
+                component: () => import('@/views/admin/system/login/index.vue'),
                 meta: {title: '登录日志', requireAuth: true},
             },
             {
                 path: '/system/option',
-                component: () => import('../../views/system/option/index.vue'),
+                component: () => import('@/views/admin/system/option/index.vue'),
                 meta: {title: '操作日志', requireAuth: true},
             },
         ]
@@ -123,12 +122,12 @@ export default [
         children: [
             {
                 path: '/result/success',
-                component: () => import('../../views/result/success.vue'),
+                component: () => import('@/views/common/result/success.vue'),
                 meta: {title: '成功页面', requireAuth: true},
             },
             {
                 path: '/result/failure',
-                component: () => import('../../views/result/failure.vue'),
+                component: () => import('@/views/common/result/failure.vue'),
                 meta: {title: '失败页面', requireAuth: true},
             },
         ]
@@ -140,22 +139,22 @@ export default [
         children: [
             {
                 path: '/table/base',
-                component: () => import('../../views/table/base.vue'),
+                component: () => import('@/views/admin/table/base.vue'),
                 meta: {title: '查询列表', requireAuth: true},
             },
             {
                 path: '/table/card',
-                component: () => import('../../views/table/card.vue'),
+                component: () => import('@/views/admin/table/card.vue'),
                 meta: {title: '卡片列表', requireAuth: true},
             },
             {
                 path: '/table/project',
-                component: () => import('../../views/table/project.vue'),
+                component: () => import('@/views/admin/table/project.vue'),
                 meta: {title: '项目列表', requireAuth: true},
             },
             {
                 path: '/table/article',
-                component: () => import('../../views/table/article.vue'),
+                component: () => import('@/views/admin/table/article.vue'),
                 meta: {title: '文章列表', requireAuth: true},
             }
         ]
@@ -167,24 +166,24 @@ export default [
         children: [
             {
                 path: '/form/base',
-                component: () => import('../../views/form/base.vue'),
+                component: () => import('@/views/admin/form/base.vue'),
                 meta: {title: '基础表单', requireAuth: true},
             },
             {
                 path: '/form/step',
-                component: () => import('../../views/form/step.vue'),
+                component: () => import('@/views/admin/form/step.vue'),
                 meta: {title: '分步表单', requireAuth: true},
             },
             {
                 path: '/form/intricate',
                 name: 'Intricate',
-                component: () => import('../../views/form/intricate.vue'),
+                component: () => import('@/views/admin/form/intricate.vue'),
                 meta: {title: '复杂表单', requireAuth: true},
             },
             {
                 path: '/form/step',
                 name: 'Step',
-                component: () => import('../../views/form/step.vue'),
+                component: () => import('@/views/admin/form/step.vue'),
                 meta: {title: '分步表单', requireAuth: true},
             },
         ]
@@ -196,7 +195,7 @@ export default [
         children: [
             {
                 path: '/directive/permission',
-                component: () => import('../../views/directive/permission.vue'),
+                component: () => import('@/views/admin/directive/permission.vue'),
                 meta: {title: '权限指令', requireAuth: true},
             },
         ]
@@ -208,17 +207,17 @@ export default [
         children: [
             {
                 path: '/component/qrcode',
-                component: () => import('../../views/component/qrcode.vue'),
+                component: () => import('@/views/admin/component/qrcode.vue'),
                 meta: {title: '二维码', requireAuth: true},
             },
             {
                 path: '/component/barcode',
-                component: () => import('../../views/component/barcode.vue'),
+                component: () => import('@/views/admin/component/barcode.vue'),
                 meta: {title: '条形码', requireAuth: true},
             },
             {
                 path: '/component/treeSelect',
-                component: () => import('../../views/component/treeSelect.vue'),
+                component: () => import('@/views/admin/component/treeSelect.vue'),
                 meta: {title: '下拉树', requireAuth: true},
             },
         ]
@@ -230,42 +229,15 @@ export default [
         children: [
             {
                 path: '/enrollee/profile',
-                component: () => import('../../views/enrollee/profile/index.vue'),
+                component: () => import('@/views/admin/enrollee/profile/index.vue'),
                 meta: {title: '我的资料', requireAuth: true},
             },
             {
                 path: '/enrollee/message',
-                component: () => import('../../views/enrollee/message/index.vue'),
+                component: () => import('@/views/admin/enrollee/message/index.vue'),
                 meta: {title: '我的消息', requireAuth: true},
             },
 
-        ]
-    },
-    {
-        path: '/berror',
-        component: BlogBasicLayout,
-        meta: {title: '错误页面'},
-        children: [
-            {
-                path: '/berror/401',
-                component: () => import('../../views/error/401.vue'),
-                meta: {title: '401'},
-            },
-            {
-                path: '/berror/403',
-                component: () => import('../../views/error/403.vue'),
-                meta: {title: '403'},
-            },
-            {
-                path: '/berror/404',
-                component: () => import('../../views/error/404.vue'),
-                meta: {title: '404'},
-            },
-            {
-                path: '/berror/500',
-                component: () => import('../../views/error/500.vue'),
-                meta: {title: '500'},
-            }
         ]
     },
 

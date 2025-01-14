@@ -96,7 +96,7 @@
           <div v-if="active == 2" class="option-result">
             <div style="width: 100%; height: 210px; text-align: center">
               <img
-                src="../../assets/common/success.png"
+                src="../../../assets/common/success.png"
                 alt=""
                 style="width: 80px; height: 80px"
               />

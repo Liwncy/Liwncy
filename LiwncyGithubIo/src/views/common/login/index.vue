@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="login-captach" @click="toRefreshImg">
-                      <img style="width: 100%" src="../../assets/login/login-yzm.jpg" alt="获取验证码" />
+                      <img style="width: 100%" src="../../../assets/login/login-yzm.jpg" alt="获取验证码" />
                     </div>
                   </lay-form-item>
                   <lay-checkbox value="" name="like" v-model="remember" skin="primary" label="1">记住密码</lay-checkbox>
@@ -63,25 +63,25 @@
             <ul class="other-ways">
               <li>
                 <div class="line-container">
-                  <img class="icon" src="../../assets/login/w.svg" />
+                  <img class="icon" src="../../../assets/login/w.svg" />
                   <p class="text">微信</p>
                 </div>
               </li>
               <li>
                 <div class="line-container">
-                  <img class="icon" src="../../assets/login/q.svg" />
+                  <img class="icon" src="../../../assets/login/q.svg" />
                   <p class="text">钉钉</p>
                 </div>
               </li>
               <li>
                 <div class="line-container">
-                  <img class="icon" src="../../assets/login/a.svg" />
+                  <img class="icon" src="../../../assets/login/a.svg" />
                   <p class="text">Gitee</p>
                 </div>
               </li>
               <li>
                 <div class="line-container">
-                  <img class="icon" src="../../assets/login/f.svg" />
+                  <img class="icon" src="../../../assets/login/f.svg" />
                   <p class="text">Github</p>
                 </div>
               </li>
@@ -94,11 +94,11 @@
 </template>
 
 <script lang="ts">
-import { login } from '../../api/module/user'
-import { verificationImg, loginQrcode } from '../../api/module/commone'
+import { login } from '../../../api/module/user'
+import { verificationImg, loginQrcode } from '../../../api/module/commone'
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../../store/user'
+import { useUserStore } from '../../../store/user'
 import { layer } from '@layui/layer-vue'
 
 export default defineComponent({
@@ -277,7 +277,7 @@ export default defineComponent({
   height: 84%;
   color: #fff;
   text-align: center;
-  background-image: url('../../assets/login/login-bg.svg');
+  background-image: url('../../../assets/login/login-bg.svg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;

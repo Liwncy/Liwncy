@@ -199,10 +199,10 @@
 import { defineComponent, ref, onMounted, reactive } from 'vue'
 
 import * as echarts from 'echarts'
-import china from './moudel/china.json'
+import china from './china.json'
 import shandong from './moudel/province/shandong.json'
 import jinan from './moudel/citys/370100.json'
-import minx from './moudel/minx'
+import minx from './minx'
 
 export default defineComponent({
   name: 'Analysis',
