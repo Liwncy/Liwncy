@@ -3,7 +3,7 @@
     <div class="site-layui-main">
       <div class="site-zfj site-zfj-anim">
         <img
-          src="../assets/logo.jpg"
+          src="../../assets/logo.png"
           style="width: 172px; border-radius: 20px; border: 5px solid #e2e2e2"
         />
       </div>
@@ -72,7 +72,7 @@
               target="_blank"
               style="display: flex; justify-content: center"
             >
-              <img style="width: 200px" src="../assets/lubase-logo.png" />
+              <img style="width: 200px" src="../../assets/lubase-logo.png" />
             </a>
           </lay-col>
         </lay-row>
@@ -329,7 +329,7 @@ body {
   margin-top: 60px;
   height: calc(100vh - 60px);
   width: 100vw;
-  background-image: url(../assets/background.svg);
+  background-image: url(../../assets/background.svg);
   background-repeat: no-repeat;
   background-size: 100%;
 }

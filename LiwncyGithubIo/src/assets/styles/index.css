@@ -1,4 +1,6 @@
 /*后台对应css样式*/
 @import url(./admin/index.css);
-/*blog对应css样式*/
-@import url(./blog/index.css);
+/*后台对应css样式*/
+@import url(./docs/index.css);
+/*webs对应css样式*/
+@import url(./webs/index.css);

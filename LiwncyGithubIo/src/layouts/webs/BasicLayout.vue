@@ -5,11 +5,11 @@
       :theme="appStore.theme"
       :themeVariable="appStore.themeVariable"
   >
-    <lay-layout class="layui-layout-document" style="height: 100%">
+    <lay-layout class="layui-layout-website" style="height: 100%">
       <lay-header>
         <lay-logo>
-          <img src="../../assets/logo-png.png" />
-          <span class="title">layui - vue</span>
+          <img src="../../assets/touxiang.jpg" />
+          <span class="title">芈 仙 居</span>
         </lay-logo>
         <ul
             class="layui-nav layui-layout-left"
@@ -19,39 +19,39 @@
               class="layui-nav-item"
               :class="{ 'layui-active': currentPath.includes('/zh-CN/index') }"
           >
-            <router-link to="/zh-CN/index"> {{ t("nav.home") }} </router-link>
+            <router-link to="/webs/index"> {{ t("nav.home") }} </router-link>
           </li>
-          <li
-              class="layui-nav-item"
-              :class="{ 'layui-active': currentPath.includes('/zh-CN/guide') }"
-          >
-            <router-link to="/zh-CN/guide"> {{ t("nav.guide") }} </router-link>
-          </li>
-          <li
-              class="layui-nav-item"
-              :class="{
-              'layui-active': currentPath.includes('/zh-CN/components'),
-            }"
-          >
-            <router-link to="/zh-CN/components">
-              {{ t("nav.components") }}
-            </router-link>
-          </li>
+<!--          <li-->
+<!--              class="layui-nav-item"-->
+<!--              :class="{ 'layui-active': currentPath.includes('/zh-CN/guide') }"-->
+<!--          >-->
+<!--            <router-link to="/zh-CN/guide"> {{ t("nav.guide") }} </router-link>-->
+<!--          </li>-->
+<!--          <li-->
+<!--              class="layui-nav-item"-->
+<!--              :class="{-->
+<!--              'layui-active': currentPath.includes('/zh-CN/components'),-->
+<!--            }"-->
+<!--          >-->
+<!--            <router-link to="/zh-CN/components">-->
+<!--              {{ t("nav.components") }}-->
+<!--            </router-link>-->
+<!--          </li>-->
           <li
               class="layui-nav-item"
               :class="{
               'layui-active': currentPath.includes('/zh-CN/resources'),
             }"
           >
-            <router-link to="/zh-CN/resources">
+            <router-link to="/webs/resources">
               {{ t("nav.resources") }}
             </router-link>
           </li>
-          <li class="layui-nav-item layui-docsearch">
-            <lay-form>
-              <lay-search :datas="menus" />
-            </lay-form>
-          </li>
+<!--          <li class="layui-nav-item layui-docsearch">-->
+<!--            <lay-form>-->
+<!--              <lay-search :datas="menus" />-->
+<!--            </lay-form>-->
+<!--          </li>-->
         </ul>
         <ul
             class="layui-nav layui-layout-right"
@@ -138,7 +138,7 @@
           </li>
           <li class="layui-nav-item">
             <a
-                href="https://gitee.com/layui/layui-vue"
+                href="https://gitee.com/liwncy"
                 target="_blank"
                 style="display: inline-block; padding-right: 10px"
             >
@@ -149,7 +149,7 @@
               ></lay-icon>
             </a>
             <a
-                href="https://github.com/layui/layui-vue"
+                href="https://github.com/liwncy"
                 target="_blank"
                 style="display: inline-block; padding-left: 10px"
             >
@@ -353,7 +353,7 @@ export default {
 </script>
 
 <style>
-.layui-layout-document > .layui-header {
+.layui-layout-website > .layui-header {
   z-index: 99;
   width: 100%;
   position: fixed;
@@ -363,7 +363,7 @@ export default {
   backdrop-filter: saturate(50%) blur(4px);
 }
 
-.layui-layout-document > .layui-layout > .layui-side {
+.layui-layout-website > .layui-layout > .layui-side {
   overflow-x: hidden;
   position: fixed;
   margin-top: 60px;
@@ -372,7 +372,7 @@ export default {
   border-right: 1px solid #eeeeee;
 }
 
-.layui-layout-document > .layui-layout > .layui-body {
+.layui-layout-website > .layui-layout > .layui-body {
   margin-top: 60px;
   left: 200px;
   position: absolute;
@@ -380,29 +380,29 @@ export default {
   height: calc(100% - 60px);
 }
 
-.layui-layout-document .layui-header .layui-form-switch {
+.layui-layout-website .layui-header .layui-form-switch {
   border: 1px solid rgba(60, 60, 60, 0.29);
   background-color: #f1f1f1 !important;
 }
 
-.layui-layout-document .layui-header .layui-nav .layui-nav-item *,
-.layui-layout-document .layui-header .layui-nav .layui-nav-item a,
-.layui-layout-document .layui-header .layui-nav .layui-nav-item a:hover {
+.layui-layout-website .layui-header .layui-nav .layui-nav-item *,
+.layui-layout-website .layui-header .layui-nav .layui-nav-item a,
+.layui-layout-website .layui-header .layui-nav .layui-nav-item a:hover {
   color: rgba(0, 0, 0, 0.8);
 }
 
-.layui-layout-document .layui-header .layui-logo {
+.layui-layout-website .layui-header .layui-logo {
   text-align: left;
   padding-left: 15px;
 }
 
-.layui-layout-document .layui-logo img {
+.layui-layout-website .layui-logo img {
   margin-top: -5px;
   height: 45px;
   left: 15px;
 }
 
-.layui-layout-document .layui-logo .title {
+.layui-layout-website .layui-logo .title {
   margin-left: 12px;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.8);
@@ -412,45 +412,45 @@ export default {
   font-weight: 700;
 }
 
-.layui-layout-document .layui-header > .layui-nav {
+.layui-layout-website .layui-header > .layui-nav {
   background-color: transparent;
 }
 
-.layui-layout-document .layui-header > .layui-nav .layui-active * {
+.layui-layout-website .layui-header > .layui-nav .layui-active * {
   color: var(--global-checked-color) !important;
 }
 
-.layui-layout-document .layui-header .layui-local-badge {
+.layui-layout-website .layui-header .layui-local-badge {
   background: transparent;
   line-height: 20px;
   height: 20px;
 }
 
-.layui-layout-document .layui-badge-rim {
+.layui-layout-website .layui-badge-rim {
   border-radius: 2px;
   border: 1px solid whitesmoke;
   font-size: 12px;
   padding: 3px 10px;
 }
 
-.layui-layout-document .layui-header .layui-local-badge .layui-tag-text {
+.layui-layout-website .layui-header .layui-local-badge .layui-tag-text {
   font-size: 12px;
 }
 
-.layui-layout-document .layui-menu-docs {
+.layui-layout-website .layui-menu-docs {
   padding-top: 10px;
 }
 
-.layui-layout-document .layui-menu-docs .layui-menu-body-title .layui-font-gray {
+.layui-layout-website .layui-menu-docs .layui-menu-body-title .layui-font-gray {
   padding-left: 10px;
 }
 
-.layui-layout-document .layui-menu li,
-.layui-layout-document .layui-menu-body-title a {
+.layui-layout-website .layui-menu li,
+.layui-layout-website .layui-menu-body-title a {
   padding: 5px 15px;
 }
 
-.layui-layout-document .layui-side hr {
+.layui-layout-website .layui-side hr {
   margin: 8px;
 }
 
