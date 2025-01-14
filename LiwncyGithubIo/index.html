@@ -1,127 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-      <link rel="stylesheet" href="/docsearch/index.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" href="/favicon.ico"/>
+    <!--      <link rel="stylesheet" href="/docsearch/index.css" />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>芈 仙 居</title>
     <style>
-      body {
-        margin: 0;
-      }
-      .loader-main {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        background-color: whitesmoke;
-        z-index: 9999999;
-      }
-      .loader {
-        width: 50px;
-        height: 50px;
-        margin: 30px auto 40px;
-        margin-top: 20%;
-        position: relative;
-        z-index: 999999;
-        background-color: whitesmoke;
-      }
-      .loader:before {
-        content: "";
-        width: 50px;
-        height: 7px;
-        border-radius: 50%;
-        background: #000;
-        opacity: 0.1;
-        position: absolute;
-        top: 59px;
-        left: 0;
-        animation: shadow 0.5s linear infinite;
-      }
-      .loader:after {
-        content: "";
-        width: 50px;
-        height: 50px;
-        border-radius: 3px;
-        background-color: #5fb878;
-        position: absolute;
-        top: 0;
-        left: 0;
-        animation: loading 0.5s linear infinite;
-      }
-      @-webkit-keyframes loading {
-        17% {
-          border-bottom-right-radius: 3px;
+        body {
+            margin: 0;
         }
 
-        25% {
-          transform: translateY(9px) rotate(22.5deg);
+        .loader-main {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: whitesmoke;
+            z-index: 9999999;
         }
 
-        50% {
-          transform: translateY(18px) scale(1, 0.9) rotate(45deg);
-          border-bottom-right-radius: 40px;
+        .loader {
+            width: 50px;
+            height: 50px;
+            margin: 30px auto 40px;
+            margin-top: 20%;
+            position: relative;
+            z-index: 999999;
+            background-color: whitesmoke;
         }
 
-        75% {
-          transform: translateY(9px) rotate(67.5deg);
+        .loader:before {
+            content: "";
+            width: 50px;
+            height: 7px;
+            border-radius: 50%;
+            background: #000;
+            opacity: 0.1;
+            position: absolute;
+            top: 59px;
+            left: 0;
+            animation: shadow 0.5s linear infinite;
         }
 
-        100% {
-          transform: translateY(0) rotate(90deg);
-        }
-      }
-      @keyframes loading {
-        17% {
-          border-bottom-right-radius: 3px;
-        }
-
-        25% {
-          transform: translateY(9px) rotate(22.5deg);
-        }
-
-        50% {
-          transform: translateY(18px) scale(1, 0.9) rotate(45deg);
-          border-bottom-right-radius: 40px;
+        .loader:after {
+            content: "";
+            width: 50px;
+            height: 50px;
+            border-radius: 3px;
+            background-color: #5fb878;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: loading 0.5s linear infinite;
         }
 
-        75% {
-          transform: translateY(9px) rotate(67.5deg);
+        @-webkit-keyframes loading {
+            17% {
+                border-bottom-right-radius: 3px;
+            }
+
+            25% {
+                transform: translateY(9px) rotate(22.5deg);
+            }
+
+            50% {
+                transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+                border-bottom-right-radius: 40px;
+            }
+
+            75% {
+                transform: translateY(9px) rotate(67.5deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(90deg);
+            }
         }
 
-        100% {
-          transform: translateY(0) rotate(90deg);
-        }
-      }
-      @-webkit-keyframes shadow {
-        0%,
-        100% {
-          transform: scale(1, 1);
+        @keyframes loading {
+            17% {
+                border-bottom-right-radius: 3px;
+            }
+
+            25% {
+                transform: translateY(9px) rotate(22.5deg);
+            }
+
+            50% {
+                transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+                border-bottom-right-radius: 40px;
+            }
+
+            75% {
+                transform: translateY(9px) rotate(67.5deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(90deg);
+            }
         }
 
-        50% {
-          transform: scale(1.2, 1);
-        }
-      }
-      @keyframes shadow {
-        0%,
-        100% {
-          transform: scale(1, 1);
+        @-webkit-keyframes shadow {
+            0%,
+            100% {
+                transform: scale(1, 1);
+            }
+
+            50% {
+                transform: scale(1.2, 1);
+            }
         }
 
-        50% {
-          transform: scale(1.2, 1);
+        @keyframes shadow {
+            0%,
+            100% {
+                transform: scale(1, 1);
+            }
+
+            50% {
+                transform: scale(1.2, 1);
+            }
         }
-      }
     </style>
-  </head>
-  <body>
-    <div id="app">
-      <div class="loader-main">
+</head>
+<body>
+<div id="app">
+    <div class="loader-main">
         <div class="loader"></div>
-      </div>
     </div>
-    <script type="module" src="/src/main.ts"></script>
-    <script src="/docsearch/index.js"></script>
-  </body>
+</div>
+<script type="module" src="/src/main.ts"></script>
+<!--<script>-->
+<!--    window.onbeforeunload = function(event) {-->
+<!--        event.returnValue = '你确定要离开这个页面吗？';-->
+<!--        document.location = '/'-->
+<!--        // 这里可以编写你想要执行的代码-->
+<!--        // 例如，可以显示一个确认对话框-->
+<!--        // return '你确定要离开这个页面吗？';-->
+
+<!--        // 如果返回字符串，大多数浏览器将显示这个消息-->
+<!--        // 如果不返回任何东西或者返回null，则不会显示任何消息-->
+<!--    };-->
+<!--</script>-->
+<!--    <script src="/docsearch/index.js"></script>-->
+</body>
 </html>

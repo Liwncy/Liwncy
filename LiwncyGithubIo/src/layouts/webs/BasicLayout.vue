@@ -17,7 +17,7 @@
         >
           <li
               class="layui-nav-item"
-              :class="{ 'layui-active': currentPath.includes('/zh-CN/index') }"
+              :class="{ 'layui-active': currentPath.includes('/webs/index') }"
           >
             <router-link to="/webs/index"> {{ t("nav.home") }} </router-link>
           </li>
@@ -40,11 +40,31 @@
           <li
               class="layui-nav-item"
               :class="{
-              'layui-active': currentPath.includes('/zh-CN/resources'),
+              'layui-active': currentPath.includes('/webs/resources'),
             }"
           >
             <router-link to="/webs/resources">
               {{ t("nav.resources") }}
+            </router-link>
+          </li>
+          <li
+              class="layui-nav-item"
+              :class="{
+              'layui-active': currentPath.includes('/docs'),
+            }"
+          >
+            <router-link to="/docs">
+              文档
+            </router-link>
+          </li>
+          <li
+              class="layui-nav-item"
+              :class="{
+              'layui-active': currentPath.includes('/admin'),
+            }"
+          >
+            <router-link to="/admin">
+              后台
             </router-link>
           </li>
 <!--          <li class="layui-nav-item layui-docsearch">-->

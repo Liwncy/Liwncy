@@ -15,7 +15,7 @@ import {useUserStore} from "../store/user";
 NProgress.configure({showSpinner: false})
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory(),
     routes: [...routes, ...docsRoutes, ...websRoutes]
 })
 
