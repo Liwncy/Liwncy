@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import images from '/@src/assets/logo-png.png'
+import images from '@/assets/logo-png.png'
 </script>
 
 :::
