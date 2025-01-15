@@ -42,9 +42,7 @@
         <ul class="layui-row layui-col-space6">
           <li class="layui-col-sm24">
             <div class="alone">
-              <a
-                href="https://gitee.com/layui-vue/layui-vue-admin"
-                target="_blank"
+              <router-link to="/admin"
                 >layui - vue - admin<cite
                   >开箱即用的 vue 3.0 后台管理模板
                 </cite>
@@ -53,7 +51,7 @@
                   alt="Version"
                 />
                 <img src="https://img.shields.io/badge/license-MIT-green" />
-              </a>
+              </router-link>
             </div>
           </li>
         </ul>

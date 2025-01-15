@@ -1,5 +1,6 @@
 export default {
   nav: {
+    index: "主页",
     home: "首页",
     guide: "指南",
     components: "组件",

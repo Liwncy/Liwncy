@@ -47,26 +47,26 @@
               {{ t("nav.resources") }}
             </router-link>
           </li>
-          <li
-              class="layui-nav-item"
-              :class="{
-              'layui-active': currentPath.includes('/docs'),
-            }"
-          >
-            <router-link to="/docs">
-              文档
-            </router-link>
-          </li>
-          <li
-              class="layui-nav-item"
-              :class="{
-              'layui-active': currentPath.includes('/admin'),
-            }"
-          >
-            <router-link to="/admin">
-              后台
-            </router-link>
-          </li>
+<!--          <li-->
+<!--              class="layui-nav-item"-->
+<!--              :class="{-->
+<!--              'layui-active': currentPath.includes('/docs'),-->
+<!--            }"-->
+<!--          >-->
+<!--            <router-link to="/docs">-->
+<!--              文档-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--          <li-->
+<!--              class="layui-nav-item"-->
+<!--              :class="{-->
+<!--              'layui-active': currentPath.includes('/admin'),-->
+<!--            }"-->
+<!--          >-->
+<!--            <router-link to="/admin">-->
+<!--              后台-->
+<!--            </router-link>-->
+<!--          </li>-->
 <!--          <li class="layui-nav-item layui-docsearch">-->
 <!--            <lay-form>-->
 <!--              <lay-search :datas="menus" />-->

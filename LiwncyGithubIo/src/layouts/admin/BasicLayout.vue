@@ -108,6 +108,10 @@
           </lay-dropdown>
           <lay-menu class="layui-layout-right">
             <lay-menu-item>
+              <lay-icon type="layui-icon-home" @click="toIndex">
+              </lay-icon>
+            </lay-menu-item>
+            <lay-menu-item>
               <lay-fullscreen v-slot="{ toggle, isFullscreen }">
                 <lay-icon
                   @click="toggle()"
@@ -278,6 +282,10 @@ export default {
       { name: 'en_US', locale: en_US, merge: true }
     ]
 
+    function toIndex() {
+      router.push('/')
+    }
+
     function toUserInfo() {
       router.push('/enrollee/profile')
     }
@@ -312,6 +320,7 @@ export default {
       refresh,
       logOut,
       locales,
+      toIndex,
       toUserInfo,
       toSystemSet,
       changeDropdown,

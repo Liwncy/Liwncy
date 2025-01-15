@@ -19,6 +19,12 @@
               class="layui-nav-item"
               :class="{ 'layui-active': currentPath.includes('/zh-CN/index') }"
           >
+            <router-link to="/"> {{ t("nav.index") }}</router-link>
+          </li>
+          <li
+              class="layui-nav-item"
+              :class="{ 'layui-active': currentPath.includes('/zh-CN/index') }"
+          >
             <router-link to="/zh-CN/index"> {{ t("nav.home") }}</router-link>
           </li>
           <li

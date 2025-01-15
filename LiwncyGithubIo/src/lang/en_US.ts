@@ -1,5 +1,6 @@
 export default {
   nav: {
+    index: "Index",
     home: "Home",
     guide: "Guide",
     components: "Components",
