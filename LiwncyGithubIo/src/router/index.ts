@@ -38,7 +38,15 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
     if (to.meta.requireAuth) {
         next();
     } else if (to.matched.length == 0) {
-        next({path: '/error/404'})
+        if(from.fullPath.includes('/docs')){
+            next({path: '/docs/404'})
+        } else if(from.fullPath.includes('/webs')){
+            next({path: '/webs/404'})
+        } else if(from.fullPath.includes('/admin')){
+            next({path: '/error/404'})
+        }else {
+            next({path: '/webs/404'})
+        }
     } else {
         next();
     }

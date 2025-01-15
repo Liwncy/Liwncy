@@ -3,6 +3,7 @@ import Components from "@/views/docs/components.vue";
 import Resources from "@/views/docs/resources.vue";
 import Guide from "@/views/docs/guide.vue";
 import Index from "@/views/docs/index.vue";
+import WebsBasicLayout from "@/layouts/webs/BasicLayout.vue";
 
 // @ts-ignore
 export default [
@@ -487,6 +488,33 @@ export default [
                 ],
             },
         ],
+    },
+    {
+        path: '/error',
+        component: DocsBasicLayout,
+        meta: {title: '错误页面'},
+        children: [
+            {
+                path: '/docs/401',
+                component: () => import('@/views/common/error/401.vue'),
+                meta: {title: '401'},
+            },
+            {
+                path: '/docs/403',
+                component: () => import('@/views/common/error/403.vue'),
+                meta: {title: '403'},
+            },
+            {
+                path: '/docs/404',
+                component: () => import('@/views/common/error/404.vue'),
+                meta: {title: '404'},
+            },
+            {
+                path: '/docs/500',
+                component: () => import('@/views/common/error/500.vue'),
+                meta: {title: '500'},
+            }
+        ]
     },
 ];
 

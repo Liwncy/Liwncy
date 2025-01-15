@@ -132,8 +132,7 @@
                       border="green"
                       border-style="dashed"
                       @click="resetThemeVariable"
-                  >重置配置</lay-button
-                  >
+                  >重置配置</lay-button>
                 </div>
               </template>
             </lay-dropdown>
