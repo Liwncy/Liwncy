@@ -155,6 +155,7 @@
 import {ref, watch, computed, onMounted} from "vue";
 import {layer} from "@layui/layui-vue";
 import {generateRandomString, encryptSha256} from '@/utils/crypto';
+import {getSidMenus} from "@/api/webs/hotBans/index";
 import axios from "axios";
 
 export default {
@@ -179,35 +180,13 @@ export default {
     //     }
     // );
 
-    const menus = [
-      {
-        id: 1,
-        title: "综合",
-        children: [
-          {
-            id: 1,
-            title: "知乎",
-            subTitle: "zhihu",
-            sourceId: "zhihu",
-            tabNames: ["热榜"],
-          },
-          {
-            id: 2,
-            title: "B站",
-            subTitle: "bilibili",
-            sourceId: "bilibili",
-            tabNames: ["综合热门", "排行榜", "入站必刷"],
-          },
-          {
-            id: 3,
-            title: "新浪新闻",
-            subTitle: "sina",
-            sourceId: "sina",
-            tabNames: ["新浪热榜", "潮流热榜", "娱乐热榜", "体育热榜", "汽车热榜", "时尚热榜", "旅游热榜", "育儿热榜", "AI热榜", "ESG热榜"],
-          },
-        ],
-      },
-    ];
+    const menus = ref([]);
+    // 获取侧边栏
+    const initPage = async function () {
+      const res = await getSidMenus();
+      menus.value = res.data;
+      handleClick(menus.value[0].children[0]);
+    };
 
     const selected = ref(1);
 
@@ -245,6 +224,7 @@ export default {
 
     function getArticleList(t) {
       loadingA.value = true;
+      console.log(menus.value);
       let e = Date.now().toString()
           , r = generateRandomString(20)
           , i = encryptSha256("".concat(e).concat(r).concat("0eC7PICw8CdUNodJ"));
@@ -293,10 +273,8 @@ export default {
     function toReset() {
       searchTitle.value = ''
     }
-
-    handleClick(menus[0].children[0]);
     onMounted(() => {
-      getArticleList();
+      initPage()
     })
 
     return {

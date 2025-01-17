@@ -24,8 +24,10 @@ class Http {
             if (userInfoStore.token) {
                 (config.headers as AxiosRequestHeaders).token = userInfoStore.token as string
             } else {
-                if(router.currentRoute.value.path!=='/login') {
-                    router.push('/login');
+                // 访问后台才需要登录
+                if(router.currentRoute.value.path!=='/admin/login' && router.currentRoute.value.path.includes('/admin')) {
+                // if(router.currentRoute.value.path!=='/admin/login') {
+                    router.push('/admin/login');
                 }
             }
             return config
@@ -44,7 +46,7 @@ class Http {
                     layer.confirm(
                     '会话超时, 请重新登录', 
                     { icon : 2, yes: function(){
-                        router.push('/login');
+                        router.push('/admin/login');
                         layer.closeAll()
                     }});
                     return response.data;
