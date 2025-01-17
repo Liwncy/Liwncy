@@ -2,6 +2,7 @@ export default {
   nav: {
     index: "主页",
     home: "首页",
+    hotBans: "热榜",
     guide: "指南",
     components: "组件",
     resources: "生态",

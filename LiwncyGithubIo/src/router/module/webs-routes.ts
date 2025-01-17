@@ -9,17 +9,22 @@ export default [
         path: "/",
         redirect: "/webs/index",
         component: WebsBasicLayout,
-        meta: { title: "首页" },
+        meta: {title: "首页"},
         children: [
             {
                 path: "/webs/index",
                 component: Index,
-                meta: { title: "指南" },
+                meta: {title: "指南"},
+            },
+            {
+                path: "/webs/hot_bans",
+                component: () => import('@/views/webs/hotBans.vue'),
+                meta: {title: "热榜"},
             },
             {
                 path: "/webs/resources",
                 component: Resources,
-                meta: { title: "生态" },
+                meta: {title: "生态"},
             },
         ],
     },

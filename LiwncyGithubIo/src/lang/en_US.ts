@@ -2,6 +2,7 @@ export default {
   nav: {
     index: "Index",
     home: "Home",
+    hotBans: "HotBans",
     guide: "Guide",
     components: "Components",
     resources: "Resources",

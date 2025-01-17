@@ -40,6 +40,16 @@
           <li
               class="layui-nav-item"
               :class="{
+              'layui-active': currentPath.includes('/webs/hot_bans'),
+            }"
+          >
+            <router-link to="/webs/hot_bans">
+              {{ t("nav.hotBans") }}
+            </router-link>
+          </li>
+          <li
+              class="layui-nav-item"
+              :class="{
               'layui-active': currentPath.includes('/webs/resources'),
             }"
           >
