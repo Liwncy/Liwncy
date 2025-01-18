@@ -273,7 +273,27 @@ export default {
     function toReset() {
       searchTitle.value = ''
     }
+    function getData() {
+      // 获取数据
+      axios.get("https://raw.githubusercontent.com/Liwncy/Liwncy.github.io/main/mockData/webs/index.json")
+      .then(response => {
+        console.log(response)
+        console.log(response.data);
+      })
+      // let url = "https://raw.githubusercontent.com/Liwncy/onenotes/master/java/stream.md";
+      // jq.get("https://github.com/Liwncy/onenotes/blob/master/java/stream.md")
+      // .then(response => {
+      //   console.log(response);
+      //   console.log(response.data);
+      // })
+      // $.get(url+"?t="+Math.random(),function(data,status){
+      //   console.log("数据: " + data + "\n状态: " + status);
+      //   document.getElementById('content').innerHTML = marked(data);
+      // });
+      // ...
+    }
     onMounted(() => {
+      getData();
       initPage()
     })
 

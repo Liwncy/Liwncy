@@ -1,6 +1,6 @@
-import Http from '@/api/http';
+import request from '@/utils/request';
 
 //获取侧边栏菜单
 export const getSidMenus = function () {
-    return Http.get('webs/hotBans/getSidMenus')
+    return request.get('webs/hotBans/sideMenu',"json")
 }
