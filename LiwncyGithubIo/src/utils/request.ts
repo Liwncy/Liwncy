@@ -54,7 +54,7 @@ class Http {
 
     /* GET 方法 */
     get<T>(url: string, suffix: string): Promise<any> {
-        return this.service.get(url + "." + suffix)
+        return this.service.get(url + "." + suffix + "?t=" + Math.random())
     }
 
     // /* POST 方法 */
