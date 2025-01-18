@@ -4,10 +4,10 @@ type TAxiosOption = {
     timeout: number;
     baseURL: string;
 }
-// https://raw.githubusercontent.com/Liwncy/Liwncy.github.io/main/mockData/webs/index.json
+// https://raw.githubusercontent.com/Liwncy/Liwncy/main/data/webs/hotBans/sideMenu.json
 const config: TAxiosOption = {
     timeout: 5000,
-    baseURL: "https://raw.githubusercontent.com/Liwncy" + "/data"
+    baseURL: "https://raw.githubusercontent.com/Liwncy" + "/Liwncy" + "/main" + "/data"
 }
 
 class Http {
@@ -27,21 +27,23 @@ class Http {
         this.service.interceptors.response.use((response: AxiosResponse<any>) => {
             switch (response.status) {
                 case 200:
-                    return response.data;
+                    return {
+                        code: response.status,
+                        data: response.data,
+                        message: "成功"
+                    };
                 case 404:
-                    return response.data;
+                    return {
+                        code: response.status,
+                        data: response.data,
+                        message: "数据资源未找到!"
+                    };
                 case 500:
-                    return response.data;
-                case 99998:
-                    layer.confirm(
-                        '会话超时, 请重新登录',
-                        {
-                            icon: 2, yes: function () {
-                                router.push('/admin/login');
-                                layer.closeAll()
-                            }
-                        });
-                    return response.data;
+                    return {
+                        code: response.status,
+                        data: response.data,
+                        message: "服务器内部错误!"
+                    };
                 default:
                     break;
             }
