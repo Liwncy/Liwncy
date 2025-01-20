@@ -1,4 +1,10 @@
 import axios, {AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import {Result} from "@/types/result";
+import {decryptWithAes} from "@/utils/crypto";
+import errorCode from "@/utils/errorCode";
+import {HttpStatus} from "@/enums/RespEnum";
+import { layer } from '@layui/layui-vue';
+import router from "@/router";
 
 type TAxiosOption = {
     timeout: number;
@@ -24,28 +30,41 @@ class Http {
         })
 
         /* 响应拦截 */
-        this.service.interceptors.response.use((response: AxiosResponse<any>) => {
-            switch (response.status) {
-                case 200:
-                    return {
-                        code: response.status,
-                        data: response.data,
-                        message: "成功"
-                    };
-                case 404:
-                    return {
-                        code: response.status,
-                        data: response.data,
-                        message: "数据资源未找到!"
-                    };
-                case 500:
-                    return {
-                        code: response.status,
-                        data: response.data,
-                        message: "服务器内部错误!"
-                    };
-                default:
-                    break;
+        this.service.interceptors.response.use((res: AxiosResponse<any>) => {
+            // if (import.meta.env.VITE_APP_ENCRYPT === 'true') {
+            //     // 加密后的 AES 秘钥
+            //     const keyStr = res.headers[encryptHeader];
+            //     // 加密
+            //     if (keyStr != null && keyStr != '') {
+            //         const data = res.data;
+            //         // 请求体 AES 解密
+            //         const base64Str = decrypt(keyStr);
+            //         // base64 解码 得到请求头的 AES 秘钥
+            //         const aesKey = decryptBase64(base64Str.toString());
+            //         // aesKey 解码 data
+            //         const decryptData = decryptWithAes(data, aesKey);
+            //         // 将结果 (得到的是 JSON 字符串) 转为 JSON
+            //         res.data = JSON.parse(decryptData);
+            //     }
+            // }
+            // 未设置状态码则默认成功状态
+            const code = res.data.code || 200;
+            // 获取错误信息
+            const msg = errorCode[code] || res.data.msg || errorCode['default'];
+            // 二进制数据则直接返回
+            if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
+                return res.data;
+            }
+            if (code === 401) {
+                return Promise.reject('无效的会话，或者会话已过期，请重新登录。');
+            } else if (code === HttpStatus.SERVER_ERROR) {
+                return Promise.reject(new Error(msg));
+            } else if (code === HttpStatus.WARN) {
+                return Promise.reject(new Error(msg));
+            } else if (code !== HttpStatus.SUCCESS) {
+                return Promise.reject('error');
+            } else {
+                return Promise.resolve(res.data);
             }
         }, error => {
             return Promise.reject(error)
@@ -53,8 +72,13 @@ class Http {
     }
 
     /* GET 方法 */
-    get<T>(url: string, suffix: string): Promise<any> {
-        return this.service.get(url + "." + suffix + "?t=" + Math.random())
+    get<T>(url: string, suffix?: string): Promise<any> {
+        return this.service.get(url + suffix ? ("." + suffix) : "" + "?t=" + Math.random())
+    }
+
+    /* GET 方法 */
+    getJm<T>(url: string, suffix?: string): Promise<any> {
+        return this.service.get(url + suffix ? ("." + suffix) : "" + "?t=" + Math.random())
     }
 
     // /* POST 方法 */
