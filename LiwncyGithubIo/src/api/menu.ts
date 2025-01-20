@@ -9,5 +9,5 @@ export function getRouters(): AxiosPromise<RouteRecordRaw[]> {
 
 // 获取权限
 export function getPermission(): AxiosPromise<RouteRecordRaw[]> {
-  return request.get('/common/role/getPermission1');
+  return request.get('/common/role/getPermission');
 }

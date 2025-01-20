@@ -15,8 +15,10 @@ export const useUserStore = defineStore({
     },
     actions: {
         async loadRoutes() {
+            // @ts-ignore
             const {data, code} = await getRouters();
             if (code == 200) {
+                // @ts-ignore
                 this.routes = data;
             }
         },
@@ -27,8 +29,10 @@ export const useUserStore = defineStore({
             }
         },
         async loadPermissions() {
+            // @ts-ignore
             const {data, code} = await getPermission();
             if (code == 200) {
+                // @ts-ignore
                 this.permissions = data;
             }
         }

@@ -1,0 +1,6 @@
+{
+    code: 200,
+    msg: "操作成功",
+    data: ['sys:user:add', 'sys:user:edit', 'sys:user:delete', 'sys:user:import', 'sys:user:export'],
+    success: true
+}

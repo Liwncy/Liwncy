@@ -3,7 +3,7 @@ import {Result} from "@/types/result";
 import {decryptWithAes} from "@/utils/crypto";
 import errorCode from "@/utils/errorCode";
 import {HttpStatus} from "@/enums/RespEnum";
-import { layer } from '@layui/layui-vue';
+import {layer} from '@layui/layui-vue';
 import router from "@/router";
 
 type TAxiosOption = {
@@ -48,9 +48,10 @@ class Http {
             //     }
             // }
             // 未设置状态码则默认成功状态
-            const code = res.data.code || 200;
+            const code = res.status || 200;
+            console.log(res)
             // 获取错误信息
-            const msg = errorCode[code] || res.data.msg || errorCode['default'];
+            const msg = errorCode[code] || res.data || errorCode['default'];
             // 二进制数据则直接返回
             if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
                 return res.data;
@@ -64,7 +65,13 @@ class Http {
             } else if (code !== HttpStatus.SUCCESS) {
                 return Promise.reject('error');
             } else {
-                return Promise.resolve(res.data);
+                let result: Result = {
+                    code: 200,
+                    msg: "操作成功",
+                    data: res.data,
+                    success: true
+                }
+                return Promise.resolve(result);
             }
         }, error => {
             return Promise.reject(error)
@@ -72,8 +79,9 @@ class Http {
     }
 
     /* GET 方法 */
-    get<T>(url: string, suffix?: string): Promise<any> {
-        return this.service.get(url + suffix ? ("." + suffix) : "" + "?t=" + Math.random())
+    get<T>(url: string, params?: string[]): Promise<any> {
+        const paramStr = params ? params.join("_") : "index";
+        return this.service.get(url + "/" + paramStr + "?t=" + Math.random());
     }
 
     /* GET 方法 */
@@ -81,6 +89,10 @@ class Http {
         return this.service.get(url + suffix ? ("." + suffix) : "" + "?t=" + Math.random())
     }
 
+    // /* GET 方法 */
+    // get<T>(url: string, params?: object, _object = {}): Promise<any> {
+    //     return this.service.get(url, { params, ..._object })
+    // }
     // /* POST 方法 */
     // post<T>(url: string, params?: object, _object = {}): Promise<any> {
     //     return this.service.post(url, params, _object)
