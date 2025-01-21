@@ -9,7 +9,7 @@
     "id": 2,
     "title": "书签",
     "useI18n": "nav.bookMark",
-    "path": "/webs/bookMark"
+    "path": "/webs/book_mark"
   },
   {
     "id": 3,
