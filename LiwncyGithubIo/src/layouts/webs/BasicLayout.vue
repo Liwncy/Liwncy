@@ -268,7 +268,7 @@
   </lay-config-provider>
 </template>
 <script>
-import {provide, ref, watch} from "vue";
+import {onMounted, provide, ref, watch} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import {getTopMenus} from "@/api/webs/layout";
 import {useAppStore} from "@/store/app";
@@ -291,8 +291,6 @@ export default {
     const menus = [];
     const currentPath = ref("/zh-CN/guide");
     const topMenuList = ref([]);
-
-    topMenuList.value = getTopMenus().data;
 
 
     // function stringSort(n, m) {
@@ -361,6 +359,16 @@ export default {
     const version = "1.1.0";
 
     provide("version", version);
+
+    onMounted(() => {
+      initPage()
+    })
+
+    const initPage = async function () {
+      const res = await getTopMenus();
+      console.log(res);
+      topMenuList.value = res.data;
+    };
 
     return {
       t,
