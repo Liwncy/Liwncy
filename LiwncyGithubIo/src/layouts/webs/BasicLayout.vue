@@ -8,7 +8,7 @@
     <lay-layout class="layui-layout-website" style="height: 100%">
       <lay-header>
         <lay-logo>
-          <img src="../../assets/touxiang.jpg" />
+          <img src="../../assets/touxiang.jpg"/>
           <span class="title">芈 仙 居</span>
         </lay-logo>
         <ul
@@ -19,24 +19,8 @@
               class="layui-nav-item"
               :class="{ 'layui-active': currentPath.includes('/webs/index') }"
           >
-            <router-link to="/webs/index"> {{ t("nav.home") }} </router-link>
+            <router-link to="/webs/index"> {{ t("nav.home") }}</router-link>
           </li>
-<!--          <li-->
-<!--              class="layui-nav-item"-->
-<!--              :class="{ 'layui-active': currentPath.includes('/zh-CN/guide') }"-->
-<!--          >-->
-<!--            <router-link to="/zh-CN/guide"> {{ t("nav.guide") }} </router-link>-->
-<!--          </li>-->
-<!--          <li-->
-<!--              class="layui-nav-item"-->
-<!--              :class="{-->
-<!--              'layui-active': currentPath.includes('/zh-CN/components'),-->
-<!--            }"-->
-<!--          >-->
-<!--            <router-link to="/zh-CN/components">-->
-<!--              {{ t("nav.components") }}-->
-<!--            </router-link>-->
-<!--          </li>-->
           <li
               class="layui-nav-item"
               :class="{
@@ -50,6 +34,21 @@
           <li
               class="layui-nav-item"
               :class="{
+              'layui-active': currentPath.includes('/life'),
+            }"
+          >
+            <lay-dropdown trigger="hover">
+              <a href="javascript:void(0);">生活</a>
+              <template #content>
+                <lay-dropdown-menu>
+                  <lay-dropdown-menu-item>关闭全部</lay-dropdown-menu-item>
+                </lay-dropdown-menu>
+              </template>
+            </lay-dropdown>
+          </li>
+          <li
+              class="layui-nav-item"
+              :class="{
               'layui-active': currentPath.includes('/webs/resources'),
             }"
           >
@@ -57,31 +56,6 @@
               {{ t("nav.resources") }}
             </router-link>
           </li>
-<!--          <li-->
-<!--              class="layui-nav-item"-->
-<!--              :class="{-->
-<!--              'layui-active': currentPath.includes('/docs'),-->
-<!--            }"-->
-<!--          >-->
-<!--            <router-link to="/docs">-->
-<!--              文档-->
-<!--            </router-link>-->
-<!--          </li>-->
-<!--          <li-->
-<!--              class="layui-nav-item"-->
-<!--              :class="{-->
-<!--              'layui-active': currentPath.includes('/admin'),-->
-<!--            }"-->
-<!--          >-->
-<!--            <router-link to="/admin">-->
-<!--              后台-->
-<!--            </router-link>-->
-<!--          </li>-->
-<!--          <li class="layui-nav-item layui-docsearch">-->
-<!--            <lay-form>-->
-<!--              <lay-search :datas="menus" />-->
-<!--            </lay-form>-->
-<!--          </li>-->
         </ul>
         <ul
             class="layui-nav layui-layout-right"
@@ -90,7 +64,7 @@
           <li class="layui-nav-item">
             <lay-dropdown>
               <a href="javascript:void(0);">
-                <lay-icon size="15px" type="layui-icon-theme"> </lay-icon>
+                <lay-icon size="15px" type="layui-icon-theme"></lay-icon>
               </a>
               <template #content>
                 <div class="theme-panel">
@@ -142,7 +116,8 @@
                       border="green"
                       border-style="dashed"
                       @click="resetThemeVariable"
-                  >重置配置</lay-button>
+                  >重置配置
+                  </lay-button>
                 </div>
               </template>
             </lay-dropdown>
@@ -154,14 +129,16 @@
                   class="layui-local-badge"
                   v-if="locale === 'en_US'"
                   @click="changeLocale('zh_CN')"
-              >中 文</lay-tag
+              >中 文
+              </lay-tag
               >
               <lay-tag
                   size="xs"
                   class="layui-local-badge"
                   v-else
                   @click="changeLocale('en_US')"
-              >英 文</lay-tag
+              >英 文
+              </lay-tag
               >
             </a>
           </li>
@@ -264,24 +241,23 @@
   </lay-config-provider>
 </template>
 <script>
-import { provide, ref, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useAppStore } from "../../store/app";
-import { useI18n } from "@layui/layui-vue";
+import {provide, ref, watch} from "vue";
+import {useRouter, useRoute} from "vue-router";
+import {useAppStore} from "../../store/app";
+import {useI18n} from "@layui/layui-vue";
 import menu from "../../mockjs/menus";
 import zh_CN from "../../lang/zh_CN.ts";
 import en_US from "../../lang/en_US.ts";
-// import config from "@layui/layui-vue/package.json";
 
 export default {
   setup() {
-    const { t } = useI18n();
+    const {t} = useI18n();
     const route = useRoute();
     const router = useRouter();
     const locale = ref("zh_CN");
     const locales = [
-      { name: "zh_CN", locale: zh_CN, merge: true },
-      { name: "en_US", locale: en_US, merge: true },
+      {name: "zh_CN", locale: zh_CN, merge: true},
+      {name: "en_US", locale: en_US, merge: true},
     ];
     const appStore = useAppStore();
     const menus = [];
@@ -330,7 +306,7 @@ export default {
         (val) => {
           currentPath.value = val;
         },
-        { immediate: true, deep: true }
+        {immediate: true, deep: true}
     );
 
     const handleClick = function (menu) {
@@ -340,7 +316,7 @@ export default {
     const changeLocale = function (lang) {
       locale.value = lang;
     };
-
+    // 重置主题变量
     const resetThemeVariable = function () {
       appStore.themeVariable = {
         "--global-primary-color": "#16baaa",

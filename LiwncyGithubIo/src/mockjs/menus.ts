@@ -1,3 +1,32 @@
+const nav = [
+  {
+    id: 1,
+    title: "首页",
+    useI18n:"nav.home",
+    path: "/webs/index",
+  },
+  {
+    id: 2,
+    title: "热榜",
+    useI18n:"nav.hotBans",
+    path: "/webs/hot_bans",
+  },
+  {
+    id: 3,
+    title: "首页",
+    subTitle: "Index",
+    useI18n:"{{ t('nav.home') }}",
+    path: "/webs/index",
+  },
+  {
+    id: 4,
+    title: "首页",
+    subTitle: "Index",
+    useI18n:"{{ t('nav.home') }}",
+    path: "/webs/index",
+  },
+]
+
 const menus = [
   {
     id: 1,

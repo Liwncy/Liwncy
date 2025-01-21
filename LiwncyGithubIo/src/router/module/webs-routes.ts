@@ -1,5 +1,5 @@
 import WebsBasicLayout from '@/layouts/webs/BasicLayout.vue';
-import Resources from "@/views/webs/resources.vue";
+import Resources from "@/views/webs/resources/resources.vue";
 import Index from "@/views/webs/index.vue";
 import BasicLayout from "@/layouts/admin/BasicLayout.vue";
 
@@ -18,7 +18,7 @@ export default [
             },
             {
                 path: "/webs/hot_bans",
-                component: () => import('@/views/webs/hotBans.vue'),
+                component: () => import('@/views/webs/hotBans/hotBans.vue'),
                 meta: {title: "热榜"},
             },
             {

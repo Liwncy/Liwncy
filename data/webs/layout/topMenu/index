@@ -1,0 +1,38 @@
+[
+
+{
+        id: 1,
+        title: "首页",
+        subTitle: "Index",
+        useI18n:"{{ t("nav.home") }}",
+        path: "/webs/index",
+      }
+,
+{
+        id: 2,
+        title: "首页",
+        subTitle: "Index",
+        useI18n:"{{ t("nav.home") }}",
+        path: "/webs/index",
+      }
+,
+{
+    id: 1,
+    title: "高阶",
+    subTitle: "layer",
+    children: [
+      {
+        id: 104,
+        title: "弹层",
+        subTitle: "layer",
+        path: "/zh-CN/components/layer",
+      },
+      {
+        id: 105,
+        title: "表单",
+        subTitle: "jsonSchemaForm",
+        path: "/zh-CN/components/jsonSchemaForm",
+      },
+    ],
+  }
+]
