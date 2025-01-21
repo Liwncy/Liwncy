@@ -13,17 +13,35 @@ const nav = [
   },
   {
     id: 3,
-    title: "首页",
-    subTitle: "Index",
-    useI18n:"{{ t('nav.home') }}",
-    path: "/webs/index",
+    title: "生活",
+    useI18n:"nav.life",
+    path: "/webs/life",
+    children: [
+      {
+        id: 301,
+        title: "热门",
+        useI18n:"nav.life",
+        path: "/webs/life/a",
+      },
+      {
+        id: 301,
+        title: "最新",
+        useI18n:"nav.life",
+        path: "/webs/life/b",
+      },
+      {
+        id: 303,
+        title: "推荐",
+        useI18n:"nav.life",
+        path: "/webs/life/c",
+      }
+    ]
   },
   {
     id: 4,
-    title: "首页",
-    subTitle: "Index",
-    useI18n:"{{ t('nav.home') }}",
-    path: "/webs/index",
+    title: "生态",
+    useI18n:"nav.resources",
+    path: "/webs/resources",
   },
 ]
 

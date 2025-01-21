@@ -11,7 +11,34 @@
           <img src="../../assets/touxiang.jpg"/>
           <span class="title">芈 仙 居</span>
         </lay-logo>
-        <ul
+        <ul class="layui-nav layui-layout-left no-margin">
+          <li
+              v-for="menu in topMenuList"
+              :key="menu.id"
+              class="layui-nav-item"
+              :class="{ 'layui-active': currentPath.includes(menu.path) }"
+          >
+            <router-link v-if="!menu.children" :to="menu.path">
+              {{ t(menu.useI18n) }}
+            </router-link>
+            <lay-dropdown v-else trigger="hover">
+              <a href="javascript:void(0);">{{ t(menu.useI18n) }}</a>
+              <template #content>
+                <lay-dropdown-menu>
+                  <lay-dropdown-menu-item
+                      v-for="item in menu.children"
+                      :key="item.id"
+                  >
+                    <router-link :to="item.path">
+                      {{ t(item.useI18n) }}
+                    </router-link>
+                  </lay-dropdown-menu-item>
+                </lay-dropdown-menu>
+              </template>
+            </lay-dropdown>
+          </li>
+        </ul>
+<!--        <ul
             class="layui-nav layui-layout-left"
             style="margin-top: 0px; margin-bottom: 0px"
         >
@@ -56,7 +83,7 @@
               {{ t("nav.resources") }}
             </router-link>
           </li>
-        </ul>
+        </ul>-->
         <ul
             class="layui-nav layui-layout-right"
             style="margin-top: 0px; margin-bottom: 0px"
@@ -243,11 +270,12 @@
 <script>
 import {provide, ref, watch} from "vue";
 import {useRouter, useRoute} from "vue-router";
-import {useAppStore} from "../../store/app";
+import {getTopMenus} from "@/api/webs/layout";
+import {useAppStore} from "@/store/app";
 import {useI18n} from "@layui/layui-vue";
-import menu from "../../mockjs/menus";
-import zh_CN from "../../lang/zh_CN.ts";
-import en_US from "../../lang/en_US.ts";
+import menu from "@/mockjs/menus";
+import zh_CN from "@/lang/zh_CN.ts";
+import en_US from "@/lang/en_US.ts";
 
 export default {
   setup() {
@@ -262,44 +290,37 @@ export default {
     const appStore = useAppStore();
     const menus = [];
     const currentPath = ref("/zh-CN/guide");
+    const topMenuList = ref([]);
 
-    watch(
-        () => route.path,
-        (val) => {
-          currentPath.value = val;
-        },
-        {
-          immediate: true,
-          deep: true,
-        }
-    );
+    topMenuList.value = getTopMenus().data;
 
-    function stringSort(n, m) {
-      if (typeof n === "string" && typeof m === "string") {
-        var a = n.split("").map((a) => a.charCodeAt());
-        var b = m.split("").map((a) => a.charCodeAt());
-        try {
-          a.forEach((a, i) => {
-            if (a - b[i] > 0) {
-              throw new Error(1);
-            } else if (a - b[i] < 0) {
-              throw new Error(-1);
-            }
-          });
-        } catch (e) {
-          return e.message;
-        }
-        return 0;
-      }
-      return n > m ? 1 : n == m ? 0 : -1;
-    }
 
-    menu.forEach((m) => {
-      m.children.forEach((c) => {
-        menus.push(c);
-      });
-      m.children.sort((a, b) => stringSort(a.subTitle, b.subTitle));
-    });
+    // function stringSort(n, m) {
+    //   if (typeof n === "string" && typeof m === "string") {
+    //     var a = n.split("").map((a) => a.charCodeAt());
+    //     var b = m.split("").map((a) => a.charCodeAt());
+    //     try {
+    //       a.forEach((a, i) => {
+    //         if (a - b[i] > 0) {
+    //           throw new Error(1);
+    //         } else if (a - b[i] < 0) {
+    //           throw new Error(-1);
+    //         }
+    //       });
+    //     } catch (e) {
+    //       return e.message;
+    //     }
+    //     return 0;
+    //   }
+    //   return n > m ? 1 : n == m ? 0 : -1;
+    // }
+    //
+    // menu.forEach((m) => {
+    //   m.children.forEach((c) => {
+    //     menus.push(c);
+    //   });
+    //   m.children.sort((a, b) => stringSort(a.subTitle, b.subTitle));
+    // });
 
     watch(
         () => route.path,
@@ -309,9 +330,9 @@ export default {
         {immediate: true, deep: true}
     );
 
-    const handleClick = function (menu) {
-      router.push(menu.path);
-    };
+    // const handleClick = function (menu) {
+    //   router.push(menu.path);
+    // };
 
     const changeLocale = function (lang) {
       locale.value = lang;
@@ -349,7 +370,8 @@ export default {
       locales,
       appStore,
       currentPath,
-      handleClick,
+      topMenuList,
+      // handleClick,
       changeLocale,
       resetThemeVariable,
     };
