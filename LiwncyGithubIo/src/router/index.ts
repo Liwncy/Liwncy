@@ -20,18 +20,6 @@ export const  constantRoutes: RouteRecordRaw[] = [...routes, ...docsRoutes, ...w
 // 动态路由，基于用户权限动态去加载
 export const dynamicRoutes: RouteRecordRaw[] = [];
 
-// 组件名 和 组件对象 映射表，用于后续根据后台传过来的 组件名 替换成 组件对象 使用
-// export const componentMap = {
-//     'layout': require('@/layout').default,
-//     'test_case': () => import('@/views/functional_test/test_case_manage/test_case').then(m => m.default),
-//     'public_step': () => import('@/views/functional_test/test_data_manage/public_step').then(m => m.default)
-// }
-
-// const router = createRouter({
-//     // history: createWebHistory(),
-//     history: createWebHashHistory(),
-//     routes: [...routes, ...docsRoutes, ...websRoutes]
-// })
 const router = createRouter({
     // history: createWebHistory(),
     history: createWebHashHistory(),

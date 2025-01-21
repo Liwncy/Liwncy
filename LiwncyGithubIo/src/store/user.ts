@@ -30,7 +30,7 @@ export const useUserStore = defineStore({
         },
         async loadPermissions() {
             // @ts-ignore
-            const {data, code} = await getPermission();
+            const {data, code} = await permission();
             if (code == 200) {
                 // @ts-ignore
                 this.permissions = data;
