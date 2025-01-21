@@ -1,5 +1,5 @@
 import WebsBasicLayout from '@/layouts/webs/BasicLayout.vue';
-import Resources from "@/views/webs/resources/resources.vue";
+import Resources from "@/views/webs/resources/index.vue";
 import Index from "@/views/webs/index.vue";
 import BasicLayout from "@/layouts/admin/BasicLayout.vue";
 
@@ -14,11 +14,16 @@ export default [
             {
                 path: "/webs/index",
                 component: Index,
-                meta: {title: "指南"},
+                meta: {title: "主页"},
+            },
+            {
+                path: "/webs/book_mark",
+                component: () => import('@/views/webs/bookMark/index.vue'),
+                meta: {title: "书签"},
             },
             {
                 path: "/webs/hot_bans",
-                component: () => import('@/views/webs/hotBans/hotBans.vue'),
+                component: () => import('@/views/webs/hotBans/index.vue'),
                 meta: {title: "热榜"},
             },
             {

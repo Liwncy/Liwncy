@@ -2,6 +2,7 @@ export default {
   nav: {
     index: "Index",
     home: "Home",
+    bookMark: "BookMark",
     hotBans: "HotBans",
     guide: "Guide",
     components: "Components",

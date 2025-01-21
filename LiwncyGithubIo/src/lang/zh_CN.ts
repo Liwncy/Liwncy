@@ -2,6 +2,7 @@ export default {
   nav: {
     index: "主页",
     home: "首页",
+    bookMark: "书签",
     hotBans: "热榜",
     guide: "指南",
     components: "组件",

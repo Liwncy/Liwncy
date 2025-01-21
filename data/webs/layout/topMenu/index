@@ -7,12 +7,18 @@
   },
   {
     "id": 2,
+    "title": "书签",
+    "useI18n": "nav.bookMark",
+    "path": "/webs/bookMark"
+  },
+  {
+    "id": 3,
     "title": "热榜",
     "useI18n": "nav.hotBans",
     "path": "/webs/hot_bans"
   },
   {
-    "id": 3,
+    "id": 4,
     "title": "生活",
     "useI18n": "nav.life",
     "path": "/webs/life",
@@ -38,7 +44,7 @@
     ]
   },
   {
-    "id": 4,
+    "id": 10,
     "title": "生态",
     "useI18n": "nav.resources",
     "path": "/webs/resources"
