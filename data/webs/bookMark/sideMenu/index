@@ -1,0 +1,36 @@
+[
+  {
+    "id": "all",
+    "name": "综合",
+    "icon": "mu"
+  },
+  {
+    "id": "daohang",
+    "name": "导航",
+    "icon": "mu",
+    "children": [
+      {
+        "id": "zhao1",
+        "name": "找导航1",
+        "icon": "mu",
+        "books": [
+          {"title": "百度1","web": "www.baidu.com"},
+          {"title": "百度2","web": "www.baidu.com"},
+          {"title": "百度3","web": "www.baidu.com"},
+          {"title": "百度4","web": "www.baidu.com"}
+        ]
+      },
+      {
+        "id": "zhao2",
+        "name": "找导航2",
+        "icon": "",
+        "books": [
+          {"title": "百度5","web": "www.baidu.com"},
+          {"title": "百度6","web": "www.baidu.com"},
+          {"title": "百度7","web": "www.baidu.com"},
+          {"title": "百度8","web": "www.baidu.com"}
+        ]
+      }
+    ]
+  }
+]
