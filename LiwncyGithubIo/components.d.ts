@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    LayAffix: typeof import('@layui/layui-vue')['LayAffix']
     LayAnchor: typeof import('./src/components/LayAnchor.vue')['default']
     LayAvatar: typeof import('@layui/layui-vue')['LayAvatar']
     LayAvatarList: typeof import('@layui/layui-vue')['LayAvatarList']
