@@ -77,7 +77,7 @@
                     <h3 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ book.title }}</h3>
                   </lay-col>
                   <lay-col md="24" style="height:90px;flex: 1;font-size: 12px;">
-                    <p style="-webkit-line-clamp: 3;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;white-space: normal;">
+                    <p style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;white-space: normal;">
                       {{ book.description }}
                     </p>
                   </lay-col>
