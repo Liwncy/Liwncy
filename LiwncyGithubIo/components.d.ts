@@ -20,6 +20,8 @@ declare module 'vue' {
     LayButtonContainer: typeof import('@layui/layui-vue')['LayButtonContainer']
     LayCard: typeof import('@layui/layui-vue')['LayCard']
     LayCheckbox: typeof import('@layui/layui-vue')['LayCheckbox']
+    LayCheckcard: typeof import('@layui/layui-vue')['LayCheckcard']
+    LayCheckcardGroup: typeof import('@layui/layui-vue')['LayCheckcardGroup']
     LayCode: typeof import('./src/components/LayCode.vue')['default']
     LayCol: typeof import('@layui/layui-vue')['LayCol']
     LayColorPicker: typeof import('@layui/layui-vue')['LayColorPicker']

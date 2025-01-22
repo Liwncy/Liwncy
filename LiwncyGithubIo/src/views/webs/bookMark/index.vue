@@ -2,27 +2,29 @@
   <lay-layout class="example1">
     <lay-side>
       <lay-menu v-model:selected-key="selectedKey" theme="light" v-model:openKeys="openKeys" :tree="true"
+                :level="true"
+                :indent="true"
                 @changeSelectedKey="changeMainSelectedKey">
         <template v-for="item in menuData" :key="item.id">
           <lay-menu-item v-if="!item.children" :id="item.id">
             <lay-icon v-if="item.icon" :type="item.icon"></lay-icon>
-            {{ t(item.useI18n || item.name) }}
+            {{ item.name }}
           </lay-menu-item>
           <lay-sub-menu v-else :id="item.id">
             <template #title>
               <lay-icon v-if="item.icon" :type="item.icon"></lay-icon>
-              {{ t(item.useI18n || item.name) }}
+              {{ item.name }}
             </template>
             <template v-for="child in item.children" :key="child.id">
               <lay-sub-menu v-if="child.children" :id="child.id">
                 <template #title>
                   <lay-icon v-if="child.icon" :type="child.icon"></lay-icon>
-                  {{ t(child.useI18n || child.name) }}
+                  {{ child.name }}
                 </template>
               </lay-sub-menu>
               <lay-menu-item v-else :id="child.id">
                 <lay-icon v-if="child.icon" :type="child.icon"></lay-icon>
-                {{ t(child.useI18n || child.name) }}
+                {{ child.name }}
               </lay-menu-item>
             </template>
           </lay-sub-menu>
@@ -57,13 +59,27 @@
                 </lay-sub-menu>-->
       </lay-menu>
     </lay-side>
-    <lay-body>content</lay-body>
+    <lay-body>
+      <lay-container fluid="true" style="padding: 50px">
+        <lay-checkcard-group single  v-model="checkedBook">
+          <template v-for="book in bookData" :key="book.id">
+            <lay-checkcard
+                :value="book.id"
+                :avatar="book.avatar"
+                :title="book.title"
+                :description="book.description">
+            </lay-checkcard>
+          </template>
+        </lay-checkcard-group>
+      </lay-container>
+    </lay-body>
   </lay-layout>
 </template>
 
 <script>
 import {onMounted, ref} from 'vue';
 import {getSideMenus} from "@/api/webs/bookMark/index";
+import { getParents, getNode } from "@/library/treeUtil";
 
 export default {
   components: {LayBody},
@@ -71,6 +87,9 @@ export default {
     const openKeys = ref(["7"])
     const selectedKey = ref("all")
     const menuData = ref([]);
+    const bookData = ref([]);
+    const checkedBook = ref("");
+    const images = ref("https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/uniapp_logo.png");
 
     // const emits = defineEmits(['changeOpenKeys', 'changeSelectedKey'])
     //
@@ -81,6 +100,29 @@ export default {
     // 选中菜单时触发
     function changeMainSelectedKey(key) {
       console.log("changeSelectedKey", key);
+      const node = getNode(menuData.value, key);
+      console.log("node", node)
+      if (node.books) {
+        bookData.value = node.books;
+
+
+
+      }
+    }
+
+    // 右边数据加载
+    function booksMain() {
+      var sitMainLiEL = document.querySelectorAll(".layui-side .layui-side-scroll .layui-nav-tree .layui-nav-item");
+      sitMainLiEL.forEach((item) => {
+        item.addEventListener("click", function () {
+          var id = item.getAttribute("lay-id");
+          var node = getNode(menuData.value, id);
+          if (node.books) {
+            bookData.value = node.books;
+          }
+        });
+      });
+
     }
 
     const initPage = async function () {
@@ -95,6 +137,9 @@ export default {
       openKeys,
       selectedKey,
       menuData,
+      bookData,
+      checkedBook,
+      images,
       changeMainSelectedKey
     }
   }
