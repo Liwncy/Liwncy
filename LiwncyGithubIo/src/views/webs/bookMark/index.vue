@@ -61,16 +61,31 @@
     </lay-side>
     <lay-body>
       <lay-container fluid="true" style="padding: 50px">
-        <lay-checkcard-group single  v-model="checkedBook">
-          <template v-for="book in bookData" :key="book.id">
-            <lay-checkcard
-                :value="book.id"
-                :avatar="book.avatar"
-                :title="book.title"
-                :description="book.description">
-            </lay-checkcard>
+        <lay-row space="10">
+          <template v-for="(book,index) in bookData" :key="book.id">
+            <lay-col md="4">
+              <lay-panel style="height: 120px">
+                <a :href="book.links" target="_blank" rel="noopener noreferrer" class="block">
+                  <!--                    <lay-col md="2" style="height:30px;">
+                                        <lay-badge position="top-left" :value="index+1" :badgeStyle="{top:'7px'}"></lay-badge>
+                                      </lay-col>-->
+                  <lay-col md="2" style="height:30px;">
+                    <lay-avatar :src="book.avatar" size="xs"
+                                style="width: auto;height: auto;max-width: 100%;max-height: 100%;"></lay-avatar>
+                  </lay-col>
+                  <lay-col md="22" style="height:30px;">
+                    <h3 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ book.title }}</h3>
+                  </lay-col>
+                  <lay-col md="24" style="height:90px;flex: 1;font-size: 12px;">
+                    <p style="-webkit-line-clamp: 3;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;white-space: normal;">
+                      {{ book.description }}
+                    </p>
+                  </lay-col>
+                </a>
+              </lay-panel>
+            </lay-col>
           </template>
-        </lay-checkcard-group>
+        </lay-row>
       </lay-container>
     </lay-body>
   </lay-layout>
@@ -79,7 +94,7 @@
 <script>
 import {onMounted, ref} from 'vue';
 import {getSideMenus} from "@/api/webs/bookMark/index";
-import { getParents, getNode } from "@/library/treeUtil";
+import {getParents, getNode} from "@/library/treeUtil";
 
 export default {
   components: {LayBody},
@@ -104,7 +119,6 @@ export default {
       console.log("node", node)
       if (node.books) {
         bookData.value = node.books;
-
 
 
       }
