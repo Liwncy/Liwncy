@@ -81,12 +81,12 @@ class Http {
     /* GET 方法 */
     get<T>(url: string, params?: string[]): Promise<any> {
         const paramStr = params ? params.join("_") : "index";
-        return this.service.get(url + "/" + paramStr + "?t=" + Math.random());
+        return this.service.get(url + "/" + paramStr + "?t=" + Date.now().toString().substring(0,7));
     }
 
     /* GET 方法 */
     getJm<T>(url: string, suffix?: string): Promise<any> {
-        return this.service.get(url + suffix ? ("." + suffix) : "" + "?t=" + Math.random())
+        return this.service.get(url + suffix ? ("." + suffix) : "" + "?t=" + Date.now().toString().substring(0,7))
     }
 
     // /* GET 方法 */

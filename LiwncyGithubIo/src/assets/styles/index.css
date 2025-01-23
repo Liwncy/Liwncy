@@ -4,3 +4,64 @@
 @import url(./docs/index.css);
 /*webs对应css样式*/
 @import url(./webs/index.css);
+
+/*通用样式*/
+
+/*不显示滚动条但可以滚动*/
+.no-scrollbar {
+    overflow: auto; /* 或者 scroll */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 和 Edge */
+}
+/* 对于 WebKit 浏览器（如 Chrome, Safari） */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/*固定在指定位置*/
+/*1,使用position: fixed;*/
+/*这种方式可以使元素相对于浏览器窗口固定位置，即使页面滚动，该元素也会保持在设定的位置。*/
+.fixed-element {
+    position: fixed;
+    z-index: 1000; /* 确保页脚在其他内容之上 */
+    top: 10px; /* 距离浏览器窗口顶部的距离 */
+    left: 10px; /* 距离浏览器窗口左侧的距离 */
+    /* 可以根据需要调整top, right, bottom, left的值 */
+}
+/*2,使用position: absolute;*/
+/*如果你希望元素相对于最近的已定位（即position不是static）祖先元素来定位，可以使用absolute。如果没有这样的祖先元素，则相对于初始包含块（通常是视口）。*/
+.absolute-element {
+    position: absolute;
+    z-index: 1000;
+    top: 20px;
+    left: 30px;
+}
+/*3,粘性定位 position: sticky;*/
+/*它是一种相对定位和固定定位之间的混合体。元素根据用户的滚动位置在页面中滚动，直到它达到一个特定的阈值（由top, bottom, left, right定义），之后它就会像被“粘住”一样固定在这个位置。*/
+.sticky-element {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    z-index: 1000;
+    /* 可以根据需要调整top, right, bottom, left的值,使其在滚动到指定位置时开始粘住 */
+    /*top: 15px;*/
+}
+
+
+/*处理内容超长并用省略号（...）来表示被隐藏的内容*/
+/*1,单行文本并且当文本过长时显示省略号*/
+.text-omitted {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* 设置一个最大宽度 */
+    /*max-width: 200px;*/
+}
+/*2,多行文本的省略，即当文本超过指定的行数时显示省略号*/
+.multi-line-text-omitted {
+    display: -webkit-box;
+    /* 设置你想要显示的最大行数 */
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
