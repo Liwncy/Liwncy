@@ -32,6 +32,14 @@ export const encryptSha256 = (str: CryptoJS.lib.WordArray) => {
 };
 
 /**
+ * 加密Md5
+ * @returns {string}
+ */
+export const encryptMd5 = (str: CryptoJS.lib.WordArray) => {
+    return CryptoJS.MD5(str).toString().toUpperCase();
+};
+
+/**
  * 加密base64
  * @returns {string}
  */

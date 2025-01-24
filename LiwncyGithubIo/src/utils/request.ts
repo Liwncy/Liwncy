@@ -1,6 +1,6 @@
 import axios, {AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import {Result} from "@/types/result";
-import {decryptWithAes} from "@/utils/crypto";
+import {decryptBase64, decryptWithAes, encryptBase64, encryptMd5} from "@/utils/crypto";
 import errorCode from "@/utils/errorCode";
 import {HttpStatus} from "@/enums/RespEnum";
 import {layer} from '@layui/layui-vue';
@@ -24,6 +24,14 @@ class Http {
 
         /* 请求拦截 */
         this.service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+            let url_suffix = config.suffixs ? ("index_" + config.suffixs.join("_")) : "index";
+            if (config.isEncrypt === true) {
+                // 生成一个 AES 密钥
+                url_suffix = encryptMd5(url_suffix);
+                config.encryptKey = encryptBase64(url_suffix);
+            }
+            let t = Date.now().toString().substring(0, 7);
+            config.url = config.url+"/"+url_suffix + "?t=" + t;
             return config
         }, error => {
             return Promise.reject(error);
@@ -31,25 +39,22 @@ class Http {
 
         /* 响应拦截 */
         this.service.interceptors.response.use((res: AxiosResponse<any>) => {
-            // if (import.meta.env.VITE_APP_ENCRYPT === 'true') {
-            //     // 加密后的 AES 秘钥
-            //     const keyStr = res.headers[encryptHeader];
-            //     // 加密
-            //     if (keyStr != null && keyStr != '') {
-            //         const data = res.data;
-            //         // 请求体 AES 解密
-            //         const base64Str = decrypt(keyStr);
-            //         // base64 解码 得到请求头的 AES 秘钥
-            //         const aesKey = decryptBase64(base64Str.toString());
-            //         // aesKey 解码 data
-            //         const decryptData = decryptWithAes(data, aesKey);
-            //         // 将结果 (得到的是 JSON 字符串) 转为 JSON
-            //         res.data = JSON.parse(decryptData);
-            //     }
-            // }
+            if (res.config.isEncrypt === 'true') {
+                // 加密后的 AES 秘钥
+                const keyStr = res.config.encryptKey;
+                // 解密
+                if (keyStr != null && keyStr != '') {
+                    const data = res.data;
+                    // base64 解码 得到请求头的 AES 秘钥
+                    const aesKey = decryptBase64(keyStr);
+                    // aesKey 解码 data
+                    const decryptData = decryptWithAes(data, aesKey);
+                    // 将结果 (得到的是 JSON 字符串) 转为 JSON
+                    res.data = JSON.parse(decryptData);
+                }
+            }
             // 未设置状态码则默认成功状态
             const code = res.status || 200;
-            console.log(res)
             // 获取错误信息
             const msg = errorCode[code] || res.data || errorCode['default'];
             // 二进制数据则直接返回
@@ -78,15 +83,14 @@ class Http {
         })
     }
 
-    /* GET 方法 */
-    get<T>(url: string, params?: string[]): Promise<any> {
-        const paramStr = params ? params.join("_") : "index";
-        return this.service.get(url + "/" + paramStr + "?t=" + Date.now().toString().substring(0,7));
+    /* 获取Github数据方法 */
+    get<T>(url: string, config = {}): Promise<any> {
+        return this.service.get(url, {...config},);
     }
 
     /* GET 方法 */
     getJm<T>(url: string, suffix?: string): Promise<any> {
-        return this.service.get(url + suffix ? ("." + suffix) : "" + "?t=" + Date.now().toString().substring(0,7))
+        return this.service.get(url + suffix ? ("." + suffix) : "" + "?t=" + Date.now().toString().substring(0, 7))
     }
 
     // /* GET 方法 */

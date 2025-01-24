@@ -2,6 +2,15 @@
   <lay-layout class="example1">
     <lay-side class="no-scrollbar">
       <lay-container fluid="true" style="padding: 10px;">
+        <lay-row space="10" class="sticky-element" style="top:1px;background:#f0f1f4;">
+          <lay-col :md="24">
+            <lay-select v-model="dataRource" placeholder="切换源">
+              <lay-select-option :value="1" label="学习"></lay-select-option>
+              <lay-select-option :value="2" label="编码"></lay-select-option>
+              <lay-select-option :value="3" label="运动"></lay-select-option>
+            </lay-select>
+          </lay-col>
+        </lay-row>
         <lay-menu v-model:selected-key="selectedKey" theme="light" v-model:openKeys="openKeys" :tree="true"
                   :level="true"
                   :indent="true"
@@ -109,6 +118,7 @@ export default {
     const openKeys = ref(["7"])
     const selectedKey = ref("all")
     const filterBookText = ref("");
+    const dataRource = ref("0");
     const menuData = ref([]);
     const bookData = ref([]);
     const bookShowData = ref([]);
@@ -151,6 +161,7 @@ export default {
     return {
       openKeys,
       selectedKey,
+      dataRource,
       menuData,
       target,
       bookData,
