@@ -1,12 +1,12 @@
 [
   {
     "id": "all",
-    "name": "主页",
+    "name": "主 页",
     "icon": "mu"
   },
   {
-    "id": "all",
-    "name": "综合",
+    "id": "综合",
+    "name": "综 合",
     "icon": "mu",
     "children": [
       {
@@ -26,8 +26,8 @@
     ]
   },
   {
-    "id": "all",
-    "name": "生活",
+    "id": "生活",
+    "name": "生 活",
     "icon": "mu",
     "children": [
       {

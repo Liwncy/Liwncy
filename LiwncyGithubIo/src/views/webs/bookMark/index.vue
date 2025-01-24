@@ -1,13 +1,14 @@
 <template>
   <lay-layout class="example1">
     <lay-side class="no-scrollbar">
-      <lay-container fluid="true" style="padding: 10px;">
+      <lay-container fluid="true" style="padding: 0;">
         <lay-row space="10" class="sticky-element" style="top:1px;background:#f0f1f4;">
-          <lay-col :md="24">
-            <lay-select v-model="dataRource" placeholder="切换源">
-              <lay-select-option :value="1" label="学习"></lay-select-option>
-              <lay-select-option :value="2" label="编码"></lay-select-option>
-              <lay-select-option :value="3" label="运动"></lay-select-option>
+          <lay-col :md="20">
+            <lay-select v-model="dataRource" @change="dataRourceChange" placeholder="切换源" style="width: 200px">
+              <lay-select-option value="0" label="默认"></lay-select-option>
+              <lay-select-option value="1" label="喜欢"></lay-select-option>
+              <lay-select-option value="2" label="link"></lay-select-option>
+              <lay-select-option value="3" label="linkin"></lay-select-option>
             </lay-select>
           </lay-col>
         </lay-row>
@@ -111,6 +112,7 @@ import {getSideMenus} from "@/api/webs/bookMark/index";
 import {getParents, getNode, getAllNodeFieldArr} from "@/library/treeUtil";
 import axios from "axios";
 import linksJson from "../../../../../data/webs/bookMark/links.json"
+import linksInJson from "../../../../../data/webs/bookMark/linksin.json"
 
 export default {
   components: {LayBody},
@@ -133,6 +135,48 @@ export default {
       bookShowData.value = bookData.value.filter(b => b.title.includes(val));
     });
 
+    const dataRourceChange = async function (val) {
+      console.log("dataRourceChange", val)
+      if (val === "0") {
+        const res = await getSideMenus();
+        menuData.value = res.data;
+      }
+      if (val === "1") {
+        const res = await getSideMenus(["like"]);
+        menuData.value = res.data;
+      }
+      if (val === "2") {
+        menuData.value = [
+          {
+            "id": "all",
+            "name": "主 页",
+            "icon": "mu"
+          },
+          {
+            "id": "综合",
+            "name": "综 合",
+            "icon": "mu",
+            "books": linksJson
+          }
+        ];
+      }
+      if (val === "3") {
+        menuData.value = [
+          {
+            "id": "all",
+            "name": "主 页",
+            "icon": "mu"
+          },
+          {
+            "id": "综合",
+            "name": "综 合",
+            "icon": "mu",
+            "books": linksInJson
+          }
+        ];
+      }
+      changeMainSelectedKey("all");
+    }
 
     // 选中菜单时触发
     function changeMainSelectedKey(key) {
@@ -162,6 +206,7 @@ export default {
       openKeys,
       selectedKey,
       dataRource,
+      dataRourceChange,
       menuData,
       target,
       bookData,
