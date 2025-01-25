@@ -1,10 +1,5 @@
 [
     {
-        "id": "all",
-        "name": "综合",
-        "icon": "mu"
-    },
-    {
         "id": "category-19",
         "name": "喜欢书签",
         "icon": "fa fa-heart",

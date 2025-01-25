@@ -1,9 +1,9 @@
 <template>
   <lay-layout class="example1">
-    <lay-side class="no-scrollbar">
+    <lay-side class="layui-menu-ref-2 no-scrollbar">
       <lay-container fluid="true" style="padding: 0;">
         <lay-row space="10" class="sticky-element" style="top:1px;background:#f0f1f4;">
-          <lay-col :md="20">
+          <lay-col :md="24">
             <lay-select v-model="dataRource" @change="dataRourceChange" placeholder="切换源" style="width: 200px">
               <lay-select-option value="0" label="默认"></lay-select-option>
               <lay-select-option value="1" label="喜欢"></lay-select-option>
@@ -12,35 +12,39 @@
             </lay-select>
           </lay-col>
         </lay-row>
-        <lay-menu v-model:selected-key="selectedKey" theme="light" v-model:openKeys="openKeys" :tree="true"
-                  :level="true"
-                  :indent="true"
-                  @changeSelectedKey="changeMainSelectedKey">
-          <template v-for="item in menuData" :key="item.id">
-            <lay-menu-item v-if="!item.children" :id="item.id">
-              <lay-icon v-if="item.icon" :type="item.icon"></lay-icon>
-              {{ item.name }}
-            </lay-menu-item>
-            <lay-sub-menu v-else :id="item.id">
-              <template #title>
-                <lay-icon v-if="item.icon" :type="item.icon"></lay-icon>
-                {{ item.name }}
-              </template>
-              <template v-for="child in item.children" :key="child.id">
-                <lay-sub-menu v-if="child.children" :id="child.id">
-                  <template #title>
-                    <lay-icon v-if="child.icon" :type="child.icon"></lay-icon>
-                    {{ child.name }}
-                  </template>
-                </lay-sub-menu>
-                <lay-menu-item v-else :id="child.id">
-                  <lay-icon v-if="child.icon" :type="child.icon"></lay-icon>
-                  {{ child.name }}
-                </lay-menu-item>
-              </template>
-            </lay-sub-menu>
-          </template>
-        </lay-menu>
+        <lay-row>
+          <lay-scroll style="overflow-y: scroll">
+            <ul class="layui-menu layui-menu-lg layui-menu-docs">
+              <li class="layui-menu-item-group" :class="[selectedKey === 'all'? 'layui-menu-item-checked2': '',]"
+                  lay-options="{type: 'group', isAllowSpread: true}" @click="handleClick()">
+                <div class="layui-menu-body-title"><a href="javascript:void(0)"><span>全部</span></a></div>
+                <hr/>
+              </li>
+              <li v-for="menu in menuData" :key="menu" class="layui-menu-item-group"
+                  lay-options="{type: 'group', isAllowSpread: true}"
+                  :class="[selectedKey === menu.id? 'layui-menu-item-checked2': '',]"
+                  @click="handleClick(menu)"
+              >
+                <div class="layui-menu-body-title"><a href="javascript:void(0)"><span>{{ menu.name }}</span></a></div>
+                <hr/>
+                <ul>
+                  <li v-for="children in menu.children" :key="children"
+                      :class="[selectedKey === children.id? 'layui-menu-item-checked2': '',]"
+                      @click="handleClick(children)">
+                    <div class="layui-menu-body-title">
+                      <a href="javascript:void(0)">
+                        <span>{{ children.name }}</span>
+                        <span class="layui-font-12 layui-font-gray">
+                      {{ children.name }}
+                    </span>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </lay-scroll>
+        </lay-row>
       </lay-container>
     </lay-side>
     <lay-body id="bookMarkContent">
@@ -175,35 +179,31 @@ export default {
           }
         ];
       }
-      changeMainSelectedKey("all");
+      handleClick();
     }
 
     // 选中菜单时触发
-    function changeMainSelectedKey(key) {
-      // console.log("changeSelectedKey", key);
-      const node = getNode(menuData.value, key);
-      // console.log("node", node)
-      if (node.books) {
-        bookData.value = node.books;
-        bookShowData.value = bookData.value;
+    const handleClick = (node) => {
+      console.log("handleClick", node);
+      if (node === undefined) {
+        node = {id: "all", name: "全部", children: menuData.value}
       }
-      if (key === "all") {
-        bookData.value = getAllNodeFieldArr(menuData.value, [], "books").flat();
-        bookShowData.value = bookData.value;
-      }
-    }
+      console.log("handleClick", node);
+      selectedKey.value = node.id;
+      bookData.value = node.books || getAllNodeFieldArr(node.children, [], "books").flat();
+      bookShowData.value = bookData.value;
+    };
 
     const initPage = async function () {
       const res = await getSideMenus();
       menuData.value = res.data;
-      changeMainSelectedKey("all");
+      handleClick();
     };
     onMounted(() => {
       initPage()
     })
 
     return {
-      openKeys,
       selectedKey,
       dataRource,
       dataRourceChange,
@@ -214,7 +214,7 @@ export default {
       filterBookText,
       checkedBook,
       images,
-      changeMainSelectedKey
+      handleClick
     }
   }
 }

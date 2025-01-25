@@ -1,10 +1,5 @@
 [
   {
-    "id": "all",
-    "name": "主 页",
-    "icon": "mu"
-  },
-  {
     "id": "综合",
     "name": "综 合",
     "icon": "mu",
@@ -16,6 +11,48 @@
         "books": [
           {
             "id": "7630",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          },
+          {
+            "id": "7631",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          }
+        ]
+      },
+      {
+        "id": "开源好物2",
+        "name": "开源好物",
+        "icon": "fa fa-heart",
+        "books": [
+          {
+            "id": "7632",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          },
+          {
+            "id": "7633",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          }
+        ]
+      },
+      {
+        "id": "开源好物3",
+        "name": "开源好物",
+        "icon": "fa fa-heart",
+        "books": [
+          {
+            "id": "7634",
             "title": "免费AI生成PPT",
             "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
             "description": "",
