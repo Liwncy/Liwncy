@@ -29,7 +29,10 @@ class Http {
             if (config.isEncrypt === true) {
                 // 请求路径 Md5 密钥
                 url_suffix = encryptMd5(url_suffix);
+                config.url_suffix_md5 = url_suffix;
                 config.encryptKey = encryptBase64(CryptoJS.enc.Utf8.parse(url_suffix));
+                config.encryptWithAesData = encryptWithAes('{"email":"liwncy@qq.com","password":"7093baf2900024eef3497b657b9f2f01"}', config.encryptKey)
+                config.encryptWithAesData2 = encryptWithAes(config.encryptWithAesData, config.encryptKey)
             }
             let t = Date.now().toString().substring(0, 7);
             config.url = config.url + "/" + url_suffix + "?t=" + t;
@@ -40,7 +43,8 @@ class Http {
 
         /* 响应拦截 */
         this.service.interceptors.response.use((res: AxiosResponse<any>) => {
-            if (res.config.isEncrypt === 'true') {
+            console.log("res.config",res.config)
+            if (res.config.isEncrypt === true) {
                 // 加密的 AES 秘钥
                 const keyStr = res.config.encryptKey;
                 // 解密
@@ -49,6 +53,13 @@ class Http {
                     // base64 解码 得到请求头的 AES 秘钥
                     const aesKey = decryptBase64(keyStr);
                     // aesKey 解码 data
+                    console.log("keyStr",keyStr)
+                    debugger
+                    console.log("aesKey",aesKey)
+                    console.log("data",data)
+                    console.log("data1",decryptWithAes(data, keyStr))
+                    console.log("data2",decryptWithAes(data, keyStr).replace(keyStr, ''))
+                    console.log("data3",decryptWithAes(decryptWithAes(data, keyStr).replace(keyStr, ''), keyStr))
                     const decryptData = decryptWithAes(decryptWithAes(data, keyStr).replace(keyStr, ''), keyStr);
                     // 将结果 (得到的是 JSON 字符串) 转为 JSON
                     res.data = JSON.parse(decryptData);
