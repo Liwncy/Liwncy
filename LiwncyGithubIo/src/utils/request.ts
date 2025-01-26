@@ -30,8 +30,6 @@ class Http {
                 // 请求路径 Md5 密钥
                 url_suffix = encryptMd5(url_suffix);
                 config.encryptKey = encryptBase64(CryptoJS.enc.Utf8.parse(url_suffix));
-                config.encryptWithAesData = encryptWithAes('{"email":"liwncy@qq.com","password":"7093baf2900024eef3497b657b9f2f01"}', url_suffix)
-                config.encryptWithAesData2 = encryptWithAes("U2FsdGVkX1+KLo50LXyRoeum7VJU29f459a44fee58c7sZu76P6IBAtaASy29f459a44fee58c7QgtDXawuaFgjjmIjzD6MJ6WpdwwodxDVZ2sQ6nLkmKsT1YuSnhCkydQ8fqE+FY5bzl7bnh38hxV1SmWWWEluq", url_suffix)
             }
             let t = Date.now().toString().substring(0, 7);
             config.url = config.url + "/" + url_suffix + "?t=" + t;
@@ -52,7 +50,7 @@ class Http {
                     // base64 解码 得到请求头的 AES 秘钥
                     const aesKey = decryptBase64(keyStr).toString(CryptoJS.enc.Utf8);
                     // aesKey 解码 data
-                    const decryptData = decryptWithAes(decryptWithAes(data, aesKey).replace(aesKey, ''), aesKey);
+                    const decryptData = decryptWithAes(decryptWithAes(data, aesKey).replaceAll(aesKey, ''), aesKey);
                     // 将结果 (得到的是 JSON 字符串) 转为 JSON
                     res.data = JSON.parse(decryptData);
                 }
