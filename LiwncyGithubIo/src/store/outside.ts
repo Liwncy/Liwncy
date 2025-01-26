@@ -22,6 +22,7 @@ export const outsideStore = defineStore({
                         "I-Lang": 'zh-CN'
                     }
                 }).then(res => {
+                    console.log("weTab:",res.data);
                     this.weTabInfo = res.data;
                 }).catch(() => {
                 })

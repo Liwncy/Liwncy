@@ -1,10 +1,11 @@
 import axios, {AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import {Result} from "@/types/result";
-import {decryptBase64, decryptWithAes, encryptBase64, encryptMd5} from "@/utils/crypto";
+import {encryptBase64, decryptBase64, encryptWithAes, decryptWithAes, encryptMd5} from "@/utils/crypto";
 import errorCode from "@/utils/errorCode";
 import {HttpStatus} from "@/enums/RespEnum";
 import {layer} from '@layui/layui-vue';
 import router from "@/router";
+import CryptoJS from "crypto-js";
 
 type TAxiosOption = {
     timeout: number;
@@ -28,10 +29,10 @@ class Http {
             if (config.isEncrypt === true) {
                 // 请求路径 Md5 密钥
                 url_suffix = encryptMd5(url_suffix);
-                config.encryptKey = encryptBase64(url_suffix);
+                config.encryptKey = encryptBase64(CryptoJS.enc.Utf8.parse(url_suffix));
             }
             let t = Date.now().toString().substring(0, 7);
-            config.url = config.url+"/"+url_suffix + "?t=" + t;
+            config.url = config.url + "/" + url_suffix + "?t=" + t;
             return config
         }, error => {
             return Promise.reject(error);
@@ -40,7 +41,7 @@ class Http {
         /* 响应拦截 */
         this.service.interceptors.response.use((res: AxiosResponse<any>) => {
             if (res.config.isEncrypt === 'true') {
-                // 加密后的 AES 秘钥
+                // 加密的 AES 秘钥
                 const keyStr = res.config.encryptKey;
                 // 解密
                 if (keyStr != null && keyStr != '') {
@@ -48,7 +49,7 @@ class Http {
                     // base64 解码 得到请求头的 AES 秘钥
                     const aesKey = decryptBase64(keyStr);
                     // aesKey 解码 data
-                    const decryptData = decryptBase64(decryptBase64(data).replace(aesKey, ''));
+                    const decryptData = decryptWithAes(decryptWithAes(data, keyStr).replace(keyStr, ''), keyStr);
                     // 将结果 (得到的是 JSON 字符串) 转为 JSON
                     res.data = JSON.parse(decryptData);
                 }

@@ -36,7 +36,7 @@ export const encryptSha256 = (str: CryptoJS.lib.WordArray) => {
  * @returns {string}
  */
 export const encryptMd5 = (str: CryptoJS.lib.WordArray) => {
-    return CryptoJS.MD5(str).substring(8, 24).toString().toLowerCase();
+    return CryptoJS.MD5(str).toString().substring(8, 24).toLowerCase();
 };
 
 /**
@@ -53,6 +53,17 @@ export const encryptBase64 = (str: CryptoJS.lib.WordArray) => {
 export const decryptBase64 = (str: string) => {
     return CryptoJS.enc.Base64.parse(str);
 };
+
+//base64加密
+function base64_encode(code){
+    var str = CryptoJS.enc.Utf8.parse(code);
+    return CryptoJS.enc.Base64.stringify(str);
+}
+//base64解密
+function base64_decode(code){
+    var words = CryptoJS.enc.Base64.parse(code);
+    return words.toString(CryptoJS.enc.Utf8)
+}
 
 /**
  * 使用密钥对数据进行加密

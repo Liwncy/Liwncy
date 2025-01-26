@@ -60,6 +60,9 @@ importers:
       '@stackblitz/sdk':
         specifier: ^1.8.0
         version: 1.11.0
+      '@types/crypto-js':
+        specifier: ^4.2.2
+        version: 4.2.2
       '@types/linkify-it':
         specifier: 3.0.2
         version: 3.0.2
@@ -620,6 +623,9 @@ packages:
 
   '@stackblitz/sdk@1.11.0':
     resolution: {integrity: sha512-DFQGANNkEZRzFk1/rDP6TcFdM82ycHE+zfl9C/M/jXlH68jiqHWHFMQURLELoD8koxvu/eW5uhg94NSAZlYrUQ==}
+
+  '@types/crypto-js@4.2.2':
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -2135,6 +2141,8 @@ snapshots:
     optional: true
 
   '@stackblitz/sdk@1.11.0': {}
+
+  '@types/crypto-js@4.2.2': {}
 
   '@types/estree@1.0.5': {}
 

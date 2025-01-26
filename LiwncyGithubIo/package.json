@@ -29,6 +29,7 @@
   "devDependencies": {
     "@layui/unplugin-vue-components": "^0.0.3",
     "@stackblitz/sdk": "^1.8.0",
+    "@types/crypto-js": "^4.2.2",
     "@types/linkify-it": "3.0.2",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^18.7.8",
