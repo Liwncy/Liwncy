@@ -90,7 +90,5 @@ export const decryptWithAes = (message: string, aesKey: CryptoJS.lib.WordArray) 
         mode: CryptoJS.mode.ECB,
         padding: CryptoJS.pad.Pkcs7
     });
-    debugger
-    console.log("decrypted",decrypted)
     return decrypted.toString(CryptoJS.enc.Utf8);
 };

@@ -29,10 +29,9 @@ class Http {
             if (config.isEncrypt === true) {
                 // 请求路径 Md5 密钥
                 url_suffix = encryptMd5(url_suffix);
-                config.url_suffix_md5 = url_suffix;
                 config.encryptKey = encryptBase64(CryptoJS.enc.Utf8.parse(url_suffix));
-                config.encryptWithAesData = encryptWithAes('{"email":"liwncy@qq.com","password":"7093baf2900024eef3497b657b9f2f01"}', config.encryptKey)
-                config.encryptWithAesData2 = encryptWithAes(config.encryptWithAesData, config.encryptKey)
+                config.encryptWithAesData = encryptWithAes('{"email":"liwncy@qq.com","password":"7093baf2900024eef3497b657b9f2f01"}', url_suffix)
+                config.encryptWithAesData2 = encryptWithAes("U2FsdGVkX1+KLo50LXyRoeum7VJU29f459a44fee58c7sZu76P6IBAtaASy29f459a44fee58c7QgtDXawuaFgjjmIjzD6MJ6WpdwwodxDVZ2sQ6nLkmKsT1YuSnhCkydQ8fqE+FY5bzl7bnh38hxV1SmWWWEluq", url_suffix)
             }
             let t = Date.now().toString().substring(0, 7);
             config.url = config.url + "/" + url_suffix + "?t=" + t;
@@ -51,16 +50,9 @@ class Http {
                 if (keyStr != null && keyStr != '') {
                     const data = res.data;
                     // base64 解码 得到请求头的 AES 秘钥
-                    const aesKey = decryptBase64(keyStr);
+                    const aesKey = decryptBase64(keyStr).toString(CryptoJS.enc.Utf8);
                     // aesKey 解码 data
-                    console.log("keyStr",keyStr)
-                    debugger
-                    console.log("aesKey",aesKey)
-                    console.log("data",data)
-                    console.log("data1",decryptWithAes(data, keyStr))
-                    console.log("data2",decryptWithAes(data, keyStr).replace(keyStr, ''))
-                    console.log("data3",decryptWithAes(decryptWithAes(data, keyStr).replace(keyStr, ''), keyStr))
-                    const decryptData = decryptWithAes(decryptWithAes(data, keyStr).replace(keyStr, ''), keyStr);
+                    const decryptData = decryptWithAes(decryptWithAes(data, aesKey).replace(aesKey, ''), aesKey);
                     // 将结果 (得到的是 JSON 字符串) 转为 JSON
                     res.data = JSON.parse(decryptData);
                 }
