@@ -26,7 +26,7 @@ class Http {
         this.service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
             let url_suffix = config.suffixs ? ("index_" + config.suffixs.join("_")) : "index";
             if (config.isEncrypt === true) {
-                // 生成一个 AES 密钥
+                // 请求路径 Md5 密钥
                 url_suffix = encryptMd5(url_suffix);
                 config.encryptKey = encryptBase64(url_suffix);
             }
@@ -48,7 +48,7 @@ class Http {
                     // base64 解码 得到请求头的 AES 秘钥
                     const aesKey = decryptBase64(keyStr);
                     // aesKey 解码 data
-                    const decryptData = decryptWithAes(data, aesKey);
+                    const decryptData = decryptBase64(decryptBase64(data).replace(aesKey, ''));
                     // 将结果 (得到的是 JSON 字符串) 转为 JSON
                     res.data = JSON.parse(decryptData);
                 }

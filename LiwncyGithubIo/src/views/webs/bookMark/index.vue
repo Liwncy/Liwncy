@@ -6,9 +6,11 @@
           <lay-col :md="24">
             <lay-select v-model="dataRource" @change="dataRourceChange" placeholder="切换源" style="width: 200px">
               <lay-select-option value="0" label="默认"></lay-select-option>
-              <lay-select-option value="1" label="喜欢"></lay-select-option>
-              <lay-select-option value="2" label="link"></lay-select-option>
-              <lay-select-option value="3" label="linkin"></lay-select-option>
+              <lay-select-option value="1" label="我的WeTab"></lay-select-option>
+              <lay-select-option value="2" label="喜欢"></lay-select-option>
+              <lay-select-option value="3" label="测试(dev)"></lay-select-option>
+<!--              <lay-select-option value="4" label="link"></lay-select-option>-->
+<!--              <lay-select-option value="5" label="linkin"></lay-select-option>-->
             </lay-select>
           </lay-col>
         </lay-row>
@@ -17,15 +19,23 @@
             <ul class="layui-menu layui-menu-lg layui-menu-docs">
               <li class="layui-menu-item-group" :class="[selectedKey === 'all'? 'layui-menu-item-checked2': '',]"
                   lay-options="{type: 'group', isAllowSpread: true}" @click="handleClick()">
-                <div class="layui-menu-body-title"><a href="javascript:void(0)"><span>全部</span></a></div>
+                <div class="layui-menu-body-title" @click="handleClick()">
+                  <a href="javascript:void(0)">
+                    <span v-if="selectedKey === 'all'" style="color: #7bd7d7">全 部</span>
+                    <span v-else style="color: #adb7a5">全 部</span>
+                  </a>
+                </div>
                 <hr/>
               </li>
               <li v-for="menu in menuData" :key="menu" class="layui-menu-item-group"
                   lay-options="{type: 'group', isAllowSpread: true}"
-                  :class="[selectedKey === menu.id? 'layui-menu-item-checked2': '',]"
-                  @click="handleClick(menu)"
               >
-                <div class="layui-menu-body-title"><a href="javascript:void(0)"><span>{{ menu.name }}</span></a></div>
+                <div class="layui-menu-body-title" @click="handleClick(menu)">
+                  <a href="javascript:void(0)">
+                    <span v-if="selectedKey === menu.id" style="color: #7bd7c6">{{ menu.name }}</span>
+                    <span v-else style="color: #aab6a2">{{ menu.name }}</span>
+                  </a>
+                </div>
                 <hr/>
                 <ul>
                   <li v-for="children in menu.children" :key="children"
@@ -112,11 +122,12 @@
 
 <script>
 import {onMounted, nextTick, ref, watch} from 'vue';
-import {getSideMenus} from "@/api/webs/bookMark/index";
+import {getSideMenus,getWeTabSidMenus} from "@/api/webs/bookMark/index";
 import {getParents, getNode, getAllNodeFieldArr} from "@/library/treeUtil";
 import axios from "axios";
 import linksJson from "../../../../../data/webs/bookMark/links.json"
 import linksInJson from "../../../../../data/webs/bookMark/linksin.json"
+import testDev from "../../../../../data/webs/bookMark/testdev.json"
 
 export default {
   components: {LayBody},
@@ -146,16 +157,19 @@ export default {
         menuData.value = res.data;
       }
       if (val === "1") {
-        const res = await getSideMenus(["like"]);
+        // weTab
+        const res = await getWeTabSidMenus();
         menuData.value = res.data;
       }
       if (val === "2") {
+        const res = await getSideMenus(["like"]);
+        menuData.value = res.data;
+      }
+      if (val === "3") {
+        menuData.value = testDev;
+      }
+      if (val === "4") {
         menuData.value = [
-          {
-            "id": "all",
-            "name": "主 页",
-            "icon": "mu"
-          },
           {
             "id": "综合",
             "name": "综 合",
@@ -164,13 +178,8 @@ export default {
           }
         ];
       }
-      if (val === "3") {
+      if (val === "5") {
         menuData.value = [
-          {
-            "id": "all",
-            "name": "主 页",
-            "icon": "mu"
-          },
           {
             "id": "综合",
             "name": "综 合",

@@ -355,7 +355,7 @@ export default {
       };
     };
 
-    // const version = config.version;
+    // const version = secret.version;
     const version = "1.1.0";
 
     provide("version", version);

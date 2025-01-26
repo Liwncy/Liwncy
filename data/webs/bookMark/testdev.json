@@ -1,0 +1,86 @@
+[
+  {
+    "id": "综合",
+    "name": "综 合",
+    "icon": "mu",
+    "children": [
+      {
+        "id": "开源好物",
+        "name": "开源好物",
+        "icon": "fa fa-heart",
+        "books": [
+          {
+            "id": "7630",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          },
+          {
+            "id": "7631",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          }
+        ]
+      },
+      {
+        "id": "开源好物2",
+        "name": "开源好物",
+        "icon": "fa fa-heart",
+        "books": [
+          {
+            "id": "7632",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          },
+          {
+            "id": "7633",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          }
+        ]
+      },
+      {
+        "id": "开源好物3",
+        "name": "开源好物",
+        "icon": "fa fa-heart",
+        "books": [
+          {
+            "id": "7634",
+            "title": "免费AI生成PPT",
+            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
+            "description": "",
+            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "生活",
+    "name": "生 活",
+    "icon": "mu",
+    "children": [
+      {
+        "id": "我的购物",
+        "name": "我的购物",
+        "icon": "fa fa-heart",
+        "books": [
+          {
+            "id": "京东商城",
+            "title": "京东商城",
+            "links": "https://www.infinitynewtab.com/jd.pro.html ",
+            "description": "专业的综合网上购物商城,销售家电、数码通讯、电脑、家居百货、服装服饰、母婴、图书、食品等数万个品牌优质商品.便捷、诚信的服务，为您提供愉悦的网上商城购物体验! ",
+            "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/cee009549b352def723ba09d6da4b742.png"
+          }
+        ]
+      }
+    ]
+  }
+]

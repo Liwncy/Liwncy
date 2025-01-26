@@ -251,7 +251,7 @@ import {useI18n} from "@layui/layui-vue";
 import menu from "../../mockjs/menus";
 import zh_CN from "../../lang/zh_CN.ts";
 import en_US from "../../lang/en_US.ts";
-// import config from "@layui/layui-vue/package.json";
+// import secret from "@layui/layui-vue/package.json";
 
 export default {
   setup() {
@@ -340,7 +340,7 @@ export default {
       };
     };
 
-    // const version = config.version;
+    // const version = secret.version;
     const version = "1.1.0";
 
     provide("version", version);

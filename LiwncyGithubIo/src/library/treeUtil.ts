@@ -78,14 +78,14 @@ export const listToTree = function (arr: any[]) {
  * @param field 节点编号
  */
 export const getAllNodeFieldArr = function (list: any[], result: any[], field: string): any {
-    result = result || [];
     for (let i in list) {
         let item = list[i];
         if (item[field]) {
             result.push(item[field]);
         } else {
-            if (item.children) {
-                return getAllNodeFieldArr(item.children, result, field);
+            if (item.children && Array.isArray(item.children)) {
+                // 递归处理子节点，但不提前返回
+                getAllNodeFieldArr(item.children, result, field);
             }
         }
     }
