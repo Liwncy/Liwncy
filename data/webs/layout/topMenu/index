@@ -13,9 +13,9 @@
   },
   {
     "id": 3,
-    "title": "热榜",
-    "useI18n": "nav.hotBans",
-    "path": "/webs/hot_bans"
+    "title": "随记",
+    "useI18n": "nav.notes",
+    "path": "/webs/better_read"
   },
   {
     "id": 4,

@@ -22,6 +22,11 @@ export default [
                 meta: {title: "书签"},
             },
             {
+                path: "/webs/better_read",
+                component: () => import('@/views/webs/betterRead/index.vue'),
+                meta: {title: "随记"},
+            },
+            {
                 path: "/webs/hot_bans",
                 component: () => import('@/views/webs/hotBans/index.vue'),
                 meta: {title: "热榜"},
