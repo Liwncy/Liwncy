@@ -2,7 +2,7 @@
 import Mock from'mockjs';
 import user from './user';
 
-Mock.mock(/\/user\/login/,'post',(req: any,res: any) =>{
+Mock.mock(/\/user\/loginadmin/,'post',(req: any,res: any) =>{
     return user.getLogin(req,res)
 });
 

@@ -9,20 +9,20 @@
               <lay-select-option value="1" label="我的WeTab"></lay-select-option>
               <lay-select-option value="2" label="喜欢"></lay-select-option>
               <lay-select-option value="3" label="测试(dev)"></lay-select-option>
-<!--              <lay-select-option value="4" label="link"></lay-select-option>-->
-<!--              <lay-select-option value="5" label="linkin"></lay-select-option>-->
+              <!--              <lay-select-option value="4" label="link"></lay-select-option>-->
+              <!--              <lay-select-option value="5" label="linkin"></lay-select-option>-->
             </lay-select>
           </lay-col>
         </lay-row>
         <lay-row>
           <lay-scroll style="overflow-y: scroll">
             <ul class="layui-menu layui-menu-lg layui-menu-docs">
-              <li class="layui-menu-item-group" :class="[selectedKey === 'all'? 'layui-menu-item-checked2': '',]"
-                  lay-options="{type: 'group', isAllowSpread: true}" @click="handleClick()">
+              <li class="layui-menu-item-group"
+                  lay-options="{type: 'group', isAllowSpread: true}">
                 <div class="layui-menu-body-title" @click="handleClick()">
                   <a href="javascript:void(0)">
-                    <span v-if="selectedKey === 'all'" style="color: #7bd7d7">全 部</span>
-                    <span v-else style="color: #adb7a5">全 部</span>
+                    <span v-if="selectedKey === 'all'" style="color: var(--global-checked-color)">全 部</span>
+                    <span v-else style="color: rgba(0, 0, 0, 0.8)">全 部</span>
                   </a>
                 </div>
                 <hr/>
@@ -32,8 +32,10 @@
               >
                 <div class="layui-menu-body-title" @click="handleClick(menu)">
                   <a href="javascript:void(0)">
-                    <span v-if="selectedKey === menu.id" style="color: #7bd7c6">{{ menu.name }}</span>
-                    <span v-else style="color: #aab6a2">{{ menu.name }}</span>
+                    <span v-if="selectedKey === menu.id" style="color: var(--global-checked-color)">{{
+                        menu.name
+                      }}</span>
+                    <span v-else style="color: rgba(0, 0, 0, 0.8)">{{ menu.name }}</span>
                   </a>
                 </div>
                 <hr/>
@@ -90,7 +92,7 @@
         <lay-row space="10">
           <template v-for="(book,index) in bookShowData" :key="book.id">
             <lay-col md="4" style="">
-              <lay-panel style="height: 120px;background: #dadadc;">
+              <lay-panel style="height: 120px;background: var(--global-neutral-color-2);">
                 <a :href="book.links" target="_blank" rel="noopener noreferrer" class="block">
                   <lay-row space="20">
                     <lay-col md="4" style="height:100%;">
@@ -122,8 +124,9 @@
 
 <script>
 import {onMounted, nextTick, ref, watch} from 'vue';
-import {getSideMenus,getWeTabSidMenus} from "@/api/webs/bookMark/index";
+import {getSideMenus, getWeTabSidMenus} from "@/api/webs/bookMark/index";
 import {getParents, getNode, getAllNodeFieldArr} from "@/library/treeUtil";
+import {outsideStore} from "@/store/outside";
 import axios from "axios";
 import linksJson from "../../../../../data/webs/bookMark/links.json"
 import linksInJson from "../../../../../data/webs/bookMark/linksin.json"
@@ -193,7 +196,7 @@ export default {
 
     // 选中菜单时触发
     const handleClick = (node) => {
-      console.log("handleClick", node);
+      // console.log("handleClick", node);
       if (node === undefined) {
         node = {id: "all", name: "全部", children: menuData.value}
       }
@@ -204,6 +207,9 @@ export default {
     };
 
     const initPage = async function () {
+      if (!outsideStore().weTabInfo) {
+        outsideStore().loadWeTabInfo();
+      }
       const res = await getSideMenus();
       menuData.value = res.data;
       handleClick();

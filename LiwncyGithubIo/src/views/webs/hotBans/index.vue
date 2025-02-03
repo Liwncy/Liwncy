@@ -36,7 +36,7 @@
         </ul>
       </lay-scroll>
     </lay-side>
-    <lay-body>
+    <lay-body id="bookMarkContent">
       <div
           class="layui-menu-toggle"
           style="
@@ -149,10 +149,11 @@
         </div>
       </lay-footer>
     </lay-body>
+    <lay-backtop target="#bookMarkContent" :showHeight="100" :bottom="30" position="absolute"></lay-backtop>
   </lay-layout>
 </template>
 <script>
-import {ref, watch, computed, onMounted} from "vue";
+import {ref, watch, computed, onMounted, nextTick} from "vue";
 import {layer} from "@layui/layui-vue";
 import {generateRandomString, encryptSha256} from '@/utils/crypto';
 import {getSidMenus} from "@/api/webs/hotBans/index";
@@ -168,6 +169,11 @@ export default {
 
     const isMenuDisplay = ref(false);
     const menuDisplay = computed(() => (isMenuDisplay.value ? "200px" : "0px"));
+
+    const target = ref()
+    nextTick(() => {
+      target.value = document.querySelector(".layui-body");
+    })
 
     // watch(
     //     () => route.path,
@@ -283,6 +289,7 @@ export default {
       selected,
       currentPath,
       loadingA,
+      target,
       imgUrlPrefix,
       handleClick,
       handleMenuOpen,

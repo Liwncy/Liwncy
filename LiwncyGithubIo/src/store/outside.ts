@@ -13,9 +13,8 @@ export const outsideStore = defineStore({
         async loadWeTabInfo() {
             const {data, code} = await getWeTabLoginInfo();
             if (code == 200) {
-                console.log("weTabLogin:",data)
-                axios.defaults.headers.post['Content-Type'] = 'application/json';
-                axios.post("https://api.wetab.link/api/user/login", {"email":"liwncy@qq.com","password":"7093baf2900024eef3497b657b9f2f01"},{
+                // console.log("weTabLogin:", data)
+                axios.post("https://api.wetab.link/api/user/login", data, {
                     headers: {
                         "I-App": 'hitab',
                         "I-Version": '1.9.42',
@@ -23,10 +22,13 @@ export const outsideStore = defineStore({
                         "I-Branch": 'zh',
                         "I-Lang": 'zh-CN',
                         "Content-Type": 'application/json',
+                    },
+                    params: {
+                        t: Date.now().toString()
                     }
                 }).then(res => {
-                    console.log("weTab:",res.data);
-                    this.weTabInfo = res.data;
+                    // console.log("weTab:", res.data);
+                    this.weTabInfo = res.data.data;
                 }).catch(() => {
                 })
             }
