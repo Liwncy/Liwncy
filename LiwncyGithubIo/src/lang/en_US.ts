@@ -7,6 +7,8 @@ export default {
     guide: "Guide",
     components: "Components",
     resources: "Resources",
+    life: "life",
+    "life.news": "look news",
   },
   home: {
     description: "An enterprise-class UI components based on Layui and Vue.",

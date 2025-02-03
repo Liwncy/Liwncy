@@ -7,6 +7,8 @@ export default {
     guide: "指南",
     components: "组件",
     resources: "生态",
+    life: "生活",
+    "life.news": "看新闻",
   },
   home: {
     description:

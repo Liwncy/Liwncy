@@ -19,10 +19,10 @@
               :class="{ 'layui-active': currentPath.includes(menu.path) }"
           >
             <router-link v-if="!menu.children" :to="menu.path">
-              {{ t(menu.useI18n) }}
+              {{ t(menu.useI18n) !== menu.useI18n ? t(menu.useI18n) : menu.title }}
             </router-link>
             <lay-dropdown v-else trigger="hover">
-              <a href="javascript:void(0);">{{ t(menu.useI18n) }}</a>
+              <a href="javascript:void(0);">{{ t(menu.useI18n) !== menu.useI18n ? t(menu.useI18n) : menu.title }}</a>
               <template #content>
                 <lay-dropdown-menu>
                   <lay-dropdown-menu-item
@@ -30,7 +30,7 @@
                       :key="item.id"
                   >
                     <router-link :to="item.path">
-                      {{ t(item.useI18n) }}
+                      {{ t(item.useI18n) !== item.useI18n ? t(item.useI18n) : item.title }}
                     </router-link>
                   </lay-dropdown-menu-item>
                 </lay-dropdown-menu>
@@ -38,52 +38,6 @@
             </lay-dropdown>
           </li>
         </ul>
-<!--        <ul
-            class="layui-nav layui-layout-left"
-            style="margin-top: 0px; margin-bottom: 0px"
-        >
-          <li
-              class="layui-nav-item"
-              :class="{ 'layui-active': currentPath.includes('/webs/index') }"
-          >
-            <router-link to="/webs/index"> {{ t("nav.home") }}</router-link>
-          </li>
-          <li
-              class="layui-nav-item"
-              :class="{
-              'layui-active': currentPath.includes('/webs/hot_bans'),
-            }"
-          >
-            <router-link to="/webs/hot_bans">
-              {{ t("nav.hotBans") }}
-            </router-link>
-          </li>
-          <li
-              class="layui-nav-item"
-              :class="{
-              'layui-active': currentPath.includes('/life'),
-            }"
-          >
-            <lay-dropdown trigger="hover">
-              <a href="javascript:void(0);">生活</a>
-              <template #content>
-                <lay-dropdown-menu>
-                  <lay-dropdown-menu-item>关闭全部</lay-dropdown-menu-item>
-                </lay-dropdown-menu>
-              </template>
-            </lay-dropdown>
-          </li>
-          <li
-              class="layui-nav-item"
-              :class="{
-              'layui-active': currentPath.includes('/webs/resources'),
-            }"
-          >
-            <router-link to="/webs/resources">
-              {{ t("nav.resources") }}
-            </router-link>
-          </li>
-        </ul>-->
         <ul
             class="layui-nav layui-layout-right"
             style="margin-top: 0px; margin-bottom: 0px"
@@ -366,7 +320,7 @@ export default {
 
     const initPage = async function () {
       const res = await getTopMenus();
-      console.log(res);
+      // console.log(res);
       topMenuList.value = res.data;
     };
 

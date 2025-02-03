@@ -24,10 +24,10 @@
     "path": "/webs/life",
     "children": [
       {
-        "id": 301,
-        "title": "热门",
-        "useI18n": "nav.life.hot",
-        "path": "/webs/life/a"
+        "id": 401,
+        "title": "看新闻",
+        "useI18n": "nav.life.news",
+        "path": "/webs/hot_bans"
       },
       {
         "id": 302,
