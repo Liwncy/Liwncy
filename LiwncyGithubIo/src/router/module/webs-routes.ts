@@ -22,9 +22,14 @@ export default [
                 meta: {title: "书签"},
             },
             {
+                path: "/webs/notes",
+                component: () => import('@/views/webs/notes/index.vue'),
+                meta: {title: "随记"},
+            },
+            {
                 path: "/webs/better_read",
                 component: () => import('@/views/webs/betterRead/index.vue'),
-                meta: {title: "随记"},
+                meta: {title: "好读"},
             },
             {
                 path: "/webs/hot_bans",
