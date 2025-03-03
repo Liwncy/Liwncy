@@ -18,7 +18,10 @@
             @change="change"
             @sortChange="sortChange">
           <template #title="{ row }">
-            <router-link to="/zh-CN/index"> {{ row.title }}</router-link>
+            <router-link :to="{ name: 'BetterRead' }" @click="setArticleInfo(dataSource,row)"> {{
+                row.title
+              }}
+            </router-link>
           </template>
           <template v-slot:toolbar>
             📑 文章列表
@@ -37,40 +40,28 @@
 <script>
 import {onMounted, nextTick, ref, watch, reactive} from 'vue';
 import {layer} from '@layui/layui-vue';
-import {getSideMenus, getWeTabSidMenus} from "@/api/webs/bookMark/index";
+import {useArticleStore} from '@/store/article'
 import axios from "axios";
 import testDev from "../../../../../data/webs/betterRead/index.json"
 
 export default {
   components: {LayBody},
   setup() {
-
+    const articleStore = useArticleStore();
     const loading = ref(false);
     const selectedKeys = ref([]);
     const page = reactive({current: 1, limit: 10, total: 100});
     const columns = ref(
         [
           {title: "序号", width: "55px", type: "number", fixed: "left"},
-          {title: "📑", width: "80px", key: "title", customSlot:"title"},
+          {title: "📑", width: "80px", key: "title", customSlot: "title"},
           {title: "作者", width: "80px", key: "author",},
           // {title: "📑", width: "80px", key: "content"},
           {title: "🌟", width: "80px", key: "tags"},
           {title: "🐛", width: "80px", key: "source"},
           {title: "📅", width: "80px", key: "date"},
-      // { title:"链接地址", width: "80px", key:"linksUrl" },
-
-      // { title:"编号", width: "80px", key:"id", fixed: "left", sort: "desc" },
-      // { title:"标题", width: "80px", key:"title", sort: "desc" },
-      // { title:"状态", width: "180px", key:"status", customSlot: "status"},
-      // { title:"📅", width: "120px", key:"email" },
-      // { title:"📑", width: "80px", key:"sex" },
-      // { title:"年龄", width: "80px", key:"age", totalRow: true},
-      // { title:"城市", width: "120px", key:"city" },
-      // { title:"签名", width: "260px", key:"remark" },
-      // { title:"隐藏", width: "260px", key:"hide", hide: true, totalRow: "自定义" },
-      // { title:"时间", width: "120px", key:"joinTime"},
-      // { title:"操作", width: "150px", customSlot:"operator", key:"operator", fixed: "right", ignoreExport: true }
-    ]);
+          // { title:"链接地址", width: "80px", key:"linksUrl" },
+        ]);
 
     const change = (page) => {
       loading.value = true;
@@ -97,6 +88,10 @@ export default {
       return response;
     }
 
+    const setArticleInfo = (dataList, curData) => {
+      articleStore.loadArticleInfo(dataList, curData)
+    }
+
 
     const initPage = async function () {
       // dataSource.value = await getWeTabSidMenus();
@@ -114,7 +109,8 @@ export default {
       dataShow,
       selectedKeys,
       page,
-      change
+      change,
+      setArticleInfo
     }
   }
 }

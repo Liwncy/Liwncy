@@ -7,7 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    LayAffix: typeof import('@layui/layui-vue')['LayAffix']
     LayAnchor: typeof import('./src/components/LayAnchor.vue')['default']
     LayAvatar: typeof import('@layui/layui-vue')['LayAvatar']
     LayAvatarList: typeof import('@layui/layui-vue')['LayAvatarList']
@@ -79,6 +78,7 @@ declare module 'vue' {
     LayTree: typeof import('@layui/layui-vue')['LayTree']
     LayTreeSelect: typeof import('@layui/layui-vue')['LayTreeSelect']
     LayUpload: typeof import('@layui/layui-vue')['LayUpload']
+    MarkdownRenderer: typeof import('./src/components/MarkdownRenderer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

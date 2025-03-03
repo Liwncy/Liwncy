@@ -2,7 +2,7 @@ import prism from "prismjs";
 import loadLanguages from "prismjs/components/index";
 import escapeHtml from "escape-html";
 
-loadLanguages(["markup", "css", "javascript"]);
+// loadLanguages(["markup", "css", "javascript"]);
 
 function wrap(code: string, lang: string): string {
   if (lang === "text") {

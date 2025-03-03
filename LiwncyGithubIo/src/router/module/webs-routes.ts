@@ -1,7 +1,7 @@
 import WebsBasicLayout from '@/layouts/webs/BasicLayout.vue';
 import Resources from "@/views/webs/resources/index.vue";
 import Index from "@/views/webs/index.vue";
-import BasicLayout from "@/layouts/admin/BasicLayout.vue";
+import BetterRead from "@/views/webs/betterRead/index.vue";
 
 // @ts-ignore
 export default [
@@ -27,9 +27,19 @@ export default [
                 meta: {title: "随记"},
             },
             {
-                path: "/webs/better_read",
-                component: () => import('@/views/webs/betterRead/index.vue'),
-                meta: {title: "好读"},
+                path: '/webs/better_read',
+                name: 'BetterRead',
+                component: BetterRead,
+                redirect: "/webs/better_read/detail",
+                meta: { title: "好读" },
+                children: [
+                    {
+                        path: "/webs/better_read/detail",
+                        component: () =>
+                            import("@/views/webs/betterRead/index.md"),
+                        meta: { title: "文章" },
+                    }
+                ]
             },
             {
                 path: "/webs/hot_bans",

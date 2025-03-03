@@ -2,5 +2,4 @@
 export {}
 declare global {
   const LayBody: typeof import('@layui/layui-vue')['LayBody']
-  const layer: typeof import('@layui/layer-vue')['layer']
 }
