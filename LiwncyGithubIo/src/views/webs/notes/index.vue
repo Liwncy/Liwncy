@@ -42,7 +42,9 @@ import {onMounted, nextTick, ref, watch, reactive} from 'vue';
 import {layer} from '@layui/layui-vue';
 import {useArticleStore} from '@/store/article'
 import axios from "axios";
+import {encryptBase64} from "@/utils/crypto";
 import testDev from "../../../../../data/webs/betterRead/index.json"
+import CryptoJS from "crypto-js";
 
 export default {
   components: {LayBody},
@@ -62,6 +64,21 @@ export default {
           {title: "📅", width: "80px", key: "date"},
           // { title:"链接地址", width: "80px", key:"linksUrl" },
         ]);
+
+    const dbapi = "/10tapi/db.php";
+
+    // 查询文章列表
+    function getArticleList() {
+      loading.value = true;
+      document.cookie = "__test=11cada376dc584ca9161fc3e2bcd95a7";
+      axios.get(dbapi+"?action=SELECT&sql="+encryptBase64(CryptoJS.enc.Utf8.parse("select * from cms_blog where 1=1"))).then(res => {
+        console.log(res.data);
+        dataSource.value = res.data;
+        loading.value = false;
+      }).catch(() => {
+        loading.value = false;
+      })
+    }
 
     const change = (page) => {
       loading.value = true;
@@ -95,9 +112,10 @@ export default {
 
     const initPage = async function () {
       // dataSource.value = await getWeTabSidMenus();
-      dataSource.value = testDev;
-      page.total = dataSource.value.length;
-      dataShow.value = loadDataSource(page.current, page.limit);
+      // dataSource.value = testDev;
+      // page.total = dataSource.value.length;
+      // dataShow.value = loadDataSource(page.current, page.limit);
+      await getArticleList();
     };
     onMounted(() => {
       initPage()

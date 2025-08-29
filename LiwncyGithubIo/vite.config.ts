@@ -36,4 +36,13 @@ export default defineConfig({
     ...plugins,
     // vue(),
   ],
+  server: {
+    proxy: {
+      "/10tapi": {
+        target: "http://liwncy.tttttttttt.top",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/10tapi/, ""),
+      },
+    },
+  },
 });
