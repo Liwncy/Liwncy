@@ -7,7 +7,7 @@ type TAxiosOption = {
     timeout: number;
     baseURL: string;
 }
-
+// https://m1.apifoxmock.com/m1/7609513-7348322-default/login
 export const globalHeaders = () => {
     return {
         // Authorization: 'Bearer ' + getToken()

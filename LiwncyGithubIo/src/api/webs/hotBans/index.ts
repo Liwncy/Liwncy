@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from '@/utils/request-github-data';
 
 //获取侧边栏菜单
 export const getSidMenus = function () {

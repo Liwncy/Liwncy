@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from '@/utils/request-github-data';
 
 //获取WeTab登录信息
 export const getWeTabLoginInfo = function () {

@@ -223,11 +223,10 @@
 </template>
 <script>
 import {onMounted, provide, ref, watch} from "vue";
-import {useRouter, useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {getTopMenus} from "@/api/webs/layout";
 import {useAppStore} from "@/store/app";
 import {useI18n} from "@layui/layui-vue";
-import menu from "@/mockjs/menus";
 import zh_CN from "@/lang/zh_CN.ts";
 import en_US from "@/lang/en_US.ts";
 
@@ -318,6 +317,7 @@ export default {
       initPage()
     })
 
+    // 获取顶部菜单
     const initPage = async function () {
       const res = await getTopMenus();
       // console.log(res);

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
@@ -15,9 +15,15 @@
     "types": ["vite/client", "@layui/layui-vue/types/components"],
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"],
+      "~/*": ["./*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","shims-vue.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["./**/*.ts","src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","shims-vue.d.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "_docs",
+    "fakeServer"
+  ]
 }

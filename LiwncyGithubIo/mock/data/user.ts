@@ -1,5 +1,5 @@
-import { Result } from "../types/result";
-import { User } from "../types/user";
+import { Result } from "../../src/types/result";
+import { User } from "../../src/types/user";
 
 let user: User = {
   'userId': '1992',

@@ -35,7 +35,7 @@ export const encryptSha256 = (str: CryptoJS.lib.WordArray) => {
  * 加密Md5
  * @returns {string}
  */
-export const encryptMd5 = (str: CryptoJS.lib.WordArray) => {
+export const encryptMd5 = (str: string) => {
     return CryptoJS.MD5(str).toString().substring(8, 24).toLowerCase();
 };
 
@@ -85,10 +85,50 @@ export const encryptWithAes = (message: string, aesKey: CryptoJS.lib.WordArray) 
  * @param aesKey
  * @returns {string}
  */
-export const decryptWithAes = (message: string, aesKey: CryptoJS.lib.WordArray) => {
+export const decryptWithAes = (message: string, aesKey: string) => {
     const decrypted = CryptoJS.AES.decrypt(message, aesKey, {
         mode: CryptoJS.mode.ECB,
         padding: CryptoJS.pad.Pkcs7
     });
     return decrypted.toString(CryptoJS.enc.Utf8);
 };
+
+// const key = CryptoJS.enc.Utf8.parse(CRYPTO_KEY)
+const key = CryptoJS.enc.Utf8.parse("kwYkDdgVXcqK03E3zioyr3ocMYmf4XYh")
+// const iv = CryptoJS.enc.Utf8.parse(CRYPTO_IV)
+const iv = CryptoJS.enc.Utf8.parse("")
+
+/**
+ * 加密字符串
+ * @param cipherText
+ * @return
+ */
+export function cryptoEncode(cipherText: string): string {
+    const message = CryptoJS.enc.Utf8.parse(cipherText)
+    const encryptedData = CryptoJS.AES.encrypt(message, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7,
+        iv,
+    }).toString()
+    return encryptedData
+}
+
+/**
+ * 解密字符串
+ * @param cipherText
+ * @return
+ */
+export function cryptoDecode(cipherText: string): string {
+    // 解密base64类型的密文
+    const encryptedHexStr = CryptoJS.enc.Base64.parse(cipherText)
+    const message = CryptoJS.enc.Base64.stringify(encryptedHexStr)
+
+    // aes解密
+    const decryptedData = CryptoJS.AES.decrypt(message, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7,
+        iv,
+    }).toString(CryptoJS.enc.Utf8)
+    return decryptedData.toString()
+}
+

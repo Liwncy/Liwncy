@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from '@/utils/request-github-data';
 import { AxiosPromise } from 'axios';
 import { ItemVO, ItemForm, ItemQuery } from '@/api/webs/notes/types';
 

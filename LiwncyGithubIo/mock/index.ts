@@ -1,6 +1,6 @@
 // @ts-ignore
 import Mock from'mockjs';
-import user from './user';
+import user from './data/user';
 
 Mock.mock(/\/user\/loginadmin/,'post',(req: any,res: any) =>{
     return user.getLogin(req,res)

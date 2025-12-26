@@ -248,9 +248,9 @@ import {provide, ref, watch} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import {useAppStore} from "../../store/app";
 import {useI18n} from "@layui/layui-vue";
-import menu from "../../mockjs/menus";
-import zh_CN from "../../lang/zh_CN.ts";
-import en_US from "../../lang/en_US.ts";
+import menu from "../../../mock/data/menus";
+import zh_CN from "@/lang/zh_CN.ts";
+import en_US from "@/lang/en_US.ts";
 // import secret from "@layui/layui-vue/package.json";
 
 export default {

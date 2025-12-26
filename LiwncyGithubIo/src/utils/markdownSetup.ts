@@ -3,17 +3,17 @@ import hljs from 'highlight.js';
 import ClipboardJS from 'clipboard';
 
 import container from "markdown-it-container";
-import snippet from "@/plugin/snippet";
-import highlight from "@/plugin/highlight";
-import preWrapper from "@/plugin/pre-wrapper";
-import demo from "@/plugin/create-demo";
-import createTable from "@/plugin/create-table";
-import createQuote from "@/plugin/create-quote";
-import createTitle from "@/plugin/create-title";
-import createDescribe from "@/plugin/create-describe";
-import createAnchor from "@/plugin/create-anchor";
-import createPreviousNext from "@/plugin/create-previous-next";
-import createContributor from "@/plugin/create-contributor";
+import snippet from "../../plugin/snippet";
+import highlight from "../../plugin/highlight";
+import preWrapper from "../../plugin/pre-wrapper";
+import demo from "../../plugin/create-demo";
+import createTable from "../../plugin/create-table";
+import createQuote from "../../plugin/create-quote";
+import createTitle from "../../plugin/create-title";
+import createDescribe from "../../plugin/create-describe";
+import createAnchor from "../../plugin/create-anchor";
+import createPreviousNext from "../../plugin/create-previous-next";
+import createContributor from "../../plugin/create-contributor";
 
 const md = new MarkdownIt({
         html: true,

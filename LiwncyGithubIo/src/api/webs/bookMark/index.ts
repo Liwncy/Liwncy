@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from '@/utils/request-github-data';
 import axios from "axios";
 import {outsideStore} from "@/store/outside";
 

@@ -3,7 +3,7 @@ import Router from './router'
 import Store from './store'
 import App from './App.vue'
 import {permission} from "./directives/permission";
-import './mockjs'
+import '../mock'
 
 import Layui from '@layui/layui-vue'
 import LayJsonSchemaForm from "@layui/json-schema-form";
