@@ -1,6 +1,6 @@
 import container from "markdown-it-container";
 import type Token from "markdown-it/lib/token";
-import menus from "../src/views/webs/utils/menus";
+import menus from "../src/views/docs/utils/menus";
 type ContainerArgs = [
   typeof container,
   string,

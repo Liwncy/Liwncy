@@ -11,7 +11,7 @@ import websRoutes from './module/webs-routes'
 import docsRoutes from './module/docs-routes'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import {useUserStore} from "../store/user";
+import {useUserStore} from "@/store/user";
 
 NProgress.configure({showSpinner: false})
 
@@ -52,7 +52,7 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
     if (to.meta.requireAuth) {
         next();
     } else if (to.matched.length == 0) {
-        if(from.fullPath.includes('/docs')){
+        if(from.fullPath.includes('/docs')||from.fullPath.includes('/zh-CN')){
             next({path: '/docs/404'})
         } else if(from.fullPath.includes('/webs')){
             next({path: '/webs/404'})

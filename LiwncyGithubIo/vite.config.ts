@@ -42,7 +42,7 @@ export default defineConfig({
     ],
     server: {
         host: "0.0.0.0",
-        port: 7000,
+        port: 5678,
         proxy: {
             "/10tapi": {
                 target: "http://liwncy.tttttttttt.top",

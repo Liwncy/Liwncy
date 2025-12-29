@@ -4,3 +4,7 @@ dist
 dist-ssr
 *.local
 .idea
+
+# 编译生成的文件
+auto-imports.d.ts
+components.d.ts

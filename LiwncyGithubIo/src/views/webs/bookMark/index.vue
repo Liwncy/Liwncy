@@ -125,7 +125,7 @@
 <script>
 import {onMounted, nextTick, ref, watch} from 'vue';
 import {getSideMenus, getWeTabSidMenus} from "@/api/webs/bookMark/index";
-import {getParents, getNode, getAllNodeFieldArr} from "@/library/treeUtil";
+import {getParents, getNode, getAllNodeFieldArr} from "@/utils/treeUtil";
 import {outsideStore} from "@/store/outside";
 import axios from "axios";
 import linksJson from "../../../../../data/webs/bookMark/links.json"

@@ -320,7 +320,6 @@ export default {
     // 获取顶部菜单
     const initPage = async function () {
       const res = await getTopMenus();
-      // console.log(res);
       topMenuList.value = res.data;
     };
 

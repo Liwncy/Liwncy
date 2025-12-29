@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {menu, permission} from "../api/module/user";
+import {menu, permission} from "@/api/module/user";
 import {getRouters, getPermission} from "@/api/menu";
 
 export const useUserStore = defineStore({

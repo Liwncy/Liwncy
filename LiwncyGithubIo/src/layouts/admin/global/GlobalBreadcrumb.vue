@@ -16,7 +16,7 @@ export default {
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { getParents } from "../../../library/treeUtil";
+import { getParents } from "../../../utils/treeUtil";
 import { useUserStore } from "../../../store/user";
 
 const userStore = useUserStore();
