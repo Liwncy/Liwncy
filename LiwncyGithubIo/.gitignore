@@ -3,3 +3,8 @@ node_modules
 dist
 dist-ssr
 *.local
+
+
+# 编译生成的文件
+auto-imports.d.ts
+components.d.ts

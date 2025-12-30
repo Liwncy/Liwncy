@@ -1,84 +1,129 @@
 [
   {
-    "id": "综合",
-    "name": "综 合",
-    "icon": "mu",
+    "id": 1000,
+    "title": "综合",
     "children": [
       {
-        "id": "开源好物",
-        "name": "开源好物",
-        "icon": "fa fa-heart",
-        "books": [
-          {
-            "id": "7630",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          },
-          {
-            "id": "7631",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          }
+        "id": 1100,
+        "title": "百度",
+        "subTitle": "baidu",
+        "data": [
+          {"id":1101,"name":"热榜","api":"/v2/baidu/hot"},
+          {"id":1102,"name":"贴吧话题榜","api":"/v2/baidu/tieba"},
+          {"id":1103,"name":"电视剧榜","api":"/v2/baidu/teleplay"}
         ]
       },
       {
-        "id": "开源好物2",
-        "name": "开源好物",
-        "icon": "fa fa-heart",
-        "books": [
-          {
-            "id": "7632",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          },
-          {
-            "id": "7633",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          }
+        "id": 1200,
+        "title": "抖音",
+        "subTitle": "douyin",
+        "data": [
+          {"id":1201,"name":"热搜","api":"/v2/douyin"}
         ]
       },
       {
-        "id": "开源好物3",
-        "name": "开源好物",
-        "icon": "fa fa-heart",
-        "books": [
-          {
-            "id": "7634",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          }
+        "id": 1300,
+        "title": "小红书",
+        "subTitle": "rednote",
+        "data": [
+          {"id":1301,"name":"热点","api":"/v2/rednote"}
+        ]
+      },
+      {
+        "id": 1400,
+        "title": "哔哩哔哩",
+        "subTitle": "bili",
+        "data": [
+          {"id":1301,"name":"热搜","api":"/v2/bili"}
+        ]
+      },
+      {
+        "id": 1500,
+        "title": "夸克",
+        "subTitle": "quark",
+        "data": [
+          {"id":1301,"name":"热点","api":"/v2/quark"}
+        ]
+      },
+      {
+        "id": 1600,
+        "title": "知乎",
+        "subTitle": "zhihu",
+        "data": [
+          {"id":1601,"name":"话题","api":"/v2/zhihu"}
+        ]
+      },
+
+       {
+         "id": 1900,
+          "title": "懂车帝",
+          "subTitle": "dongchedi",
+          "data": [
+            {"id":1901,"name":"热搜","api":"/v2/dongchedi"}
+          ]
+       }
+    ]
+  },
+  {
+    "id": 2000,
+    "title": "新闻",
+    "children": [
+      {
+        "id": 1700,
+        "title": "微博",
+        "subTitle": "weibo",
+        "data": [
+          {"id":1701,"name":"微博","api":"/v2/weibo"}
+        ]
+      },
+      {
+        "id": 1800,
+        "title": "头条",
+        "subTitle": "toutiao",
+        "data": [
+          {"id":1801,"name":"今日热榜","api":"/v2/toutiao"}
+        ]
+      },
+      {
+        "id": 2100,
+        "title": "Hacker News",
+        "subTitle": "hacker",
+        "data": [
+          {"id":2101,"name":"热榜","api":"/v2/hacker-news/top"},
+          {"id":2102,"name":"最新","api":"/v2/hacker-news/new"},
+          {"id":2103,"name":"更好","api":"/v2/hacker-news/best"}
         ]
       }
     ]
   },
   {
-    "id": "生活",
-    "name": "生 活",
-    "icon": "mu",
+    "id": 3000,
+    "title": "影视",
     "children": [
       {
-        "id": "我的购物",
-        "name": "我的购物",
-        "icon": "fa fa-heart",
-        "books": [
-          {
-            "id": "京东商城",
-            "title": "京东商城",
-            "links": "https://www.infinitynewtab.com/jd.pro.html ",
-            "description": "专业的综合网上购物商城,销售家电、数码通讯、电脑、家居百货、服装服饰、母婴、图书、食品等数万个品牌优质商品.便捷、诚信的服务，为您提供愉悦的网上商城购物体验! ",
-            "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/cee009549b352def723ba09d6da4b742.png"
-          }
+        "id": 3100,
+        "title": "猫眼",
+        "subTitle": "maoyan",
+        "data": [
+          {"id":3101,"name":"全球票房总榜","api":"/v2/maoyan/all/movie"},
+          {"id":3101,"name":"电影实时票房","api":"/v2/maoyan/realtime/movie"},
+          {"id":3101,"name":"电视收视排行","api":"/v2/maoyan/realtime/tv"},
+          {"id":3101,"name":"网剧实时热度","api":"/v2/maoyan/realtime/web"}
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4000,
+    "title": "音乐",
+    "children":  [
+      {
+        "id": 4100,
+        "title": "网易云",
+        "subTitle": "maoyan",
+        "data": [
+          {"id":4101,"name":"榜单列表","api":"/v2/ncm-rank/list"},
+          {"id":4102,"name":"榜单详情","api":"/v2/ncm-rank/{id}"}
         ]
       }
     ]

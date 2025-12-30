@@ -4,13 +4,13 @@
       <lay-container fluid="true" style="padding: 0;">
         <lay-row space="10" class="sticky-element" style="top:1px;background:#f0f1f4;">
           <lay-col :md="24">
-            <lay-select v-model="dataRource" @change="dataRourceChange" placeholder="切换源" style="width: 200px">
-              <lay-select-option value="0" label="默认"></lay-select-option>
-              <lay-select-option value="1" label="我的WeTab"></lay-select-option>
-              <lay-select-option value="2" label="喜欢"></lay-select-option>
-              <lay-select-option value="3" label="测试(dev)"></lay-select-option>
-              <!--              <lay-select-option value="4" label="link"></lay-select-option>-->
-              <!--              <lay-select-option value="5" label="linkin"></lay-select-option>-->
+            <lay-select v-model="dataSource" @change="dataSourceChange" placeholder="切换源" style="width: 200px">
+              <lay-select-option value="0" label="我的书签"></lay-select-option>
+              <lay-select-option value="1" label="喜欢书签"></lay-select-option>
+              <lay-select-option value="2" label="随机生成"></lay-select-option>
+              <!-- <lay-select-option value="3" label="测试(dev)"></lay-select-option> -->
+              <!-- <lay-select-option value="4" label="link"></lay-select-option> -->
+              <!-- <lay-select-option value="5" label="linkin"></lay-select-option> -->
             </lay-select>
           </lay-col>
         </lay-row>
@@ -122,117 +122,60 @@
   </lay-layout>
 </template>
 
-<script>
+<script setup>
 import {onMounted, nextTick, ref, watch} from 'vue';
-import {getSideMenus, getWeTabSidMenus} from "@/api/webs/bookMark/index";
+import {getBookMarks, getWeTabSidMenus} from "@/api/webs/bookMark";
 import {getParents, getNode, getAllNodeFieldArr} from "@/utils/treeUtil";
-import {outsideStore} from "@/store/outside";
-import axios from "axios";
-import linksJson from "../../../../../data/webs/bookMark/links.json"
-import linksInJson from "../../../../../data/webs/bookMark/linksin.json"
-import testDev from "../../../../../data/webs/bookMark/testdev.json"
 
-export default {
-  components: {LayBody},
-  setup() {
-    const openKeys = ref(["7"])
-    const selectedKey = ref("all")
-    const filterBookText = ref("");
-    const dataRource = ref("0");
-    const menuData = ref([]);
-    const bookData = ref([]);
-    const bookShowData = ref([]);
-    const checkedBook = ref("");
-    const images = ref("https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/uniapp_logo.png");
-    const target = ref()
-    nextTick(() => {
-      target.value = document.querySelector(".layui-body");
-    })
 
-    watch(filterBookText, (val) => {
-      bookShowData.value = bookData.value.filter(b => b.title.includes(val));
-    });
+const selectedKey = ref("all")
+const filterBookText = ref("");
+const dataSource = ref("0");
+const menuData = ref([]);
+const bookData = ref([]);
+const bookShowData = ref([]);
 
-    const dataRourceChange = async function (val) {
-      console.log("dataRourceChange", val)
-      if (val === "0") {
-        const res = await getSideMenus();
-        menuData.value = res.data;
-      }
-      if (val === "1") {
-        // weTab
-        const res = await getWeTabSidMenus();
-        menuData.value = res.data;
-      }
-      if (val === "2") {
-        const res = await getSideMenus(["like"]);
-        menuData.value = res.data;
-      }
-      if (val === "3") {
-        menuData.value = testDev;
-      }
-      if (val === "4") {
-        menuData.value = [
-          {
-            "id": "综合",
-            "name": "综 合",
-            "icon": "mu",
-            "books": linksJson
-          }
-        ];
-      }
-      if (val === "5") {
-        menuData.value = [
-          {
-            "id": "综合",
-            "name": "综 合",
-            "icon": "mu",
-            "books": linksInJson
-          }
-        ];
-      }
-      handleClick();
-    }
+watch(filterBookText, (val) => {
+  bookShowData.value = bookData.value.filter(b => b.title.includes(val));
+});
 
-    // 选中菜单时触发
-    const handleClick = (node) => {
-      // console.log("handleClick", node);
-      if (node === undefined) {
-        node = {id: "all", name: "全部", children: menuData.value}
-      }
-      console.log("handleClick", node);
-      selectedKey.value = node.id;
-      bookData.value = node.books || getAllNodeFieldArr(node.children, [], "books").flat();
-      bookShowData.value = bookData.value;
-    };
-
-    const initPage = async function () {
-      if (!outsideStore().weTabInfo) {
-        outsideStore().loadWeTabInfo();
-      }
-      const res = await getSideMenus();
-      menuData.value = res.data;
-      handleClick();
-    };
-    onMounted(() => {
-      initPage()
-    })
-
-    return {
-      selectedKey,
-      dataRource,
-      dataRourceChange,
-      menuData,
-      target,
-      bookData,
-      bookShowData,
-      filterBookText,
-      checkedBook,
-      images,
-      handleClick
-    }
-  }
+/**
+ * 获取书签
+ * @param val
+ * @returns {Promise<void>}
+ */
+const dataSourceChange = async function (val) {
+  console.log("dataSourceChange", val)
+  const res = await getBookMarks({"dataSource": dataSource.value});
+  menuData.value = res.data;
+  handleClick();
 }
+
+// 选中菜单时触发
+const handleClick = (node) => {
+  // console.log("handleClick", node);
+  if (node === undefined) {
+    node = {id: "all", name: "全部", children: menuData.value}
+  }
+  // console.log("handleClick", node);
+  selectedKey.value = node.id;
+  bookData.value = node.books || getAllNodeFieldArr(node.children, [], "books").flat();
+  bookShowData.value = bookData.value;
+};
+
+/**
+ * 初始化页面
+ * @returns {Promise<void>}
+ */
+const initPage = async function () {
+  // const res = await getWeTabSidMenus();
+  // console.log("initPage", res);
+  await dataSourceChange();
+};
+
+onMounted(() => {
+  initPage()
+})
 </script>
 <style>
 </style>

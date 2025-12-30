@@ -1,6 +1,7 @@
-import request from '@/utils/request-github-data';
+import {request} from '@/utils/request';
+import type {ApiResult} from "@/types/global";
 
-//获取侧边栏菜单
-export const getSidMenus = function () {
-    return request.get('webs/hotBans/sideMenu')
+// 获取侧边栏菜单
+export const getSideMenus = function (param: any = {}) {
+    return request.get<ApiResult<any[]>>('/webs/hotBans/getSideMenus', {params: param})
 }

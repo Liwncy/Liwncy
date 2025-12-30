@@ -153,8 +153,10 @@ class BaseRequest {
         this.axiosInstance.interceptors.request.use(
             async (config) => {
                 const requestConfig = config as RequestConfig
+                // 添加客户端Id
+                if (config.headers) config.headers['clientid'] = import.meta.env.VITE_CLIENT_ID
                 // 添加token到header
-                // this.handleToken(requestConfig)
+                this.handleToken(requestConfig)
 
                 // 处理重复提交
                 await this.handleRepeatSubmit(requestConfig)

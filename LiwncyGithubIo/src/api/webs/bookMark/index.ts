@@ -1,12 +1,11 @@
-import request from '@/utils/request-github-data';
+import {request} from '@/utils/request';
 import axios from "axios";
 import {outsideStore} from "@/store/outside";
+import type {ApiResult} from "@/types/global";
 
-//获取侧边栏菜单
-export const getSideMenus = function (query: string[]) {
-    return request.get('webs/bookMark/sideMenu', {
-        suffixs: query
-    })
+//获取书签
+export const getBookMarks = function (param: any = {}) {
+    return request.get<ApiResult<any[]>>('/webs/bookMark/getBookMarks', {params: param})
 }
 
 //获取WeTab侧边栏菜单

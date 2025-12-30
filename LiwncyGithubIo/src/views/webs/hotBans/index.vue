@@ -16,7 +16,7 @@
                   v-for="children in menu.children"
                   :key="children"
                   :class="[
-                  currentPath === children.sourceId
+                  currentPath === children.id
                     ? 'layui-menu-item-checked2'
                     : '',
                 ]"
@@ -60,7 +60,7 @@
               :key="index"
               :id="item.id"
               :title="item.title"
-              :sourceId="item.sourceId"
+              :sourceId="item.id"
           >
             <lay-container :fluid="true" style="padding: 10px;/*height: 100%*/">
               <!--              <lay-card>-->
@@ -152,160 +152,119 @@
     <lay-backtop target="#bookMarkContent" :showHeight="100" :bottom="30" position="absolute"></lay-backtop>
   </lay-layout>
 </template>
-<script>
+<script setup>
 import {ref, watch, computed, onMounted, nextTick} from "vue";
 import {layer} from "@layui/layui-vue";
-import {generateRandomString, encryptSha256} from '@/utils/crypto';
-import {getSidMenus} from "@/api/webs/hotBans/index";
-import axios from "axios";
+import {getSideMenus} from "@/api/webs/hotBans";
+import {requestGet60sApi} from "@/api/common/external/60sApi";
 
-export default {
-  setup() {
-    const currentPath = ref("zhihu");
-    const tabTitleList = ref([]);
-    const currentTab = ref(1);
 
-    const loadingA = ref(false);
+const currentPath = ref("zhihu");
+const tabTitleList = ref([]);
+const currentTab = ref(1);
 
-    const isMenuDisplay = ref(false);
-    const menuDisplay = computed(() => (isMenuDisplay.value ? "200px" : "0px"));
+const loadingA = ref(false);
 
-    const target = ref()
-    nextTick(() => {
-      target.value = document.querySelector(".layui-body");
-    })
+const isMenuDisplay = ref(false);
+const menuDisplay = computed(() => (isMenuDisplay.value ? "200px" : "0px"));
 
-    // watch(
-    //     () => route.path,
-    //     (val) => {
-    //       currentPath.value = val;
-    //     },
-    //     {
-    //       immediate: true,
-    //       deep: true,
-    //     }
-    // );
+const target = ref()
+nextTick(() => {
+  target.value = document.querySelector(".layui-body");
+})
 
-    const menus = ref([]);
-    // 获取侧边栏
-    const initPage = async function () {
-      const res = await getSidMenus();
-      console.log(res);
-      menus.value = res.data;
-      handleClick(menus.value[0].children[0]);
-    };
-
-    const selected = ref(1);
-
-    const handleMenuOpen = function (val) {
-      isMenuDisplay.value = val;
-    };
-
-    const handleClick = function (menu) {
-      selected.value = menu.id;
-      currentPath.value = menu.sourceId;
-      currentTab.value = 1;
-      tabTitleList.value = menu.tabNames.map((item, index) => {
-        return {
-          id: index + 1,
-          title: item,
-          sourceId: menu.sourceId,
-          tabId: index + 1,
-        };
-      });
-      page.value = {total: 100, limit: 10, current: 1};
-      getArticleList();
-      handleMenuOpen(false);
-    };
-
-    function handleTabChange() {
-      page.value = {total: 100, limit: 10, current: 1};
-      getArticleList();
-    }
-
-    const api = "https://newsapi.redian.me/api/articles";
-    const imgUrlPrefix = "https://img-1307712705.cos.ap-beijing.myqcloud.com/";
-    const page = ref({total: 100, limit: 10, current: 1})
-
-    const articleList = ref([]);
-
-    function getArticleList(t) {
-      loadingA.value = true;
-      console.log(menus.value);
-      let e = Date.now().toString()
-          , r = generateRandomString(20)
-          , i = encryptSha256("".concat(e).concat(r).concat("0eC7PICw8CdUNodJ"));
-      axios.get(api, {
-        headers: {
-          "x-timestamp": e,
-          "x-api-key": r,
-          "x-signature": i,
-          "Content-Type": "application/json"
-        },
-        params: {
-          source_id: currentPath.value,
-          tab_name: tabTitleList.value.find(item => item.tabId === currentTab.value)["title"],
-          page: page.value.current,
-          pagesize: page.value.limit
-        }
-      }).then(res => {
-        loadingA.value = false;
-        if (t === 1) {
-          articleList.value = articleList.value.concat(res.data.data.list);
-        } else {
-          articleList.value = res.data.data.list
-        }
-        page.value.total = res.data.data.pagination.total
-      }).catch(() => {
-        loadingA.value = false;
-      })
-    }
-
-    function toGetMore() {
-      // const page = ref({total: 100, limit: 10, current: 1})
-      if (page.value.total <= page.value.current * page.value.limit) {
-        layer.msg("没有更多了", {time: 1000})
-        return;
-      }
-      page.value.current++;
-      getArticleList(1);
-    }
-
-    const searchTitle = ref('')
-
-    function toSearch() {
-      layer.load(2, {time: 3000})
-    }
-
-    function toReset() {
-      searchTitle.value = ''
-    }
-    onMounted(() => {
-      initPage()
-    })
-
-    return {
-      menus,
-      selected,
-      currentPath,
-      loadingA,
-      target,
-      imgUrlPrefix,
-      handleClick,
-      handleMenuOpen,
-      handleTabChange,
-      menuDisplay,
-      currentTab,
-      tabTitleList,
-      articleList,
-      page,
-      searchTitle,
-      toGetMore,
-      toSearch,
-      toReset
-    };
-  },
+const menus = ref([]);
+const currentMenu = ref({});
+// 获取侧边栏
+const initPage = async function () {
+  const res = await getSideMenus();
+  console.log(res);
+  menus.value = res.data;
+  handleClick(menus.value[0].children[0]);
 };
+
+const selected = ref(1);
+
+const handleMenuOpen = function (val) {
+  isMenuDisplay.value = val;
+};
+
+const handleClick = function (menu) {
+  console.log("menu0", menu);
+  currentMenu.value = menu;
+  selected.value = menu.id;
+  currentPath.value = menu.id;
+  currentTab.value = menu.data[0].id;
+  tabTitleList.value = menu.data.map((item, index) => {
+    return {
+      id: item.id,
+      title: item.name
+    };
+  });
+  page.value = {total: 100, limit: 10, current: 1};
+  getArticleList();
+  handleMenuOpen(false);
+};
+
+function handleTabChange() {
+  page.value = {total: 100, limit: 10, current: 1};
+  getArticleList();
+}
+
+const page = ref({total: 100, limit: 10, current: 1})
+
+const articleList = ref([]);
+
+function getArticleList(t) {
+  loadingA.value = true;
+  // console.log("menu", currentMenu.value);
+  const api = currentMenu.value.data.find(cm => cm.id === currentTab.value).api
+  // console.log("api", api)
+  requestGet60sApi(api, {}).then(res => {
+    loadingA.value = false;
+    console.log(res.data);
+    cleaningArticleListData(res.data)
+    if (t === 1) {
+      articleList.value = articleList.value.concat(res.data);
+    } else {
+      articleList.value = res.data
+    }
+    page.value.total = res.data.length
+  }).catch(() => {
+    loadingA.value = false;
+  })
+}
+
+function cleaningArticleListData(data) {
+  data.forEach(item => {
+    item.title_url = item.url
+  })
+}
+
+function toGetMore() {
+  // const page = ref({total: 100, limit: 10, current: 1})
+  if (page.value.total <= page.value.current * page.value.limit) {
+    layer.msg("没有更多了", {time: 1000})
+    return;
+  }
+  page.value.current++;
+  getArticleList(1);
+}
+
+const searchTitle = ref('')
+
+function toSearch() {
+  layer.load(2, {time: 3000})
+}
+
+function toReset() {
+  searchTitle.value = ''
+}
+
+onMounted(() => {
+  initPage()
+})
+
 </script>
 
 <style>
