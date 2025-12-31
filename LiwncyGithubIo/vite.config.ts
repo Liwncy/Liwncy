@@ -49,6 +49,16 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/10tapi/, ""),
             },
+            '/api-yujn': {
+                // 2. 目标接口地址（去掉具体接口路径，保留域名+根路径）
+                target: 'https://api.yujn.cn',
+                // 3. 开启跨域转换（关键配置）
+                changeOrigin: true,
+                // 4. 路径重写（将 /api-proxy 替换为空，拼接真实接口路径）
+                rewrite: (path) => path.replace(/^\/api-yujn/, ''),
+                // 可选：忽略HTTPS证书错误（若目标接口是自签名证书）
+                // secure: false
+            }
         },
     },
 });

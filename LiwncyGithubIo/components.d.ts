@@ -79,6 +79,7 @@ declare module 'vue' {
     LayTreeSelect: typeof import('@layui/layui-vue')['LayTreeSelect']
     LayUpload: typeof import('@layui/layui-vue')['LayUpload']
     MarkdownRenderer: typeof import('./src/components/MarkdownRenderer.vue')['default']
+    MenuSidebar: typeof import('./src/components/MenuSidebar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

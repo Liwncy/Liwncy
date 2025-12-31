@@ -1,56 +1,15 @@
 <template>
   <lay-layout>
-    <lay-side class="layui-menu-ref-2">
-      <lay-scroll style="overflow-y: scroll">
-        <ul class="layui-menu layui-menu-lg layui-menu-docs">
-          <li
-              v-for="menu in menus"
-              :key="menu"
-              class="layui-menu-item-group"
-              lay-options="{type: 'group', isAllowSpread: true}"
-          >
-            <div class="layui-menu-body-title">{{ menu.title }}</div>
-            <hr/>
-            <ul>
-              <li
-                  v-for="children in menu.children"
-                  :key="children"
-                  :class="[
-                  currentPath === children.id
-                    ? 'layui-menu-item-checked2'
-                    : '',
-                ]"
-                  @click="handleClick(children)"
-              >
-                <div class="layui-menu-body-title">
-                  <a href="javascript:void(0)">
-                    <span>{{ children.title }}</span>
-                    <span class="layui-font-12 layui-font-gray">
-                      {{ children.subTitle }}
-                    </span>
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </lay-scroll>
-    </lay-side>
-    <lay-body id="bookMarkContent">
-      <div
-          class="layui-menu-toggle"
-          style="
-          width: auto !important;
-          height: auto !important;
-          padding: 0 !important;
-          padding-left: 8px;
-        "
-          @click="handleMenuOpen(true)"
-      >
-        <lay-icon
-            type="layui-icon-menu-fill"
-            style="font-size: 32px"
-        ></lay-icon>
+    <!-- 左侧菜单栏 -->
+    <MenuSidebar
+        :menus="menus"
+        :currentPath="currentPath"
+        @childClick="handleMenuChildClick"
+    />
+    <lay-body id="content">
+      <div class="layui-menu-toggle" style="width: auto !important;height: auto !important;padding: 0 !important;"
+           @click="handleMenuOpen(true)">
+        <lay-icon type="layui-icon-menu-fill" style="font-size: 32px"></lay-icon>
       </div>
       <div style="padding: 20px" @click="handleMenuOpen(false)">
         <lay-tab type="brief" v-model="currentTab" @change="handleTabChange" tabPosition="top"
@@ -63,16 +22,6 @@
               :sourceId="item.id"
           >
             <lay-container :fluid="true" style="padding: 10px;/*height: 100%*/">
-              <!--              <lay-card>-->
-              <!--                <div class="search-div">-->
-              <!--                  <lay-input style="width: 200px" v-model="searchTitle"></lay-input>-->
-              <!--                  <lay-button type="primary" style="margin-left: 10px" @click="toSearch"-->
-              <!--                  >查询-->
-              <!--                  </lay-button-->
-              <!--                  >-->
-              <!--                  <lay-button @click="toReset">重置</lay-button>-->
-              <!--                </div>-->
-              <!--              </lay-card>-->
               <lay-loading :type="0" :loading="loadingA">
                 <lay-card style="margin-top: 10px; border-radius: 5px">
                   <div v-for="(item, index) in articleList" :key="index">
@@ -149,16 +98,19 @@
         </div>
       </lay-footer>
     </lay-body>
-    <lay-backtop target="#bookMarkContent" :showHeight="100" :bottom="30" position="absolute"></lay-backtop>
+    <lay-backtop target="#content" :showHeight="100" :bottom="30" position="absolute"></lay-backtop>
   </lay-layout>
 </template>
 <script setup>
 import {ref, watch, computed, onMounted, nextTick} from "vue";
 import {layer} from "@layui/layui-vue";
+import MenuSidebar from '@/components/MenuSidebar.vue';
 import {getSideMenus} from "@/api/webs/hotBans";
 import {requestGet60sApi} from "@/api/common/external/60sApi";
+import {getPaginationData} from "@/utils/paginationUtil";
 
 
+const menus = ref([]);
 const currentPath = ref("zhihu");
 const tabTitleList = ref([]);
 const currentTab = ref(1);
@@ -168,28 +120,11 @@ const loadingA = ref(false);
 const isMenuDisplay = ref(false);
 const menuDisplay = computed(() => (isMenuDisplay.value ? "200px" : "0px"));
 
-const target = ref()
-nextTick(() => {
-  target.value = document.querySelector(".layui-body");
-})
-
-const menus = ref([]);
-const currentMenu = ref({});
-// 获取侧边栏
-const initPage = async function () {
-  const res = await getSideMenus();
-  console.log(res);
-  menus.value = res.data;
-  handleClick(menus.value[0].children[0]);
-};
-
-const selected = ref(1);
-
-const handleMenuOpen = function (val) {
-  isMenuDisplay.value = val;
-};
-
-const handleClick = function (menu) {
+/**
+ * 菜单子项点击
+ * @param menu
+ */
+const handleMenuChildClick = function (menu) {
   console.log("menu0", menu);
   currentMenu.value = menu;
   selected.value = menu.id;
@@ -206,6 +141,23 @@ const handleClick = function (menu) {
   handleMenuOpen(false);
 };
 
+const currentMenu = ref({});
+// 获取侧边栏
+const initPage = async function () {
+  const res = await getSideMenus();
+  console.log(res);
+  menus.value = res.data;
+  handleMenuChildClick(menus.value[0].children[0]);
+};
+
+const selected = ref(1);
+
+const handleMenuOpen = function (val) {
+  isMenuDisplay.value = val;
+};
+
+
+
 function handleTabChange() {
   page.value = {total: 100, limit: 10, current: 1};
   getArticleList();
@@ -214,6 +166,7 @@ function handleTabChange() {
 const page = ref({total: 100, limit: 10, current: 1})
 
 const articleList = ref([]);
+const allArticleList = ref([]);
 
 function getArticleList(t) {
   loadingA.value = true;
@@ -223,32 +176,66 @@ function getArticleList(t) {
   requestGet60sApi(api, {}).then(res => {
     loadingA.value = false;
     console.log(res.data);
-    cleaningArticleListData(res.data)
-    if (t === 1) {
-      articleList.value = articleList.value.concat(res.data);
-    } else {
-      articleList.value = res.data
-    }
-    page.value.total = res.data.length
+    // 清洗数据
+    allArticleList.value = cleaningArticleListData(res.data)
+    // allArticleList.value = listData
+    let pageData = getPaginationData(allArticleList.value, page.value.current, page.value.limit)
+    articleList.value = pageData.currentPageList
+    page.value.total = pageData.total;
   }).catch(() => {
     loadingA.value = false;
   })
 }
 
+/**
+ * 清理数据
+ * @param data
+ */
 function cleaningArticleListData(data) {
-  data.forEach(item => {
-    item.title_url = item.url
-  })
+  let listData = [];
+
+  // 判断data是否为对象且包含list属性
+  if (data && typeof data === 'object' && data.list !== undefined) {
+    // 如果data是对象且包含list，取list的数据
+    listData = data.list;
+  } else if (Array.isArray(data)) {
+    // 如果data直接是数组，直接取data的数据
+    listData = data;
+  } else {
+    // 其他情况返回空数组
+    console.warn('数据格式不符合预期:', data);
+    return [];
+  }
+
+  // 遍历数组，统一修改字段
+  return listData.map(item => {
+    return {
+      // 将返回数据中的字段映射到页面字段
+      title_url: item.url || item.title_url || item.link,  // 如果原数据有url则使用url，否则使用title_url
+      title: item.title || item.name || item.movie_name || item.programme_name || item.series_name,        // 标题字段
+      description: item.description || item.desc || item.summary || item.detail || item.channel_name, // 描述字段
+      author_info: item.author || item.author_info, // 作者信息
+      article_time: item.time || item.article_time || item.active_time || item.published || item.created || item.release_year || item.release_info, // 发布时间
+      hot_value: item.hot_value || item.hot_value_desc || item.score || item.hot || item.box_office_desc, // 热度值
+      ...item // 保留其他原始字段
+    };
+  });
 }
 
-function toGetMore() {
+async function toGetMore() {
   // const page = ref({total: 100, limit: 10, current: 1})
   if (page.value.total <= page.value.current * page.value.limit) {
     layer.msg("没有更多了", {time: 1000})
     return;
   }
+  loadingA.value = true;
   page.value.current++;
-  getArticleList(1);
+  // 太快了，加点延时
+  await new Promise(resolve => setTimeout(resolve, 250));
+  let pageData = getPaginationData(allArticleList.value, page.value.current, page.value.limit)
+  articleList.value = articleList.value.concat(pageData.currentPageList);
+  page.value.total = pageData.total;
+  loadingA.value = false;
 }
 
 const searchTitle = ref('')

@@ -27,6 +27,11 @@ export default [
                 meta: {title: "随记"},
             },
             {
+                path: "/webs/liteVideo",
+                component: () => import('@/views/webs/liteVideo/index.vue'),
+                meta: {title: "一点儿视频"},
+            },
+            {
                 path: '/webs/better_read',
                 name: 'BetterRead',
                 component: BetterRead,

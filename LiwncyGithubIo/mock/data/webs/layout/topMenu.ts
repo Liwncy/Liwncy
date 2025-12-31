@@ -8,9 +8,9 @@
 
 /** web顶部菜单树 */
 export const topMenuTree = {
-    code: 200,
-    message: '操作成功',
-    data: [
+    "code": 200,
+    "message": '操作成功',
+    "data": [
         {
             "id": 1,
             "title": "首页",
@@ -62,8 +62,8 @@ export const topMenuTree = {
             "path": "/webs/resources"
         }
     ],
-    error: null,
-    success: true,
+    "error": null,
+    "success": true,
 }
 
 /** 菜单树 不包含按钮 */

@@ -1,10 +1,10 @@
 import { layer } from "@layui/layui-vue";
 import { computed, ComputedRef, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { diff } from "../../../utils/arrayUtil";
-import { getParents, getNode } from "../../../utils/treeUtil";
-import { useAppStore } from "../../../store/app";
-import { useUserStore } from "../../../store/user";
+import { diff } from "@/utils/arrayUtil";
+import { getParents, getNode } from "@/utils/treeUtil";
+import { useAppStore } from "@/store/app";
+import { useUserStore } from "@/store/user";
 
 export function useMenu() {
 

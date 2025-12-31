@@ -288,6 +288,24 @@ export const requestB = new BaseRequest({
     // 请求超时时间
     timeout: 10000,
 })
+/**
+ * C data数据请求
+ */
+export const requestC = new BaseRequest({
+    baseURL: import.meta.env.VITE_API_C_URL,
+    // 请求超时时间
+    timeout: 10000,
+})
+/**
+ * D data数据请求
+ */
+export const requestD = new BaseRequest({
+    baseURL: import.meta.env.VITE_API_D_URL,
+    // 请求超时时间
+    timeout: 10000,
+})
+
+
 
 
 
