@@ -1,4 +1,4 @@
-import {requestC} from '@/utils/request';
+import {request} from '@/utils/request';
 
 /**
  * 遇见API 数据请求
@@ -6,8 +6,13 @@ import {requestC} from '@/utils/request';
  */
 
 enum Api {
-    // BaseUrl = 'https://api.yujn.cn',
-    BaseUrl = '/api-yujn',
+    ALlOrigins = 'https://api.allorigins.win',
+    // AllOriginsGet = 'https://api.allorigins.win/get',
+    // AllOriginsGet = 'https://my-cors-proxy-rosy.vercel.app/api',
+    // AllOriginsGet = 'https://my-cors-proxy.liwncy.workers.dev',
+    AllOriginsGet = 'https://liwncy.dpdns.org',
+    BaseUrl = 'https://api.yujn.cn',
+    // BaseUrl = '/api-yujn',
     MoType = "?type=json",
     Get = 'get',
     Post = 'post',
@@ -17,5 +22,14 @@ enum Api {
 
 // 遇见Get请求
 export const requestGetYujnApi = function (url: string, param: any = {}) {
-    return requestC.request('GET', url + Api.MoType, {params: param })
+    // 1. 目标跨域接口地址（确保可直接访问，先在浏览器地址栏测试）
+    const targetApiUrl = Api.BaseUrl + url + Api.MoType;
+
+    // 2. 关键：对目标URL进行 URI 编码（解决特殊字符（?/&）导致的请求异常）
+    const encodedTargetUrl = encodeURIComponent(targetApiUrl);
+
+    // 3. 拼接 AllOrigins 代理地址（格式固定：https://api.allorigins.win/get?url=编码后的目标URL）
+    // const proxyUrl =  Api.AllOriginsGet + `?url=${encodedTargetUrl}`;
+    const proxyUrl =  Api.AllOriginsGet + `?url=${encodedTargetUrl}`;
+    return request.request('GET', proxyUrl, {params: param })
 }
