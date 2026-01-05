@@ -6,11 +6,8 @@ import {request} from '@/utils/request';
  */
 
 enum Api {
-    ALlOrigins = 'https://api.allorigins.win',
-    // AllOriginsGet = 'https://api.allorigins.win/get',
-    // AllOriginsGet = 'https://my-cors-proxy-rosy.vercel.app/api',
-    // AllOriginsGet = 'https://my-cors-proxy.liwncy.workers.dev',
-    AllOriginsGet = 'https://liwncy.dpdns.org',
+    // 我的跨域代理
+    CorsProUrl = 'https://lwcorspro.dpdns.org',
     BaseUrl = 'https://api.yujn.cn',
     // BaseUrl = '/api-yujn',
     MoType = "?type=json",
@@ -29,7 +26,6 @@ export const requestGetYujnApi = function (url: string, param: any = {}) {
     const encodedTargetUrl = encodeURIComponent(targetApiUrl);
 
     // 3. 拼接 AllOrigins 代理地址（格式固定：https://api.allorigins.win/get?url=编码后的目标URL）
-    // const proxyUrl =  Api.AllOriginsGet + `?url=${encodedTargetUrl}`;
-    const proxyUrl =  Api.AllOriginsGet + `?url=${encodedTargetUrl}`;
+    const proxyUrl =  Api.CorsProUrl + `?url=${encodedTargetUrl}`;
     return request.request('GET', proxyUrl, {params: param })
 }
