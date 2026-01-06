@@ -15,6 +15,7 @@ interface ImportMetaEnv {
     VITE_API_B_URL: string;
     VITE_API_C_URL: string;
     VITE_API_D_URL: string;
+    VITE_CORS_PROXY_URL: string;
     VITE_CLIENT_ID: string;
 }
 
