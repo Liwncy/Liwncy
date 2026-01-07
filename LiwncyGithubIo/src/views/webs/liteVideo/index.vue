@@ -7,39 +7,32 @@
         @childClick="handleClick"
     />
     <lay-body id="content">
-      <div class="layui-menu-toggle" style="width: auto !important;height: auto !important;padding: 0 !important;"
-           @click="handleMenuOpen(true)">
-        <lay-icon type="layui-icon-menu-fill" style="font-size: 32px"></lay-icon>
-      </div>
-      <div style="padding: 20px" @click="handleMenuOpen(false)">
-        <lay-container :fluid="true" style="padding: 10px;/*height: 100%*/">
+      <!-- <div class="layui-menu-toggle" style="width: auto !important;height: auto !important;padding: 0 !important;" -->
+      <!--      @click="handleMenuOpen(true)"> -->
+      <!--   <lay-icon type="layui-icon-menu-fill" style="font-size: 32px"></lay-icon> -->
+      <!-- </div> -->
+      <!-- <div style="padding: 20px" @click="handleMenuOpen(false)"> -->
+      <lay-container :fluid="true" style="padding: 10px;/*height: 100%*/">
+        <lay-card style="/*margin-top: 10px; border-radius: 5px*/">
           <lay-loading :type="0" :loading="loadingA">
-            <lay-card style="margin-top: 10px; border-radius: 5px">
-              <!-- 西瓜视频播放器 -->
-              <div class="xg-player-container" ref="xgPlayerRef" ></div>
-              <!-- <div class="xg-player-container" ref="xgPlayerRef" style="width: 200px; height: 250px;"></div> -->
-            </lay-card>
+            <!-- 西瓜视频播放器 -->
+            <div class="xg-player-container" ref="xgPlayerRef"></div>
           </lay-loading>
-        </lay-container>
-      </div>
-      <!-- <lay-footer style="position: fixed; /* 固定位置 */ -->
-      <!--   bottom: 0; /* 固定在底部 */ -->
-      <!--   width: 100%; /* 宽度占满整个页面 */ -->
-      <!--   z-index: 1000; /* 确保页脚在其他内容之上 */ -->
-      <!--   height: 60px; /* 固定高度 */ -->
-      <!--   display: flex; /* 使用Flexbox布局 */ -->
-      <!--   justify-content: center; /* 水平居中 */ -->
-      <!--   align-items: center; /* 垂直居中 */"> -->
-      <!--   <div class="getmore"> -->
-      <!--     <lay-button @click="toGetMore">加载更多</lay-button> -->
-      <!--   </div> -->
-      <!-- </lay-footer> -->
+        </lay-card>
+      </lay-container>
+      <!-- </div> -->
+      <lay-footer style="position: fixed;bottom: 0;width: 100%;z-index: 1000;height: 60px;display: flex;justify-content: center;align-items: center;">
+        <div class="getmore">
+          <lay-button @click="toGetMore">换一个</lay-button>
+        </div>
+      </lay-footer>
     </lay-body>
   </lay-layout>
 </template>
 <script setup>
 import {computed, onMounted, onUnmounted, ref} from "vue";
 import XGPlayer from 'xgplayer';
+import "xgplayer/dist/index.min.css";
 import MenuSidebar from '@/components/MenuSidebar.vue';
 import {getSideMenus} from "@/api/webs/liteVideo";
 import {requestGetYujnApi} from "@/api/common/external/yujn";
@@ -104,12 +97,15 @@ const initPlayer = () => {
     lang: 'zh-cn', // 中文语言
     enableProgressDrag: true, // 允许拖动进度条
     enableVolumeDrag: true, // 允许拖动音量条
+    // 流式布局
+    fluid: true,
+    // 自适应视频内容宽高
     // fitVideoSize: 'auto',
-    fitVideoSize: 'contain', // 关键配置：保持视频宽高比，完整展示，多余部分填充黑框
-    videoInitSize: { // 可选：指定视频初始尺寸（与容器尺寸一致，增强兼容性）
-      width: 800,
-      height: 500
-    }
+    // fitVideoSize: 'fixHeight',
+    // 视频初始尺寸
+    // width: '100%',
+    height: 300
+
   });
 
   // 监听播放事件
@@ -141,6 +137,12 @@ function getLiteVideo(t) {
   })
 }
 
+/**
+ * 换一个
+ */
+const toGetMore = function () {
+  getLiteVideo();
+}
 
 
 onMounted(() => {
@@ -354,6 +356,7 @@ onUnmounted(() => {
   border-radius: 8px;
   overflow: hidden;
 }
+
 .player-container {
   border-radius: 8px;
   overflow: hidden;
