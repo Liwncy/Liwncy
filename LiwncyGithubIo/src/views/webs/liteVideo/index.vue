@@ -21,7 +21,8 @@
         </lay-card>
       </lay-container>
       <!-- </div> -->
-      <lay-footer style="position: fixed;bottom: 0;width: 100%;z-index: 1000;height: 60px;display: flex;justify-content: center;align-items: center;">
+      <lay-footer
+          style="position: fixed;bottom: 0;width: 100%;z-index: 1000;height: 60px;display: flex;justify-content: center;align-items: center;">
         <div class="getmore">
           <lay-button @click="toGetMore">换一个</lay-button>
         </div>
@@ -36,7 +37,6 @@ import "xgplayer/dist/index.min.css";
 import MenuSidebar from '@/components/MenuSidebar.vue';
 import {getSideMenus} from "@/api/webs/liteVideo";
 import {requestGetYujnApi} from "@/api/common/external/yujn";
-import {getPaginationData} from "@/utils/paginationUtil";
 
 
 const menus = ref([]);

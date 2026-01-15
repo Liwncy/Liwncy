@@ -15,6 +15,7 @@
           <li
               v-for="menu in topMenuList"
               :key="menu.id"
+              @click="currentPath = menu.path"
               class="layui-nav-item"
               :class="{ 'layui-active': currentPath.includes(menu.path) }"
           >
@@ -24,10 +25,11 @@
             <lay-dropdown v-else trigger="hover">
               <a href="javascript:void(0);">{{ t(menu.useI18n) !== menu.useI18n ? t(menu.useI18n) : menu.title }}</a>
               <template #content>
-                <lay-dropdown-menu>
+                <lay-dropdown-menu class="layui-dropdown-menu-website">
                   <lay-dropdown-menu-item
                       v-for="item in menu.children"
                       :key="item.id"
+                      @click="currentPath = menu.path"
                   >
                     <router-link :to="item.path">
                       {{ t(item.useI18n) !== item.useI18n ? t(item.useI18n) : item.title }}
@@ -213,7 +215,9 @@
             </a>
           </li>
           <li class="layui-nav-item">
-            <a href="javascript:void(0)"> {{ version }} </a>
+            <!-- 天气状况 -->
+            <WeatherLocation size="mini"/>
+            <!-- <a href="javascript:void(0)"> {{ version }} </a> -->
           </li>
         </ul>
       </lay-header>
@@ -273,13 +277,13 @@ export default {
     //   m.children.sort((a, b) => stringSort(a.subTitle, b.subTitle));
     // });
 
-    watch(
-        () => route.path,
-        (val) => {
-          currentPath.value = val;
-        },
-        {immediate: true, deep: true}
-    );
+    // watch(
+    //     () => route.path,
+    //     (val) => {
+    //       currentPath.value = val;
+    //     },
+    //     {immediate: true, deep: true}
+    // );
 
     // const handleClick = function (menu) {
     //   router.push(menu.path);
@@ -437,6 +441,12 @@ export default {
 .layui-layout-website .layui-menu-body-title a {
   padding: 5px 15px;
 }
+
+/*top下拉框调整*/
+/*.layui-menu.layui-dropdown-menu-website li,
+.layui-menu.layui-dropdown-menu-website .layui-menu-body-title a {
+  padding: 5px 15px;
+}*/
 
 .layui-layout-website .layui-side hr {
   margin: 8px;

@@ -17,7 +17,7 @@ export default [
                 meta: {title: "主页"},
             },
             {
-                path: "/webs/book_mark",
+                path: "/webs/bookMark",
                 component: () => import('@/views/webs/bookMark/index.vue'),
                 meta: {title: "书签"},
             },
@@ -32,14 +32,14 @@ export default [
                 meta: {title: "一点儿视频"},
             },
             {
-                path: '/webs/better_read',
+                path: '/webs/betterRead',
                 name: 'BetterRead',
                 component: BetterRead,
-                redirect: "/webs/better_read/detail",
+                redirect: "/webs/betterRead/detail",
                 meta: { title: "好读" },
                 children: [
                     {
-                        path: "/webs/better_read/detail",
+                        path: "/webs/betterRead/detail",
                         component: () =>
                             import("@/views/webs/betterRead/index.md"),
                         meta: { title: "文章" },
@@ -47,7 +47,7 @@ export default [
                 ]
             },
             {
-                path: "/webs/hot_bans",
+                path: "/webs/hotBans",
                 component: () => import('@/views/webs/hotBans/index.vue'),
                 meta: {title: "热榜"},
             },

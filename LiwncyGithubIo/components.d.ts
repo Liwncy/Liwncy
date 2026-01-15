@@ -28,6 +28,7 @@ declare module 'vue' {
     LayContributor: typeof import('./src/components/LayContributor.vue')['default']
     LayCountUp: typeof import('@layui/layui-vue')['LayCountUp']
     LayDatePicker: typeof import('@layui/layui-vue')['LayDatePicker']
+    LayDialog: typeof import('@layui/layui-vue')['LayDialog']
     LayDropdown: typeof import('@layui/layui-vue')['LayDropdown']
     LayDropdownMenu: typeof import('@layui/layui-vue')['LayDropdownMenu']
     LayDropdownMenuItem: typeof import('@layui/layui-vue')['LayDropdownMenuItem']
@@ -47,6 +48,7 @@ declare module 'vue' {
     LayLogo: typeof import('@layui/layui-vue')['LayLogo']
     LayMenu: typeof import('@layui/layui-vue')['LayMenu']
     LayMenuItem: typeof import('@layui/layui-vue')['LayMenuItem']
+    LayModal: typeof import('@layui/layui-vue')['LayModal']
     LayNoticeBar: typeof import('@layui/layui-vue')['LayNoticeBar']
     LayPage: typeof import('@layui/layui-vue')['LayPage']
     LayPanel: typeof import('@layui/layui-vue')['LayPanel']
@@ -82,5 +84,6 @@ declare module 'vue' {
     MenuSidebar: typeof import('./src/components/MenuSidebar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    WeatherLocation: typeof import('./src/components/WeatherLocation.vue')['default']
   }
 }
