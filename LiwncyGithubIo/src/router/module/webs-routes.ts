@@ -32,6 +32,11 @@ export default [
                 meta: {title: "一点儿视频"},
             },
             {
+                path: "/webs/liteImage",
+                component: () => import('@/views/webs/liteImage/index.vue'),
+                meta: {title: "一点儿图片"},
+            },
+            {
                 path: '/webs/betterRead',
                 name: 'BetterRead',
                 component: BetterRead,
