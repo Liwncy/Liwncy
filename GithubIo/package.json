@@ -45,6 +45,7 @@
     "@vitejs/plugin-vue": "^4.2.0",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/compiler-sfc": "^3.3.4",
+    "@vue/runtime-dom": "^3.5.27",
     "escape-html": "^1.0.3",
     "fflate": "^0.7.3",
     "less": "^4.1.2",
@@ -59,6 +60,6 @@
     "vite-plugin-fake-server": "^2.1.5",
     "vite-plugin-md": "^0.13.1",
     "vite-plugin-remove-console": "^2.2.0",
-    "vue-tsc": "^2.2.0"
+    "vue-tsc": "^2.2.12"
   }
 }
