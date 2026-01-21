@@ -40,7 +40,7 @@
   <!-- ✅ size="card" 展示完整卡片样式，带全部天气信息 -->
   <lay-card v-else shadow="hover" class="weather-card-container" style="width: 100%; max-width: 600px; margin: 10px 0;">
     <!-- <template #header> -->
-      <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center">
         <span>
           <lay-icon
               type="layui-icon-location"
@@ -54,8 +54,8 @@
           <span v-else-if="cityName">{{ cityName }}</span>
           <span v-else class="text-red-500">{{ errorMsg }}</span>
         </span>
-        <!-- <lay-button type="primary" size="sm" @click="showCityInput = true">手动切换城市</lay-button> -->
-      </div>
+      <!-- <lay-button type="primary" size="sm" @click="showCityInput = true">手动切换城市</lay-button> -->
+    </div>
     <!-- </template> -->
 
     <div v-if="loading" class="py-6 text-center">
@@ -84,7 +84,7 @@
   </lay-card>
 
   <!-- layui-vue 官方原生弹窗组件 无任何报错 -->
-  <lay-layer v-model="showCityInput" title="城市" >
+  <lay-layer v-model="showCityInput" title="城市">
     <lay-input v-model="inputCity" placeholder="城市名称"></lay-input>
     <template #footer>
       <lay-button type="default" size="sm" @click="showCityInput = false">取消</lay-button>
@@ -148,6 +148,9 @@ const getTargetCity = () => {
     // 判断浏览器是否支持原生定位API
     if (navigator.geolocation) {
       try {
+        if (1 === 1) {
+          throw new Error('异常,不用了,浏览器支持原生定位');
+        }
         // 方案1：浏览器原生高精度定位
         await new Promise((success, fail) => {
           navigator.geolocation.getCurrentPosition(

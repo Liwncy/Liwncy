@@ -1,40 +1,48 @@
 <template>
-  <lay-layout>
+  <lay-layout class="example">
     <!-- 左侧菜单栏 -->
-    <MenuSidebar
+    <MenuSidebarF
         :menus="menus"
         :currentPath="currentPath"
         @childClick="handleClick"
+        v-model:visible="isMenuVisible"
     />
-    <lay-body id="content" class="img-content">
+    <!-- <lay-side>菜单栏</lay-side> -->
+    <lay-body id="content" class="img-content" :class="{ 'menu-hidden': !isMenuVisible }">
       <lay-container :fluid="true" class="img-view-wrap">
-        <!-- 图片展示区域 -->
-        <div class="img-box">
-          <lay-loading :type="0" :loading="loadingA">
-            <img
-                v-if="imgUrl"
-                :src="imgUrl"
-                alt="随机图片"
-                class="show-img"
-                @error="handleImgError"
-            />
-            <lay-empty v-else description="暂无图片，请点击切换加载"></lay-empty>
-          </lay-loading>
-        </div>
+        <lay-row space="1">
+          <lay-col md="10">
+            <!-- 图片展示区域 -->
+            <lay-container>
+              <div class="img-box">
+                <lay-loading :type="0" :loading="loadingA">
+                  <img
+                      v-if="imgUrl"
+                      :src="imgUrl"
+                      alt="随机图片"
+                      class="show-img"
+                      @error="handleImgError"
+                  />
+                  <lay-empty v-else description="暂无图片，请点击切换加载"></lay-empty>
+                </lay-loading>
+              </div>
+            </lay-container>
+          </lay-col>
+          <lay-col md="6" mdOffset="6" mdPull="6">
+            <lay-container>
+              <div class="grid-demo">图片描述区域</div>
+            </lay-container>
+          </lay-col>
+        </lay-row>
       </lay-container>
-      <!-- </div> -->
-      <lay-footer
-          style="position: fixed;bottom: 0;width: 100%;z-index: 1000;height: 60px;display: flex;justify-content: center;align-items: center;">
-        <div class="getmore">
-          <lay-button @click="toGetMore">换一张</lay-button>
-        </div>
-      </lay-footer>
+      <div class="body-footer">
+        <lay-button @click="toGetMore">换一个</lay-button>
+      </div>
     </lay-body>
   </lay-layout>
 </template>
 <script setup>
-import {computed, onMounted, onUnmounted, ref} from "vue";
-import MenuSidebar from '@/components/MenuSidebar.vue';
+import {computed, onMounted, ref} from "vue";
 import {getSideMenus} from "@/api/webs/liteImage";
 import {requestGetYujnApi} from "@/api/common/external/yujn";
 
@@ -47,18 +55,18 @@ const imgUrl = ref('');
 
 const loadingA = ref(false);
 
-const isMenuDisplay = ref(false);
-const menuDisplay = computed(() => (isMenuDisplay.value ? "200px" : "0px"));
+const isMenuVisible = ref(true);
+const menuVisible = computed(() => (isMenuVisible.value ? "200px" : "0px"));
 
 const handleMenuOpen = function (val) {
-  isMenuDisplay.value = val;
+  isMenuVisible.value = val;
 };
 
 /**
  * 菜单子项点击
  * @param menu
  */
-const handleClick = function (menu) {
+const handleClick = async function (menu) {
   console.log("menu0", menu);
   currentMenu.value = menu;
   // selected.value = menu.id;
@@ -87,7 +95,7 @@ function getLiteImage(t) {
   requestGetYujnApi(api, {}).then(res => {
     loadingA.value = false;
     console.log(res.data);
-    imgUrl.value = res.data||res.img;
+    imgUrl.value = res.data || res.img;
   }).catch(() => {
     loadingA.value = false;
   })
@@ -108,6 +116,27 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+.menu-hidden {
+  grid-template-columns: 0 1fr;
+}
+
+.layui-layout-website > .layui-layout > .layui-body {
+  left: v-bind(menuVisible);
+  width: calc(100% - v-bind(menuVisible));
+}
+
+.layui-layout-website > .layui-layout > .layui-body > .body-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* 页面根容器 */
 .img-view-container {
   width: 100vw;
@@ -145,10 +174,10 @@ onMounted(() => {
 /* 核心图片盒子 - 固定高度核心样式 */
 .img-box {
   width: 100%;
-  height: 600px; /* 重点：图片区域高度固定 */
+  height: 100%; /* 重点：图片区域高度固定 */
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,7 +188,7 @@ onMounted(() => {
 /* 图片样式 - 宽度自适应+高度固定+不变形 核心样式 */
 .show-img {
   height: 100%; /* 继承父盒子的固定高度 */
-  width: auto;  /* 重点：宽度自适应，根据图片比例自动计算 */
+  width: auto; /* 重点：宽度自适应，根据图片比例自动计算 */
   max-width: 100%; /* 防止图片宽度超出容器 */
   object-fit: contain; /* 关键属性：保持图片比例，完整展示，不变形 */
   transition: all 0.3s ease;

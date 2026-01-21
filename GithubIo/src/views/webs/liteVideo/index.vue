@@ -31,7 +31,7 @@
   </lay-layout>
 </template>
 <script setup>
-import {computed, onMounted, onUnmounted, ref} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 import XGPlayer from 'xgplayer';
 import "xgplayer/dist/index.min.css";
 import MenuSidebar from '@/components/MenuSidebar.vue';
@@ -49,9 +49,6 @@ let xgPlayer = null;
 const videoUrl = ref("http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4")
 
 const loadingA = ref(false);
-
-const isMenuDisplay = ref(false);
-const menuDisplay = computed(() => (isMenuDisplay.value ? "200px" : "0px"));
 
 /**
  * 菜单子项点击
@@ -114,10 +111,6 @@ const initPlayer = () => {
   });
 };
 
-const handleMenuOpen = function (val) {
-  isMenuDisplay.value = val;
-};
-
 /**
  * 获取视频
  * @param t
@@ -161,22 +154,6 @@ onUnmounted(() => {
 });
 
 </script>
-
-<style>
-@media screen and (max-width: 768px) {
-  .layui-menu-toggle {
-    display: block !important;
-  }
-
-  .layui-menu-ref-2 {
-    width: v-bind(menuDisplay) !important;
-  }
-}
-
-.layui-menu-toggle {
-  display: none;
-}
-</style>
 
 <style scoped>
 :deep(.card-list-item .layui-card-body img) {

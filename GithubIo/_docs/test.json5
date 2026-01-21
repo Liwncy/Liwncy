@@ -1,0 +1,86 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": [
+    {
+      "id": "c",
+      "title": "换头像",
+      "children": [
+        {
+          "id": "ca",
+          "title": "随机头像",
+          "subTitle": "随机返回",
+          "data": {
+            "id": "caa",
+            "name": "腹肌图片",
+            "api": "/api/sjtp.php"
+          }
+        },
+        {
+          "id": "cb",
+          "title": "情侣头像",
+          "subTitle": "随机返回",
+          "data": {
+            "id": "cba",
+            "name": "情侣头像",
+            "api": "/api/qltx.php"
+          }
+        },
+        {
+          "id": "cc",
+          "title": "可爱猫咪",
+          "subTitle": "哈基米",
+          "data": {
+            "id": "cca",
+            "name": "可爱猫咪",
+            "api": "/api/maomi.php"
+          }
+        }
+      ]
+    },
+    {
+      "id": "a",
+      "title": "小姐姐",
+      "children": [
+        {
+          "id": "aa",
+          "title": "黑丝图片",
+          "subTitle": "黑丝",
+          "data": {
+            "id": "aaa",
+            "name": "黑丝",
+            "api": "/api/heisi.php"
+          }
+        },
+        {
+          "id": "ab",
+          "title": "唯美写真",
+          "subTitle": "wmxz",
+          "data": {
+            "id": "aba",
+            "name": "唯美写真",
+            "api": "/api/xiezhen.php"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "title": "小哥哥",
+      "children": [
+        {
+          "id": "ba",
+          "title": "腹肌图片",
+          "subTitle": "随机返回腹肌图片",
+          "data": {
+            "id": "baa",
+            "name": "腹肌图片",
+            "api": "/api/fujiimg.php"
+          }
+        }
+      ]
+    }
+  ],
+  "error": null,
+  "success": true
+}
