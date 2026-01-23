@@ -21,8 +21,8 @@ export const  constantRoutes: RouteRecordRaw[] = [...routes, ...docsRoutes, ...w
 export const dynamicRoutes: RouteRecordRaw[] = [];
 
 const router = createRouter({
-    // history: createWebHistory(),
-    history: createWebHashHistory(),
+    history: createWebHistory(),
+    // history: createWebHashHistory(),
     routes: constantRoutes,
     // 刷新时，滚动条位置还原
     scrollBehavior(to, from, savedPosition) {

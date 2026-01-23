@@ -25,6 +25,7 @@
                           alt="图片"
                           class="show-img"
                           ref="imgRef"
+                          decoding="async"
                           @error="handleImgError"
                           @load="handleImgLoad"
                           :style="imgStyle"
@@ -32,16 +33,16 @@
                       <!-- 图片操作工具栏 -->
                       <div class="img-toolbar" v-if="imgUrl">
                         <lay-button size="xs" @click="zoomIn">
-                          <lay-icon type="layui-icon-addition" />
+                          <lay-icon type="layui-icon-addition"/>
                         </lay-button>
                         <lay-button size="xs" @click="zoomOut">
-                          <lay-icon type="layui-icon-subtraction" />
+                          <lay-icon type="layui-icon-subtraction"/>
                         </lay-button>
                         <lay-button size="xs" @click="resetZoom">
-                          <lay-icon type="layui-icon-screen-full" />
+                          <lay-icon type="layui-icon-screen-full"/>
                         </lay-button>
                         <lay-button size="xs" @click="rotateImg">
-                          <lay-icon type="layui-icon-triangle-r" />
+                          <lay-icon type="layui-icon-refresh"/>
                         </lay-button>
                         <span class="zoom-info">{{ Math.round(zoomLevel * 100) }}%</span>
                       </div>
@@ -66,16 +67,16 @@
                         <!-- 多张图片时的操作工具栏 -->
                         <div class="img-toolbar" v-if="imgUrl.length > 0">
                           <lay-button size="xs" @click="zoomIn">
-                            <lay-icon type="layui-icon-addition" />
+                            <lay-icon type="layui-icon-addition"/>
                           </lay-button>
                           <lay-button size="xs" @click="zoomOut">
-                            <lay-icon type="layui-icon-subtraction" />
+                            <lay-icon type="layui-icon-subtraction"/>
                           </lay-button>
                           <lay-button size="xs" @click="resetZoom">
-                            <lay-icon type="layui-icon-screen-full" />
+                            <lay-icon type="layui-icon-screen-full"/>
                           </lay-button>
                           <lay-button size="xs" @click="rotateImg">
-                            <lay-icon type="layui-icon-triangle-r" />
+                            <lay-icon type="layui-icon-refresh"/>
                           </lay-button>
                           <span class="zoom-info">{{ Math.round(zoomLevel * 100) }}%</span>
                           <span class="image-counter">
@@ -92,7 +93,7 @@
                           @click="prevImage"
                           :disabled="currentImageIndex === 0"
                       >
-                        <lay-icon type="layui-icon-left" />
+                        <lay-icon type="layui-icon-left"/>
                         上一张
                       </lay-button>
                       <lay-button
@@ -101,7 +102,7 @@
                           :disabled="currentImageIndex === imgUrl.length - 1"
                       >
                         下一张
-                        <lay-icon type="layui-icon-right" />
+                        <lay-icon type="layui-icon-right"/>
                       </lay-button>
                     </div>
                   </div>
@@ -114,7 +115,7 @@
                         :class="['thumbnail', { 'active': currentImageIndex === index }]"
                         @click="switchImage(index)"
                     >
-                      <img :src="url" :alt="`缩略图 ${index + 1}`" />
+                      <img :src="url" :alt="`缩略图 ${index + 1}`"/>
                     </div>
                   </div>
                 </div>
@@ -130,7 +131,7 @@
               <lay-card class="description-card">
                 <template #title>
                   <div class="description-header">
-                    <lay-icon type="layui-icon-picture" />
+                    <lay-icon type="layui-icon-picture"/>
                     <span>图片详情</span>
                   </div>
                 </template>
@@ -146,7 +147,9 @@
 
                   <div class="info-item">
                     <span class="label">当前图片：</span>
-                    <span class="value">{{ currentImageIndex + 1 }} / {{ Array.isArray(imgUrl) ? imgUrl.length : 1 }}</span>
+                    <span class="value">{{ currentImageIndex + 1 }} / {{
+                        Array.isArray(imgUrl) ? imgUrl.length : 1
+                      }}</span>
                   </div>
 
                   <div class="info-item">
@@ -202,17 +205,22 @@
                 <!-- 操作按钮 -->
                 <div class="action-buttons">
                   <lay-button type="primary" @click="toGetMore">
-                    <lay-icon type="layui-icon-refresh" />
+                    <lay-icon type="layui-icon-refresh"/>
                     换一张
                   </lay-button>
-                  <lay-button v-if="imgUrl" @click="downloadImage">
-                    <lay-icon type="layui-icon-download" />
+                  <lay-button v-if="imgUrl" @click="downloadImage" style="margin-left: 0px">
+                    <lay-icon type="layui-icon-download-circle"/>
                     下载当前图片
                   </lay-button>
                   <lay-button-group class="fit-buttons">
-                    <lay-button size="sm" @click="fitAuto" :type="fitMode === 'auto' ? 'primary' : 'normal'">智能适应</lay-button>
-                    <lay-button size="sm" @click="fitContain" :type="fitMode === 'contain' ? 'primary' : 'normal'">适应容器</lay-button>
-                    <lay-button size="sm" @click="fitOriginal" :type="fitMode === 'fill' ? 'primary' : 'normal'">原始尺寸</lay-button>
+                    <lay-button size="sm" @click="fitAuto" :type="fitMode === 'auto' ? 'primary' : 'normal'">智能适应
+                    </lay-button>
+                    <lay-button size="sm" @click="fitContain" :type="fitMode === 'contain' ? 'primary' : 'normal'">
+                      适应容器
+                    </lay-button>
+                    <lay-button size="sm" @click="fitOriginal" :type="fitMode === 'fill' ? 'primary' : 'normal'">
+                      原始尺寸
+                    </lay-button>
                   </lay-button-group>
                 </div>
               </lay-card>
@@ -221,7 +229,7 @@
               <lay-card v-if="historyImages.length" class="history-card">
                 <template #title>
                   <div class="description-header">
-                    <lay-icon type="layui-icon-time" />
+                    <lay-icon type="layui-icon-time"/>
                     <span>历史记录</span>
                   </div>
                 </template>
@@ -233,7 +241,7 @@
                       class="history-item"
                       @click="viewHistoryImage(item)"
                   >
-                    <img :src="item.url" alt="历史图片" />
+                    <img :src="item.url" alt="历史图片"/>
                     <span class="history-time">{{ formatTime(item.time) }}</span>
                   </div>
                 </div>
@@ -247,9 +255,10 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, nextTick } from "vue";
-import { getSideMenus } from "@/api/webs/liteImage";
-import { requestGetYujnApi } from "@/api/common/external/yujn";
+import {computed, onMounted, ref, nextTick} from "vue";
+import {getSideMenus} from "@/api/webs/liteImage";
+import {requestGetYujnApi} from "@/api/common/external/yujn";
+import axios from "axios";
 
 const menus = ref([]);
 const currentPath = ref("zhihu");
@@ -268,7 +277,7 @@ const imgWrapperRef = ref(null);
 const zoomLevel = ref(1);
 const rotation = ref(0);
 const fitMode = ref('auto'); // 'auto' | 'contain' | 'fill'
-const imageNaturalSize = ref({ width: 0, height: 0 });
+const imageNaturalSize = ref({width: 0, height: 0});
 
 // 历史记录
 const historyImages = ref([]);
@@ -296,19 +305,19 @@ const currentImageUrl = computed(() => {
 
 // 图片方向判断
 const imageOrientation = computed(() => {
-  const { width, height } = imageNaturalSize.value;
+  const {width, height} = imageNaturalSize.value;
   if (width === 0 || height === 0) return '未知';
   return width > height ? '横屏' : width < height ? '竖屏' : '正方形';
 });
 
 // 智能适应计算
 const autoFitStyle = computed(() => {
-  const { width: naturalWidth, height: naturalHeight } = imageNaturalSize.value;
+  const {width: naturalWidth, height: naturalHeight} = imageNaturalSize.value;
   const containerWidth = imgWrapperRef.value?.clientWidth || 800;
   const containerHeight = imgWrapperRef.value?.clientHeight || 600;
 
   if (naturalWidth === 0 || naturalHeight === 0) {
-    return { width: 'auto', height: '75vh' };
+    return {width: 'auto', height: '75vh'};
   }
 
   const containerRatio = containerWidth / containerHeight;
@@ -317,10 +326,10 @@ const autoFitStyle = computed(() => {
   // 智能适应逻辑
   if (imageRatio > containerRatio) {
     // 横屏图片：宽度适应容器，高度按比例缩放
-    return { width: '100%', height: 'auto' };
+    return {width: '100%', height: 'auto'};
   } else {
     // 竖屏图片：高度适应容器，宽度按比例缩放
-    return { width: 'auto', height: '75vh' };
+    return {width: 'auto', height: '75vh'};
   }
 });
 
@@ -334,13 +343,13 @@ const imgStyle = computed(() => {
   // 根据适应模式应用不同的样式
   switch (fitMode.value) {
     case 'auto':
-      return { ...baseStyle, ...autoFitStyle.value };
+      return {...baseStyle, ...autoFitStyle.value};
     case 'contain':
-      return { ...baseStyle, width: '100%', height: '100%', objectFit: 'contain' };
+      return {...baseStyle, width: '100%', height: '100%', objectFit: 'contain'};
     case 'fill':
-      return { ...baseStyle, width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%' };
+      return {...baseStyle, width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%'};
     default:
-      return { ...baseStyle, ...autoFitStyle.value };
+      return {...baseStyle, ...autoFitStyle.value};
   }
 });
 
@@ -383,15 +392,15 @@ const initPage = async function () {
 /**
  * 获取数据
  */
-function getLiteImage() {
+async function getLiteImage() {
+
   loadingA.value = true;
   const api = currentMenu.value.data.api;
 
   requestGetYujnApi(api, {}).then(res => {
-    loadingA.value = false;
-
     // 处理返回数据
-    const imgData = res.data || res.image_url || res.img || '';
+    console.log('返回数据:', res);
+    let imgData = res.data || res.image_url || res.img || res.url || res;
     if (Array.isArray(imgData)) {
       imgUrl.value = imgData.filter(url => url && typeof url === 'string');
     } else if (typeof imgData === 'string') {
@@ -410,8 +419,9 @@ function getLiteImage() {
 
     currentImageIndex.value = 0;
     resetImageControls();
-
-  }).catch(() => {
+    loadingA.value = false;
+  }).catch((e) => {
+    console.log('图片加载失败:', e);
     loadingA.value = false;
   });
 }
@@ -444,7 +454,7 @@ function resetImageControls() {
   zoomLevel.value = 1;
   rotation.value = 0;
   fitMode.value = 'auto';
-  imageNaturalSize.value = { width: 0, height: 0 };
+  imageNaturalSize.value = {width: 0, height: 0};
 }
 
 /**
@@ -458,7 +468,7 @@ const toGetMore = function () {
  * 图片加载错误处理
  */
 const handleImgError = function (event) {
-  event.target.src = 'https://via.placeholder.com/400x300?text=图片加载失败';
+  event.target.src = 'https://www.layui-vue.com/assets/404-CWJ6jsKv.svg';
 }
 
 /**
@@ -466,11 +476,12 @@ const handleImgError = function (event) {
  */
 const downloadImage = function () {
   if (!currentImageUrl.value) return;
-
-  const link = document.createElement('a');
-  link.href = currentImageUrl.value;
-  link.download = `image_${Date.now()}.jpg`;
-  link.click();
+  // 在新标签页打开图片
+  const newWindow = window.open(currentImageUrl.value, '_blank');
+  // const link = document.createElement('a');
+  // link.href = currentImageUrl.value;
+  // link.download = `image_${Date.now()}.jpg`;
+  // link.click();
 }
 
 /**
@@ -639,7 +650,7 @@ onMounted(() => {
 /* 图片操作工具栏 */
 .img-toolbar {
   position: absolute;
-  top: 10px;
+  top: 25px;
   right: 10px;
   display: flex;
   gap: 5px;
