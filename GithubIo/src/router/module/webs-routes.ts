@@ -37,6 +37,11 @@ export default [
                 meta: {title: "一点儿图片"},
             },
             {
+                path: "/webs/aiTool",
+                component: () => import('@/views/webs/aiTool/index.vue'),
+                meta: {title: "AI工具"},
+            },
+            {
                 path: '/webs/betterRead',
                 name: 'BetterRead',
                 component: BetterRead,

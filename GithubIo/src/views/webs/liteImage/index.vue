@@ -255,10 +255,9 @@
 </template>
 
 <script setup>
-import {computed, onMounted, ref, nextTick} from "vue";
+import {computed, nextTick, onMounted, ref} from "vue";
 import {getSideMenus} from "@/api/webs/liteImage";
 import {requestGetYujnApi} from "@/api/common/external/yujn";
-import axios from "axios";
 
 const menus = ref([]);
 const currentPath = ref("zhihu");

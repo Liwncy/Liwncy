@@ -20,7 +20,7 @@
             class="layui-menu-item-group"
             :lay-options="{type: 'group', isAllowSpread: true}"
         >
-          <div class="layui-menu-body-title">{{ menu.title }}</div>
+          <div class="layui-menu-body-title layui-font-16">{{ menu.title }}</div>
           <hr/>
           <ul>
             <li v-for="child in menu.children"
