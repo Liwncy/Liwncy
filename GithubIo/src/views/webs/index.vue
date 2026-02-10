@@ -3,42 +3,126 @@
     <div class="site-layui-main">
       <div class="site-zfj site-zfj-anim">
         <img
-          src="../../assets/touxiang.jpg"
-          style="width: 172px; border-radius: 20px; border: 5px solid #e2e2e2"
+            src="../../assets/touxiang.jpg"
+            style="width: 172px; border-radius: 20px; border: 5px solid #e2e2e2"
         />
+      </div>
+      <div class="layui-anim site-desc site-desc-anim">
+        <p class="web-font-desc">芈 仙 居</p>
+        <cite>大隐何须远，仙居在芥尘。推门浮世外，山水一壶春。</cite>
+      </div>
+      <div class="site-download">
+        <router-link class="layui-inline site-down" to="/zh-CN/guide">
+          Get Started
+        </router-link>
+        <a
+            class="layui-inline site-down"
+            href="javascript:void(0);"
+            @click="changeTheme"
+        >
+          {{ appStore.theme === "dark" ? "Turn Off" : "Turn On" }}
+        </a>
+      </div>
+      <div class="site-version">
+        <span>{{ t("home.author") }}：<cite class="site-showv">
+            李芈仙
+          </cite></span>
+        <span>{{ t("home.life") }}：<em class="site-showdowns">{{ version }}</em></span>
       </div>
       <div class="site-banner-other">
         <a
-          href="https://gitee.com/liwncy"
-          target="_blank"
-          rel="nofollow"
-          class="site-fork"
+            href="https://github.com/liwncy"
+            target="_blank"
+            rel="nofollow"
+            class="site-fork"
         >
-          Gitee
-        </a>
-        <a
-          href="https://github.com/liwncy"
-          target="_blank"
-          rel="nofollow"
-          class="site-fork"
-        >
+          <lay-icon
+              type="layui-icon-github"
+              size="18px"
+              color="#213547"
+          ></lay-icon>
           Github
         </a>
+        <a
+            href="https://gitee.com/liwncy"
+            target="_blank"
+            rel="nofollow"
+            class="site-fork"
+        >
+          <lay-icon
+              type="layui-icon-gitee"
+              size="18px"
+              color="#C71D23"
+          ></lay-icon>
+          Gitee
+        </a>
       </div>
+    </div>
+    <div class="box-list">
+      <lay-row :space="30">
+        <lay-col :md="8" :sm="12" :xs="12">
+          <div class="box">
+            <div class="icon">📚</div>
+            <h2 class="title">
+              <a
+                  href="https://liwncy-notes.apifox.cn"
+                  target="_blank"
+                  rel="nofollow"
+                  class="site-fork"
+              >
+                个人笔记本
+              </a>
+            </h2>
+            <p class="details">平时工作中的笔记以及灵感。</p>
+          </div>
+        </lay-col>
+        <!-- https://kvideo-cqp.pages.dev/ -->
+        <lay-col :md="8" :sm="12" :xs="12">
+          <div class="box">
+            <div class="icon">🎬</div>
+            <h2 class="title">
+              <a
+                  href="https://kvideo-cqp.pages.dev"
+                  target="_blank"
+                  rel="nofollow"
+                  class="site-fork"
+              >
+                私人观影院
+              </a>
+            </h2>
+            <p class="details">Cloudflare部署KVideo实现自由观影。</p>
+          </div>
+        </lay-col>
+        <lay-col :md="8" :sm="12" :xs="12">
+          <div class="box">
+            <div class="icon">🔜</div>
+            <h2 class="title">
+              <a
+                  href="https://github.com/liwncy"
+                  target="_blank"
+                  rel="nofollow"
+                  class="site-fork"
+              >
+                敬请期待。。
+              </a>
+            </h2>
+            <p class="details">不知道干啥先放着吧。</p>
+          </div>
+        </lay-col>
+      </lay-row>
     </div>
   </div>
 </template>
 
 <script>
-import { inject, onMounted } from "vue";
-import { useI18n } from "@layui/layui-vue";
-import { useAppStore } from "@/store/app";
-import { layer } from "@layui/layui-vue";
+import {inject, onMounted} from "vue";
+import {useI18n} from "@layui/layui-vue";
+import {useAppStore} from "@/store/app";
 
 export default {
   name: "Index",
   setup() {
-    const { t } = useI18n();
+    const {t} = useI18n();
     const appStore = useAppStore();
 
     const changeTheme = () => {
@@ -49,7 +133,7 @@ export default {
       }
     };
 
-    const version = inject("version");
+    const version = Math.round(Math.abs((new Date() - new Date("1995-09-09")) / (24 * 60 * 60 * 1000)));
 
     onMounted(() => {
       // if (appStore.documentVersion != version) {
@@ -116,8 +200,8 @@ body {
   color: #476582;
   font-weight: 500;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
   letter-spacing: 0.2px;
