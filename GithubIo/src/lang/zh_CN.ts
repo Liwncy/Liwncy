@@ -12,7 +12,7 @@ export default {
     },
     home: {
         author: "作者",
-        life: "生平",
+        life: "游历",
         description:
             "layui - vue（谐音：类 UI) 是 一 套 Vue 3.0 的 桌 面 端 组 件 库.",
         changelog: "更新日志",

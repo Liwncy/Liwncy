@@ -118,7 +118,7 @@ const currentTab = ref(1);
 const loadingA = ref(false);
 
 const isMenuDisplay = ref(false);
-const menuDisplay = computed(() => (isMenuDisplay.value ? "200px" : "0px"));
+const menuDisplay = computed(() => (isMenuDisplay.value ? "240px" : "0px"));
 
 /**
  * 菜单子项点击

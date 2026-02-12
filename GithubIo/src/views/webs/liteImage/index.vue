@@ -282,7 +282,7 @@ const imageNaturalSize = ref({width: 0, height: 0});
 const historyImages = ref([]);
 
 const isMenuVisible = ref(true);
-const menuVisible = computed(() => (isMenuVisible.value ? "200px" : "0px"));
+const menuVisible = computed(() => (isMenuVisible.value ? "240px" : "0px"));
 
 const currentTime = computed(() => {
   return new Date().toLocaleString('zh-CN', {

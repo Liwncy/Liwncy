@@ -125,7 +125,7 @@ const currentPath = ref("text-summarize");
 const currentMenu = ref({});
 
 const isMenuVisible = ref(true);
-const menuVisible = computed(() => (isMenuVisible.value ? "200px" : "0px"));
+const menuVisible = computed(() => (isMenuVisible.value ? "240px" : "0px"));
 
 // 数据
 const loading = ref(false);
@@ -307,6 +307,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+.layui-layout-website > .layui-layout > .layui-body {
+  left: v-bind(menuVisible);
+  width: calc(100% - v-bind(menuVisible));
+}
+
 .example {
   height: 100vh;
   overflow: hidden;

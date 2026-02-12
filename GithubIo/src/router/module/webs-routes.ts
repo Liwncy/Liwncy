@@ -62,6 +62,11 @@ export default [
                 meta: {title: "热榜"},
             },
             {
+                path: "/webs/dailyhot",
+                component: () => import('@/views/webs/dailyhot/index.vue'),
+                meta: {title: "今日热榜"},
+            },
+            {
                 path: "/webs/resources",
                 component: Resources,
                 meta: {title: "生态"},
