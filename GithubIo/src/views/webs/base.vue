@@ -1,5 +1,5 @@
 <template>
-  <lay-layout class="example">
+  <lay-layout>
     <!-- 左侧菜单栏 -->
     <MenuSidebar
         :menus="menus"
@@ -18,15 +18,14 @@
 
 <script setup>
 import {computed, nextTick, onMounted, ref} from "vue";
-import {getSideMenus} from "@/api/webs/dailyhot";
-import {requestGetPearkApi} from "@/api/common/external/peark";
+import {getSideMenus} from "@/api/webs/test";
 
 const menus = ref([]);
-const currentPath = ref("哔哩哔哩");
+const currentPath = ref("base");
 const currentMenu = ref({});
 
 const isMenuVisible = ref(true);
-const menuVisible = computed(() => (isMenuVisible.value ? "200px" : "0px"));
+const menuVisible = computed(() => (isMenuVisible.value ? "240px" : "0px"));
 
 /**
  * 菜单子项点击
@@ -43,25 +42,16 @@ const initPage = async function () {
   await handleClick(menus.value[0].children[0]);
 };
 
-/**
- * 获取数据
- */
-async function getData() {
-
-}
-
-/**
- * 加载更多
- */
-const toGetMore = function () {
-
-}
-
 onMounted(() => {
   initPage();
 });
 </script>
 
 <style scoped>
+
+.layui-layout-website > .layui-layout > .layui-body {
+  left: v-bind(menuVisible);
+  width: calc(100% - v-bind(menuVisible));
+}
 
 </style>
