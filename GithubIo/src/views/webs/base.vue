@@ -7,7 +7,7 @@
         @childClick="handleClick"
         v-model:visible="isMenuVisible"
     />
-
+    <!-- 右侧内容区域 -->
     <lay-body id="content">
       <lay-container :fluid="true" class="main-container">
 
