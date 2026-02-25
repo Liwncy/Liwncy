@@ -8,46 +8,6 @@ export const getSideMenus = async () => {
   // 平台列表分类
   const menus = [
       {
-          "id": "text-content",
-          "title": "📝 文案内容",
-          "description": "各种类型的文案和文本内容",
-          "children": [
-              {
-                  "id": "text-search",
-                  "title": "文案搜索",
-                  "description": "高质量文案搜索，可惜生活不是电影，我也少了点运气",
-                  "subTitle": "sswenan",
-                  "data": {
-                      "id": "text-search-api",
-                      "name": "文案搜索",
-                      "api": "/api/sswenan.php"
-                  }
-              },
-              {
-                  "id": "text-random",
-                  "title": "随机美句",
-                  "description": "随机返回优美美句文案",
-                  "subTitle": "wenan",
-                  "data": {
-                      "id": "text-random-api",
-                      "name": "随机美句摘抄文案",
-                      "api": "/api/wenan.php"
-                  }
-              },
-              {
-                  "id": "text-dog",
-                  "title": "狗屁不通文章",
-                  "description": "生成一篇狗屁不通的文章",
-                  "subTitle": "dog",
-                  "data": {
-                      "id": "text-dog-api",
-                      "name": "狗屁不通文章生成",
-                      "api": "/api/dog.php"
-                  }
-              }
-          ]
-      },
-      {
           "id": "text-emotion",
           "title": "❤️ 情感文案",
           "description": "各种情感类型的文案",
@@ -115,28 +75,6 @@ export const getSideMenus = async () => {
                   }
               },
               {
-                  "id": "text-yiyan-multi",
-                  "title": "随机一言（多行）",
-                  "description": "随机返回10条一言",
-                  "subTitle": "yiyan",
-                  "data": {
-                      "id": "text-yiyan-multi-api",
-                      "name": "随机一言（多行）",
-                      "api": "/api/yiyan.php"
-                  }
-              },
-              {
-                  "id": "text-answer",
-                  "title": "答案之书",
-                  "description": "返回一句简短语录",
-                  "subTitle": "daan",
-                  "data": {
-                      "id": "text-answer-api",
-                      "name": "答案之书",
-                      "api": "/api/daan.php"
-                  }
-              },
-              {
                   "id": "text-english",
                   "title": "英汉语录",
                   "description": "随机返回英语汉语文案",
@@ -145,6 +83,17 @@ export const getSideMenus = async () => {
                       "id": "text-english-api",
                       "name": "英汉语录",
                       "api": "/api/yhyl.php"
+                  }
+              },
+              {
+                  "id": "text-random",
+                  "title": "随机美句",
+                  "description": "随机返回优美美句文案",
+                  "subTitle": "wenan",
+                  "data": {
+                      "id": "text-random-api",
+                      "name": "随机美句摘抄文案",
+                      "api": "/api/wenan.php"
                   }
               }
           ]
@@ -208,24 +157,6 @@ export const getSideMenus = async () => {
           ]
       },
       {
-          "id": "text-tool",
-          "title": "🔧 实用工具",
-          "description": "实用的文本工具和功能",
-          "children": [
-              {
-                  "id": "text-zishu",
-                  "title": "字数检测",
-                  "description": "检测文章有多少个字",
-                  "subTitle": "zishu",
-                  "data": {
-                      "id": "text-zishu-api",
-                      "name": "字数检测",
-                      "api": "/api/zishu.php"
-                  }
-              }
-          ]
-      },
-      {
           "id": "text-other",
           "title": "📄 其他文案",
           "description": "其他类型的文案内容",
@@ -239,17 +170,6 @@ export const getSideMenus = async () => {
                       "id": "text-saohua-api",
                       "name": "随机骚话",
                       "api": "/api/saohua.php"
-                  }
-              },
-              {
-                  "id": "text-wu",
-                  "title": "污句子",
-                  "description": "返回一段污句子",
-                  "subTitle": "text_wu",
-                  "data": {
-                      "id": "text-wu-api",
-                      "name": "污句子",
-                      "api": "/api/text_wu.php"
                   }
               },
               {

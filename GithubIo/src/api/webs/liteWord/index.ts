@@ -3,5 +3,5 @@ import type {ApiResult} from "@/types/global";
 
 // 获取侧边栏菜单
 export const getSideMenus = function (param: any = {}) {
-    return request.get<ApiResult<any[]>>('/webs/liteImage/sideMenu', {params: param})
+    return request.get<ApiResult<any[]>>('/webs/liteWord/sideMenu', {params: param})
 }

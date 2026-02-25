@@ -19,8 +19,8 @@
         <!-- 主要内容区域 -->
         <div class="content-body">
           <transition name="fade" mode="out-in">
-            <div v-if="currentMenu.data" class="文案-content">
-              <lay-card class="文案-card">
+            <div v-if="currentMenu.data" class="word-content">
+              <lay-card class="word-card">
                 <template #header>
                   <div class="card-header">
                     <span class="card-title">{{ currentMenu.data.name }}</span>
@@ -29,14 +29,9 @@
                 </template>
 
                 <div class="card-body">
-                  <div class="api-info">
-                    <div class="info-item">
-                      <label>API 路径:</label>
-                      <code class="api-path">{{ currentMenu.data.api }}</code>
-                    </div>
-
-                    <div class="content-preview">
-                      <h3>文案预览</h3>
+                  <div class="word-info">
+                    <div class="word-preview">
+                      <h3>文案内容</h3>
                       <div class="preview-content">
                         <p v-for="(item, index) in contentPreview" :key="index" class="preview-item">
                           {{ item }}
@@ -44,14 +39,14 @@
                       </div>
                     </div>
 
-                    <div class="content-actions">
+                    <div class="word-actions">
                       <lay-button type="primary" size="lg" @click="copyContent" :loading="loading">
-                        <i class="layui-icon layui-icon-copy"></i>
+                        <i class="layui-icon layui-icon-templeate-one"></i>
                         复制文案
                       </lay-button>
                       <lay-button type="normal" size="lg" @click="refreshContent" :loading="loading">
                         <i class="layui-icon layui-icon-refresh"></i>
-                        刷新文案
+                        再来一条
                       </lay-button>
                     </div>
                   </div>
@@ -69,7 +64,7 @@
 
         <!-- 底部信息 -->
         <div class="content-footer">
-          <p>© {{ new Date().getFullYear() }} LiteWord - 文案管理系统</p>
+          <p>© {{ new Date().getFullYear() }} LiteWord - 一点文案</p>
         </div>
       </lay-container>
     </lay-body>
@@ -78,7 +73,7 @@
 
 <script setup>
 import {computed, nextTick, onMounted, ref} from "vue";
-import {getSideMenus} from "@/api/webs/test";
+import {getSideMenus} from "@/api/webs/liteWord";
 import MenuSidebar from "@/components/MenuSidebar.vue";
 import {requestGetYujnApi} from "@/api/common/external/yujn";
 
@@ -130,6 +125,11 @@ const generateContentPreview = () => {
       } else if (typeof content === 'string') {
         // 如果是字符串，按换行分割成数组
         contentPreview.value = content.split('\n').filter(item => item.trim());
+      } else if (typeof content === 'object') {
+        // 如果是对象，只显示内容
+        contentPreview.value = Object.values(content).map(value => {
+          return typeof value === 'object' && value !== null ? JSON.stringify(value) : String(value);
+        });
       } else {
         // 如果是其他格式，转换为字符串数组
         contentPreview.value = [JSON.stringify(content)];
@@ -199,7 +199,7 @@ onMounted(() => {
 
 .main-container {
   padding: 30px;
-  min-height: 100vh;
+  min-height: calc(100vh - 160px);
 }
 
 /* 顶部信息栏 */
@@ -226,7 +226,7 @@ onMounted(() => {
 
 /* 主要内容区域 */
 .content-body {
-  min-height: 600px;
+  min-height: 400px;
 }
 
 /* 空状态 */
@@ -262,14 +262,20 @@ onMounted(() => {
 }
 
 /* 文案内容 */
-.content-content {
+.word-content {
   width: 100%;
 }
 
-.content-card {
+.word-card {
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.word-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .card-header {
@@ -295,68 +301,60 @@ onMounted(() => {
 }
 
 .card-body {
-  padding: 24px;
+  padding: 28px;
 }
 
-/* API 信息 */
-.api-info {
+/* 文案信息 */
+.word-info {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-.info-item {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.info-item label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #495057;
-}
-
-.api-path {
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 14px;
-  padding: 12px;
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
-  color: #212529;
-  word-break: break-all;
+  gap: 28px;
 }
 
 /* 文案预览 */
-.content-preview {
+.word-preview {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
-.content-preview h3 {
-  font-size: 16px;
+.word-preview h3 {
+  font-size: 18px;
   font-weight: 600;
   color: #212529;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.word-preview h3::before {
+  content: '📝';
+  font-size: 18px;
 }
 
 .preview-content {
-  padding: 20px;
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  min-height: 150px;
+  padding: 24px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  min-height: 200px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .preview-item {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.7;
   color: #495057;
-  margin: 0 0 12px 0;
-  padding-left: 16px;
+  margin: 0 0 16px 0;
+  padding-left: 20px;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+.preview-item:hover {
+  color: #007bff;
+  transform: translateX(4px);
 }
 
 .preview-item:last-child {
@@ -368,16 +366,30 @@ onMounted(() => {
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 18px;
+  font-size: 20px;
   color: #1976d2;
   font-weight: bold;
+  opacity: 0.6;
 }
 
 /* 文案操作 */
-.content-actions {
+.word-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 16px;
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.word-actions lay-button {
+  flex: 1;
+  max-width: 200px;
+  transition: all 0.3s ease;
+}
+
+.word-actions lay-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* 底部信息 */
@@ -388,6 +400,11 @@ onMounted(() => {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   text-align: center;
+  transition: all 0.3s ease;
+}
+
+.content-footer:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .content-footer p {
@@ -399,12 +416,13 @@ onMounted(() => {
 /* 过渡动画 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+  transform: translateY(10px);
 }
 
 /* 响应式设计 */
@@ -425,12 +443,23 @@ onMounted(() => {
     padding: 20px;
   }
 
-  .文案-actions {
+  .word-actions {
     flex-direction: column;
   }
 
-  .文案-actions lay-button {
+  .word-actions lay-button {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .preview-content {
+    padding: 16px;
+    min-height: 180px;
+  }
+
+  .preview-item {
+    font-size: 14px;
+    padding-left: 16px;
   }
 }
 </style>
