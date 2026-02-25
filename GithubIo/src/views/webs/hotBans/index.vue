@@ -5,15 +5,20 @@
         :menus="menus"
         :currentPath="currentPath"
         @childClick="handleMenuChildClick"
+        v-model:visible="isMenuVisible"
     />
     <lay-body id="content">
-      <div class="layui-menu-toggle" style="width: auto !important;height: auto !important;padding: 0 !important;"
-           @click="handleMenuOpen(true)">
-        <lay-icon type="layui-icon-menu-fill" style="font-size: 32px"></lay-icon>
-      </div>
-      <div style="padding: 20px" @click="handleMenuOpen(false)">
+      <lay-container :fluid="true" class="main-container">
+        <!-- 页面标题 -->
+        <div class="page-header">
+          <h1>{{ currentMenu.title || '热榜' }}</h1>
+          <p class="subtitle" v-if="currentMenu.id">{{ getPlatformDesc(currentMenu.id) }}</p>
+          <p class="subtitle" v-else>实时热点，一手掌握</p>
+        </div>
+
+        <!-- 标签页 -->
         <lay-tab type="brief" v-model="currentTab" @change="handleTabChange" tabPosition="top"
-                 class="lay-tab-article">
+                 class="hot-tab-article">
           <lay-tab-item
               v-for="(item, index) in tabTitleList"
               :key="index"
@@ -21,82 +26,62 @@
               :title="item.title"
               :sourceId="item.id"
           >
-            <lay-container :fluid="true" style="padding: 10px;/*height: 100%*/">
-              <lay-loading :type="0" :loading="loadingA">
-                <lay-card style="margin-top: 10px; border-radius: 5px">
-                  <div v-for="(item, index) in articleList" :key="index">
-                    <div class="article-item">
-                      <a :href="item.title_url" target="_blank" rel="noopener noreferrer" class="block">
-                        <div class="article-item-content">
-                          <div style="margin: 15px 0 15px">
-                            <lay-space :size="40">
-                              <lay-badge position="top-left" :value="index+1" :badgeStyle="{top:'7px'}"></lay-badge>
-                            </lay-space>
-                            {{ item.title }}
-                          </div>
-                          <!--                          <div-->
-                          <!--                              class="content-tags"-->
-                          <!--                              v-for="(tagName, index) in item.tags"-->
-                          <!--                              :key="index"-->
-                          <!--                          >-->
-                          <!--                            <lay-tag variant="light">{{ tagName }}</lay-tag>-->
-                          <!--                          </div>-->
-                          <div style="font-size: 14px; margin: 15px 30px" class="content-description">
-                            {{ item.description }}
-                          </div>
-                          <!--                          <div class="content-userInfo">-->
-                          <!--                            <lay-avatar-->
-                          <!--                                src="https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png"-->
-                          <!--                                radius-->
-                          <!--                            ></lay-avatar>-->
-                          <!--                            &nbsp;&nbsp;作者: {{ item.author_info }}-->
-                          <!--                          </div>-->
-                          <div class="content-start">
-                            <div class="content-start-item borderR" v-if="item.article_time">
-                              <lay-icon type="layui-icon-date"></lay-icon>
-                              {{ item.article_time }}
-                            </div>
-                            <div class="content-start-item borderR" v-if="item.author_info">
-                              <lay-icon type="layui-icon-user"></lay-icon>
-                              {{ item.author_info }}
-                            </div>
-                            <div class="content-start-item" v-if="item.hot_value">
-                              <lay-icon type="layui-icon-fire"></lay-icon>
-                              {{ item.hot_value }}
-                            </div>
-                          </div>
-                        </div>
-                        <!--                      <div class="article-item-img">-->
-                        <!--                        <img-->
-                        <!--                            :src="imgUrlPrefix+item.image_url"-->
-                        <!--                        />-->
-                        <!--                      </div>-->
-                      </a>
+            <div class="hot-container">
+              <!-- 热榜列表 -->
+              <div class="hot-list" v-if="articleList.length > 0 && !loading">
+                <div
+                    v-for="(item, index) in articleList"
+                    :key="index"
+                    class="hot-item"
+                    @click="openLink(item.title_url)"
+                >
+                  <!-- 排名 -->
+                  <div class="rank" :class="getRankClass(index+1)">
+                    {{ index+1 }}
+                  </div>
+
+                  <!-- 内容 -->
+                  <div class="content">
+                    <h3 class="title">{{ item.title }}</h3>
+                    <p class="description" v-if="item.description">{{ item.description }}</p>
+                    <div class="meta">
+                      <span class="time" v-if="item.article_time">{{ item.article_time }}</span>
+                      <span class="author" v-if="item.author_info">{{ item.author_info }}</span>
+                      <span class="hotness" v-if="item.hot_value">{{ item.hot_value }} 热度</span>
                     </div>
                   </div>
-                  <!--                  <div class="getmore">-->
-                  <!--                    <lay-button @click="toGetMore">加载更多</lay-button>-->
-                  <!--                  </div>-->
-                </lay-card>
-              </lay-loading>
-            </lay-container>
+                </div>
+              </div>
+              
+              <!-- 加载中 -->
+              <div v-else-if="loading" class="loading">
+                <div class="spinner"></div>
+                <p>加载中...</p>
+              </div>
 
+              <!-- 空状态 -->
+              <div v-else class="empty">
+                <div class="empty-icon">📅</div>
+                <h3>暂无数据</h3>
+                <p>该平台暂无热点数据</p>
+              </div>
+              
+
+              <!-- 加载更多 -->
+              <div v-if="articleList.length > 0" class="load-more">
+                <lay-button
+                    size="sm"
+                    type="default"
+                    @click="toGetMore"
+                    :loading="loading"
+                  >
+                  {{ loading ? '加载中...' : '加载更多' }}
+                </lay-button>
+              </div>
+            </div>
           </lay-tab-item>
         </lay-tab>
-
-      </div>
-      <lay-footer style="position: fixed; /* 固定位置 */
-        bottom: 0; /* 固定在底部 */
-        width: 100%; /* 宽度占满整个页面 */
-        z-index: 1000; /* 确保页脚在其他内容之上 */
-        height: 60px; /* 固定高度 */
-        display: flex; /* 使用Flexbox布局 */
-        justify-content: center; /* 水平居中 */
-        align-items: center; /* 垂直居中 */">
-        <div class="getmore">
-          <lay-button @click="toGetMore">加载更多</lay-button>
-        </div>
-      </lay-footer>
+      </lay-container>
     </lay-body>
     <lay-backtop target="#content" :showHeight="100" :bottom="30" position="absolute"></lay-backtop>
   </lay-layout>
@@ -115,10 +100,11 @@ const currentPath = ref("zhihu");
 const tabTitleList = ref([]);
 const currentTab = ref(1);
 
-const loadingA = ref(false);
+const loading = ref(false);
 
-const isMenuDisplay = ref(false);
-const menuDisplay = computed(() => (isMenuDisplay.value ? "240px" : "0px"));
+const isMenuVisible = ref(true);
+const menuVisible = computed(() => (isMenuVisible.value ? "240px" : "0px"));
+
 
 /**
  * 菜单子项点击
@@ -137,6 +123,8 @@ const handleMenuChildClick = function (menu) {
     };
   });
   page.value = {total: 100, limit: 10, current: 1};
+  // 清空现有数据，显示加载动画
+  articleList.value = [];
   getArticleList();
   handleMenuOpen(false);
 };
@@ -153,13 +141,55 @@ const initPage = async function () {
 const selected = ref(1);
 
 const handleMenuOpen = function (val) {
-  isMenuDisplay.value = val;
+  menuVisible.value = val;
+};
+
+/**
+ * 打开链接
+ */
+const openLink = function (link) {
+  if (link && link !== '#') {
+    window.open(link, '_blank');
+  }
+};
+
+/**
+ * 获取排名样式
+ */
+const getRankClass = function (rank) {
+  if (rank === 1) return 'rank-1';
+  if (rank === 2) return 'rank-2';
+  if (rank === 3) return 'rank-3';
+  return '';
+};
+
+/**
+ * 获取平台描述
+ */
+const getPlatformDesc = function (platform) {
+  // 从菜单数据中查找平台描述
+  const findPlatformDesc = (menus) => {
+    for (const menu of menus) {
+      if (menu.children) {
+        const found = menu.children.find(child => child.id === platform);
+        if (found && found.data && found.data.description) {
+          return found.data.description;
+        }
+      }
+    }
+    return null;
+  };
+
+  const desc = findPlatformDesc(menus.value);
+  return desc || `${platform}是一个知名的在线平台，提供丰富的内容和服务。`;
 };
 
 
 
 function handleTabChange() {
   page.value = {total: 100, limit: 10, current: 1};
+  // 清空现有数据，显示加载动画
+  articleList.value = [];
   getArticleList();
 }
 
@@ -169,12 +199,12 @@ const articleList = ref([]);
 const allArticleList = ref([]);
 
 function getArticleList(t) {
-  loadingA.value = true;
+  loading.value = true;
   // console.log("menu", currentMenu.value);
   const api = currentMenu.value.data.find(cm => cm.id === currentTab.value).api
   // console.log("api", api)
   requestGet60sApi(api, {}).then(res => {
-    loadingA.value = false;
+    loading.value = false;
     console.log(res.data);
     // 清洗数据
     allArticleList.value = cleaningArticleListData(res.data)
@@ -183,7 +213,7 @@ function getArticleList(t) {
     articleList.value = pageData.currentPageList
     page.value.total = pageData.total;
   }).catch(() => {
-    loadingA.value = false;
+    loading.value = false;
   })
 }
 
@@ -228,14 +258,14 @@ async function toGetMore() {
     layer.msg("没有更多了", {time: 1000})
     return;
   }
-  loadingA.value = true;
+  loading.value = true;
   page.value.current++;
   // 太快了，加点延时
   await new Promise(resolve => setTimeout(resolve, 250));
   let pageData = getPaginationData(allArticleList.value, page.value.current, page.value.limit)
   articleList.value = articleList.value.concat(pageData.currentPageList);
   page.value.total = pageData.total;
-  loadingA.value = false;
+  loading.value = false;
 }
 
 const searchTitle = ref('')
@@ -254,189 +284,326 @@ onMounted(() => {
 
 </script>
 
-<style>
-@media screen and (max-width: 768px) {
-  .layui-menu-toggle {
-    display: block !important;
-  }
-
-  .layui-menu-ref-2 {
-    width: v-bind(menuDisplay) !important;
-  }
-}
-
-.layui-menu-toggle {
-  display: none;
-}
-</style>
-
 <style scoped>
-:deep(.card-list-item .layui-card-body img) {
-  width: 100%;
+.layui-layout-website > .layui-layout > .layui-body {
+  left: v-bind(menuVisible);
+  width: calc(100% - v-bind(menuVisible));
+  background: #f8f9fa;
+  overflow-y: auto;
 }
 
-:deep(.card-list-item .layui-card-body) {
-  padding: 0px !important;
+/* 主容器 */
+.main-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/*:deep(.lay-tab-article) {*/
-/*  !*margin-top: 60px; !* 确保内容不被固定标签栏遮挡 *!*!*/
-/*  !*padding: 20px;*!*/
-/*  height: calc(100vh - 120px); !* 固定高度，减去标签栏的高度 *!*/
-/*  overflow-y: auto; !* 显示垂直滚动条 *!*/
-/*  box-sizing: border-box; !* 确保内边距和边框包含在高度内 *!*/
-/*}*/
-
-:deep(.lay-tab-article .layui-tab-head) {
-  z-index: 99;
-  width: 100%;
-  position: fixed;
-  margin-top: -30px;
-  border-bottom: 1px solid #eeeeee;
-  background-image: radial-gradient(transparent 1px, #ffffff 1px);
-  background-size: 4px 4px;
-  backdrop-filter: saturate(50%) blur(4px);
+/* 页面标题 */
+.page-header {
+  margin-bottom: 30px;
+  padding: 25px 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8eaed;
+  position: relative;
+  overflow: hidden;
 }
 
-:deep(.lay-tab-article .getmore) {
-  z-index: 99;
-  width: 100%;
-  position: fixed;
-  margin-bottom: -80px;
-  border-bottom: 1px solid #eeeeee;
-  background-image: radial-gradient(transparent 1px, #ffffff 1px);
-  background-size: 4px 4px;
-  backdrop-filter: saturate(50%) blur(4px);
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #16a085 0%, #2ecc71 100%);
 }
 
-:deep(.lay-tab-article .layui-tab-content) {
-  /* 设置内容区域的样式 */
-  /*  margin-top: 60px; !* 确保内容不被固定标签栏遮挡 *!*/
-  /*  padding: 20px;*/
-  height: calc(100vh - 120px); /* 固定高度，减去标签栏的高度 */
-  overflow: auto; /* 隐藏超出部分的内容 */
-  box-sizing: border-box; /* 确保内边距和边框包含在高度内 */
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
 }
 
-:deep(.lay-tab-article .layui-tab-content .layui-card-body) {
-  /* 设置内容区域的样式 */
-  /*  margin-top: 60px; !* 确保内容不被固定标签栏遮挡 *!*/
-  /*  padding: 20px;*/
-  height: 80vh; /* 固定高度，减去标签栏的高度 */
-  overflow-y: scroll;
-  box-sizing: border-box; /* 确保内边距和边框包含在高度内 */
-}
-
-/* 隐藏滚动条（适用于Webkit浏览器，如Chrome和Safari） */
-:deep(.lay-tab-article .layui-tab-content .layui-card-body::-webkit-scrollbar) {
-  display: none; /* 隐藏滚动条 */
-}
-
-/* 隐藏滚动条（适用于Firefox） */
-:deep(.lay-tab-article .layui-tab-content .layui-card-body) {
-  scrollbar-width: none; /* Firefox */
-}
-</style>
-<style lang="less" scoped>
-.button-list {
-  display: flex;
-}
-
-.button-list > div {
-  flex: 1;
-  text-align: center;
-  color: #909399;
-}
-
-.search-div {
-  width: 100%;
-  padding: 10px 0;
-  text-align: center;
-}
-
-.article-item {
-  display: flex;
-  width: 100%;
-  //height: 200px;
-  padding: 10px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  border-bottom: 1px solid #ebeef5;
-}
-
-.article-item-content {
-  flex: 1;
-  font-size: 18px;
-}
-
-/* 设置内容区域样式 */
-.article-item-content .content-description {
-  width: 100vh; /* 宽度占满容器 */
-  //height: 75px; /* 高度占满容器 */
-  display: -webkit-box; /* 使用Flexbox布局 */
-  -webkit-box-orient: vertical; /* 垂直排列 */
-  -webkit-line-clamp: 3; /* 设置显示的行数 */
-  overflow: hidden; /* 隐藏超出部分的内容 */
-  text-overflow: ellipsis; /* 超出部分用...表示 */
-  white-space: normal; /* 允许换行 */
-  color: #737171;
-}
-
-.article-item-img {
-  width: 300px;
-  height: 100%;
-  padding-right: 20px;
-  box-sizing: border-box;
-
-  > img {
-    width: 280px;
-    height: 190px;
-    border-radius: 5px;
-  }
-
-  > img:hover {
-    cursor: pointer;
-    box-shadow: 1px 1px 10px #dfdfdf;
-  }
-}
-
-.content-tags {
-  display: inline-block;
-
-  > .layui-tag {
-    margin-right: 10px;
-  }
-}
-
-.content-userInfo {
-  color: #898989;
+.page-header .subtitle {
   font-size: 14px;
+  color: #7f8c8d;
+  margin: 0;
+  line-height: 1.6;
 }
 
-.content-start {
-  width: 100vh;
-  margin-top: 5px;
-  font-size: 12px;
-  color: #878787;
+/* 标签页 */
+.hot-tab-article {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid #f0f2f5;
+  margin-bottom: 30px;
+}
+
+/* 热榜容器 */
+.hot-container {
+  padding: 20px;
+}
+
+/* 热榜列表 */
+.hot-list {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  border: 1px solid #f0f2f5;
+}
+
+/* 热榜项 */
+.hot-item {
   display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  border-bottom: 1px solid #f5f7fa;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
-.content-start-item {
+.hot-item:hover {
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+  transform: translateX(4px);
+}
+
+.hot-item:last-child {
+  border-bottom: none;
+}
+
+/* 排名 */
+.rank {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #b8bcc8;
+  margin-right: 20px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #f5f7fa;
+  transition: all 0.3s ease;
+}
+
+.rank.rank-1 {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  box-shadow: 0 4px 12px rgba(238, 90, 36, 0.3);
+}
+
+.rank.rank-2 {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffa502 0%, #ff7f50 100%);
+  box-shadow: 0 4px 12px rgba(255, 165, 2, 0.3);
+}
+
+.rank.rank-3 {
+  color: #ffffff;
+  background: linear-gradient(135deg, #3742fa 0%, #5352ed 100%);
+  box-shadow: 0 4px 12px rgba(55, 66, 250, 0.3);
+}
+
+/* 内容 */
+.content {
   flex: 1;
-  height: 20px;
-  line-height: 20px;
-  display: inline-block;
-  text-align: left;
+  min-width: 0;
 }
 
-.borderR {
-  border-right: 1px solid #ebeef5;
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
 }
 
-.getmore {
-  width: 100%;
-  height: 30px;
-  margin: 20px auto;
+.hot-item:hover .title {
+  color: #667eea;
+}
+
+.description {
+  font-size: 14px;
+  color: #7f8c8d;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.time {
+  font-size: 13px;
+  color: #95a5a6;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.time::before {
+  content: "🕐";
+  font-size: 12px;
+}
+
+.author {
+  font-size: 13px;
+  color: #95a5a6;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.author::before {
+  content: "👤";
+  font-size: 12px;
+}
+
+.hotness {
+  font-size: 13px;
+  color: #ff7a45;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hotness::before {
+  content: "🔥";
+  font-size: 12px;
+}
+
+/* 加载状态 */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading p {
+  margin: 20px 0 0 0;
+  font-size: 15px;
+  color: #606266;
+  font-weight: 500;
+}
+
+/* 空状态 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
+}
+
+.empty-icon {
+  font-size: 72px;
+  opacity: 0.4;
+  margin-bottom: 20px;
+}
+
+.empty h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+.empty p {
+  font-size: 14px;
+  color: #95a5a6;
+  margin: 0;
+}
+
+/* 加载更多 */
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+  .main-container {
+    padding: 20px;
+  }
+
+  .page-header h1 {
+    font-size: 20px;
+  }
+
+  .hot-item {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+
+  .meta {
+    gap: 12px;
+  }
+
+  .hot-container {
+    padding: 16px;
+  }
+}
+
+/* 确保悬浮按钮在小窗口时可见 */
+@media screen and (max-width: 768px) {
+  :deep(.floating-toggle-btn) {
+    display: flex !important;
+  }
 }
 </style>

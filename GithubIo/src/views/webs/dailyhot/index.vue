@@ -20,7 +20,7 @@
         <!-- 热榜内容 -->
         <div class="hot-container">
           <!-- 热榜列表 -->
-          <div class="hot-list" v-if="hotList.length > 0">
+          <div class="hot-list" v-if="hotList.length > 0 && !loading">
             <div
                 v-for="item in hotList"
                 :key="item.rank"
