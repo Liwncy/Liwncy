@@ -7,185 +7,210 @@
 export const getSideMenus = async () => {
   // 平台列表分类
   const menus = [
-      {
-          "id": "text-emotion",
-          "title": "❤️ 情感文案",
-          "description": "各种情感类型的文案",
-          "children": [
-              {
-                  "id": "text-sad",
-                  "title": "伤感语录",
-                  "description": "返回一段伤感语录",
-                  "subTitle": "sgyl",
-                  "data": {
-                      "id": "text-sad-api",
-                      "name": "伤感语录",
-                      "api": "/api/sgyl.php"
-                  }
-              },
-              {
-                  "id": "text-soft",
-                  "title": "温柔文案",
-                  "description": "返回一段温柔文案",
-                  "subTitle": "wenrou",
-                  "data": {
-                      "id": "text-soft-api",
-                      "name": "温柔文案",
-                      "api": "/api/wenrou.php"
-                  }
-              },
-              {
-                  "id": "text-poison",
-                  "title": "毒鸡汤",
-                  "description": "返回一段毒鸡汤文案",
-                  "subTitle": "dujitang",
-                  "data": {
-                      "id": "text-poison-api",
-                      "name": "毒鸡汤",
-                      "api": "/api/dujitang.php"
-                  }
-              },
-              {
-                  "id": "text-soil",
-                  "title": "土味情话",
-                  "description": "返回一条土味情话",
-                  "subTitle": "qinghua",
-                  "data": {
-                      "id": "text-soil-api",
-                      "name": "土味情话",
-                      "api": "/api/qinghua.php"
-                  }
-              }
-          ]
-      },
-      {
-          "id": "text-quote",
-          "title": "✍️ 语录短句",
-          "description": "各种类型的语录和短句",
-          "children": [
-              {
-                  "id": "text-yiyan",
-                  "title": "随机一言",
-                  "description": "返回随机一言文案",
-                  "subTitle": "yan",
-                  "data": {
-                      "id": "text-yiyan-api",
-                      "name": "随机一言",
-                      "api": "/api/yan.php"
-                  }
-              },
-              {
-                  "id": "text-english",
-                  "title": "英汉语录",
-                  "description": "随机返回英语汉语文案",
-                  "subTitle": "yhyl",
-                  "data": {
-                      "id": "text-english-api",
-                      "name": "英汉语录",
-                      "api": "/api/yhyl.php"
-                  }
-              },
-              {
-                  "id": "text-random",
-                  "title": "随机美句",
-                  "description": "随机返回优美美句文案",
-                  "subTitle": "wenan",
-                  "data": {
-                      "id": "text-random-api",
-                      "name": "随机美句摘抄文案",
-                      "api": "/api/wenan.php"
-                  }
-              }
-          ]
-      },
-      {
-          "id": "text-social",
-          "title": "💬 社交文案",
-          "description": "社交媒体相关的文案",
-          "children": [
-              {
-                  "id": "text-pyq",
-                  "title": "朋友圈文案",
-                  "description": "随机返回朋友圈文案",
-                  "subTitle": "pyq",
-                  "data": {
-                      "id": "text-pyq-api",
-                      "name": "朋友圈文案",
-                      "api": "/api/pyq.php"
-                  }
-              },
-              {
-                  "id": "text-qq-signature",
-                  "title": "QQ签名文案",
-                  "description": "随机一段qq签名文案",
-                  "subTitle": "qianming",
-                  "data": {
-                      "id": "text-qq-signature-api",
-                      "name": "QQ签名文案",
-                      "api": "/api/qianming.php"
-                  }
-              }
-          ]
-      },
-      {
-          "id": "text-game",
-          "title": "🎮 游戏文案",
-          "description": "游戏相关的文案和语录",
-          "children": [
-              {
-                  "id": "text-wzry",
-                  "title": "王者荣耀台词",
-                  "description": "这是谁的小鹿，真厉害！——虎扑评分",
-                  "subTitle": "wzry",
-                  "data": {
-                      "id": "text-wzry-api",
-                      "name": "王者荣耀英雄台词",
-                      "api": "/api/wzry.php"
-                  }
-              },
-              {
-                  "id": "text-lol",
-                  "title": "英雄联盟台词",
-                  "description": "爱你，老妈！",
-                  "subTitle": "yxlm",
-                  "data": {
-                      "id": "text-lol-api",
-                      "name": "英雄联盟台词",
-                      "api": "/api/yxlm.php"
-                  }
-              }
-          ]
-      },
-      {
-          "id": "text-other",
-          "title": "📄 其他文案",
-          "description": "其他类型的文案内容",
-          "children": [
-              {
-                  "id": "text-saohua",
-                  "title": "随机骚话",
-                  "description": "返回一段随机骚话",
-                  "subTitle": "saohua",
-                  "data": {
-                      "id": "text-saohua-api",
-                      "name": "随机骚话",
-                      "api": "/api/saohua.php"
-                  }
-              },
-              {
-                  "id": "text-renjian",
-                  "title": "我在人间凑日子",
-                  "description": "返回一段凑日子文案",
-                  "subTitle": "renjian",
-                  "data": {
-                      "id": "text-renjian-api",
-                      "name": "我在人间凑日子",
-                      "api": "/api/renjian.php"
-                  }
-              }
-          ]
-      }
-  ];
+        {
+            "id": "comprehensive",
+            "title": "📊 综合",
+            "children": [
+                {
+                    "id": "baidu",
+                    "title": "百度",
+                    "subTitle": "baidu",
+                    "data": [
+                        {
+                            "id": "baidu_hot",
+                            "name": "热榜",
+                            "api": "/v2/baidu/hot"
+                        },
+                        {
+                            "id": "baidu_tieba",
+                            "name": "贴吧话题榜",
+                            "api": "/v2/baidu/tieba"
+                        },
+                        {
+                            "id": "baidu_teleplay",
+                            "name": "电视剧榜",
+                            "api": "/v2/baidu/teleplay"
+                        }
+                    ]
+                },
+                {
+                    "id": "douyin",
+                    "title": "抖音",
+                    "subTitle": "douyin",
+                    "data": [
+                        {
+                            "id": "douyin_hot",
+                            "name": "热搜",
+                            "api": "/v2/douyin"
+                        }
+                    ]
+                },
+                {
+                    "id": "rednote",
+                    "title": "小红书",
+                    "subTitle": "rednote",
+                    "data": [
+                        {
+                            "id": "rednote_hot",
+                            "name": "热点",
+                            "api": "/v2/rednote"
+                        }
+                    ]
+                },
+                {
+                    "id": "bilibili",
+                    "title": "哔哩哔哩",
+                    "subTitle": "bili",
+                    "data": [
+                        {
+                            "id": "bilibili_hot",
+                            "name": "热搜",
+                            "api": "/v2/bili"
+                        }
+                    ]
+                },
+                {
+                    "id": "quark",
+                    "title": "夸克",
+                    "subTitle": "quark",
+                    "data": [
+                        {
+                            "id": "quark_hot",
+                            "name": "热点",
+                            "api": "/v2/quark"
+                        }
+                    ]
+                },
+                {
+                    "id": "zhihu",
+                    "title": "知乎",
+                    "subTitle": "zhihu",
+                    "data": [
+                        {
+                            "id": "zhihu_topic",
+                            "name": "话题",
+                            "api": "/v2/zhihu"
+                        }
+                    ]
+                },
+                {
+                    "id": "dongchedi",
+                    "title": "懂车帝",
+                    "subTitle": "dongchedi",
+                    "data": [
+                        {
+                            "id": "dongchedi_hot",
+                            "name": "热搜",
+                            "api": "/v2/dongchedi"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "news",
+            "title": "📰 新闻",
+            "children": [
+                {
+                    "id": "weibo",
+                    "title": "微博",
+                    "subTitle": "weibo",
+                    "data": [
+                        {
+                            "id": "weibo_hot",
+                            "name": "微博",
+                            "api": "/v2/weibo"
+                        }
+                    ]
+                },
+                {
+                    "id": "toutiao",
+                    "title": "头条",
+                    "subTitle": "toutiao",
+                    "data": [
+                        {
+                            "id": "toutiao_hot",
+                            "name": "今日热榜",
+                            "api": "/v2/toutiao"
+                        }
+                    ]
+                },
+                {
+                    "id": "hacker_news",
+                    "title": "Hacker News",
+                    "subTitle": "hacker",
+                    "data": [
+                        {
+                            "id": "hacker_news_top",
+                            "name": "热榜",
+                            "api": "/v2/hacker-news/top"
+                        },
+                        {
+                            "id": "hacker_news_new",
+                            "name": "最新",
+                            "api": "/v2/hacker-news/new"
+                        },
+                        {
+                            "id": "hacker_news_best",
+                            "name": "更好",
+                            "api": "/v2/hacker-news/best"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "entertainment",
+            "title": "🎬 影视",
+            "children": [
+                {
+                    "id": "maoyan",
+                    "title": "猫眼",
+                    "subTitle": "maoyan",
+                    "data": [
+                        {
+                            "id": "maoyan_global_box_office",
+                            "name": "全球票房总榜",
+                            "api": "/v2/maoyan/all/movie"
+                        },
+                        {
+                            "id": "maoyan_realtime_box_office",
+                            "name": "电影实时票房",
+                            "api": "/v2/maoyan/realtime/movie"
+                        },
+                        {
+                            "id": "maoyan_tv_ratings",
+                            "name": "电视收视排行",
+                            "api": "/v2/maoyan/realtime/tv"
+                        },
+                        {
+                            "id": "maoyan_web_drama_hot",
+                            "name": "网剧实时热度",
+                            "api": "/v2/maoyan/realtime/web"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "music",
+            "title": "🎵 音乐",
+            "children": [
+                {
+                    "id": "netease_cloud",
+                    "title": "网易云",
+                    "subTitle": "netease",
+                    "data": [
+                        {
+                            "id": "netease_rank_list",
+                            "name": "榜单列表",
+                            "api": "/v2/ncm-rank/list"
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
   
   // 模拟API请求延迟
   return new Promise(resolve => {

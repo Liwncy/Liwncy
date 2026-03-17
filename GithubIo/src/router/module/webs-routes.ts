@@ -47,6 +47,11 @@ export default [
                 meta: {title: "AI工具"},
             },
             {
+                path: "/webs/personalityTest",
+                component: () => import('@/views/webs/personalityTest/index.vue'),
+                meta: {title: "性格测试"},
+            },
+            {
                 path: '/webs/betterRead',
                 name: 'BetterRead',
                 component: BetterRead,
@@ -106,4 +111,3 @@ export default [
         ]
     },
 ];
-
