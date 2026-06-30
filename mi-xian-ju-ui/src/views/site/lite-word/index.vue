@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import '@/assets/styles/lite-word.css'
 import MenuSidebar from '@/components/MenuSidebar.vue'
 import SitePageLayout from '@/components/SitePageLayout.vue'
 import { useLiteWord } from './useLiteWord'
@@ -11,6 +12,7 @@ const {
   menuVisible,
   contentPreview,
   loading,
+  hasActiveMenu,
   handleMenuClick,
   copyContent,
   refreshContent,
@@ -29,96 +31,69 @@ const {
     </template>
 
     <lay-container :fluid="true" class="lite-word-container">
-        <header class="lite-word-header">
-          <h1>{{ currentMenu.title || '一点文案' }}</h1>
-          <p>{{ currentMenu.payload?.description || '选择左侧分类，获取随机文案' }}</p>
-        </header>
+      <header class="lite-word-header">
+        <h1>{{ currentMenu.title || '欢迎使用 LiteWord' }}</h1>
+        <p>{{ currentMenu.payload?.description || '选择左侧菜单查看不同的文案内容' }}</p>
+      </header>
 
-        <lay-card v-if="currentMenu.payload" class="word-card">
-          <template #title>
-            <div class="word-card-title">
-              <span>{{ currentMenu.payload.platform || currentMenu.title }}</span>
-              <span v-if="currentMenu.subtitle" class="word-badge">{{ currentMenu.subtitle }}</span>
-            </div>
-          </template>
+      <div class="lite-word-body">
+        <transition name="lite-word-fade" mode="out-in">
+          <div v-if="hasActiveMenu" key="content" class="lite-word-content">
+            <lay-card class="lite-word-card">
+              <template #header>
+                <div class="lite-word-card-header">
+                  <span class="lite-word-card-title">
+                    {{ currentMenu.payload?.name || currentMenu.title }}
+                  </span>
+                  <span v-if="currentMenu.subtitle" class="lite-word-card-badge">
+                    {{ currentMenu.subtitle }}
+                  </span>
+                </div>
+              </template>
 
-          <lay-loading :loading="loading">
-            <div class="preview-content">
-              <p v-for="(item, index) in contentPreview" :key="index" class="preview-item">
-                {{ item }}
-              </p>
-            </div>
-          </lay-loading>
+              <div class="lite-word-card-body">
+                <div class="lite-word-info">
+                  <div class="lite-word-preview">
+                    <h3>文案内容</h3>
+                    <lay-loading :loading="loading">
+                      <div class="lite-word-preview-content">
+                        <p
+                          v-for="(item, index) in contentPreview"
+                          :key="index"
+                          class="lite-word-preview-item"
+                        >
+                          {{ item }}
+                        </p>
+                      </div>
+                    </lay-loading>
+                  </div>
 
-          <div class="word-actions">
-            <lay-button type="primary" :loading="loading" @click="copyContent">复制文案</lay-button>
-            <lay-button :loading="loading" @click="refreshContent">再来一条</lay-button>
+                  <div class="lite-word-actions">
+                    <lay-button type="primary" size="lg" :loading="loading" @click="copyContent">
+                      <i class="layui-icon layui-icon-templeate-one" />
+                      复制文案
+                    </lay-button>
+                    <lay-button type="normal" size="lg" :loading="loading" @click="refreshContent">
+                      <i class="layui-icon layui-icon-refresh" />
+                      再来一条
+                    </lay-button>
+                  </div>
+                </div>
+              </div>
+            </lay-card>
           </div>
-        </lay-card>
 
-        <div v-else class="empty-state">
-          <p>请从左侧选择一个文案分类</p>
-        </div>
-      </lay-container>
+          <div v-else key="empty" class="lite-word-empty">
+            <div class="lite-word-empty-icon">📝</div>
+            <h3>请选择一个文案分类</h3>
+            <p>从左侧菜单中选择一个分类，查看对应的文案内容</p>
+          </div>
+        </transition>
+      </div>
+
+      <footer class="lite-word-footer">
+        <p>© {{ new Date().getFullYear() }} LiteWord - 一点文案</p>
+      </footer>
+    </lay-container>
   </SitePageLayout>
 </template>
-
-<style scoped>
-.lite-word-container {
-  padding: 24px;
-  max-width: 960px;
-}
-
-.lite-word-header h1 {
-  margin: 0 0 8px;
-  font-size: 24px;
-}
-
-.lite-word-header p {
-  margin: 0 0 20px;
-  color: #666;
-}
-
-.word-card-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.word-badge {
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #e3f2fd;
-  color: #1976d2;
-}
-
-.preview-content {
-  min-height: 180px;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-.preview-item {
-  margin: 0 0 12px;
-  line-height: 1.7;
-  color: #444;
-}
-
-.preview-item:last-child {
-  margin-bottom: 0;
-}
-
-.word-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.empty-state {
-  padding: 48px;
-  text-align: center;
-  color: #999;
-}
-</style>

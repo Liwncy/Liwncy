@@ -1,30 +1,714 @@
 [
   {
-    "id": "random-video",
-    "title": "随机视频",
+    "id": "girls-recommended",
+    "title": "🏆 推荐系列",
     "sort": 1,
     "enabled": true,
+    "payload": {
+      "description": "推荐和热门的小姐姐视频"
+    },
     "children": [
       {
-        "id": "zzxjj",
-        "title": "短视频",
-        "subtitle": "Random",
+        "id": "zzxjj-video",
+        "title": "站长推荐",
         "sort": 1,
         "enabled": true,
+        "subtitle": "zzxjj",
         "payload": {
-          "api": "/api/zzxjj.php?type=video",
-          "description": "随机短视频"
+          "id": "zzxjj-video-api",
+          "name": "小姐姐随机视频",
+          "api": "/api/zzxjj.php",
+          "description": "全网极高质量的视频，响应速度极快"
         }
       },
       {
-        "id": "ks-random",
-        "title": "快手随机",
-        "subtitle": "Kuaishou",
+        "id": "xj-video",
+        "title": "小姐姐视频",
         "sort": 2,
         "enabled": true,
+        "subtitle": "xjj",
         "payload": {
-          "api": "/api/kssp.php?type=video",
-          "description": "快手随机视频"
+          "id": "xj-video-api",
+          "name": "小姐姐视频",
+          "api": "/api/xjj.php",
+          "description": "此接口比较稳定，视频大约6000，持续添加"
+        }
+      },
+      {
+        "id": "juhe-xjj",
+        "title": "各类小姐姐",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "juhexjj",
+        "payload": {
+          "id": "juhe-xjj-api",
+          "name": "各类小姐姐视频",
+          "api": "/api/juhexjj.php",
+          "description": "此站所有小姐姐类资源视频，随机输出各种类型"
+        }
+      }
+    ]
+  },
+  {
+    "id": "girls-pure",
+    "title": "👸 清纯小姐姐",
+    "sort": 2,
+    "enabled": true,
+    "payload": {
+      "description": "清纯风格的小姐姐视频"
+    },
+    "children": [
+      {
+        "id": "pure-girls",
+        "title": "清纯系列",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "qingchun",
+        "payload": {
+          "id": "pure-girls-api",
+          "name": "清纯系列视频",
+          "api": "/api/qingchun.php",
+          "description": "清纯系列（超高质量）"
+        }
+      },
+      {
+        "id": "sweet-girls",
+        "title": "甜妹系列",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "tianmei",
+        "payload": {
+          "id": "sweet-girls-api",
+          "name": "甜妹系列视频",
+          "api": "/api/tianmei.php",
+          "description": "返回甜妹视频，实时更新"
+        }
+      },
+      {
+        "id": "loli-video",
+        "title": "萝莉系列",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "luoli",
+        "payload": {
+          "id": "loli-video-api",
+          "name": "萝莉系列视频",
+          "api": "/api/luoli.php",
+          "description": "全是高质量萝莉系列视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "girls-cute",
+    "title": "🎀 可爱小姐姐",
+    "sort": 3,
+    "enabled": true,
+    "payload": {
+      "description": "可爱风格的小姐姐视频"
+    },
+    "children": [
+      {
+        "id": "face-video",
+        "title": "怼脸自拍",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "duilian",
+        "payload": {
+          "id": "face-video-api",
+          "name": "怼脸自拍视频",
+          "api": "/api/duilian.php",
+          "description": "返回怼脸自拍系列视频"
+        }
+      },
+      {
+        "id": "jk-video",
+        "title": "JK洛丽塔",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "jksp",
+        "payload": {
+          "id": "jk-video-api",
+          "name": "JK洛丽塔视频",
+          "api": "/api/jksp.php",
+          "description": "随机返回jk、洛丽塔、裙子之类的视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "girls-sexy",
+    "title": "🔥 性感小姐姐",
+    "sort": 4,
+    "enabled": true,
+    "payload": {
+      "description": "性感风格的小姐姐视频"
+    },
+    "children": [
+      {
+        "id": "black-stockings",
+        "title": "黑丝视频",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "heisis",
+        "payload": {
+          "id": "black-stockings-api",
+          "name": "黑丝视频",
+          "api": "/api/heisis.php",
+          "description": "随机返回黑丝视频"
+        }
+      },
+      {
+        "id": "white-stockings",
+        "title": "白丝视频",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "baisis",
+        "payload": {
+          "id": "white-stockings-api",
+          "name": "白丝视频",
+          "api": "/api/baisis.php",
+          "description": "返回高质量白丝视频"
+        }
+      },
+      {
+        "id": "sling-video",
+        "title": "吊带系列",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "diaodai",
+        "payload": {
+          "id": "sling-video-api",
+          "name": "吊带系列视频",
+          "api": "/api/diaodai.php",
+          "description": "高质量吊带系列视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "girls-legs",
+    "title": "🦵 美腿玉足",
+    "sort": 5,
+    "enabled": true,
+    "payload": {
+      "description": "美腿和玉足相关视频"
+    },
+    "children": [
+      {
+        "id": "feet-legs",
+        "title": "玉足美腿",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "yuzu",
+        "payload": {
+          "id": "feet-legs-api",
+          "name": "玉足美腿视频",
+          "api": "/api/yuzu.php",
+          "description": "对接好几个快手博主，实时更新"
+        }
+      }
+    ]
+  },
+  {
+    "id": "girls-special",
+    "title": "✨ 特色小姐姐",
+    "sort": 6,
+    "enabled": true,
+    "payload": {
+      "description": "特色类型的小姐姐视频"
+    },
+    "children": [
+      {
+        "id": "double-happiness",
+        "title": "双倍快乐",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "sbkl",
+        "payload": {
+          "id": "double-happiness-api",
+          "name": "双倍快乐视频",
+          "api": "/api/sbkl.php",
+          "description": "高质量，对接快手实时更新"
+        }
+      },
+      {
+        "id": "bianzhuang-video",
+        "title": "抖音变装",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "bianzhuang",
+        "payload": {
+          "id": "bianzhuang-video-api",
+          "name": "抖音变装视频",
+          "api": "/api/bianzhuang.php",
+          "description": "返回抖音小姐姐变装视频"
+        }
+      },
+      {
+        "id": "ksxjj-video",
+        "title": "小姐姐视频②",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "ksxjjsp",
+        "payload": {
+          "id": "ksxjj-video-api",
+          "name": "小姐姐视频②",
+          "api": "/api/ksxjjsp.php",
+          "description": "视频接口有点多"
+        }
+      }
+    ]
+  },
+  {
+    "id": "girls-popular",
+    "title": "🌟 热门小姐姐",
+    "sort": 7,
+    "enabled": true,
+    "payload": {
+      "description": "热门博主和系列视频"
+    },
+    "children": [
+      {
+        "id": "shejie-video",
+        "title": "杀猪饲料蛇姐",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "shejie",
+        "payload": {
+          "id": "shejie-video-api",
+          "name": "杀猪饲料蛇姐视频",
+          "api": "/api/shejie.php",
+          "description": "厦门没有茉莉花，就像我们的世界没有蛇姐"
+        }
+      },
+      {
+        "id": "jjy-video",
+        "title": "鞠婧祎系列",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "jjy",
+        "payload": {
+          "id": "jjy-video-api",
+          "name": "鞠婧祎系列视频",
+          "api": "/api/jjy.php",
+          "description": "随机返回鞠婧祎系列视频"
+        }
+      },
+      {
+        "id": "yumeng-video",
+        "title": "你的欲梦",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "ndym",
+        "payload": {
+          "id": "yumeng-video-api",
+          "name": "你的欲梦视频",
+          "api": "/api/ndym.php",
+          "description": "快手官网视频外链，响应速度快"
+        }
+      }
+    ]
+  },
+  {
+    "id": "boys-handsome",
+    "title": "🤵 小哥哥",
+    "sort": 8,
+    "enabled": true,
+    "payload": {
+      "description": "各种类型的小哥哥视频"
+    },
+    "children": [
+      {
+        "id": "handsome-boys",
+        "title": "帅哥视频",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "xgg",
+        "payload": {
+          "id": "handsome-boys-api",
+          "name": "帅哥视频",
+          "api": "/api/xgg.php",
+          "description": "小geigei~"
+        }
+      }
+    ]
+  },
+  {
+    "id": "douyin",
+    "title": "🎵 抖音视频",
+    "sort": 9,
+    "enabled": true,
+    "payload": {
+      "description": "抖音平台的视频资源"
+    },
+    "children": [
+      {
+        "id": "douyin-random",
+        "title": "抖音随机",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "dy_sj",
+        "payload": {
+          "id": "douyin-random-api",
+          "name": "抖音随机视频",
+          "api": "/api/dy_sj.php",
+          "description": "随机输出抖音视频，小姐姐视频居多"
+        }
+      },
+      {
+        "id": "douyin-search",
+        "title": "抖音搜索",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "dy_search",
+        "payload": {
+          "id": "douyin-search-api",
+          "name": "抖音视频搜索",
+          "api": "/api/dy_search.php",
+          "description": "指定搜索抖音内容"
+        }
+      },
+      {
+        "id": "douyin-hot",
+        "title": "抖音热点",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "dy_hot",
+        "payload": {
+          "id": "douyin-hot-api",
+          "name": "抖音热点视频",
+          "api": "/api/dy_hot.php",
+          "description": "返回抖音热点视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "douyin-stars",
+    "title": "⭐ 抖音达人",
+    "sort": 10,
+    "enabled": true,
+    "payload": {
+      "description": "抖音知名达人和博主视频"
+    },
+    "children": [
+      {
+        "id": "douyin-xiaoxiao",
+        "title": "抖音潇潇",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "xiaoxiao",
+        "payload": {
+          "id": "douyin-xiaoxiao-api",
+          "name": "抖音潇潇随机视频",
+          "api": "/api/xiaoxiao.php",
+          "description": "随机返回抖音xiaoxiao视频，大概只有几百个"
+        }
+      }
+    ]
+  },
+  {
+    "id": "kuaishou",
+    "title": "📱 快手视频",
+    "sort": 11,
+    "enabled": true,
+    "payload": {
+      "description": "快手平台的视频资源"
+    },
+    "children": [
+      {
+        "id": "kuaishou-random",
+        "title": "快手随机",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "ks_sj",
+        "payload": {
+          "id": "kuaishou-random-api",
+          "name": "快手随机视频",
+          "api": "/api/ks_sj.php",
+          "description": "随机类型输出快手视频"
+        }
+      },
+      {
+        "id": "manhuay-video",
+        "title": "漫画芋",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "manhuay",
+        "payload": {
+          "id": "manhuay-video-api",
+          "name": "漫画芋视频",
+          "api": "/api/manhuay.php",
+          "description": "快手官网视频，实时更新"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dance",
+    "title": "💃 舞蹈视频",
+    "sort": 12,
+    "enabled": true,
+    "payload": {
+      "description": "各种舞蹈类型的视频"
+    },
+    "children": [
+      {
+        "id": "hot-dance",
+        "title": "热舞视频",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "rewu",
+        "payload": {
+          "id": "hot-dance-api",
+          "name": "热舞视频",
+          "api": "/api/rewu.php",
+          "description": "小姐姐热舞视频"
+        }
+      },
+      {
+        "id": "slow-dance",
+        "title": "慢摇系列",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "manyao",
+        "payload": {
+          "id": "slow-dance-api",
+          "name": "慢摇系列视频",
+          "api": "/api/manyao.php",
+          "description": "高质量慢摇系列视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "comic-con",
+    "title": "🎪 漫展视频",
+    "sort": 13,
+    "enabled": true,
+    "payload": {
+      "description": "漫展现场和cosplay相关视频"
+    },
+    "children": [
+      {
+        "id": "comic-con-video",
+        "title": "漫展视频",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "manzhan",
+        "payload": {
+          "id": "comic-con-api",
+          "name": "漫展视频",
+          "api": "/api/manzhan.php",
+          "description": "漫展现场随机视频"
+        }
+      },
+      {
+        "id": "cosplay-video",
+        "title": "COS系列",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "COS",
+        "payload": {
+          "id": "cosplay-video-api",
+          "name": "COS系列视频",
+          "api": "/api/COS.php",
+          "description": "返回COS动漫系列视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "kids",
+    "title": "� 萌娃系列",
+    "sort": 14,
+    "enabled": true,
+    "payload": {
+      "description": "可爱萌娃相关视频"
+    },
+    "children": [
+      {
+        "id": "kids-video",
+        "title": "萌娃系列",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "mengwa",
+        "payload": {
+          "id": "kids-video-api",
+          "name": "萌娃系列视频",
+          "api": "/api/mengwa.php",
+          "description": "包含（摇一摇、贝贝、丸子妹、果粒儿）系列"
+        }
+      }
+    ]
+  },
+  {
+    "id": "scenery",
+    "title": "🌄 风景视频",
+    "sort": 15,
+    "enabled": true,
+    "payload": {
+      "description": "各种风景类型的视频"
+    },
+    "children": [
+      {
+        "id": "sea-view",
+        "title": "海边晚霞",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "haibian",
+        "payload": {
+          "id": "sea-view-api",
+          "name": "海边晚霞风景视频",
+          "api": "/api/haibian.php",
+          "description": "喜欢花 喜欢海 喜欢日落"
+        }
+      },
+      {
+        "id": "pc-scenery",
+        "title": "PC风景",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "pcfj",
+        "payload": {
+          "id": "pc-scenery-api",
+          "name": "PC端风景视频",
+          "api": "/api/pcfj.php",
+          "description": "可用做网站背景的PC端风景视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "anime",
+    "title": "🎮 动漫相关",
+    "sort": 16,
+    "enabled": true,
+    "payload": {
+      "description": "动漫和二次元相关视频"
+    },
+    "children": [
+      {
+        "id": "anime-video",
+        "title": "动漫视频",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "dmsp",
+        "payload": {
+          "id": "anime-video-api",
+          "name": "动漫视频",
+          "api": "/api/dmsp.php",
+          "description": "燃起来了的动漫视频"
+        }
+      },
+      {
+        "id": "anime-room",
+        "title": "二次元房间",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "pcfjsp",
+        "payload": {
+          "id": "anime-room-api",
+          "name": "随机二次元房间背景视频",
+          "api": "/api/pcfjsp.php",
+          "description": "可用作网站背景的随机二次元房间背景视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "music",
+    "title": "� 音乐相关",
+    "sort": 17,
+    "enabled": true,
+    "payload": {
+      "description": "音乐和歌曲相关视频"
+    },
+    "children": [
+      {
+        "id": "cover-song",
+        "title": "抖音翻唱",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "fanchang",
+        "payload": {
+          "id": "cover-song-api",
+          "name": "抖音翻唱歌曲视频",
+          "api": "/api/fanchang.php",
+          "description": "抖音忠宇、我是小力气、cici...随机歌曲"
+        }
+      }
+    ]
+  },
+  {
+    "id": "sports",
+    "title": "⚽ 体育相关",
+    "sort": 18,
+    "enabled": true,
+    "payload": {
+      "description": "体育赛事和运动相关视频"
+    },
+    "children": [
+      {
+        "id": "football-video",
+        "title": "足球混剪",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "zuqiu",
+        "payload": {
+          "id": "football-video-api",
+          "name": "足球混剪视频",
+          "api": "/api/zuqiu.php",
+          "description": "梅西、C罗、内马尔、世界杯混剪视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tech",
+    "title": "💻 科技相关",
+    "sort": 19,
+    "enabled": true,
+    "payload": {
+      "description": "科技和软件技巧相关视频"
+    },
+    "children": [
+      {
+        "id": "ps-video",
+        "title": "PS小技巧",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "ps",
+        "payload": {
+          "id": "ps-video-api",
+          "name": "PS小技巧视频",
+          "api": "/api/ps.php",
+          "description": "返回Photoshop技巧短视频"
+        }
+      }
+    ]
+  },
+  {
+    "id": "other",
+    "title": "🎬 其他类型",
+    "sort": 20,
+    "enabled": true,
+    "payload": {
+      "description": "其他各种类型的视频"
+    },
+    "children": [
+      {
+        "id": "random-video",
+        "title": "随机视频",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "sjsp",
+        "payload": {
+          "id": "random-video-api",
+          "name": "随机视频",
+          "api": "/api/sjsp.php",
+          "description": "包含（歌曲、美女、风景、娱乐、动漫）"
         }
       }
     ]

@@ -1,60 +1,114 @@
 [
   {
-    "id": 1,
+    "id": "index",
     "title": "首页",
-    "i18nKey": "nav.home",
-    "path": "/",
     "sort": 1,
-    "enabled": true
-  },
-  {
-    "id": 2,
-    "title": "书签",
-    "i18nKey": "nav.bookMark",
-    "path": "/bookmark",
-    "sort": 2,
-    "enabled": true
-  },
-  {
-    "id": 3,
-    "title": "随记",
-    "i18nKey": "nav.notes",
-    "path": "/notes",
-    "sort": 3,
-    "enabled": true
-  },
-  {
-    "id": 4,
-    "title": "生活",
-    "i18nKey": "nav.life",
-    "path": "/hot-bans",
-    "sort": 4,
     "enabled": true,
+    "i18nKey": "nav.home",
+    "path": "/"
+  },
+  {
+    "id": "xysx",
+    "title": "闲隅时序",
+    "sort": 2,
+    "enabled": true,
+    "i18nKey": "nav.xysx",
+    "path": "/hot-bans",
     "children": [
       {
-        "id": 401,
-        "title": "看新闻",
-        "i18nKey": "nav.life.news",
-        "path": "/hot-bans",
+        "id": "rbxw",
+        "title": "🕘热榜新闻",
         "sort": 1,
-        "enabled": true
+        "enabled": true,
+        "i18nKey": "nav.life.news",
+        "path": "/hot-bans"
       },
       {
-        "id": 402,
-        "title": "今日热榜",
-        "i18nKey": "nav.life.dailyHot",
-        "path": "/daily-hot",
+        "id": "jrrb",
+        "title": "🕘今日热榜",
         "sort": 2,
-        "enabled": true
+        "enabled": true,
+        "i18nKey": "nav.life.latest",
+        "path": "/daily-hot"
       }
     ]
   },
   {
-    "id": 10,
-    "title": "生态",
-    "i18nKey": "nav.resources",
-    "path": "/resources",
-    "sort": 10,
-    "enabled": false
+    "id": "xjbb",
+    "title": "璇玑百宝",
+    "sort": 3,
+    "enabled": true,
+    "i18nKey": "nav.xjbb",
+    "path": "/ai-tools",
+    "children": [
+      {
+        "id": "aigj",
+        "title": "🤖智能工具",
+        "sort": 1,
+        "enabled": true,
+        "i18nKey": "nav.life.news",
+        "path": "/ai-tools"
+      },
+      {
+        "id": "cysq",
+        "title": "✨常用书签",
+        "sort": 2,
+        "enabled": true,
+        "i18nKey": "nav.life.latest",
+        "path": "/bookmark"
+      }
+    ]
+  },
+  {
+    "id": "rjyh",
+    "title": "人间烟火",
+    "sort": 4,
+    "enabled": true,
+    "i18nKey": "nav.rjyh",
+    "path": "/personality-test",
+    "children": [
+      {
+        "id": "xgcs",
+        "title": "💗性格测试",
+        "sort": 1,
+        "enabled": true,
+        "i18nKey": "nav.personalityTest",
+        "path": "/personality-test"
+      }
+    ]
+  },
+  {
+    "id": "lzxy",
+    "title": "乐在逍遥",
+    "sort": 5,
+    "enabled": true,
+    "i18nKey": "nav.lzxy",
+    "path": "/lite-video",
+    "children": [
+      {
+        "id": "gltq",
+        "title": "💃勾栏听曲",
+        "sort": 1,
+        "enabled": true,
+        "i18nKey": "nav.life.gltq",
+        "path": "/lite-video"
+      },
+      {
+        "id": "zmgh",
+        "title": "🌸走马观花",
+        "sort": 2,
+        "enabled": true,
+        "i18nKey": "nav.life.zmgh",
+        "path": "/lite-image"
+      },
+      {
+        "id": "zmgh",
+        "title": "📜吟诗作对",
+        "sort": 3,
+        "enabled": true,
+        "i18nKey": "nav.life.zmgh",
+        "path": "/lite-word"
+      }
+    ]
   }
 ]

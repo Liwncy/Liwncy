@@ -1,33 +1,141 @@
 [
   {
-    "id": "wallpaper",
-    "title": "图片",
+    "id": "a",
+    "title": "🥰小姐姐",
     "sort": 1,
     "enabled": true,
     "children": [
       {
-        "id": "acg",
-        "title": "ACG 美图",
-        "subtitle": "ACG",
+        "id": "aa",
+        "title": "黑丝图片",
         "sort": 1,
         "enabled": true,
-        "payload": { "api": "/api/acg.php" }
+        "subtitle": "黑丝",
+        "payload": {
+          "api": "/api/heisi.php"
+        }
       },
       {
-        "id": "bing",
-        "title": "必应壁纸",
-        "subtitle": "Bing",
+        "id": "ab",
+        "title": "美女图集",
         "sort": 2,
         "enabled": true,
-        "payload": { "api": "/api/bing.php" }
+        "subtitle": "高质量美女",
+        "payload": {
+          "api": "/api/tuji.php"
+        }
+      }
+    ]
+  },
+  {
+    "id": "b",
+    "title": "😎小哥哥",
+    "sort": 2,
+    "enabled": true,
+    "children": [
+      {
+        "id": "ba",
+        "title": "腹肌图片",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "随机返回腹肌图片",
+        "payload": {
+          "api": "/api/fujiimg.php?type=image"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e",
+    "title": "🖼️壁纸",
+    "sort": 3,
+    "enabled": true,
+    "children": [
+      {
+        "id": "eb",
+        "title": "高清晰",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "ACG",
+        "payload": {
+          "api": "/api/gzl_ACG.php"
+        }
+      }
+    ]
+  },
+  {
+    "id": "c",
+    "title": "👤换头像",
+    "sort": 4,
+    "enabled": true,
+    "children": [
+      {
+        "id": "ca",
+        "title": "随机头像",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "随机的",
+        "payload": {
+          "api": "/api/sjtp.php"
+        }
       },
       {
-        "id": "random-img",
-        "title": "随机图片",
-        "subtitle": "Random",
+        "id": "cb",
+        "title": "情侣头像",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "情头",
+        "payload": {
+          "api": "/api/qltx.php"
+        }
+      },
+      {
+        "id": "cc",
+        "title": "可爱猫咪",
         "sort": 3,
         "enabled": true,
-        "payload": { "api": "/api/tupian.php" }
+        "subtitle": "哈基米",
+        "payload": {
+          "api": "/api/maomi.php"
+        }
+      },
+      {
+        "id": "cd",
+        "title": "网红美女",
+        "sort": 4,
+        "enabled": true,
+        "subtitle": "御姐萝莉",
+        "payload": {
+          "api": "/api/lltx.php?type=image"
+        }
+      }
+    ]
+  },
+  {
+    "id": "d",
+    "title": "😂表情图",
+    "sort": 5,
+    "enabled": true,
+    "children": [
+      {
+        "id": "da",
+        "title": "龙图",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "龙嗷~",
+        "payload": {
+          "api": "/api/long.php"
+        }
+      },
+      {
+        "id": "db",
+        "title": "EMO",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "emo",
+        "payload": {
+          "api": "/api/emo.php"
+        }
       }
     ]
   }

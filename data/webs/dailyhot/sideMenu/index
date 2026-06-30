@@ -1,106 +1,588 @@
 [
   {
-    "id": "综合",
-    "title": "综合",
+    "id": "comprehensive-news",
+    "title": "📰 综合资讯",
     "sort": 1,
     "enabled": true,
     "children": [
       {
-        "id": "哔哩哔哩",
-        "title": "哔哩哔哩",
+        "id": "36kr",
+        "title": "36氪",
         "sort": 1,
         "enabled": true,
+        "subtitle": "36kr",
         "payload": {
-          "platform": "哔哩哔哩",
-          "description": "B站热门内容聚合"
+          "title": "36氪",
+          "description": "让一部分人先看到未来",
+          "platform": "36氪"
         }
       },
       {
-        "id": "知乎",
-        "title": "知乎",
+        "id": "huxiu",
+        "title": "虎嗅",
         "sort": 2,
         "enabled": true,
+        "subtitle": "huxiu",
         "payload": {
-          "platform": "知乎",
-          "description": "知乎热榜话题"
+          "title": "虎嗅",
+          "description": "聚合优质的创新信息与人群",
+          "platform": "虎嗅"
         }
       },
       {
-        "id": "微博",
-        "title": "微博",
+        "id": "ifanr",
+        "title": "爱范儿",
         "sort": 3,
         "enabled": true,
+        "subtitle": "ifanr",
         "payload": {
-          "platform": "微博",
-          "description": "微博热搜榜单"
+          "title": "爱范儿",
+          "description": "关注数字生活和未来科技",
+          "platform": "爱范儿"
         }
       },
       {
-        "id": "百度",
-        "title": "百度",
+        "id": "geekpark",
+        "title": "极客公园",
         "sort": 4,
         "enabled": true,
+        "subtitle": "geekpark",
         "payload": {
-          "platform": "百度",
-          "description": "百度实时热点"
+          "title": "极客公园",
+          "description": "关注创新人群和创新产品",
+          "platform": "极客公园"
         }
       },
       {
-        "id": "抖音",
-        "title": "抖音",
+        "id": "ithome",
+        "title": "IT之家",
         "sort": 5,
         "enabled": true,
+        "subtitle": "ithome",
         "payload": {
-          "platform": "抖音",
-          "description": "抖音热点内容"
+          "title": "IT之家",
+          "description": "科技资讯，实时更新",
+          "platform": "IT之家"
         }
       },
       {
-        "id": "今日头条",
-        "title": "今日头条",
+        "id": "thepaper",
+        "title": "澎湃新闻",
         "sort": 6,
         "enabled": true,
+        "subtitle": "thepaper",
         "payload": {
-          "platform": "今日头条",
-          "description": "头条热榜资讯"
+          "title": "澎湃新闻",
+          "description": "专注时政与思想",
+          "platform": "澎湃新闻"
+        }
+      },
+      {
+        "id": "163-news",
+        "title": "网易新闻",
+        "sort": 7,
+        "enabled": true,
+        "subtitle": "163",
+        "payload": {
+          "title": "网易新闻",
+          "description": "有态度的新闻门户",
+          "platform": "网易新闻"
+        }
+      },
+      {
+        "id": "qq-news",
+        "title": "腾讯新闻",
+        "sort": 8,
+        "enabled": true,
+        "subtitle": "qq",
+        "payload": {
+          "title": "腾讯新闻",
+          "description": "事实派新闻",
+          "platform": "腾讯新闻"
+        }
+      },
+      {
+        "id": "sina-news",
+        "title": "新浪新闻",
+        "sort": 9,
+        "enabled": true,
+        "subtitle": "sina",
+        "payload": {
+          "title": "新浪新闻",
+          "description": "全球华人中文门户",
+          "platform": "新浪新闻"
+        }
+      },
+      {
+        "id": "toutiao",
+        "title": "今日头条",
+        "sort": 10,
+        "enabled": true,
+        "subtitle": "toutiao",
+        "payload": {
+          "title": "今日头条",
+          "description": "你关心的，才是头条",
+          "platform": "今日头条"
         }
       }
     ]
   },
   {
-    "id": "科技",
-    "title": "科技",
+    "id": "tech-community",
+    "title": "💻 技术社区",
     "sort": 2,
     "enabled": true,
     "children": [
       {
-        "id": "IT之家",
-        "title": "IT之家",
+        "id": "csdn",
+        "title": "CSDN",
         "sort": 1,
         "enabled": true,
+        "subtitle": "csdn",
         "payload": {
-          "platform": "IT之家",
-          "description": "科技资讯热榜"
+          "title": "CSDN",
+          "description": "中国专业IT社区",
+          "platform": "CSDN"
         }
       },
       {
-        "id": "少数派",
-        "title": "少数派",
+        "id": "juejin",
+        "title": "稀土掘金",
         "sort": 2,
         "enabled": true,
+        "subtitle": "juejin",
         "payload": {
-          "platform": "少数派",
-          "description": "数字生活热门文章"
+          "title": "稀土掘金",
+          "description": "帮助开发者成长的社区",
+          "platform": "稀土掘金"
         }
       },
       {
-        "id": "稀土掘金",
-        "title": "稀土掘金",
+        "id": "51cto",
+        "title": "51CTO",
         "sort": 3,
         "enabled": true,
+        "subtitle": "51cto",
         "payload": {
-          "platform": "稀土掘金",
-          "description": "开发者社区热榜"
+          "title": "51CTO",
+          "description": "技术成就梦想",
+          "platform": "51CTO"
+        }
+      },
+      {
+        "id": "hellogithub",
+        "title": "HelloGitHub",
+        "sort": 4,
+        "enabled": true,
+        "subtitle": "hellogithub",
+        "payload": {
+          "title": "HelloGitHub",
+          "description": "发现有趣的GitHub项目",
+          "platform": "HelloGitHub"
+        }
+      },
+      {
+        "id": "sspai",
+        "title": "少数派",
+        "sort": 5,
+        "enabled": true,
+        "subtitle": "sspai",
+        "payload": {
+          "title": "少数派",
+          "description": "高效工作，品质生活",
+          "platform": "少数派"
+        }
+      },
+      {
+        "id": "digitser",
+        "title": "数字尾巴",
+        "sort": 6,
+        "enabled": true,
+        "subtitle": "digitser",
+        "payload": {
+          "title": "数字尾巴",
+          "description": "分享数字生活",
+          "platform": "数字尾巴"
+        }
+      },
+      {
+        "id": "guokr",
+        "title": "果壳",
+        "sort": 7,
+        "enabled": true,
+        "subtitle": "guokr",
+        "payload": {
+          "title": "果壳",
+          "description": "科技有意思",
+          "platform": "果壳"
+        }
+      }
+    ]
+  },
+  {
+    "id": "social-media",
+    "title": "💬 社交媒体",
+    "sort": 3,
+    "enabled": true,
+    "children": [
+      {
+        "id": "weibo",
+        "title": "微博",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "weibo",
+        "payload": {
+          "title": "微博",
+          "description": "随时随地发现新鲜事",
+          "platform": "微博"
+        }
+      },
+      {
+        "id": "zhihu",
+        "title": "知乎",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "zhihu",
+        "payload": {
+          "title": "知乎",
+          "description": "有问题，就会有答案",
+          "platform": "知乎"
+        }
+      },
+      {
+        "id": "zhihudaily",
+        "title": "知乎日报",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "zhihudaily",
+        "payload": {
+          "title": "知乎日报",
+          "description": "每天三次，每次七分钟",
+          "platform": "知乎日报"
+        }
+      },
+      {
+        "id": "douban",
+        "title": "豆瓣讨论",
+        "sort": 4,
+        "enabled": true,
+        "subtitle": "douban",
+        "payload": {
+          "title": "豆瓣讨论",
+          "description": "我们的精神角落",
+          "platform": "豆瓣讨论"
+        }
+      },
+      {
+        "id": "douban-movie",
+        "title": "豆瓣电影",
+        "sort": 5,
+        "enabled": true,
+        "subtitle": "doubanmovie",
+        "payload": {
+          "title": "豆瓣电影",
+          "description": "记录想看、在看和看过的电影",
+          "platform": "豆瓣电影"
+        }
+      },
+      {
+        "id": "tieba",
+        "title": "百度贴吧",
+        "sort": 6,
+        "enabled": true,
+        "subtitle": "tieba",
+        "payload": {
+          "title": "百度贴吧",
+          "description": "全球领先的中文社区",
+          "platform": "百度贴吧"
+        }
+      },
+      {
+        "id": "smth",
+        "title": "水木社区",
+        "sort": 7,
+        "enabled": true,
+        "subtitle": "smth",
+        "payload": {
+          "title": "水木社区",
+          "description": "清华大学的BBS",
+          "platform": "水木社区"
+        }
+      }
+    ]
+  },
+  {
+    "id": "video-platform",
+    "title": "🎬 视频平台",
+    "sort": 4,
+    "enabled": true,
+    "children": [
+      {
+        "id": "bilibili",
+        "title": "哔哩哔哩",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "bilibili",
+        "payload": {
+          "title": "哔哩哔哩",
+          "description": "哔哩哔哩（B站）是中国领先的年轻人文化社区，涵盖动画、番剧、音乐、舞蹈、游戏、科技等多个领域。",
+          "platform": "哔哩哔哩"
+        }
+      },
+      {
+        "id": "acfun",
+        "title": "AcFun",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "acfun",
+        "payload": {
+          "title": "AcFun",
+          "description": "认真你就输了",
+          "platform": "AcFun"
+        }
+      },
+      {
+        "id": "douyin",
+        "title": "抖音",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "douyin",
+        "payload": {
+          "title": "抖音",
+          "description": "记录美好生活",
+          "platform": "抖音"
+        }
+      }
+    ]
+  },
+  {
+    "id": "game-related",
+    "title": "🎮 游戏相关",
+    "sort": 5,
+    "enabled": true,
+    "children": [
+      {
+        "id": "genshin",
+        "title": "原神",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "genshin",
+        "payload": {
+          "title": "原神",
+          "description": "开放世界冒险游戏",
+          "platform": "原神"
+        }
+      },
+      {
+        "id": "honkai3",
+        "title": "崩坏3",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "honkai3",
+        "payload": {
+          "title": "崩坏3",
+          "description": "3D全视角卡通渲染AVG",
+          "platform": "崩坏3"
+        }
+      },
+      {
+        "id": "honkai-star-rail",
+        "title": "崩坏：星穹铁道",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "honkai-star-rail",
+        "payload": {
+          "title": "崩坏：星穹铁道",
+          "description": "银河冒险策略游戏",
+          "platform": "崩坏：星穹铁道"
+        }
+      },
+      {
+        "id": "miyoushe",
+        "title": "米游社 · 崩坏3",
+        "sort": 4,
+        "enabled": true,
+        "subtitle": "miyoushe",
+        "payload": {
+          "title": "米游社 · 崩坏3",
+          "description": "米哈游官方社区",
+          "platform": "米游社 · 崩坏3"
+        }
+      },
+      {
+        "id": "lol",
+        "title": "英雄联盟",
+        "sort": 5,
+        "enabled": true,
+        "subtitle": "lol",
+        "payload": {
+          "title": "英雄联盟",
+          "description": "全球最受欢迎的MOBA游戏",
+          "platform": "英雄联盟"
+        }
+      },
+      {
+        "id": "nga",
+        "title": "NGA",
+        "sort": 6,
+        "enabled": true,
+        "subtitle": "nga",
+        "payload": {
+          "title": "NGA",
+          "description": "艾泽拉斯国家地理",
+          "platform": "NGA"
+        }
+      },
+      {
+        "id": "gcores",
+        "title": "游研社",
+        "sort": 7,
+        "enabled": true,
+        "subtitle": "gcores",
+        "payload": {
+          "title": "游研社",
+          "description": "游戏研究社",
+          "platform": "游研社"
+        }
+      }
+    ]
+  },
+  {
+    "id": "other-platforms",
+    "title": "🔖 其他平台",
+    "sort": 6,
+    "enabled": true,
+    "children": [
+      {
+        "id": "baidu",
+        "title": "百度",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "baidu",
+        "payload": {
+          "title": "百度",
+          "description": "全球最大的中文搜索引擎",
+          "platform": "百度"
+        }
+      },
+      {
+        "id": "sina",
+        "title": "新浪网",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "sina",
+        "payload": {
+          "title": "新浪网",
+          "description": "中文门户网站",
+          "platform": "新浪网"
+        }
+      },
+      {
+        "id": "smzdm",
+        "title": "什么值得买",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "smzdm",
+        "payload": {
+          "title": "什么值得买",
+          "description": "中立、客观的消费决策平台",
+          "platform": "什么值得买"
+        }
+      },
+      {
+        "id": "coolapk",
+        "title": "酷安",
+        "sort": 4,
+        "enabled": true,
+        "subtitle": "coolapk",
+        "payload": {
+          "title": "酷安",
+          "description": "数码玩家社区",
+          "platform": "酷安"
+        }
+      },
+      {
+        "id": "jianshu",
+        "title": "简书",
+        "sort": 5,
+        "enabled": true,
+        "subtitle": "jianshu",
+        "payload": {
+          "title": "简书",
+          "description": "创作你的创作",
+          "platform": "简书"
+        }
+      },
+      {
+        "id": "52pojie",
+        "title": "吾爱破解",
+        "sort": 6,
+        "enabled": true,
+        "subtitle": "52pojie",
+        "payload": {
+          "title": "吾爱破解",
+          "description": "软件安全与交流论坛",
+          "platform": "吾爱破解"
+        }
+      },
+      {
+        "id": "hupu",
+        "title": "虎扑",
+        "sort": 7,
+        "enabled": true,
+        "subtitle": "hupu",
+        "payload": {
+          "title": "虎扑",
+          "description": "中国体育领先者",
+          "platform": "虎扑"
+        }
+      },
+      {
+        "id": "ithome-free",
+        "title": "IT之家「喜加一」",
+        "sort": 8,
+        "enabled": true,
+        "subtitle": "ithome-free",
+        "payload": {
+          "title": "IT之家「喜加一」",
+          "description": "免费游戏推荐",
+          "platform": "IT之家「喜加一」"
+        }
+      },
+      {
+        "id": "today",
+        "title": "历史上的今天",
+        "sort": 9,
+        "enabled": true,
+        "subtitle": "today",
+        "payload": {
+          "title": "历史上的今天",
+          "description": "回顾历史，铭记今天",
+          "platform": "历史上的今天"
+        }
+      },
+      {
+        "id": "weather",
+        "title": "中央气象台",
+        "sort": 10,
+        "enabled": true,
+        "subtitle": "weather",
+        "payload": {
+          "title": "中央气象台",
+          "description": "权威天气预报",
+          "platform": "中央气象台"
+        }
+      },
+      {
+        "id": "weread",
+        "title": "微信读书",
+        "sort": 11,
+        "enabled": true,
+        "subtitle": "weread",
+        "payload": {
+          "title": "微信读书",
+          "description": "让阅读不再孤独",
+          "platform": "微信读书"
         }
       }
     ]

@@ -1,86 +1,1104 @@
 [
   {
-    "id": "综合",
-    "name": "综 合",
-    "icon": "mu",
-    "children": [
-      {
-        "id": "开源好物",
-        "name": "开源好物",
-        "icon": "fa fa-heart",
-        "books": [
-          {
-            "id": "7630",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          },
-          {
-            "id": "7631",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          }
-        ]
-      },
-      {
-        "id": "开源好物2",
-        "name": "开源好物",
-        "icon": "fa fa-heart",
-        "books": [
-          {
-            "id": "7632",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          },
-          {
-            "id": "7633",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          }
-        ]
-      },
-      {
-        "id": "开源好物3",
-        "name": "开源好物",
-        "icon": "fa fa-heart",
-        "books": [
-          {
-            "id": "7634",
-            "title": "免费AI生成PPT",
-            "avatar": "https://favicon.png.pub/v1/aHR0cHM6Ly93d3cuYWlwcHQuY24=",
-            "description": "",
-            "links": "https://www.aippt.cn/?utm_type=Navweb&utm_source=xhsq&utm_page=aippt&utm_plan=aippt&utm_unit=AIPPT&utm_keyword=36302090"
-          }
-        ]
-      }
-    ]
+    "id": "category-1g8q0kd36yb7rq1g72oh269lzv4",
+    "title": "主页",
+    "sort": 1,
+    "enabled": true,
+    "icon": "icon-zhuye",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1gai64em2rym5ttafcmxxx7ohuw",
+          "title": "纪念日",
+          "description": "纪念日"
+        },
+        {
+          "id": "icon-1g8s61g4b5fkox0qowum4yjp5bc",
+          "title": "天气",
+          "description": "天气"
+        },
+        {
+          "id": "icon-1g8s5vs3qxhiflpughu7vp4m48r",
+          "title": "热搜",
+          "description": "热搜"
+        },
+        {
+          "id": "icon-1h10jpa754m5297h11oeck2ydu5",
+          "title": "书签管理",
+          "description": "书签管理"
+        },
+        {
+          "id": "icon-1hdndesbjfuoiaur9g5l6wv6odj",
+          "title": "odoo开发入门与实践#第一章 环境准备 - 知乎",
+          "links": "https://zhuanlan.zhihu.com/p/457528263",
+          "description": "odoo开发入门与实践#第一章 环境准备 - 知乎"
+        },
+        {
+          "id": "icon-1ignk7gvao8gqrsx3j2tze43oau",
+          "title": "eBay开发者中文文档",
+          "links": "https://www.ebay.cn/newcms/d_devdocs_apis/4",
+          "description": "eBay开发者中文文档"
+        },
+        {
+          "id": "icon-1ihhng817uy8w1ybyt5xcibf5s7",
+          "title": "喜欢书签 - 找网站更简单",
+          "links": "https://www.likebookmark.com/",
+          "description": "喜欢书签 - 找网站更简单"
+        },
+        {
+          "id": "icon-1ihhvbff66f0ahweotzv9czmuk8",
+          "title": "芈仙居",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1ihhvbf4mhwo0t8brgd45tg78fi",
+          "links": "https://Liwncy.github.io",
+          "description": "芈仙居"
+        },
+        {
+          "id": "icon-1iadgb1suvwhmg86k1rm5oed761",
+          "title": "SkrBT最新地址发布页",
+          "links": "https://skrfb.top/",
+          "description": "SkrBT最新地址发布页"
+        },
+        {
+          "id": "icon-1iadhdq95doefqdh7mdgp0auwys",
+          "title": "我为人人",
+          "links": "https://2048.cc/2048/",
+          "description": "我为人人"
+        },
+        {
+          "id": "icon-1ima4dnml0jgspjtxcfebjzon5e",
+          "title": "免费算命,生辰八字算命,周易占卜,姓名测试打分-缘份居算命网-缘份居免费算命网站",
+          "links": "https://store.yuanfenju.com/index/cesuan.html",
+          "description": "免费算命,生辰八字算命,周易占卜,姓名测试打分-缘份居算命网-缘份居免费算命网站"
+        },
+        {
+          "id": "icon-1in5a2nb44uidtcnlca9vutau8l",
+          "title": "2025最新版idea专业版破姐教程永久激huo，亲测可用2099到期-CSDN博客",
+          "links": "https://blog.csdn.net/qq_18484325/article/details/146106424",
+          "description": "2025最新版idea专业版破姐教程永久激huo，亲测可用2099到期-CSDN博客"
+        },
+        {
+          "id": "icon-1in5ebi95bkuvb8qfycwxphms1j",
+          "title": "idea激活",
+          "links": "https://down.jetbrain.tech/",
+          "description": "idea激活"
+        },
+        {
+          "id": "icon-1ircclnt0a9a9sny54ix8v73o9y",
+          "title": "📚 我的知识库",
+          "links": "https://liwncy-notes.apifox.cn/",
+          "description": "📚 我的知识库"
+        },
+        {
+          "id": "icon-1isb3t2a47go23k6e9i94alqt33",
+          "title": "HDRify - Create a Glowing HDR Emoji Online",
+          "links": "https://www.hdrify.com/",
+          "description": "HDRify - Create a Glowing HDR Emoji Online"
+        },
+        {
+          "id": "icon-1gotab1sd2waj137ki1eedu278r",
+          "title": "稿定设计",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon/1676018043738.png",
+          "links": "https://www.gaoding.com/utms/970392bdfeed4e8680a0ffc585dd1bb6",
+          "description": "稿定设计"
+        },
+        {
+          "id": "icon-1gmsq34njpzpc3al4krevh5jg98",
+          "title": "日历",
+          "description": "日历"
+        },
+        {
+          "id": "icon-1gnri1724vxo0e0jx7mill3gpww",
+          "title": "抖音",
+          "avatar": "https://infinitypro-img.infinitynewtab.com/custom-icon/8001dqh3p6ashqujabze1jzukbyung.png",
+          "links": "https://www.douyin.com",
+          "description": "抖音"
+        },
+        {
+          "id": "icon-1g8s664ff5os3276x2ch6r9vowp",
+          "title": "哔哩哔哩",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/d8b62f4d64bda8800b1c788cd5ba3c68.png",
+          "links": "http://www.bilibili.com/",
+          "description": "哔哩哔哩"
+        },
+        {
+          "id": "icon-1g8s7ejhf560bsujdtxj1zyhe5m",
+          "title": "新浪微博",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/0f2ab700f8fff5b6e9ebc7d6a976981f.png",
+          "links": "http://weibo.com/",
+          "description": "新浪微博"
+        }
+      ]
+    }
   },
   {
-    "id": "生活",
-    "name": "生 活",
-    "icon": "mu",
-    "children": [
-      {
-        "id": "我的购物",
-        "name": "我的购物",
-        "icon": "fa fa-heart",
-        "books": [
-          {
-            "id": "京东商城",
-            "title": "京东商城",
-            "links": "https://www.infinitynewtab.com/jd.pro.html ",
-            "description": "专业的综合网上购物商城,销售家电、数码通讯、电脑、家居百货、服装服饰、母婴、图书、食品等数万个品牌优质商品.便捷、诚信的服务，为您提供愉悦的网上商城购物体验! ",
-            "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/cee009549b352def723ba09d6da4b742.png"
-          }
-        ]
-      }
-    ]
+    "id": "category-ai1hs7c1b14rb87vu84076d7bc647fef",
+    "title": "AI工具",
+    "sort": 2,
+    "enabled": true,
+    "icon": "icon-keji",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-67b40298c223fe3b81fe6b0d",
+          "title": "加密工具",
+          "description": "加密工具"
+        },
+        {
+          "id": "icon-1ig0c3rtvxqin6srymbpt92z3wl",
+          "title": "Kimi.ai - 会推理解析，能深度思考的AI助手",
+          "links": "https://kimi.moonshot.cn/",
+          "description": "Kimi.ai - 会推理解析，能深度思考的AI助手"
+        },
+        {
+          "id": "icon-1ig62dkn99oc57uia4ip1xszpf6",
+          "title": "炼丹家AI - 专注AI智能写作官网 | 在线写各类文章作文、自动生成写作、超级智能工具、免费AI写作、AI绘画",
+          "links": "https://www.liandanjia.com/app/home",
+          "description": "炼丹家AI - 专注AI智能写作官网 | 在线写各类文章作文、自动生成写作、超级智能工具、免费AI写作、AI绘画"
+        },
+        {
+          "id": "icon-1iejenqn3pflnb6gf7sa9c14ae1",
+          "title": "聊天记录生成器",
+          "links": "https://chat-h5.stite.net/#/?isMenu=true",
+          "description": "聊天记录生成器"
+        },
+        {
+          "id": "icon-1ij77n2bi7ge86ocvt7bd0e3zrs",
+          "title": "DeepSeek | 深度求索",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1ij77q21vsa494xgsxg4eb9e4hj",
+          "links": "https://www.deepseek.com/",
+          "description": "DeepSeek | 深度求索"
+        },
+        {
+          "id": "icon-1im9a1ilenxfd4ofcflha5xg9xa",
+          "title": "腾讯元宝 - 轻松工作 多点生活",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1jbeh4kvtnvi16pl0f6fpap0a88",
+          "links": "https://yuanbao.tencent.com/chat/naQivTmsDa/4f6a9c32-0af6-4c87-87d6-4434bc65107b",
+          "description": "腾讯元宝 - 轻松工作 多点生活"
+        },
+        {
+          "id": "icon-1h1345mkfdnsm3b8l91dkpd8p5i",
+          "title": "通义千问",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h13475qcbhag0k1sn0tkgwo43r.png",
+          "links": "https://tongyi.aliyun.com/qianwen",
+          "description": "通义千问"
+        },
+        {
+          "id": "icon-67b40298c223fe3b81fe6b0b",
+          "title": "单位转换",
+          "description": "单位转换"
+        },
+        {
+          "id": "icon-67b40298c223fe3b81fe6b0a",
+          "title": "文本工具",
+          "description": "文本工具"
+        },
+        {
+          "id": "icon-67b40298c223fe3b81fe6b0c",
+          "title": "数字工具",
+          "description": "数字工具"
+        },
+        {
+          "id": "icon-67b40298c223fe3b81fe6b09",
+          "title": "数据图表",
+          "description": "数据图表"
+        },
+        {
+          "id": "icon-ai1hs7d8pah28lpblcnxxia4p0j2y",
+          "title": "Chatgot",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon-v2/icon1hshsq5v4ujbio0cmqtd9sq0q2l.png",
+          "links": "https://start.chatgot.io/?utm_source=wtab",
+          "description": "Chatgot"
+        },
+        {
+          "id": "icon-aiusp8iy05pniynhp46d7bc647fef",
+          "title": "AI翻译",
+          "description": "AI翻译"
+        },
+        {
+          "id": "icon-1j1kmeg8akypve7cvwfs91e4tuo",
+          "title": "豆包",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1j1kmef8buselsmcj5yrsks2uc4",
+          "links": "https://www.doubao.com/chat",
+          "description": "豆包"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1h02dn2ka60hrbcpx4es9st4dj1",
+    "title": "工作事宜",
+    "sort": 3,
+    "enabled": true,
+    "icon": "icon-jinrong",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1h02i4s0gs2zjn1mevp4nd9cekb",
+          "title": "爱微云 - 企业级云服务器、云服务器托管、高防御VPS、虚拟主机提供商",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0ffrnr65hiw5uhpg0abp0f4rc.png",
+          "links": "https://cloud.aiwnet.cn/",
+          "description": "爱微云 - 企业级云服务器、云服务器托管、高防御VPS、虚拟主机提供商"
+        },
+        {
+          "id": "icon-1h0h3nsmqr9m4z6k769k2hszcin",
+          "title": "微信公众平台",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/185330a52715cea8491b46cfc417c00a.png",
+          "links": "https://mp.weixin.qq.com/",
+          "description": "微信公众平台"
+        },
+        {
+          "id": "icon-1h02e5vcrjiassoygm6vrx8aavp",
+          "title": "代码生成器",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1hor604i03sxtrtn0ccf1xcjxej.png",
+          "links": "http://119.177.60.74:5245/",
+          "description": "代码生成器"
+        },
+        {
+          "id": "icon-1hfo98kmkrrvocifpfwl6obeyda",
+          "title": "尚义医养信息应用与管理平台",
+          "links": "https://sdbly.cn/back/#/login#reloaded",
+          "description": "尚义医养信息应用与管理平台"
+        },
+        {
+          "id": "icon-1hoo2r82d5v9w6ghnkdqlbn29s1",
+          "title": "宝塔-prod",
+          "avatar": "",
+          "links": "http://119.177.60.207:35270/915786b4",
+          "description": "宝塔-prod"
+        },
+        {
+          "id": "icon-1hht99sse8hxjrjbfixelqagywf",
+          "title": "Nacos-prod",
+          "links": "http://119.177.60.207:8848/nacos/#/configurationManagement?dataId=&group=&appName=&namespace=&pageSize=&pageNo=",
+          "description": "Nacos-prod"
+        },
+        {
+          "id": "icon-1i295lmp7hrldzejkj5hc58uz81",
+          "title": "CloudDrive2",
+          "links": "http://localhost:19798/",
+          "description": "CloudDrive2"
+        },
+        {
+          "id": "icon-1i3ck0a1mbt9okgs0adg5bbvcld",
+          "title": "AList",
+          "links": "http://localhost:5244/@login?redirect=%2F",
+          "description": "AList"
+        },
+        {
+          "id": "folder-1io70ad64v9t0567eylinypz732",
+          "title": "ERP",
+          "description": "ERP"
+        },
+        {
+          "id": "icon-1ijni64foyd5nnn9qx6n8t2wmkf",
+          "title": "宝塔Linux面板",
+          "links": "https://119.177.60.74:31150/5ff54b9e",
+          "description": "宝塔Linux面板"
+        },
+        {
+          "id": "icon-1ik1qsput2s16757msjofpl22hy",
+          "title": "宝塔Windows面板",
+          "links": "http://175.27.241.120:8888/btlogin",
+          "description": "宝塔Windows面板"
+        },
+        {
+          "id": "icon-1ikmcatt2mx6nrv8eumxa6qq3ft",
+          "title": "独立站建站：如何使用Shopify搭建独立站（2025） - 知乎",
+          "links": "https://zhuanlan.zhihu.com/p/608972649",
+          "description": "独立站建站：如何使用Shopify搭建独立站（2025） - 知乎"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1g8q0knpscgq24ws3sg5egbdtou",
+    "title": "开源好物",
+    "sort": 4,
+    "enabled": true,
+    "icon": "icon-chuangyi",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1h02g3nmh8d2vkmhv5heg9mdlh7",
+          "title": "Layui-Vue框架",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h13lrr2mlzxwvyf91t1z0mq2a4.png",
+          "links": "http://www.layui-vue.com/zh-CN/index",
+          "description": "Layui-Vue框架"
+        },
+        {
+          "id": "icon-1h02gajhnwe1li42zjxhw8l6qxg",
+          "title": "RuoYi框架",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h02gbso6nnap8g4x186idzkmmb.png",
+          "links": "http://doc.ruoyi.vip/",
+          "description": "RuoYi框架"
+        },
+        {
+          "id": "icon-1igngj4appju9cf90h055i9cpmm",
+          "title": "RuoYi-Plus",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1jbujrl106aj21uolxhepmcrj1n",
+          "links": "https://plus-doc.dromara.org",
+          "description": "RuoYi-Plus"
+        },
+        {
+          "id": "icon-1h02gl2cu7z3k2fyb17ltzme295",
+          "title": "Hutool",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h02glmvf2pvjqwk5g3u8mtq0qe.png",
+          "links": "https://hutool.cn/docs/index.html#/",
+          "description": "Hutool"
+        },
+        {
+          "id": "icon-1h02gt0pl8hjtvwx1bmx4jm0x8o",
+          "title": "MyBatis-Plus",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h02gtl6os2uxoirnvhlekpm7lo.png",
+          "links": "https://www.baomidou.com/",
+          "description": "MyBatis-Plus"
+        },
+        {
+          "id": "icon-1h02h0jesnckznajh9eh8vevk0x",
+          "title": "Element-UI",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h02h11skpw4ditgfk3urlpkc4o.png",
+          "links": "https://element.eleme.cn/#/zh-CN",
+          "description": "Element-UI"
+        },
+        {
+          "id": "icon-1ifh1mdmi82mnxlgtpm6lmle7dd",
+          "title": "Element Plus",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1ifh1ona4p301t1e9kqc7i8uv1k",
+          "links": "https://element-plus.org/zh-CN/#/zh-CN",
+          "description": "Element Plus"
+        },
+        {
+          "id": "icon-1h0fgp0qkx2ndgv5dv0quenxwkq",
+          "title": "ECharts",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0h3k0dreosx8h1ciuhb3ze9kx.png",
+          "links": "https://echarts.apache.org/zh/index.html",
+          "description": "ECharts"
+        },
+        {
+          "id": "icon-1h13lmul10l6ff8xhn28g3elr07",
+          "title": "Layui - 极简模块化前端 UI 组件库",
+          "links": "https://layui.dev/",
+          "description": "Layui - 极简模块化前端 UI 组件库"
+        },
+        {
+          "id": "icon-1h1ipfstkntjm9gh09kytdrbgml",
+          "title": "Easy-Trans",
+          "links": "http://easy-trans.fhs-opensource.top/components/readme.html",
+          "description": "Easy-Trans"
+        },
+        {
+          "id": "icon-1h2q13tl20dkz9axo4usc894h3b",
+          "title": "字母哥博客",
+          "links": "http://www.zimug.com/#/",
+          "description": "字母哥博客"
+        },
+        {
+          "id": "icon-1he78iroqs5n9i2ic8bqq8c633m",
+          "title": "弟弟快看-教程，程序员编程资料站 | DDKK.COM",
+          "links": "https://www.ddkk.com/?r=wx#algorithm",
+          "description": "弟弟快看-教程，程序员编程资料站 | DDKK.COM"
+        },
+        {
+          "id": "icon-1ikj7lfb91rpb6jzmfd4h2cgqdl",
+          "title": "Vue Print Next",
+          "links": "https://alexpang.cn/vue-print-next/docs/",
+          "description": "Vue Print Next"
+        },
+        {
+          "id": "icon-1il7gcj7sf9jux4m1q8vn1j4n7u",
+          "title": "欢迎来到白小菌的博客, 分享跨境电商知识, 涵盖独立站建站, 选品, 运营及外贸相关内容",
+          "links": "https://baixiaojunwm.com/#Shopify-Tutorial",
+          "description": "欢迎来到白小菌的博客, 分享跨境电商知识, 涵盖独立站建站, 选品, 运营及外贸相关内容"
+        },
+        {
+          "id": "icon-1jbk5mcv4zhml2xiq3ux93n2iqy",
+          "title": "Sa-Token",
+          "links": "https://sa-token.cc/",
+          "description": "Sa-Token"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1in8jp2c7bbtmaqf7qdl5ngsfxb",
+    "title": "API接口",
+    "sort": 5,
+    "enabled": true,
+    "icon": "icon-canyin",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1in8jpjqk5gxb5awalcw0orj2tp",
+          "title": "DP-API - 机器人api接口驿站",
+          "links": "https://api.dudunas.top/",
+          "description": "DP-API - 机器人api接口驿站"
+        },
+        {
+          "id": "icon-1innp9ulvh0e3tbvchqg25g6va8",
+          "title": "60s API",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1insjgt37on5ziel2lhvzu6c5mh",
+          "links": "https://docs.60s-api.viki.moe/5827401m0",
+          "description": "60s API"
+        },
+        {
+          "id": "icon-1insoi321oxt76acwywkktifmty",
+          "title": "遇见API",
+          "links": "https://api.yujn.cn/",
+          "description": "遇见API"
+        },
+        {
+          "id": "icon-1insoheg4hvvrvyth2je78r6be5",
+          "title": "客聊闲源 - 导航网 在线收录众多类型网站 实现流量互换 收录一站式 免费在线收录 在线收录精品站点 让你的站点增加浏览量 不在为流量发",
+          "links": "https://web.qster.top/",
+          "description": "客聊闲源 - 导航网 在线收录众多类型网站 实现流量互换 收录一站式 免费在线收录 在线收录精品站点 让你的站点增加浏览量 不在为流量发"
+        },
+        {
+          "id": "icon-1j037guse9vxc5gqv3bhc5e78gq",
+          "title": "龙珠API",
+          "links": "https://www.hhlqilongzhu.cn/",
+          "description": "龙珠API"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1h02el9q4xlsaye51kcss0ch907",
+    "title": "精选文章",
+    "sort": 6,
+    "enabled": true,
+    "icon": "icon-zixun",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1h02emfid1a7lryfdqvyomzuqrt",
+          "title": "MongoDB操作",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h02ep4rj0820ob911z865uc76x.png",
+          "links": "https://blog.csdn.net/weixin_44991304/article/details/121281074?spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-4-121281074-blog-129924810.235%5Ev28%5Epc_relevant_recovery_v2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-4-121281074-blog-129924810.235%5Ev28%5Epc_relevant_recovery_v2&utm_relevant_index=5",
+          "description": "MongoDB操作"
+        },
+        {
+          "id": "folder-1iqsfe830lh1cp9q9iyrzdopwnp",
+          "title": "文件夹",
+          "description": "文件夹"
+        },
+        {
+          "id": "icon-1h1vh7h7bsa5hx6hgkrghopkojh",
+          "title": "vue实现websoket即时通讯_vue实现websocket_他说不会。的博客-CSDN博客",
+          "links": "https://blog.csdn.net/weixin_45852743/article/details/126485612?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126485612-blog-129246446.235^v36^pc_relevant_default_base3&spm=1001.2101.3001.4242.1&utm_relevant_index=3",
+          "description": "vue实现websoket即时通讯_vue实现websocket_他说不会。的博客-CSDN博客"
+        },
+        {
+          "id": "icon-1h1vh8v5j6mb1a2snnk900intuf",
+          "title": "SpringBoot实现WebSocket_springboot websocket_每天吃八顿的博客-CSDN博客",
+          "links": "https://blog.csdn.net/qq_15752347/article/details/128190762",
+          "description": "SpringBoot实现WebSocket_springboot websocket_每天吃八顿的博客-CSDN博客"
+        },
+        {
+          "id": "icon-1h42dr2j1iyr44ct0cng39nx4m5",
+          "title": "(58条消息) frp + win + linux 实现路由穿透_you need to open cmd_搬砖的梦先生的博客-CSDN博客",
+          "links": "https://blog.csdn.net/zhaosongbin/article/details/88865890",
+          "description": "(58条消息) frp + win + linux 实现路由穿透_you need to open cmd_搬砖的梦先生的博客-CSDN博客"
+        },
+        {
+          "id": "icon-1h48f6fbkbxhu54fwjqg8w4hwct",
+          "title": "手把手教你使用electron将vue项目打包成exe",
+          "links": "https://www.yii666.com/blog/312160.html?action=onAll",
+          "description": "手把手教你使用electron将vue项目打包成exe"
+        },
+        {
+          "id": "icon-1h5c8fnoa8zi24lzzpog6nt9b9u",
+          "title": "保姆级教程！教你在Windows 11玩转安卓App - 知乎",
+          "links": "https://zhuanlan.zhihu.com/p/424579503",
+          "description": "保姆级教程！教你在Windows 11玩转安卓App - 知乎"
+        },
+        {
+          "id": "icon-1h5hejc2mka349k3iltd7xcy07u",
+          "title": "Win11系统怎么启用嵌套虚拟化？Win11嵌套虚拟化开启教学_操作系统教程",
+          "links": "https://www.qyyshop.com/mdsystem/info337533.html",
+          "description": "Win11系统怎么启用嵌套虚拟化？Win11嵌套虚拟化开启教学_操作系统教程"
+        },
+        {
+          "id": "icon-1h5jr5fbmuz85bs6pznjegun6lr",
+          "title": "JDK各版本特性总结_jdk版本_郝南过的博客-CSDN博客",
+          "links": "https://blog.csdn.net/shaogaiyue9745602/article/details/131015536?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522168966180816800185851559%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=168966180816800185851559&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~times_rank-1-131015536-null-null.142^v88^insert_down38v5,239^v2^insert_chatgpt&utm_term=java%E5%90%84%E7%89%88%E6%9C%AC%E6%96%B0%E7%89%B9%E6%80%A7&spm=1018.2226.3001.4187",
+          "description": "JDK各版本特性总结_jdk版本_郝南过的博客-CSDN博客"
+        },
+        {
+          "id": "icon-1h5jrspo36sotjdv3l9p90ipstz",
+          "title": "Java 11 新特性概览 | JavaGuide(Java面试 + 学习指南)",
+          "links": "https://javaguide.cn/java/new-features/java11.html#%E5%90%AF%E5%8A%A8%E5%8D%95%E6%96%87%E4%BB%B6%E6%BA%90%E4%BB%A3%E7%A0%81%E7%A8%8B%E5%BA%8F",
+          "description": "Java 11 新特性概览 | JavaGuide(Java面试 + 学习指南)"
+        },
+        {
+          "id": "icon-1h6o9khh776khzt9jvvt1lqekho",
+          "title": "frp内网穿透https_frp https_小百菜的博客-CSDN博客",
+          "links": "https://blog.csdn.net/u014644574/article/details/128303747",
+          "description": "frp内网穿透https_frp https_小百菜的博客-CSDN博客"
+        },
+        {
+          "id": "icon-1h6qs0ch6j1s39xhga4cnarp9mp",
+          "title": "java发送https请求携带ssl证书配置_mob649e8152a959的技术博客_51CTO博客",
+          "links": "https://blog.51cto.com/u_16175427/6786037",
+          "description": "java发送https请求携带ssl证书配置_mob649e8152a959的技术博客_51CTO博客"
+        },
+        {
+          "id": "icon-1htnprsi4ivwy7ebkxswi8sp9pg",
+          "title": "frp图解 附最新.toml配置文件 - 纯真丁一郎です - 博客园",
+          "links": "https://www.cnblogs.com/cenima/p/17849921.html",
+          "description": "frp图解 附最新.toml配置文件 - 纯真丁一郎です - 博客园"
+        },
+        {
+          "id": "icon-1hv43gdjpy5ljo76hxhfpvl2hyc",
+          "title": "微信机器人运行在Linux服务器上？消息自动回复，Docker一键部署。详细安装使用 - 哔哩哔哩",
+          "links": "https://www.bilibili.com/read/cv28706223/",
+          "description": "微信机器人运行在Linux服务器上？消息自动回复，Docker一键部署。详细安装使用 - 哔哩哔哩"
+        },
+        {
+          "id": "icon-1ifue9bi5vv1xqkw2m2rwpyixwy",
+          "title": "Windows部署MinIO，搭建本地对象存储服务_minio windows部署-CSDN博客",
+          "links": "https://blog.csdn.net/m0_65029152/article/details/139117969?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-139117969-blog-140544097.235^v43^pc_blog_bottom_relevance_base5&spm=1001.2101.3001.4242.1&utm_relevant_index=2",
+          "description": "Windows部署MinIO，搭建本地对象存储服务_minio windows部署-CSDN博客"
+        },
+        {
+          "id": "icon-1iglatbgopj3qpxowlar9prg1vk",
+          "title": "Console Add Item –Java使用eBay API SDK刊登商品 详解 - pxuan - 博客园",
+          "links": "https://www.cnblogs.com/pxuan/p/7685415.html",
+          "description": "Console Add Item –Java使用eBay API SDK刊登商品 详解 - pxuan - 博客园"
+        },
+        {
+          "id": "icon-1igv3qdqj7mh596cd6e7sb0b9py",
+          "title": "EBay 接口开发（restful接口调用）_调用ebasy-CSDN博客",
+          "links": "https://blog.csdn.net/qq_38214534/article/details/118610970?spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-118610970-blog-79881729.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-118610970-blog-79881729.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=20",
+          "description": "EBay 接口开发（restful接口调用）_调用ebasy-CSDN博客"
+        },
+        {
+          "id": "icon-1ihfcj40nj096627ix7at45ew5c",
+          "title": "前端vue2、vue3去掉url路由“ # ”号——nginx配置_vue 如何去除url中#-CSDN博客",
+          "links": "https://yma16.blog.csdn.net/article/details/132520250?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-132520250-blog-129140558.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-132520250-blog-129140558.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=5",
+          "description": "前端vue2、vue3去掉url路由“ # ”号——nginx配置_vue 如何去除url中#-CSDN博客"
+        },
+        {
+          "id": "icon-1ik3ihk9bik7h92vxsbasan3cxc",
+          "title": "mysql 8 设置允许远程连接 You are not allowed to create a user with GRANT-CSDN博客",
+          "links": "https://blog.csdn.net/mxskymx/article/details/88765072?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7EPaidSort-1-88765072-blog-123128084.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7EPaidSort-1-88765072-blog-123128084.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=1",
+          "description": "mysql 8 设置允许远程连接 You are not allowed to create a user with GRANT-CSDN博客"
+        },
+        {
+          "id": "icon-1intgjlpm4fl3yq7yqqx434l1qk",
+          "title": "JetBrains 2024.3.3 激活教程及许可证服务器 - 创新者老王的博客",
+          "links": "https://blog.cxzlw.top/2024/10/22/jetbrains-202423/",
+          "description": "JetBrains 2024.3.3 激活教程及许可证服务器 - 创新者老王的博客"
+        },
+        {
+          "id": "icon-1jbk5ur27d9cg09t3ntemj4ttb0",
+          "title": "SpringBoot集成Sa-Token权限校验框架深度解析-腾讯云开发者社区-腾讯云",
+          "links": "https://cloud.tencent.com/developer/article/2583672",
+          "description": "SpringBoot集成Sa-Token权限校验框架深度解析-腾讯云开发者社区-腾讯云"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1h112cl3r3qb80fs24kq9dhqw2p",
+    "title": "协作工具",
+    "sort": 7,
+    "enabled": true,
+    "icon": "icon-huihua",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1h02eg8odlewf8ecqzotl9naq3d",
+          "title": "蓝湖",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0ffs7qeo4p714okbuba4uqglx.png",
+          "links": "https://lanhuapp.com/dashboard/#/item?fid=all&tid=056a2ea4-0e30-4882-862e-7383489d02ad",
+          "description": "蓝湖"
+        },
+        {
+          "id": "icon-1h02i7hj785b3pjpf1s276b9miv",
+          "title": "腾讯文档",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0ffr1vobxi1bci2czrqwnpvcd.png",
+          "links": "https://docs.qq.com/desktop/?u=e00964327a1e4bfca060bbd692b69411",
+          "description": "腾讯文档"
+        },
+        {
+          "id": "icon-1h02i6vffop8mytbaok03jt7hj9",
+          "title": "Teambition",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0ffooq7dhw0p7wjaz8z8sur8m.png",
+          "links": "https://www.teambition.com/organization/5fbe9a17c0fe65437586c1cd/my",
+          "description": "Teambition"
+        },
+        {
+          "id": "icon-1h0ffmd1hb5wi4bejusa3f3prk8",
+          "title": " 语雀",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0ffnhpfp6w13vys5m6j31q91d.png",
+          "links": "https://www.yuque.com/dashboard",
+          "description": " 语雀"
+        },
+        {
+          "id": "icon-1h02eam88kw5m4fwb7z0pvc7pxy",
+          "title": "云效",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0fft0qf5euig78wc4wj121ppa.png",
+          "links": "https://account.aliyun.com/login/login.htm?oauth_callback=https%3A%2F%2Faccount-devops.aliyun.com%2Flogin%3Fnext_url%3Dhttp%3A%2F%2Faccount-devops.aliyun.com%2Flogin%3Fnext_url%3Dhttps%253A%252F%252Fcodeup.aliyun.com%252F%253F_userId%253D63eca4ec7076152136f6f9d4%2526timestamp%253D1676949329445%2526org_id%253D63e0c9923f24888125da9d3c%2526mode%253Dredirect%2526sign%253D8ce144399ccefe29dd6b73b7b4212437%2526appId%253D5e730cf2201d20d717988e46",
+          "description": "云效"
+        },
+        {
+          "id": "icon-1h3ec150rtj8qjtwhc73bkq20fe",
+          "title": "阿里云盘",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h3ec27bn74rq9pww7j4nxav3vm.png",
+          "links": "https://www.aliyundrive.com/drive",
+          "description": "阿里云盘"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1h02fkccb30j9idbx3zp1npzz7b",
+    "title": "实用工具",
+    "sort": 8,
+    "enabled": true,
+    "icon": "icon-gongju",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1h02i9ojn0mz006gxr46qr7mdtr",
+          "title": "正则可视化",
+          "links": "https://wangwl.net/static/projects/visualRegex#match=3&method=test&prefix=Z&source=Zsp1",
+          "description": "正则可视化"
+        },
+        {
+          "id": "icon-1h09a4hjg0og2db8rfnr4ehkddj",
+          "title": "运动助手",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0hhpq38xbn3nns8aoytfcifmm.png",
+          "links": "https://mfsb.net/",
+          "description": "运动助手"
+        },
+        {
+          "id": "icon-1h0jqoqei69nkei85lcy7wf2x7r",
+          "title": "MSDN",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0k414oc6oskqm7pa5cnxmw66a.png",
+          "links": "https://msdn.itellyou.cn/",
+          "description": "MSDN"
+        },
+        {
+          "id": "icon-1h3u2gfa2fszaphw7m6qqinvnzv",
+          "title": "运动助手",
+          "links": "https://mfsb.cn/",
+          "description": "运动助手"
+        },
+        {
+          "id": "icon-1h4d6r4r5p00b3xlqrdu4ubbszo",
+          "title": "去除背景",
+          "links": "https://www.remove.bg/zh",
+          "description": "去除背景"
+        },
+        {
+          "id": "icon-1hads205sn3o0537ih8xklo8d3o",
+          "title": "爱分享",
+          "links": "https://ifx8.com/",
+          "description": "爱分享"
+        },
+        {
+          "id": "icon-1huli55e3s1cdgy9gbm5rt9h6s0",
+          "title": "PS在线",
+          "links": "https://ps.gaoding.com/#/",
+          "description": "PS在线"
+        },
+        {
+          "id": "icon-1i19n0i012jrckq1hk39vkdiyu1",
+          "title": "聊天记录生成器",
+          "links": "https://xb.qiyukejiapp.com/app/index.php?i=208&c=entry&m=yiren_chat_record_plugin_h5&do=index#/pages/wx/liaotianJL/liaotianJL",
+          "description": "聊天记录生成器"
+        },
+        {
+          "id": "icon-1if95q6ksb802z8imt7ts991ms3",
+          "title": "在线打字练习",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1ig63bien168zqjb8466nj6jr0f",
+          "links": "https://dazidazi.com/",
+          "description": "在线打字练习"
+        },
+        {
+          "id": "icon-1ig62bvoqwa6130wrxeim42200b",
+          "title": "KMS激活",
+          "links": "https://kms.cx/",
+          "description": "KMS激活"
+        },
+        {
+          "id": "icon-1ig62f3fh7qhs99us2smps6tzlz",
+          "title": "在线压缩文件",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1ig63d1hfbff16l1zwuhzhb1djp",
+          "links": "https://freecompress.com/zh-cn",
+          "description": "在线压缩文件"
+        },
+        {
+          "id": "icon-1ig62m88oozbcdfpfg717583cnd",
+          "title": "免费临时邮箱",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1ig638d9n1kepjjqm095j8fs4i8",
+          "links": "https://smail.pw/zh-CN",
+          "description": "免费临时邮箱"
+        },
+        {
+          "id": "icon-1ig62n6t8sxp9ylj8v4fi4hcisu",
+          "title": "红心歌单助手",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1ig63a26fl5mv7ez5damuer8qi9",
+          "links": "https://heart.uselesses.com/",
+          "description": "红心歌单助手"
+        },
+        {
+          "id": "icon-1ig63pdvnngstakjqpvfyel9zcd",
+          "title": "wang-wl",
+          "links": "https://wangwl.net/",
+          "description": "wang-wl"
+        },
+        {
+          "id": "icon-1igdnn07q5rjx5d2vf4sacy6lm0",
+          "title": "在线Cron生成器",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1igdnnrct7l0y5x1fj0boa8lfqz",
+          "links": "https://cron.ciding.cc/",
+          "description": "在线Cron生成器"
+        },
+        {
+          "id": "icon-1ih4aipv44pqtftb5xvnhdnjo1p",
+          "title": "优秀的开源项目 - Java陈序员",
+          "links": "https://chencoding.top:8090/#/_tool?id=%e6%96%87%e6%a1%a3%e5%b7%a5%e5%85%b7",
+          "description": "优秀的开源项目 - Java陈序员"
+        },
+        {
+          "id": "icon-1ir9f118qxzc4sz05fj596jywwt",
+          "title": "cafehaus",
+          "links": "https://cafehaus.github.io/markdown-web-nav/#/home",
+          "description": "cafehaus"
+        },
+        {
+          "id": "icon-1gtqunnjahha5ycliascavmsn6a",
+          "title": "火山写作",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon-v2/icon1gtqun5nqn7xt8irojmoyiwkbxe.png",
+          "links": "https://www.writingo.net/document?source=new1",
+          "description": "火山写作"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1h02fmi1o8mpuscrpon55uaemyu",
+    "title": "程序人生",
+    "sort": 9,
+    "enabled": true,
+    "icon": "icon-chengxu",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1g8s7gnco9ddxfnlqvbcr5jqt1q",
+          "title": "GitHub",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/eb306ae2b122e7dde6e87fdf2970b17e.png",
+          "links": "https://github.com/",
+          "description": "GitHub"
+        },
+        {
+          "id": "icon-1g9jt811fqio56gpy3nhbrjzll5",
+          "title": "码云",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/1ba16d6fdf8ccd6a07eca98a9c908a21.png",
+          "links": "http://git.oschina.net/",
+          "description": "码云"
+        },
+        {
+          "id": "icon-1g9jtdhr0lbplitqs1xtoipch9v",
+          "title": "开源中国",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/8059449523d434fc2b5a60f0aba0670c.png",
+          "links": "http://www.oschina.net/",
+          "description": "开源中国"
+        },
+        {
+          "id": "icon-1g8s7eqveirhzg0r37fwrby56gc",
+          "title": "CSDN",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/226d9bd6e7176a22d1696d751947a178.png",
+          "links": "http://www.csdn.net/",
+          "description": "CSDN"
+        },
+        {
+          "id": "icon-1got5p8hkvbqb7kza383xr7mrcl",
+          "title": "蓝点网",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon/150405105756.png",
+          "links": "https://www.landiannews.com/",
+          "description": "蓝点网"
+        },
+        {
+          "id": "icon-1g8s7842bizrwubewdpovko6bxy",
+          "title": "人人都是产品经理",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon/8bffc9cf5c9f6e5980bf21e7af3a4462.png",
+          "links": "http://www.woshipm.com/",
+          "description": "人人都是产品经理"
+        },
+        {
+          "id": "icon-1gtqrhqsgqtuajl1q7gcljzvd1l",
+          "title": "什么值得读",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon-v2/icon1gtqr8lr31texjyjyepfpa0zyvr.png",
+          "links": "https://shenmezhidedu.com/?from=wetab",
+          "description": "什么值得读"
+        },
+        {
+          "id": "icon-1g9jtcbv8v1k84yqct8l3e3hf4o",
+          "title": "慕课网",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/6e5da7bc6eaf3ecce1ca1affcf20fca5.png",
+          "links": "http://www.imooc.com",
+          "description": "慕课网"
+        },
+        {
+          "id": "icon-1gpuicbr5k866g8nd9himlcldhw",
+          "title": "小众软件",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon/appinn_1677135775783.png",
+          "links": "https://www.appinn.com/?utm_source=wetab",
+          "description": "小众软件"
+        },
+        {
+          "id": "icon-1gpuibflh6kc91q9sk8zskzmvd6",
+          "title": "果核剥壳",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon/ghxi_1677135775783.png",
+          "links": "https://www.ghxi.com/?utm_source=wetab",
+          "description": "果核剥壳"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1g8q0kkicdt0jp7bwr4yxowc7mg",
+    "title": "资源素材",
+    "sort": 10,
+    "enabled": true,
+    "icon": "icon-dianying",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1h02iffmnqrqr4g75q5iphwaewl",
+          "title": "阿里小站",
+          "links": "https://pan666.net/",
+          "description": "阿里小站"
+        },
+        {
+          "id": "icon-1h13l2pnke9411hostq3fljcmbj",
+          "title": "Emoji表情库",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h13l434gn8fzvp9l8ltpvhbvo3.png",
+          "links": "https://emojipedia.org/zh/",
+          "description": "Emoji表情库"
+        },
+        {
+          "id": "icon-1h13lh73rchbsw6oa7k3smhv804",
+          "title": "小众技术工具库 | 专注分享实用软件和精品网站",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h13lhmop4dju26eo87ps5p84sb.png",
+          "links": "https://www.xiaozhongjishu.com/",
+          "description": "小众技术工具库 | 专注分享实用软件和精品网站"
+        },
+        {
+          "id": "icon-1h1de8pe4zic4rbm5mr0lvbvw8z",
+          "title": "Boss设计 | 收集国外设计素材网站的资源平台。",
+          "links": "https://www.bossdesign.cn/",
+          "description": "Boss设计 | 收集国外设计素材网站的资源平台。"
+        },
+        {
+          "id": "icon-1hlf11a5kzn2z2p1vuja0dxw8v9",
+          "title": "【此间微凉】资源更新-202401",
+          "links": "https://docs.qq.com/doc/DYVJKbUhEQXdWbHhC",
+          "description": "【此间微凉】资源更新-202401"
+        },
+        {
+          "id": "icon-1i0s8ll2fu0i4adpcul9y5a6oxo",
+          "title": "51BT | 你想要的我都懂！",
+          "links": "https://51bt.life/",
+          "description": "51BT | 你想要的我都懂！"
+        },
+        {
+          "id": "icon-1i2gv53pgn1413oll41fphyidqu",
+          "title": "工口.R18 成人遊戲免費線上玩",
+          "links": "https://web.ktjqc.com/main.html",
+          "description": "工口.R18 成人遊戲免費線上玩"
+        },
+        {
+          "id": "icon-1i49bf82fdjmh156vh40dqxa6ws",
+          "title": "魔法书主页 - 打开你的新视野",
+          "links": "https://nav.magictool.cn/",
+          "description": "魔法书主页 - 打开你的新视野"
+        },
+        {
+          "id": "icon-1ig62gl0963puanmxcy9lly9px4",
+          "title": "电脑桌面_高清壁纸_免费下载_风景壁纸",
+          "links": "https://www.fengjingbizhi.com/",
+          "description": "电脑桌面_高清壁纸_免费下载_风景壁纸"
+        },
+        {
+          "id": "icon-1ig62k7r0sfzor54sreyp6audla",
+          "title": "高清壁纸网 - 带鱼屏,宽屏,双屏,三屏,2K,4K,5K,8K,12K超清无水印壁纸下载",
+          "links": "https://www.hdbz.top/",
+          "description": "高清壁纸网 - 带鱼屏,宽屏,双屏,三屏,2K,4K,5K,8K,12K超清无水印壁纸下载"
+        },
+        {
+          "id": "icon-1ihkkv6mtv9ff9fdnabyf80thce",
+          "title": "堆友—多风格AI绘画神器免费生成；多功能AI工具箱集结助力；3D素材在线渲染，免费商用；各类创意设计大赛，等你来战！",
+          "links": "https://d.design/?from=sjzg",
+          "description": "堆友—多风格AI绘画神器免费生成；多功能AI工具箱集结助力；3D素材在线渲染，免费商用；各类创意设计大赛，等你来战！"
+        },
+        {
+          "id": "icon-1jbgohf3t92308hk2mpcao1j7m8",
+          "title": "IDEA KEY",
+          "links": "https://3.jetbra.in/",
+          "description": "IDEA KEY"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1g8q0krkbktusp8iy05pniynhp4",
+    "title": "购物生活",
+    "sort": 11,
+    "enabled": true,
+    "icon": "icon-gouwu",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1h0hu0s9dyk6ikzuedpc19wdcb6",
+          "title": "京东商城",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/cee009549b352def723ba09d6da4b742.png",
+          "links": "https://www.infinitynewtab.com/jd.pro.html ",
+          "description": "京东商城"
+        },
+        {
+          "id": "icon-1h10i7trht6pzmovs62ihzz8nrm",
+          "title": "华为商城",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h10i8mesfc7af6psf2lzn9nz2w.png",
+          "links": "https://www.vmall.com/index.html",
+          "description": "华为商城"
+        },
+        {
+          "id": "icon-1h10il8e95urk2ub88rdkgj5eek",
+          "title": "小米商城",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h10imf59k5buewrqzzc7lscfmp.png",
+          "links": "https://www.mi.com/shop",
+          "description": "小米商城"
+        },
+        {
+          "id": "icon-1h0hha7sjv1w23935klfrtjmzg4",
+          "title": "交易平台-DD373",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0hhi1t3s4rgtqaj41147pbidx.png",
+          "links": "https://www.dd373.com/s-rbg22w.html",
+          "description": "交易平台-DD373"
+        },
+        {
+          "id": "icon-1g8s7jhjhz9pd8656tb20ccczb4",
+          "title": "天猫精选",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon/be0ab26cf4dc6239c98791f7b18b633a.png",
+          "links": "https://s.click.taobao.com/t?infinityType=tmall&e=m%3D2%26s%3DV5ucSP%2F1kT4cQipKwQzePCperVdZeJviK7Vc7tFgwiFRAdhuF14FMRBynALhehQ4RitN3%2FurF3xNWm%2FATOfjswMAKinyMfntv%2FFgqkVH8133BMlVy3qlGE2srC8Mk09eQgZss1jm63jcHtRpEUy6RPalRWTdFmFpJPwiig1bxLMnyi1UQ%2F17I10hO9fBPG8oXH%2BQH9e66Y4%3D",
+          "description": "天猫精选"
+        },
+        {
+          "id": "icon-1g8s6afo2w5jm7y945jlhea6n4z",
+          "title": "淘宝网",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/05dfef464cb99231a44521fde12adc80.png",
+          "links": "https://ai.taobao.com/?pid=mm_50570328_39070332_145428725",
+          "description": "淘宝网"
+        },
+        {
+          "id": "icon-1g8s7akil7kgozgjf0dk7h1mh6o",
+          "title": "当当网",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/513b4167dd3c9bfd83f6ceae56d7bf7f.png",
+          "links": "http://union.dangdang.com/transfer.php?from=P-319540-infinity&amp;amp;amp;ad_type=10&amp;amp;amp;sys_id=1&amp;amp;amp;backurl=http://www.dangdang.com",
+          "description": "当当网"
+        },
+        {
+          "id": "icon-1g8s7jo11jvirlcksbc0cy9v8po",
+          "title": "什么值得买",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/82083b3712985e0aded08d10e50cb902.png",
+          "links": "http://www.smzdm.com/",
+          "description": "什么值得买"
+        },
+        {
+          "id": "icon-1g8s7jta1hxeg95e9om4z6pky6j",
+          "title": "飞猪",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/a7ed1a2bd88d75ed6a04c8a7aeb26097.png",
+          "links": "https://s.click.taobao.com/t?infinityType=alitrip&e=m%3D2%26s%3DgWbgDzAE0zMcQipKwQzePCperVdZeJviEViQ0P1Vf2kguMN8XjClAg8q8DF9oG0OjiRkxbhwQNwqDrUHgVoNpvVKm9Ob0IT9VuIJQ3hZR078JvDfi2GotpoTgr1w%2FQDpNgYL1oa%2FqkrlSg55GVX5wQpJxXZWmPBrLyo8ABgHx20aHks2%2FfPFu3EqY%2Bakgpmw",
+          "description": "飞猪"
+        },
+        {
+          "id": "icon-1g8s7k2opy8en6s2vcsgzzy376d",
+          "title": "识货",
+          "avatar": "https://infinityicon.infinitynewtab.com/icon/1c3dda56f26a98de85d4e55c87cd7622.png",
+          "links": "http://www.shihuo.cn/",
+          "description": "识货"
+        },
+        {
+          "id": "icon-1g8s7j85i7i6fx9yrqdnw34fjj4",
+          "title": "Amazon",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/e67eed044bf08fbcac16a0527fcc165a.png",
+          "links": "https://inftab.com/amazon/",
+          "description": "Amazon"
+        }
+      ]
+    }
+  },
+  {
+    "id": "category-1h02fm6u3pp6i1393p4squlvic4",
+    "title": "休闲娱乐",
+    "sort": 12,
+    "enabled": true,
+    "icon": "icon-jianzhu",
+    "payload": {
+      "books": [
+        {
+          "id": "icon-1h0pbo6420dygb81j87art0wmxo",
+          "title": "米游社",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h0pbrligp4amc1vzz2omzdqjyp.png",
+          "links": "https://www.miyoushe.com/ys/",
+          "description": "米游社"
+        },
+        {
+          "id": "icon-1h40hgsrip8woidd5wqrjvj2z51",
+          "title": "TapTap ",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1h42iibhf7xauc81is570ppylnh.png",
+          "links": "https://www.taptap.cn/",
+          "description": "TapTap "
+        },
+        {
+          "id": "icon-1hghmobs2s4nq0xjqkvrd69ka6u",
+          "title": "坎特伯雷公主与骑士唤醒冠军之剑的奇幻冒险WIKI_BWIKI_哔哩哔哩",
+          "links": "https://wiki.biligame.com/gt/%E9%A6%96%E9%A1%B5",
+          "description": "坎特伯雷公主与骑士唤醒冠军之剑的奇幻冒险WIKI_BWIKI_哔哩哔哩"
+        },
+        {
+          "id": "icon-1hoth0b0rf0cvv2xao3zx09anqq",
+          "title": "酷库",
+          "avatar": "https://static.wetab.link/user-custom-icon/zh/6451ffaf63e9b7f0f248345b/user-custom-icon1hoth0arr2ix3j9rt3f7un2o8z6.png",
+          "links": "https://fb.lewz.cn/",
+          "description": "酷库"
+        },
+        {
+          "id": "icon-1if91dblu6vbmbymwxku08xt75c",
+          "title": "Tv Online - Watch Live TV Free | CXTV",
+          "links": "https://www.cxtvlive.com/",
+          "description": "Tv Online - Watch Live TV Free | CXTV"
+        },
+        {
+          "id": "icon-1g8s67miovq9qtby8d22v2g288r",
+          "title": "知乎",
+          "avatar": "https://infinityicon.infinitynewtab.com/user-share-icon/2b89ebe968d8cafe77a5c587daa79c7f.png",
+          "links": "https://www.zhihu.com/",
+          "description": "知乎"
+        },
+        {
+          "id": "icon-1hn58s9fbo3gtodwjfaptzg41vw",
+          "title": "黑料网",
+          "links": "https://hl31.co/",
+          "description": "黑料网"
+        },
+        {
+          "id": "icon-1j4bv9iksaibrzpuy78c9fsj329",
+          "title": "Miss",
+          "links": "https://missav.ws/dm15/cn",
+          "description": "Miss"
+        },
+        {
+          "id": "icon-1j56hdiulii379lirlflxibvipi",
+          "title": "MYCOMIC - 我的漫畫",
+          "links": "https://mycomic.com/",
+          "description": "MYCOMIC - 我的漫畫"
+        }
+      ]
+    }
   }
 ]

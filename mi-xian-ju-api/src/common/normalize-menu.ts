@@ -16,6 +16,11 @@ function normalizeTab(raw: LegacyMenuRecord): MenuTab {
 function normalizePayload(raw: LegacyMenuRecord): MenuPayload | undefined {
   const payload: MenuPayload = {}
 
+  // 已是 canonical 格式（data/ KV 写入的新结构）
+  if (raw.payload && typeof raw.payload === 'object' && !Array.isArray(raw.payload)) {
+    Object.assign(payload, raw.payload as MenuPayload)
+  }
+
   if (Array.isArray(raw.books)) {
     payload.books = raw.books
   }

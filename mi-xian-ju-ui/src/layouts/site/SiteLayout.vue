@@ -14,16 +14,49 @@ const router = useRouter()
 const currentPath = ref(route.path)
 
 const defaultNav: MenuNode[] = [
-  { id: 1, title: '首页', path: '/' },
-  { id: 2, title: '书签', path: '/bookmark' },
-  { id: 3, title: '随记', path: '/notes' },
+  { id: 'index', title: '首页', path: '/', sort: 1, enabled: true },
   {
-    id: 4,
-    title: '生活',
+    id: 'xysx',
+    title: '闲隅时序',
     path: '/hot-bans',
+    sort: 2,
+    enabled: true,
     children: [
-      { id: 401, title: '看新闻', path: '/hot-bans' },
-      { id: 402, title: '今日热榜', path: '/daily-hot' },
+      { id: 'rbxw', title: '🕘热榜新闻', path: '/hot-bans', sort: 1, enabled: true },
+      { id: 'jrrb', title: '🕘今日热榜', path: '/daily-hot', sort: 2, enabled: true },
+    ],
+  },
+  {
+    id: 'xjbb',
+    title: '璇玑百宝',
+    path: '/ai-tools',
+    sort: 3,
+    enabled: true,
+    children: [
+      { id: 'aigj', title: '🤖智能工具', path: '/ai-tools', sort: 1, enabled: true },
+      { id: 'cysq', title: '✨常用书签', path: '/bookmark', sort: 2, enabled: true },
+    ],
+  },
+  {
+    id: 'rjyh',
+    title: '人间烟火',
+    path: '/personality-test',
+    sort: 4,
+    enabled: true,
+    children: [
+      { id: 'xgcs', title: '💗性格测试', path: '/personality-test', sort: 1, enabled: true },
+    ],
+  },
+  {
+    id: 'lzxy',
+    title: '乐在逍遥',
+    path: '/lite-video',
+    sort: 5,
+    enabled: true,
+    children: [
+      { id: 'gltq', title: '💃勾栏听曲', path: '/lite-video', sort: 1, enabled: true },
+      { id: 'zmgh', title: '🌸走马观花', path: '/lite-image', sort: 2, enabled: true },
+      { id: 'ycsd', title: '📜吟诗作对', path: '/lite-word', sort: 3, enabled: true },
     ],
   },
 ]

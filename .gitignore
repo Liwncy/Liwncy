@@ -4,6 +4,7 @@ dist
 dist-ssr
 *.local
 .idea
+.codebuddy
 
 # Cloudflare Workers
 mi-xian-ju-api/.dev.vars

@@ -90,7 +90,5 @@ const {
           </lay-tab>
         </div>
       </lay-container>
-
-    <lay-backtop target="#content" :show-height="100" :bottom="30" position="absolute" />
   </SitePageLayout>
 </template>

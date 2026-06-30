@@ -20,21 +20,32 @@ export function useLiteVideo() {
   const loading = ref(false)
   const videoStats = ref({
     playCount: 0,
-    resolution: '—',
+    resolution: '1080p',
     duration: '00:00',
     loadProgress: 0,
+  })
+
+  const menuDescription = computed(() => {
+    const desc = currentMenu.value.payload?.description
+    return typeof desc === 'string' && desc ? desc : '选择左侧视频源，随机播放'
   })
 
   const recentSources = computed(() => {
     if (!currentMenu.value.id) return []
     for (const group of menus.value) {
-      const siblings = group.children?.filter((child) => child.id !== currentMenu.value.id) ?? []
-      if (group.children?.some((child) => child.id === currentMenu.value.id)) {
-        return siblings.slice(0, 6)
-      }
+      if (!group.children?.some((child) => child.id === currentMenu.value.id)) continue
+      const siblings = group.children
+        .filter((child) => child.id !== currentMenu.value.id)
+        .sort(() => Math.random() - 0.5)
+      return siblings.slice(0, 6)
     }
     return []
   })
+
+  function getSourceIcon(index: number) {
+    const icons = ['🎬', '📺', '🎥', '📹', '🎞️', '📼', '🎙️', '🎧']
+    return icons[index % icons.length]
+  }
 
   function destroyPlayer() {
     if (xgPlayer) {
@@ -116,7 +127,7 @@ export function useLiteVideo() {
   async function handleMenuClick(menu: MenuNode) {
     currentMenu.value = menu
     currentPath.value = String(menu.id)
-    videoStats.value = { playCount: 0, resolution: '—', duration: '00:00', loadProgress: 0 }
+    videoStats.value = { playCount: 0, resolution: '1080p', duration: '00:00', loadProgress: 0 }
     await loadVideo()
   }
 
@@ -138,12 +149,14 @@ export function useLiteVideo() {
     menus,
     currentPath,
     currentMenu,
+    menuDescription,
     isMenuVisible,
     menuVisible,
     xgPlayerRef,
     loading,
     videoStats,
     recentSources,
+    getSourceIcon,
     handleMenuClick,
     refreshVideo,
   }

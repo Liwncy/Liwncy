@@ -4,7 +4,8 @@
  * 用法：
  *   pnpm sync:kv -- --dry-run
  *   pnpm sync:kv -- --prefix=common
- *   pnpm sync:kv
+ *   pnpm sync:kv                    # 默认写入本地 preview KV（wrangler dev 使用）
+ *   pnpm sync:kv -- --remote        # 写入线上 production KV（deploy 前）
  */
 import { readdir, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
@@ -16,7 +17,13 @@ const DATA_DIR = path.resolve(__dirname, '../../data')
 
 const args = process.argv.slice(2)
 const dryRun = args.includes('--dry-run')
+const remote = args.includes('--remote')
 const prefixArg = args.find((a: string) => a.startsWith('--prefix='))?.split('=')[1]
+
+/** wrangler dev 绑定 preview_id；本地开发须 --local --preview */
+function wranglerKvPutFlags(): string {
+  return remote ? '--preview false' : '--local --preview'
+}
 
 async function collectFiles(dir: string, base = ''): Promise<string[]> {
   const entries = await readdir(dir)
@@ -40,7 +47,9 @@ async function main() {
   const files = await collectFiles(DATA_DIR)
   const filtered = prefixArg ? files.filter((f) => f.startsWith(prefixArg)) : files
 
-  console.log(`Found ${filtered.length} file(s) under data/`)
+  console.log(
+    `Found ${filtered.length} file(s) under data/ → ${remote ? 'remote production KV' : 'local preview KV (wrangler dev)'}`,
+  )
 
   for (const rel of filtered) {
     const kvKey = rel
@@ -53,7 +62,7 @@ async function main() {
     }
 
     execSync(
-      `wrangler kv key put "${kvKey}" --path="${filePath}" --binding=DATA_KV`,
+      `wrangler kv key put "${kvKey}" --path="${filePath}" --binding=DATA_KV ${wranglerKvPutFlags()}`,
       { stdio: 'inherit', cwd: path.resolve(__dirname, '..') },
     )
     console.log(`uploaded: ${kvKey}`)

@@ -15,6 +15,8 @@ export function useLiteWord() {
   const contentPreview = ref<string[]>([])
   const loading = ref(false)
 
+  const hasActiveMenu = computed(() => Boolean(getMenuApi(currentMenu.value)))
+
   async function handleMenuClick(menu: MenuNode) {
     currentMenu.value = menu
     currentPath.value = String(menu.id)
@@ -41,7 +43,8 @@ export function useLiteWord() {
 
   async function copyContent() {
     if (!contentPreview.value.length) return
-    await copyText(contentPreview.value.join('\n'))
+    const ok = await copyText(contentPreview.value.join('\n'))
+    layer.msg(ok ? '文案复制成功' : '复制失败，请手动复制', { icon: ok ? 1 : 2 })
   }
 
   async function refreshContent() {
@@ -66,6 +69,7 @@ export function useLiteWord() {
     menuVisible,
     contentPreview,
     loading,
+    hasActiveMenu,
     handleMenuClick,
     copyContent,
     refreshContent,

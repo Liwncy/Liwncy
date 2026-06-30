@@ -30,7 +30,7 @@ const { loading, columns, dataShow, page, change, openArticle } = useNotes()
         </lay-table>
       </lay-container>
     </lay-body>
-    <lay-backtop target="#notesContent" :show-height="100" :bottom="30" position="absolute" />
+    <lay-backtop target="#notesContent" :showHeight="100" :bottom="30" position="absolute" />
   </lay-layout>
 </template>
 

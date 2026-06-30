@@ -1,7 +1,11 @@
 /** 将 KV / 旧路由中的 /webs/* 路径映射为新站路由 */
 export function normalizeNavPath(path: string) {
   return path
-    .replace(/^\/webs\/index\/?$/, '/')
+    .replace(/^\/webs\/index\/?$/i, '/')
+    .replace(/^\/webs\/xysx\/?$/i, '/hot-bans')
+    .replace(/^\/webs\/xjbb\/?$/i, '/ai-tools')
+    .replace(/^\/webs\/rjyh\/?$/i, '/personality-test')
+    .replace(/^\/webs\/lzxy\/?$/i, '/lite-video')
     .replace(/^\/webs\/life\/?$/, '/hot-bans')
     .replace(/^\/webs\/book_mark\/?$/i, '/bookmark')
     .replace(/^\/webs\/bookMark\/?$/i, '/bookmark')

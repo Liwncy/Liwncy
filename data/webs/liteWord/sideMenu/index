@@ -1,41 +1,224 @@
 [
   {
-    "id": "copywriting",
-    "title": "文案",
+    "id": "text-emotion",
+    "title": "❤️ 情感文案",
     "sort": 1,
     "enabled": true,
+    "payload": {
+      "description": "各种情感类型的文案"
+    },
     "children": [
       {
-        "id": "daily",
-        "title": "每日一言",
-        "subtitle": "Daily",
+        "id": "text-sad",
+        "title": "伤感语录",
         "sort": 1,
         "enabled": true,
+        "subtitle": "sgyl",
         "payload": {
-          "api": "/api/mrmy.php",
-          "platform": "每日一言"
+          "id": "text-sad-api",
+          "name": "伤感语录",
+          "api": "/api/sgyl.php",
+          "description": "返回一段伤感语录"
         }
       },
       {
-        "id": "pyq",
-        "title": "朋友圈文案",
-        "subtitle": "PYQ",
+        "id": "text-soft",
+        "title": "温柔文案",
         "sort": 2,
         "enabled": true,
+        "subtitle": "wenrou",
         "payload": {
-          "api": "/api/pyq.php",
-          "platform": "朋友圈文案"
+          "id": "text-soft-api",
+          "name": "温柔文案",
+          "api": "/api/wenrou.php",
+          "description": "返回一段温柔文案"
         }
       },
       {
-        "id": "yiyan",
-        "title": "一言",
-        "subtitle": "Hitokoto",
+        "id": "text-poison",
+        "title": "毒鸡汤",
         "sort": 3,
         "enabled": true,
+        "subtitle": "dujitang",
         "payload": {
-          "api": "/api/yiyan.php",
-          "platform": "一言"
+          "id": "text-poison-api",
+          "name": "毒鸡汤",
+          "api": "/api/dujitang.php",
+          "description": "返回一段毒鸡汤文案"
+        }
+      },
+      {
+        "id": "text-soil",
+        "title": "土味情话",
+        "sort": 4,
+        "enabled": true,
+        "subtitle": "qinghua",
+        "payload": {
+          "id": "text-soil-api",
+          "name": "土味情话",
+          "api": "/api/qinghua.php",
+          "description": "返回一条土味情话"
+        }
+      }
+    ]
+  },
+  {
+    "id": "text-quote",
+    "title": "✍️ 语录短句",
+    "sort": 2,
+    "enabled": true,
+    "payload": {
+      "description": "各种类型的语录和短句"
+    },
+    "children": [
+      {
+        "id": "text-yiyan",
+        "title": "随机一言",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "yan",
+        "payload": {
+          "id": "text-yiyan-api",
+          "name": "随机一言",
+          "api": "/api/yan.php",
+          "description": "返回随机一言文案"
+        }
+      },
+      {
+        "id": "text-english",
+        "title": "英汉语录",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "yhyl",
+        "payload": {
+          "id": "text-english-api",
+          "name": "英汉语录",
+          "api": "/api/yhyl.php",
+          "description": "随机返回英语汉语文案"
+        }
+      },
+      {
+        "id": "text-random",
+        "title": "随机美句",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "wenan",
+        "payload": {
+          "id": "text-random-api",
+          "name": "随机美句摘抄文案",
+          "api": "/api/wenan.php",
+          "description": "随机返回优美美句文案"
+        }
+      }
+    ]
+  },
+  {
+    "id": "text-social",
+    "title": "💬 社交文案",
+    "sort": 3,
+    "enabled": true,
+    "payload": {
+      "description": "社交媒体相关的文案"
+    },
+    "children": [
+      {
+        "id": "text-pyq",
+        "title": "朋友圈文案",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "pyq",
+        "payload": {
+          "id": "text-pyq-api",
+          "name": "朋友圈文案",
+          "api": "/api/pyq.php",
+          "description": "随机返回朋友圈文案"
+        }
+      },
+      {
+        "id": "text-qq-signature",
+        "title": "QQ签名文案",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "qianming",
+        "payload": {
+          "id": "text-qq-signature-api",
+          "name": "QQ签名文案",
+          "api": "/api/qianming.php",
+          "description": "随机一段qq签名文案"
+        }
+      }
+    ]
+  },
+  {
+    "id": "text-game",
+    "title": "🎮 游戏文案",
+    "sort": 4,
+    "enabled": true,
+    "payload": {
+      "description": "游戏相关的文案和语录"
+    },
+    "children": [
+      {
+        "id": "text-wzry",
+        "title": "王者荣耀台词",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "wzry",
+        "payload": {
+          "id": "text-wzry-api",
+          "name": "王者荣耀英雄台词",
+          "api": "/api/wzry.php",
+          "description": "这是谁的小鹿，真厉害！——虎扑评分"
+        }
+      },
+      {
+        "id": "text-lol",
+        "title": "英雄联盟台词",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "yxlm",
+        "payload": {
+          "id": "text-lol-api",
+          "name": "英雄联盟台词",
+          "api": "/api/yxlm.php",
+          "description": "爱你，老妈！"
+        }
+      }
+    ]
+  },
+  {
+    "id": "text-other",
+    "title": "📄 其他文案",
+    "sort": 5,
+    "enabled": true,
+    "payload": {
+      "description": "其他类型的文案内容"
+    },
+    "children": [
+      {
+        "id": "text-saohua",
+        "title": "随机骚话",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "saohua",
+        "payload": {
+          "id": "text-saohua-api",
+          "name": "随机骚话",
+          "api": "/api/saohua.php",
+          "description": "返回一段随机骚话"
+        }
+      },
+      {
+        "id": "text-renjian",
+        "title": "我在人间凑日子",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "renjian",
+        "payload": {
+          "id": "text-renjian-api",
+          "name": "我在人间凑日子",
+          "api": "/api/renjian.php",
+          "description": "返回一段凑日子文案"
         }
       }
     ]

@@ -50,10 +50,22 @@ wrangler kv namespace create DATA_KV --preview
 # 将 id 填入 wrangler.toml
 
 pnpm sync:kv -- --dry-run
-pnpm sync:kv
+pnpm sync:kv              # 本地 wrangler dev（preview KV）
+pnpm sync:kv -- --remote  # 线上 production KV（deploy 前）
+pnpm fetch:menus              # 从 Apifox Mock 拉菜单（带 clientid）→ data/ → 可选 --sync-kv
+pnpm fetch:menus -- --sync-kv
 pnpm dev        # http://127.0.0.1:8787
 pnpm typecheck
 pnpm deploy
+```
+
+### 从 Apifox 拉取菜单
+
+与 GithubIo `request.ts` 相同，请求 Apifox Mock 时需在 Header 携带 `clientid`（默认 `6e64c2eeb9c6716965a67a6f8d3879e0`），否则返回随机假数据。
+
+```bash
+pnpm fetch:menus -- --sync-kv
+pnpm fetch:menus -- --api-base=http://127.0.0.1:8787/api --sync-kv  # 从本地 Worker
 ```
 
 ## 前端对接

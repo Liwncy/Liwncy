@@ -16,6 +16,10 @@ function normalizeTab(raw: LegacyMenuRecord): MenuTab {
 function normalizePayload(raw: LegacyMenuRecord): MenuPayload | undefined {
   const payload: MenuPayload = {}
 
+  if (raw.payload && typeof raw.payload === 'object' && !Array.isArray(raw.payload)) {
+    Object.assign(payload, raw.payload as MenuPayload)
+  }
+
   if (Array.isArray(raw.books)) payload.books = raw.books
   if (Array.isArray(raw.data)) {
     payload.tabs = raw.data.map((item) => normalizeTab(item as LegacyMenuRecord))

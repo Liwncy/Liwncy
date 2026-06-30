@@ -65,7 +65,7 @@ onMounted(() => {
       </lay-container>
     </lay-body>
 
-    <lay-backtop target="#readContent" :show-height="100" :bottom="30" position="absolute" />
+    <lay-backtop target="#readContent" :showHeight="100" :bottom="30" position="absolute" />
   </lay-layout>
 </template>
 
