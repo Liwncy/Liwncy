@@ -1,0 +1,62 @@
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from '@layui/unplugin-vue-components/vite'
+import { LayuiVueResolver } from '@layui/unplugin-vue-components/resolvers'
+import { resolve } from 'path'
+
+export default defineConfig({
+  base: '/',
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
+  plugins: [
+    vue(),
+    AutoImport({
+      resolvers: [LayuiVueResolver()],
+    }),
+    Components({
+      resolvers: [
+        LayuiVueResolver({
+          resolveIcons: false,
+        }),
+      ],
+    }),
+  ],
+  server: {
+    host: '0.0.0.0',
+    port: 5678,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8787',
+        changeOrigin: true,
+      },
+      '/data': {
+        target: 'http://127.0.0.1:8787',
+        changeOrigin: true,
+      },
+      '/sixty-api': {
+        target: 'https://60s.viki.moe',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/sixty-api/, ''),
+      },
+      '/peark-api': {
+        target: 'https://api.pearktrue.cn',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/peark-api/, ''),
+      },
+      '/cf-worker': {
+        target: 'https://lwcfworker.dpdns.org',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/cf-worker/, ''),
+      },
+      '/yujn-api': {
+        target: 'https://api.yujn.cn',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/yujn-api/, ''),
+      },
+    },
+  },
+})

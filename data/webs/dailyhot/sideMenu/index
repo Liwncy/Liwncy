@@ -1,0 +1,108 @@
+[
+  {
+    "id": "综合",
+    "title": "综合",
+    "sort": 1,
+    "enabled": true,
+    "children": [
+      {
+        "id": "哔哩哔哩",
+        "title": "哔哩哔哩",
+        "sort": 1,
+        "enabled": true,
+        "payload": {
+          "platform": "哔哩哔哩",
+          "description": "B站热门内容聚合"
+        }
+      },
+      {
+        "id": "知乎",
+        "title": "知乎",
+        "sort": 2,
+        "enabled": true,
+        "payload": {
+          "platform": "知乎",
+          "description": "知乎热榜话题"
+        }
+      },
+      {
+        "id": "微博",
+        "title": "微博",
+        "sort": 3,
+        "enabled": true,
+        "payload": {
+          "platform": "微博",
+          "description": "微博热搜榜单"
+        }
+      },
+      {
+        "id": "百度",
+        "title": "百度",
+        "sort": 4,
+        "enabled": true,
+        "payload": {
+          "platform": "百度",
+          "description": "百度实时热点"
+        }
+      },
+      {
+        "id": "抖音",
+        "title": "抖音",
+        "sort": 5,
+        "enabled": true,
+        "payload": {
+          "platform": "抖音",
+          "description": "抖音热点内容"
+        }
+      },
+      {
+        "id": "今日头条",
+        "title": "今日头条",
+        "sort": 6,
+        "enabled": true,
+        "payload": {
+          "platform": "今日头条",
+          "description": "头条热榜资讯"
+        }
+      }
+    ]
+  },
+  {
+    "id": "科技",
+    "title": "科技",
+    "sort": 2,
+    "enabled": true,
+    "children": [
+      {
+        "id": "IT之家",
+        "title": "IT之家",
+        "sort": 1,
+        "enabled": true,
+        "payload": {
+          "platform": "IT之家",
+          "description": "科技资讯热榜"
+        }
+      },
+      {
+        "id": "少数派",
+        "title": "少数派",
+        "sort": 2,
+        "enabled": true,
+        "payload": {
+          "platform": "少数派",
+          "description": "数字生活热门文章"
+        }
+      },
+      {
+        "id": "稀土掘金",
+        "title": "稀土掘金",
+        "sort": 3,
+        "enabled": true,
+        "payload": {
+          "platform": "稀土掘金",
+          "description": "开发者社区热榜"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "wallpaper",
+    "title": "图片",
+    "children": [
+      {
+        "id": "acg",
+        "title": "ACG 美图",
+        "subTitle": "ACG",
+        "data": { "api": "/api/acg.php" }
+      },
+      {
+        "id": "bing",
+        "title": "必应壁纸",
+        "subTitle": "Bing",
+        "data": { "api": "/api/bing.php" }
+      },
+      {
+        "id": "random-img",
+        "title": "随机图片",
+        "subTitle": "Random",
+        "data": { "api": "/api/tupian.php" }
+      }
+    ]
+  }
+]

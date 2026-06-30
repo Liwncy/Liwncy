@@ -5,6 +5,16 @@ dist-ssr
 *.local
 .idea
 
+# Cloudflare Workers
+mi-xian-ju-api/.dev.vars
+mi-xian-ju-api/.wrangler
+mi-xian-ju-api/node_modules
+
+# Vue UI
+mi-xian-ju-ui/node_modules
+mi-xian-ju-ui/dist
+
+
 # 编译生成的文件
 auto-imports.d.ts
 components.d.ts

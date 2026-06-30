@@ -1,0 +1,86 @@
+[
+  {
+    "id": "ai-text",
+    "title": "文本工具",
+    "sort": 1,
+    "enabled": true,
+    "children": [
+      {
+        "id": "text-summarize",
+        "title": "文本摘要",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "Summarize",
+        "payload": {
+          "api": "/post",
+          "description": "对长文本进行摘要整理",
+          "details": "输入一段较长文本，调用 CF Worker 进行处理并返回结果。"
+        }
+      },
+      {
+        "id": "text-translate",
+        "title": "文本翻译",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "Translate",
+        "payload": {
+          "api": "/post",
+          "description": "多语言文本翻译辅助",
+          "details": "输入待翻译内容，返回翻译或处理结果（需 Worker 端支持）。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ai-image",
+    "title": "图片工具",
+    "sort": 2,
+    "enabled": true,
+    "children": [
+      {
+        "id": "random-wallpaper",
+        "title": "随机壁纸",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "Wallpaper",
+        "payload": {
+          "api": "/api/gzl_ACG.php",
+          "description": "随机返回高清壁纸",
+          "details": "无需输入内容，直接执行获取图片链接或结果。"
+        }
+      },
+      {
+        "id": "random-avatar",
+        "title": "随机头像",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "Avatar",
+        "payload": {
+          "api": "/api/sjtp.php",
+          "description": "随机头像生成",
+          "details": "点击执行即可获取随机头像资源。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ai-emoji",
+    "title": "表情图",
+    "sort": 3,
+    "enabled": true,
+    "children": [
+      {
+        "id": "emoji-pack",
+        "title": "表情包",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "Emoji",
+        "payload": {
+          "api": "/api/emo.php",
+          "description": "随机表情包",
+          "details": "获取表情类图片资源。"
+        }
+      }
+    ]
+  }
+]

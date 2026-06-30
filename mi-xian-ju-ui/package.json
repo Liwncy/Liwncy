@@ -1,0 +1,38 @@
+{
+  "name": "mi-xian-ju-ui",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@8.14.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:check": "vue-tsc --noEmit && vite build",
+    "build:prod": "vue-tsc --noEmit && vite build --mode production",
+    "typecheck": "vue-tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@layui/layui-vue": "2.21.1",
+    "@layui/layer-vue": "2.4.7",
+    "axios": "^1.5.1",
+    "markdown-it": "^14.1.0",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "vue": "^3.5.27",
+    "vue-router": "^4.2.5",
+    "xgplayer": "^3.0.20"
+  },
+  "devDependencies": {
+    "@layui/unplugin-vue-components": "^0.0.3",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^18.7.8",
+    "@types/nprogress": "^0.2.0",
+    "@vitejs/plugin-vue": "^4.2.0",
+    "typescript": "^5.7.2",
+    "unplugin-auto-import": "^0.11.2",
+    "vite": "^5.4.21",
+    "vue-tsc": "^2.2.12"
+  }
+}

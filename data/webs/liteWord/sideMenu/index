@@ -1,0 +1,43 @@
+[
+  {
+    "id": "copywriting",
+    "title": "文案",
+    "sort": 1,
+    "enabled": true,
+    "children": [
+      {
+        "id": "daily",
+        "title": "每日一言",
+        "subtitle": "Daily",
+        "sort": 1,
+        "enabled": true,
+        "payload": {
+          "api": "/api/mrmy.php",
+          "platform": "每日一言"
+        }
+      },
+      {
+        "id": "pyq",
+        "title": "朋友圈文案",
+        "subtitle": "PYQ",
+        "sort": 2,
+        "enabled": true,
+        "payload": {
+          "api": "/api/pyq.php",
+          "platform": "朋友圈文案"
+        }
+      },
+      {
+        "id": "yiyan",
+        "title": "一言",
+        "subtitle": "Hitokoto",
+        "sort": 3,
+        "enabled": true,
+        "payload": {
+          "api": "/api/yiyan.php",
+          "platform": "一言"
+        }
+      }
+    ]
+  }
+]

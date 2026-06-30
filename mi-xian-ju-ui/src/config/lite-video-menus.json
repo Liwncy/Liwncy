@@ -1,0 +1,22 @@
+[
+  {
+    "id": "random-video",
+    "title": "随机视频",
+    "children": [
+      {
+        "id": "zzxjj",
+        "title": "短视频",
+        "subTitle": "Random",
+        "description": "随机短视频",
+        "data": { "api": "/api/zzxjj.php?type=video" }
+      },
+      {
+        "id": "ks-random",
+        "title": "快手随机",
+        "subTitle": "Kuaishou",
+        "description": "快手随机视频",
+        "data": { "api": "/api/kssp.php?type=video" }
+      }
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "random-video",
+    "title": "随机视频",
+    "sort": 1,
+    "enabled": true,
+    "children": [
+      {
+        "id": "zzxjj",
+        "title": "短视频",
+        "subtitle": "Random",
+        "sort": 1,
+        "enabled": true,
+        "payload": {
+          "api": "/api/zzxjj.php?type=video",
+          "description": "随机短视频"
+        }
+      },
+      {
+        "id": "ks-random",
+        "title": "快手随机",
+        "subtitle": "Kuaishou",
+        "sort": 2,
+        "enabled": true,
+        "payload": {
+          "api": "/api/kssp.php?type=video",
+          "description": "快手随机视频"
+        }
+      }
+    ]
+  }
+]

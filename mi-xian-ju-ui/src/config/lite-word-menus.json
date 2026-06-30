@@ -1,0 +1,26 @@
+[
+  {
+    "id": "copywriting",
+    "title": "文案",
+    "children": [
+      {
+        "id": "daily",
+        "title": "每日一言",
+        "subTitle": "Daily",
+        "data": { "api": "/api/mrmy.php", "name": "每日一言" }
+      },
+      {
+        "id": "pyq",
+        "title": "朋友圈文案",
+        "subTitle": "PYQ",
+        "data": { "api": "/api/pyq.php", "name": "朋友圈文案" }
+      },
+      {
+        "id": "yiyan",
+        "title": "一言",
+        "subTitle": "Hitokoto",
+        "data": { "api": "/api/yiyan.php", "name": "一言" }
+      }
+    ]
+  }
+]

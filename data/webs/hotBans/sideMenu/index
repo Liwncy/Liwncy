@@ -1,156 +1,279 @@
 [
   {
-    "id": 1,
-    "title": "综合",
+    "id": "comprehensive",
+    "title": "📊 综合",
+    "sort": 1,
+    "enabled": true,
     "children": [
       {
-        "id": 1,
+        "id": "baidu",
+        "title": "百度",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "baidu",
+        "payload": {
+          "tabs": [
+            {
+              "id": "baidu_hot",
+              "title": "热榜",
+              "api": "/v2/baidu/hot",
+              "sort": 1
+            },
+            {
+              "id": "baidu_tieba",
+              "title": "贴吧话题榜",
+              "api": "/v2/baidu/tieba",
+              "sort": 2
+            },
+            {
+              "id": "baidu_teleplay",
+              "title": "电视剧榜",
+              "api": "/v2/baidu/teleplay",
+              "sort": 3
+            }
+          ]
+        }
+      },
+      {
+        "id": "douyin",
+        "title": "抖音",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "douyin",
+        "payload": {
+          "tabs": [
+            {
+              "id": "douyin_hot",
+              "title": "热搜",
+              "api": "/v2/douyin",
+              "sort": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "rednote",
+        "title": "小红书",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "rednote",
+        "payload": {
+          "tabs": [
+            {
+              "id": "rednote_hot",
+              "title": "热点",
+              "api": "/v2/rednote",
+              "sort": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "bilibili",
+        "title": "哔哩哔哩",
+        "sort": 4,
+        "enabled": true,
+        "subtitle": "bili",
+        "payload": {
+          "tabs": [
+            {
+              "id": "bilibili_hot",
+              "title": "热搜",
+              "api": "/v2/bili",
+              "sort": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "quark",
+        "title": "夸克",
+        "sort": 5,
+        "enabled": true,
+        "subtitle": "quark",
+        "payload": {
+          "tabs": [
+            {
+              "id": "quark_hot",
+              "title": "热点",
+              "api": "/v2/quark",
+              "sort": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "zhihu",
         "title": "知乎",
-        "subTitle": "zhihu",
-        "sourceId": "zhihu",
-        "tabNames": [
-          "热榜"
-        ]
+        "sort": 6,
+        "enabled": true,
+        "subtitle": "zhihu",
+        "payload": {
+          "tabs": [
+            {
+              "id": "zhihu_topic",
+              "title": "话题",
+              "api": "/v2/zhihu",
+              "sort": 1
+            }
+          ]
+        }
       },
       {
-        "id": 2,
-        "title": "B站",
-        "subTitle": "bilibili",
-        "sourceId": "bilibili",
-        "tabNames": [
-          "综合热门",
-          "排行榜",
-          "入站必刷"
-        ]
-      },
-      {
-        "id": 3,
-        "title": "新浪新闻",
-        "subTitle": "sina",
-        "sourceId": "sina",
-        "tabNames": [
-          "新浪热榜",
-          "潮流热榜",
-          "娱乐热榜",
-          "体育热榜",
-          "汽车热榜",
-          "时尚热榜",
-          "旅游热榜",
-          "育儿热榜",
-          "AI热榜",
-          "ESG热榜"
-        ]
-      },
-      {
-        "id": 4,
-        "title": "少数派",
-        "subTitle": "sspai",
-        "sourceId": "sspai",
-        "tabNames": [
-          "热门文章",
-          "推荐"
-        ]
+        "id": "dongchedi",
+        "title": "懂车帝",
+        "sort": 7,
+        "enabled": true,
+        "subtitle": "dongchedi",
+        "payload": {
+          "tabs": [
+            {
+              "id": "dongchedi_hot",
+              "title": "热搜",
+              "api": "/v2/dongchedi",
+              "sort": 1
+            }
+          ]
+        }
       }
     ]
   },
   {
-    "id": 2,
-    "title": "科技",
+    "id": "news",
+    "title": "📰 新闻",
+    "sort": 2,
+    "enabled": true,
     "children": [
       {
-        "id": 1,
-        "title": "果壳",
-        "subTitle": "guokr",
-        "sourceId": "guokr",
-        "tabNames": [
-          "热门",
-          "数码",
-          "科技",
-          "奇趣",
-          "生活"
-        ]
+        "id": "weibo",
+        "title": "微博",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "weibo",
+        "payload": {
+          "tabs": [
+            {
+              "id": "weibo_hot",
+              "title": "微博",
+              "api": "/v2/weibo",
+              "sort": 1
+            }
+          ]
+        }
       },
       {
-        "id": 2,
-        "title": "极客公园",
-        "subTitle": "geekpark",
-        "sourceId": "geekpark",
-        "tabNames": [
-          "最新发布",
-          "AI新浪潮",
-          "造车新观察",
-          "心科技",
-          "底稿对话CEO",
-          "行业资讯"
-        ]
+        "id": "toutiao",
+        "title": "头条",
+        "sort": 2,
+        "enabled": true,
+        "subtitle": "toutiao",
+        "payload": {
+          "tabs": [
+            {
+              "id": "toutiao_hot",
+              "title": "今日热榜",
+              "api": "/v2/toutiao",
+              "sort": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "hacker_news",
+        "title": "Hacker News",
+        "sort": 3,
+        "enabled": true,
+        "subtitle": "hacker",
+        "payload": {
+          "tabs": [
+            {
+              "id": "hacker_news_top",
+              "title": "热榜",
+              "api": "/v2/hacker-news/top",
+              "sort": 1
+            },
+            {
+              "id": "hacker_news_new",
+              "title": "最新",
+              "api": "/v2/hacker-news/new",
+              "sort": 2
+            },
+            {
+              "id": "hacker_news_best",
+              "title": "更好",
+              "api": "/v2/hacker-news/best",
+              "sort": 3
+            }
+          ]
+        }
       }
     ]
   },
   {
-    "id": 3,
-    "title": "开发者",
+    "id": "entertainment",
+    "title": "🎬 影视",
+    "sort": 3,
+    "enabled": true,
     "children": [
       {
-        "id": 1,
-        "title": "InfoQ",
-        "subTitle": "infoq",
-        "sourceId": "infoq",
-        "tabNames": [
-          "AI&大模型",
-          "后端",
-          "大前端",
-          "大数据",
-          "架构",
-          "7天热榜",
-          "1个月热榜",
-          "6个月热榜"
-        ]
-      },
-      {
-        "id": 2,
-        "title": "IT之家",
-        "subTitle": "ithome",
-        "sourceId": "ithome",
-        "tabNames": [
-          "最新",
-          "业界",
-          "网络",
-          "人物",
-          "创业"
-        ]
+        "id": "maoyan",
+        "title": "猫眼",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "maoyan",
+        "payload": {
+          "tabs": [
+            {
+              "id": "maoyan_global_box_office",
+              "title": "全球票房总榜",
+              "api": "/v2/maoyan/all/movie",
+              "sort": 1
+            },
+            {
+              "id": "maoyan_realtime_box_office",
+              "title": "电影实时票房",
+              "api": "/v2/maoyan/realtime/movie",
+              "sort": 2
+            },
+            {
+              "id": "maoyan_tv_ratings",
+              "title": "电视收视排行",
+              "api": "/v2/maoyan/realtime/tv",
+              "sort": 3
+            },
+            {
+              "id": "maoyan_web_drama_hot",
+              "title": "网剧实时热度",
+              "api": "/v2/maoyan/realtime/web",
+              "sort": 4
+            }
+          ]
+        }
       }
     ]
   },
   {
-    "id": 4,
-    "title": "社区",
+    "id": "music",
+    "title": "🎵 音乐",
+    "sort": 4,
+    "enabled": true,
     "children": [
       {
-        "id": 1,
-        "title": "虎扑",
-        "subTitle": "hupu",
-        "sourceId": "hupu",
-        "tabNames": [
-          "步行街",
-          "恋爱区",
-          "校园区",
-          "职场区",
-          "股票区",
-          "历史区"
-        ]
-      },
-      {
-        "id": 2,
-        "title": "52破解",
-        "subTitle": "pojie52",
-        "sourceId": "pojie52",
-        "tabNames": [
-          "原创作品",
-          "逆向资源",
-          "脱壳破解",
-          "精彩吾爱",
-          "本周热帖"
-        ]
+        "id": "netease_cloud",
+        "title": "网易云",
+        "sort": 1,
+        "enabled": true,
+        "subtitle": "netease",
+        "payload": {
+          "tabs": [
+            {
+              "id": "netease_rank_list",
+              "title": "榜单列表",
+              "api": "/v2/ncm-rank/list",
+              "sort": 1
+            }
+          ]
+        }
       }
     ]
   }

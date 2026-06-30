@@ -1,0 +1,106 @@
+.lite-video-container {
+  padding: 20px;
+  max-width: 1100px;
+}
+
+.lite-video-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.lite-video-header h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+}
+
+.lite-video-header p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.lite-video-stats {
+  display: flex;
+  gap: 20px;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.lite-video-stats div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.lite-video-stats span {
+  font-size: 12px;
+  color: #888;
+}
+
+.lite-video-stats strong {
+  color: var(--global-primary-color, #009688);
+}
+
+.player-card {
+  margin-bottom: 16px;
+}
+
+.xg-player-container {
+  min-height: 400px;
+  background: #000;
+}
+
+.player-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.source-card {
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #fafafa;
+  transition: all 0.2s ease;
+}
+
+.source-card:hover,
+.source-card.active {
+  border-color: var(--global-primary-color, #009688);
+  background: rgba(0, 150, 136, 0.06);
+}
+
+.source-name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.source-desc {
+  font-size: 12px;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .xg-player-container {
+    min-height: 240px;
+  }
+
+  .lite-video-stats {
+    width: 100%;
+    justify-content: space-around;
+  }
+}

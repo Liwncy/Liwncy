@@ -1,0 +1,57 @@
+[
+  {
+    "title": "综合",
+    "children": [
+      {
+        "id": "哔哩哔哩",
+        "title": "哔哩哔哩",
+        "data": { "title": "哔哩哔哩", "description": "B站热门内容聚合" }
+      },
+      {
+        "id": "知乎",
+        "title": "知乎",
+        "data": { "title": "知乎", "description": "知乎热榜话题" }
+      },
+      {
+        "id": "微博",
+        "title": "微博",
+        "data": { "title": "微博", "description": "微博热搜榜单" }
+      },
+      {
+        "id": "百度",
+        "title": "百度",
+        "data": { "title": "百度", "description": "百度实时热点" }
+      },
+      {
+        "id": "抖音",
+        "title": "抖音",
+        "data": { "title": "抖音", "description": "抖音热点内容" }
+      },
+      {
+        "id": "今日头条",
+        "title": "今日头条",
+        "data": { "title": "今日头条", "description": "头条热榜资讯" }
+      }
+    ]
+  },
+  {
+    "title": "科技",
+    "children": [
+      {
+        "id": "IT之家",
+        "title": "IT之家",
+        "data": { "title": "IT之家", "description": "科技资讯热榜" }
+      },
+      {
+        "id": "少数派",
+        "title": "少数派",
+        "data": { "title": "少数派", "description": "数字生活热门文章" }
+      },
+      {
+        "id": "稀土掘金",
+        "title": "稀土掘金",
+        "data": { "title": "稀土掘金", "description": "开发者社区热榜" }
+      }
+    ]
+  }
+]

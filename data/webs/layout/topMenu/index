@@ -2,51 +2,59 @@
   {
     "id": 1,
     "title": "首页",
-    "useI18n": "nav.home",
-    "path": "/webs/index"
+    "i18nKey": "nav.home",
+    "path": "/",
+    "sort": 1,
+    "enabled": true
   },
   {
     "id": 2,
     "title": "书签",
-    "useI18n": "nav.bookMark",
-    "path": "/webs/book_mark"
+    "i18nKey": "nav.bookMark",
+    "path": "/bookmark",
+    "sort": 2,
+    "enabled": true
   },
   {
     "id": 3,
     "title": "随记",
-    "useI18n": "nav.notes",
-    "path": "/webs/notes"
+    "i18nKey": "nav.notes",
+    "path": "/notes",
+    "sort": 3,
+    "enabled": true
   },
   {
     "id": 4,
     "title": "生活",
-    "useI18n": "nav.life",
-    "path": "/webs/life",
+    "i18nKey": "nav.life",
+    "path": "/hot-bans",
+    "sort": 4,
+    "enabled": true,
     "children": [
       {
         "id": 401,
         "title": "看新闻",
-        "useI18n": "nav.life.news",
-        "path": "/webs/hot_bans"
+        "i18nKey": "nav.life.news",
+        "path": "/hot-bans",
+        "sort": 1,
+        "enabled": true
       },
       {
-        "id": 302,
-        "title": "最新",
-        "useI18n": "nav.life.latest",
-        "path": "/webs/life/b"
-      },
-      {
-        "id": 303,
-        "title": "推荐",
-        "useI18n": "nav.life.recommended",
-        "path": "/webs/life/c"
+        "id": 402,
+        "title": "今日热榜",
+        "i18nKey": "nav.life.dailyHot",
+        "path": "/daily-hot",
+        "sort": 2,
+        "enabled": true
       }
     ]
   },
   {
     "id": 10,
     "title": "生态",
-    "useI18n": "nav.resources",
-    "path": "/webs/resources"
+    "i18nKey": "nav.resources",
+    "path": "/resources",
+    "sort": 10,
+    "enabled": false
   }
 ]

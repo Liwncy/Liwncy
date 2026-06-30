@@ -1,0 +1,34 @@
+[
+  {
+    "id": "wallpaper",
+    "title": "图片",
+    "sort": 1,
+    "enabled": true,
+    "children": [
+      {
+        "id": "acg",
+        "title": "ACG 美图",
+        "subtitle": "ACG",
+        "sort": 1,
+        "enabled": true,
+        "payload": { "api": "/api/acg.php" }
+      },
+      {
+        "id": "bing",
+        "title": "必应壁纸",
+        "subtitle": "Bing",
+        "sort": 2,
+        "enabled": true,
+        "payload": { "api": "/api/bing.php" }
+      },
+      {
+        "id": "random-img",
+        "title": "随机图片",
+        "subtitle": "Random",
+        "sort": 3,
+        "enabled": true,
+        "payload": { "api": "/api/tupian.php" }
+      }
+    ]
+  }
+]
