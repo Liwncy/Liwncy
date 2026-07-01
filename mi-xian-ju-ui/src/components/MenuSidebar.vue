@@ -179,8 +179,8 @@ defineExpose({
 .layui-menu-ref-1 {
   width: 240px !important;
   height: 100vh;
-  background: #fff;
-  border-right: 1px solid #e9ecef;
+  background: var(--site-surface, #faf9f7);
+  border-right: 1px solid var(--site-border, rgba(44, 51, 48, 0.1));
   transition: all 0.3s ease;
   overflow: hidden;
   display: flex;
@@ -208,8 +208,9 @@ defineExpose({
   padding: 0 16px 6px;
   font-size: 12px;
   font-weight: 600;
-  color: #6c757d;
-  text-transform: uppercase;
+  color: var(--site-muted, #6b736f);
+  letter-spacing: 0.08em;
+  text-transform: none;
   margin-top: 12px;
 }
 
@@ -241,11 +242,11 @@ defineExpose({
 }
 
 .menu-item-active {
-  background: #e3f2fd;
+  background: rgba(22, 186, 170, 0.1);
 }
 
 .menu-item-active .menu-item-title {
-  color: #1976d2;
+  color: var(--site-accent);
   font-weight: 600;
 }
 
@@ -255,7 +256,7 @@ defineExpose({
   top: 0;
   bottom: 0;
   width: 3px;
-  background: #1976d2;
+  background: var(--site-accent-gradient);
 }
 
 .empty-menu {

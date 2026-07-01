@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import '@/assets/styles/hot-rank.css'
 import MenuSidebar from '@/components/MenuSidebar.vue'
+import SitePageHeader from '@/components/SitePageHeader.vue'
 import SitePageLayout from '@/components/SitePageLayout.vue'
 import { getRankClass } from '@/utils/hot-article'
 import { useHotBans } from './useHotBans'
@@ -35,10 +36,10 @@ const {
     </template>
 
     <lay-container :fluid="true" class="hot-main-container">
-        <div class="hot-page-header">
-          <h1>{{ ('title' in currentMenu && currentMenu.title) || '热榜' }}</h1>
-          <p class="subtitle">{{ platformDesc }}</p>
-        </div>
+        <SitePageHeader
+          :title="('title' in currentMenu && currentMenu.title) || '热榜'"
+          :subtitle="platformDesc"
+        />
 
         <div class="hot-tab-panel">
           <lay-tab v-model="currentTab" type="brief" tab-position="top" @change="handleTabChange">

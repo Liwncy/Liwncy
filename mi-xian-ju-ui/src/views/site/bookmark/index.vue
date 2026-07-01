@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MenuSidebar from '@/components/MenuSidebar.vue'
+import SitePageHeader from '@/components/SitePageHeader.vue'
 import SitePageLayout from '@/components/SitePageLayout.vue'
 import { useBookmark } from './useBookmark'
 
@@ -32,8 +33,10 @@ const {
       />
     </template>
 
-    <lay-container :fluid="true" class="main-container">
-        <div class="toolbar">
+    <lay-container :fluid="true" class="site-page site-page--wide bookmark-page">
+        <SitePageHeader title="常用书签" subtitle="分类浏览与搜索你的书签收藏" />
+
+        <div class="site-page-toolbar">
           <div class="toolbar-left">
             <lay-select
               v-model="dataSource"
@@ -57,7 +60,7 @@ const {
           </div>
         </div>
 
-        <div v-if="allBooksData.length > 0" class="stats-bar">
+        <div v-if="allBooksData.length > 0" class="site-page-stats-bar">
           <div class="stat-item">
             <span class="stat-label">当前分类：</span>
             <span class="stat-value">{{ currentCategoryName }}</span>
@@ -73,14 +76,14 @@ const {
         </div>
 
         <div class="bookmarks-container">
-          <div v-if="bookShowData.length === 0 && !loading" class="empty-state">
-            <div class="empty-icon">📚</div>
+          <div v-if="bookShowData.length === 0 && !loading" class="site-page-empty">
+            <div class="site-page-empty-icon">📚</div>
             <h3>暂无书签</h3>
             <p>该分类下暂无书签内容</p>
           </div>
 
-          <div v-else-if="loading" class="loading-state">
-            <div class="spinner" />
+          <div v-else-if="loading" class="site-page-loading">
+            <div class="site-page-spinner" />
             <p>加载中...</p>
           </div>
 
@@ -109,22 +112,10 @@ const {
 </template>
 
 <style scoped>
-.main-container {
-  padding: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.toolbar {
+.bookmark-page .stat-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-  padding: 16px 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e8eaed;
+  gap: 8px;
 }
 
 .toolbar-left,
@@ -142,68 +133,8 @@ const {
   width: 300px;
 }
 
-.stats-bar {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 24px;
-  padding: 16px 20px;
-  background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
-  border-radius: 12px;
-  border: 1px solid #e8eaed;
-}
-
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: #7f8c8d;
-}
-
-.stat-value {
-  font-size: 16px;
-  color: #2c3e50;
-  font-weight: 600;
-}
-
 .bookmarks-container {
   min-height: 400px;
-}
-
-.empty-state,
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.empty-icon {
-  font-size: 64px;
-  opacity: 0.4;
-  margin-bottom: 20px;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #f3f4f6;
-  border-top: 4px solid #667eea;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .bookmarks-grid {
@@ -216,12 +147,12 @@ const {
   display: flex;
   align-items: center;
   padding: 16px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e8eaed;
+  background: var(--site-surface);
+  border-radius: var(--site-radius);
+  box-shadow: var(--site-shadow);
+  border: 1px solid var(--site-border);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
 }
@@ -233,15 +164,15 @@ const {
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(135deg, #16a085 0%, #2ecc71 100%);
+  background: var(--site-accent-gradient);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
 .bookmark-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
-  border-color: #16a085;
+  box-shadow: var(--site-shadow-hover);
+  transform: translateY(-3px);
+  border-color: rgba(22, 186, 170, 0.35);
 }
 
 .bookmark-card:hover::before {
@@ -255,7 +186,7 @@ const {
   margin-right: 16px;
   border-radius: 8px;
   overflow: hidden;
-  background: #f8f9fa;
+  background: rgba(44, 51, 48, 0.04);
 }
 
 .bookmark-icon img {
@@ -272,7 +203,7 @@ const {
 .bookmark-title {
   font-size: 15px;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--site-ink);
   margin: 0 0 6px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -281,7 +212,7 @@ const {
 
 .bookmark-description {
   font-size: 13px;
-  color: #7f8c8d;
+  color: var(--site-muted);
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -296,29 +227,24 @@ const {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #f8f9fa;
-  color: #95a5a6;
+  background: rgba(44, 51, 48, 0.05);
+  color: var(--site-muted);
 }
 
 .bookmark-card:hover .bookmark-link {
-  background: #16a085;
+  background: var(--site-accent);
   color: #fff;
 }
 
 @media screen and (max-width: 768px) {
-  .toolbar {
+  .site-page-toolbar {
     flex-direction: column;
-    gap: 12px;
+    align-items: stretch;
   }
 
   .data-source-select,
   .search-input {
     width: 100%;
-  }
-
-  .stats-bar {
-    flex-direction: column;
-    gap: 12px;
   }
 
   .bookmarks-grid {

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import '@/assets/styles/site-docs.css'
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import MarkdownView from '@/components/MarkdownView.vue'
@@ -28,7 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <lay-layout class="example" style="--sidebar-width: 200px">
+  <lay-layout class="example site-docs-layout" style="--sidebar-width: 200px">
     <lay-side class="layui-menu-ref-2 no-scrollbar">
       <lay-container :fluid="true" style="padding: 0">
         <lay-scroll style="overflow-y: scroll">
@@ -53,7 +54,7 @@ onMounted(() => {
     </lay-side>
 
     <lay-body id="readContent">
-      <lay-container :fluid="true" class="layui-text read-container">
+      <lay-container :fluid="true" class="site-docs-page layui-text">
         <header class="read-header">
           <h1>{{ curData.title }}</h1>
           <p v-if="curData.author || curData.date" class="read-meta">
@@ -68,21 +69,3 @@ onMounted(() => {
     <lay-backtop target="#readContent" :showHeight="100" :bottom="30" position="absolute" />
   </lay-layout>
 </template>
-
-<style scoped>
-.read-container {
-  padding: 10px;
-  max-width: 900px;
-}
-
-.read-header h1 {
-  margin: 0 0 8px;
-  font-size: 28px;
-}
-
-.read-meta {
-  margin: 0 0 24px;
-  color: #888;
-  font-size: 14px;
-}
-</style>

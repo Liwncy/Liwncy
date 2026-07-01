@@ -1,108 +1,173 @@
 .site-container {
-  background: #fff;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
   margin-top: 60px;
-  height: calc(100vh - 60px);
-  width: 100vw;
-  background-image: url('@/assets/background.svg');
-  background-repeat: no-repeat;
-  background-size: 100%;
+  min-height: calc(100vh - 60px);
+  background-color: transparent;
+}
+
+.site-bg {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.site-bg-ink,
+.site-bg-shapes {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+
+/* 原 Layui 几何动效层，叠在水墨之上 */
+.site-bg-shapes {
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+}
+
+.site-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 18%, rgba(212, 228, 222, 0.35) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.site-theme-dark .site-container {
+  background-color: transparent;
+}
+
+.site-theme-dark .site-bg-shapes {
+  opacity: 0.14;
+  mix-blend-mode: screen;
+}
+
+.site-theme-dark .site-bg::after {
+  background:
+    radial-gradient(ellipse at 50% 12%, rgba(22, 186, 170, 0.1) 0%, transparent 48%),
+    rgba(12, 14, 13, 0.42);
 }
 
 .site-layui-main {
-  height: 90%;
+  position: relative;
+  z-index: 1;
+  min-height: calc((100vh - 60px) * 0.72);
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  padding: 48px 24px 32px;
 }
 
 .site-download {
-  margin-top: 72px;
+  margin-top: 56px;
   font-size: 0;
 }
 
 .site-download a {
   display: inline-block;
   position: relative;
-  padding: 0 20px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 4px;
-  background: #f1f1f1;
-  border: 1px solid #f1f1f1;
-  font-size: 16px;
-  color: #476582;
+  padding: 0 22px;
+  height: 42px;
+  line-height: 42px;
+  border-radius: 21px;
+  background: var(--site-surface, #faf9f7);
+  border: 1px solid var(--site-border, rgba(44, 51, 48, 0.1));
+  font-size: 15px;
+  color: var(--site-ink, #2c3330);
   font-weight: 500;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  transition: all 0.5s;
-  letter-spacing: 0.2px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.06em;
   text-decoration: none;
+  box-shadow: var(--site-shadow, 0 2px 12px rgba(44, 51, 48, 0.06));
 }
 
 .site-download a:hover {
-  border-radius: 10px;
+  transform: translateY(-2px);
+  box-shadow: var(--site-shadow-hover, 0 8px 24px rgba(44, 51, 48, 0.1));
+  border-color: rgba(22, 186, 170, 0.35);
 }
 
 .site-download a.site-down--primary,
 .site-download a:first-child {
-  background: var(--global-primary-color);
+  background: var(--site-accent-gradient, linear-gradient(90deg, #16baaa, #16b777));
   color: #fff;
+  border-color: transparent;
 }
 
 .site-download a + a {
-  margin-left: 20px;
+  margin-left: 16px;
 }
 
 .site-zfj {
-  height: 220px;
+  height: 200px;
 }
 
 .site-zfj img {
-  width: 172px;
-  border-radius: 20px;
-  border: 5px solid #e2e2e2;
+  width: 168px;
+  border-radius: 50%;
+  border: 4px solid var(--site-surface, #faf9f7);
+  box-shadow: 0 8px 32px rgba(44, 51, 48, 0.12);
+  object-fit: cover;
 }
 
 .site-desc {
   position: relative;
-  height: 70px;
-  margin-top: 20px;
+  margin-top: 24px;
+  padding-bottom: 36px;
 }
 
 .site-desc .web-font-desc {
-  color: #213547;
+  font-family: var(--site-font-title, 'Songti SC', serif);
+  color: var(--site-ink, #2a3530);
   font-size: 52px;
-  opacity: 0.86;
-}
-
-.web-font-desc {
-  font-size: 76px;
-  line-height: 1.25;
-  font-weight: 900;
-  letter-spacing: -1.5px;
-  max-width: 960px;
-  margin: 0 auto;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  margin: 0;
+  opacity: 0.92;
+  text-shadow: 0 1px 0 rgba(255, 252, 245, 0.8);
 }
 
 .site-desc cite {
-  position: absolute;
-  bottom: -40px;
-  left: 0;
-  width: 100%;
-  color: rgba(60, 60, 60, 0.7);
+  display: block;
+  margin-top: 16px;
+  color: #5c6b63;
+  font-family: var(--site-font-title, 'Songti SC', serif);
   font-style: normal;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  line-height: 2;
+}
+
+.site-theme-dark .site-desc .web-font-desc {
+  color: #e8ece9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.site-theme-dark .site-desc cite {
+  color: #a8b5ae;
 }
 
 .site-version {
-  position: relative;
-  margin-top: 18px;
-  color: rgba(60, 60, 60, 0.7);
-  font-size: 12px;
+  margin-top: 20px;
+  color: var(--site-muted, #6b736f);
+  font-size: 13px;
+  letter-spacing: 0.04em;
 }
 
 .site-version span {
-  padding: 0 3px;
+  padding: 0 6px;
 }
 
 .site-version * {
@@ -111,7 +176,7 @@
 
 .site-banner-other {
   width: 100%;
-  margin-top: 40px;
+  margin-top: 32px;
   text-align: center;
   font-size: 0;
 }
@@ -119,87 +184,123 @@
 .site-banner-other a {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  vertical-align: middle;
-  height: 28px;
-  line-height: 28px;
-  margin: 0 6px;
-  padding: 0 8px;
-  border-radius: 4px;
-  color: rgba(60, 60, 60, 0.7);
-  background: #f2f4f5;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  font-size: 14px;
+  gap: 6px;
+  height: 32px;
+  line-height: 32px;
+  margin: 0 8px;
+  padding: 0 14px;
+  border-radius: 16px;
+  color: var(--site-muted, #6b736f);
+  background: var(--site-surface, #faf9f7);
+  border: 1px solid var(--site-border, rgba(44, 51, 48, 0.1));
+  font-size: 13px;
   text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.site-banner-other a:hover {
+  color: var(--site-accent, #16baaa);
+  border-color: rgba(22, 186, 170, 0.35);
+  transform: translateY(-1px);
 }
 
 .box-list {
-  padding: 50px 250px 60px;
+  position: relative;
+  z-index: 1;
+  padding: 40px 80px 64px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .box {
-  background-color: #f9f9f9;
-  border: 1px solid #f9f9f9;
-  border-radius: 4px;
-  padding: 24px;
+  background: var(--site-surface, #faf9f7);
+  border: 1px solid var(--site-border, rgba(44, 51, 48, 0.1));
+  border-radius: var(--site-radius, 12px);
+  padding: 28px 24px;
   height: 100%;
+  box-shadow: var(--site-shadow, 0 2px 12px rgba(44, 51, 48, 0.06));
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--site-accent-gradient, linear-gradient(90deg, #16baaa, #16b777));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.box:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--site-shadow-hover, 0 8px 24px rgba(44, 51, 48, 0.1));
+  border-color: rgba(22, 186, 170, 0.25);
+}
+
+.box:hover::before {
+  opacity: 1;
 }
 
 .box .icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
-  border-radius: 6px;
-  background-color: #e5e5e5;
-  width: 48px;
-  height: 48px;
-  font-size: 24px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  background: rgba(22, 186, 170, 0.1);
+  width: 52px;
+  height: 52px;
+  font-size: 26px;
 }
 
 .box .title {
-  line-height: 24px;
-  font-size: 16px;
+  font-family: var(--site-font-title, 'Songti SC', serif);
+  line-height: 1.4;
+  font-size: 17px;
   font-weight: 600;
+  letter-spacing: 0.04em;
   margin: 0;
 }
 
 .box .title a {
-  color: inherit;
+  color: var(--site-ink, #2c3330);
   text-decoration: none;
 }
 
 .box .title a:hover {
-  color: var(--global-primary-color);
+  color: var(--site-accent, #16baaa);
 }
 
 .box .details {
   font-size: 14px;
-  padding-top: 8px;
-  font-weight: 500;
-  line-height: 24px;
-  color: rgba(56, 56, 56, 0.7);
+  padding-top: 10px;
+  line-height: 1.65;
+  color: var(--site-muted, #6b736f);
   margin: 0;
+  letter-spacing: 0.02em;
 }
 
 @media screen and (max-width: 768px) {
-  .site-container {
-    background-size: 100% 100%;
-  }
-
-  .web-font-desc {
-    font-size: 48px;
-  }
-
   .site-desc .web-font-desc {
-    font-size: 40px;
+    font-size: 36px;
+    letter-spacing: 0.12em;
+  }
+
+  .site-desc cite {
+    font-size: 13px;
+    letter-spacing: 0.06em;
   }
 
   .site-download a + a {
-    margin-left: 12px;
+    margin-left: 10px;
   }
 
   .box-list {
-    padding: 30px 24px 48px;
+    padding: 24px 20px 48px;
   }
 }

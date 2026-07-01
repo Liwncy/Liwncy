@@ -96,7 +96,7 @@ onMounted(async () => {
 
 <template>
   <lay-config-provider :theme="appStore.theme" :themeVariable="appStore.themeVariable">
-    <lay-layout class="layui-layout-website">
+    <lay-layout class="layui-layout-website" :class="{ 'site-theme-dark': appStore.theme === 'dark' }">
       <lay-header>
         <lay-logo @click="router.push('/')">
           <img :src="avatarUrl" alt="logo" />

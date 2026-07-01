@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import '@/assets/styles/lite-image.css'
 import MenuSidebar from '@/components/MenuSidebar.vue'
+import SitePageHeader from '@/components/SitePageHeader.vue'
 import SitePageLayout from '@/components/SitePageLayout.vue'
 import { useLiteImage } from './useLiteImage'
 
@@ -52,7 +53,12 @@ const {
       />
     </template>
 
-    <lay-container :fluid="true" class="lite-image-container">
+    <lay-container :fluid="true" class="site-page site-page--wide lite-image-container">
+        <SitePageHeader
+          :title="currentMenu.title || '走马观花'"
+          :subtitle="currentMenu.payload?.description || '选择左侧图源，欣赏随机美图'"
+        />
+
         <lay-row :space="10">
           <lay-col :md="16" :xs="24">
             <div class="img-section">
@@ -134,9 +140,13 @@ const {
           </lay-col>
 
           <lay-col :md="8" :xs="24">
-            <lay-card class="description-card">
-              <template #title>图片详情 · {{ currentMenu.title }}</template>
-              <div class="info-item">
+            <div class="site-page-card description-card">
+              <div class="site-page-card-header">
+                <i class="layui-icon layui-icon-picture" />
+                <h3>图片详情 · {{ currentMenu.title }}</h3>
+              </div>
+              <div class="site-page-card-body">
+                <div class="info-item">
                 <span class="label">数量</span>
                 <span class="value">
                   {{ Array.isArray(imgUrl) ? imgUrl.length : imgUrl ? 1 : 0 }} 张
@@ -173,22 +183,28 @@ const {
                   原始
                 </lay-button>
               </lay-button-group>
-            </lay-card>
+              </div>
+            </div>
 
-            <lay-card v-if="historyImages.length" class="history-card">
-              <template #title>历史记录</template>
-              <div class="history-list">
-                <div
-                  v-for="(item, index) in historyImages.slice(0, 3)"
-                  :key="index"
-                  class="history-item"
-                  @click="viewHistoryImage(item)"
-                >
-                  <img :src="item.url" alt="历史图片" />
-                  <span>{{ formatTime(item.time) }}</span>
+            <div v-if="historyImages.length" class="site-page-card history-card">
+              <div class="site-page-card-header">
+                <i class="layui-icon layui-icon-time" />
+                <h3>历史记录</h3>
+              </div>
+              <div class="site-page-card-body">
+                <div class="history-list">
+                  <div
+                    v-for="(item, index) in historyImages.slice(0, 3)"
+                    :key="index"
+                    class="history-item"
+                    @click="viewHistoryImage(item)"
+                  >
+                    <img :src="item.url" alt="历史图片" />
+                    <span>{{ formatTime(item.time) }}</span>
+                  </div>
                 </div>
               </div>
-            </lay-card>
+            </div>
           </lay-col>
         </lay-row>
       </lay-container>

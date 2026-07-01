@@ -1,14 +1,20 @@
-.lite-image-container {
-  padding: 16px;
+.lite-image-container.site-page {
   overflow-y: auto;
+}
+
+.lite-image-container .description-card,
+.lite-image-container .history-card {
+  margin-bottom: 16px;
 }
 
 .img-section {
   min-height: 480px;
-  background: #fff;
-  border-radius: 8px;
+  background: var(--site-surface);
+  border-radius: var(--site-radius);
   padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--site-shadow);
+  border: 1px solid var(--site-border);
+  margin-bottom: 16px;
 }
 
 .img-display-area {
@@ -17,9 +23,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f9fa;
-  border-radius: 8px;
+  background: rgba(44, 51, 48, 0.04);
+  border-radius: 10px;
   overflow: hidden;
+}
+
+.site-theme-dark .img-display-area {
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .img-wrapper {
@@ -73,26 +83,22 @@
 .thumbnail {
   width: 56px;
   height: 56px;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   cursor: pointer;
   border: 2px solid transparent;
   flex-shrink: 0;
+  transition: border-color 0.2s ease;
 }
 
 .thumbnail.active {
-  border-color: var(--global-primary-color, #009688);
+  border-color: var(--site-accent);
 }
 
 .thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.description-card,
-.history-card {
-  margin-bottom: 16px;
 }
 
 .info-item {
@@ -103,7 +109,12 @@
 }
 
 .info-item .label {
-  color: #666;
+  color: var(--site-muted);
+}
+
+.info-item .value {
+  color: var(--site-ink);
+  font-weight: 500;
 }
 
 .action-buttons {
@@ -128,19 +139,21 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+  color: var(--site-ink);
 }
 
 .history-item:hover {
-  background: #f5f5f5;
+  background: rgba(22, 186, 170, 0.08);
 }
 
 .history-item img {
   width: 40px;
   height: 40px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 @media (max-width: 768px) {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MenuSidebar from '@/components/MenuSidebar.vue'
+import SitePageHeader from '@/components/SitePageHeader.vue'
 import SitePageLayout from '@/components/SitePageLayout.vue'
 import { useAiTools } from './useAiTools'
 
@@ -36,17 +37,14 @@ const {
       />
     </template>
 
-    <lay-container :fluid="true" class="ai-tools-container">
-        <lay-card :body-style="{ padding: '20px' }" class="content-card">
-          <template #title>
-            <div class="card-title">
-              <h2>{{ currentMenu.title || 'AI 工具' }}</h2>
-              <p v-if="currentMenu.payload?.description" class="card-description">
-                {{ currentMenu.payload.description }}
-              </p>
-            </div>
-          </template>
+    <lay-container :fluid="true" class="site-page ai-tools-page">
+        <SitePageHeader
+          :title="currentMenu.title || '智能工具'"
+          :subtitle="currentMenu.payload?.description || '选择左侧工具，输入内容后执行'"
+        />
 
+        <div class="site-page-card content-card">
+          <div class="site-page-card-body">
           <div v-if="currentMenu.payload?.details" class="tool-description">
             <div class="divider"><span class="divider-text">功能描述</span></div>
             <p>{{ currentMenu.payload.details }}</p>
@@ -110,34 +108,20 @@ const {
               </div>
             </lay-card>
           </div>
-        </lay-card>
+          </div>
+        </div>
       </lay-container>
   </SitePageLayout>
 </template>
 
 <style scoped>
-.ai-tools-container {
-  padding: 16px;
-}
-
-.content-card {
-  min-height: 100%;
-}
-
-.card-title h2 {
-  margin: 0 0 8px;
-  font-size: 20px;
-}
-
-.card-description {
-  margin: 0;
-  font-size: 14px;
-  color: #666;
+.ai-tools-page .content-card {
+  min-height: 400px;
 }
 
 .divider {
   height: 1px;
-  background: #e6e6e6;
+  background: var(--site-border);
   position: relative;
   margin: 20px 0;
 }
@@ -147,11 +131,13 @@ const {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  background: #fff;
+  background: var(--site-surface);
   padding-right: 10px;
+  font-family: var(--site-font-title);
   font-size: 14px;
-  color: #666;
+  color: var(--site-muted);
   font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .user-input {

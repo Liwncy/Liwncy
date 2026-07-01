@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbf8f2"/>
+      <stop offset="100%" stop-color="#ebe3d4"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dfe9e4" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#fbf8f2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a8a82" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#7a8a82" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4f5e56" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#5a7a68" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="m3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2f3b35" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#3a5a48" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="m4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e2824" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#2a4538" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a9080" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#4a7060" stop-opacity="0.28"/>
+    </linearGradient>
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff6e5" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#fff6e5" stop-opacity="0"/>
+    </radialGradient>
+    <path id="birdPath" d="M-20 220 C200 180 400 240 620 200 S1000 160 1460 210"/>
+    <path id="boatPath" d="M380 820 C520 810 660 830 800 820 S1040 810 1180 825"/>
+  </defs>
+
+  <!-- base -->
+  <rect width="1440" height="900" fill="url(#paper)"/>
+  <rect width="1440" height="480" fill="url(#sky)"/>
+
+  <!-- rotating ink orbs (????????) -->
+  <g opacity="0.14">
+    <circle cx="120" cy="720" r="100" fill="#16baaa">
+      <animateTransform attributeName="transform" type="rotate" from="0 120 720" to="360 120 720" dur="48s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1320" cy="680" r="80" fill="#16b777">
+      <animateTransform attributeName="transform" type="rotate" from="360 1320 680" to="0 1320 680" dur="36s" repeatCount="indefinite"/>
+    </circle>
+    <ellipse cx="200" cy="820" rx="120" ry="60" fill="#8a9590" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" values="0 200 820;-12 200 820;0 200 820;12 200 820;0 200 820" dur="24s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- moon -->
+  <g>
+    <circle cx="1180" cy="150" r="100" fill="url(#moonGlow)">
+      <animate attributeName="r" values="92;108;92" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1180" cy="150" r="42" fill="#faf6ec" stroke="#c8bcaa" stroke-width="0.8"/>
+    <animateTransform attributeName="transform" type="rotate" values="0 1180 150;6 1180 150;0 1180 150;-4 1180 150;0 1180 150" dur="20s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- drifting clouds -->
+  <g fill="none" stroke="#9aa8a0" stroke-width="1.1" opacity="0.55">
+    <g>
+      <path d="M420 120 Q470 95 520 115 Q570 135 620 115 Q670 95 720 115"/>
+      <path d="M450 140 Q500 125 550 140 Q600 155 650 140"/>
+      <animateTransform attributeName="transform" type="translate" values="0 0;55 0;0 0;-40 0;0 0" dur="18s" repeatCount="indefinite"/>
+    </g>
+    <g>
+      <path d="M820 100 Q870 78 920 98 Q970 118 1020 98 Q1070 78 1120 98"/>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-60 0;0 0;45 0;0 0" dur="14s" repeatCount="indefinite"/>
+    </g>
+  </g>
+
+  <!-- flying birds -->
+  <g fill="none" stroke="#3d4a44" stroke-width="1.3" stroke-linecap="round" opacity="0.45">
+    <g>
+      <path d="M0 0 l9 -5 l9 5"/>
+      <animateMotion dur="38s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#birdPath"/>
+      </animateMotion>
+    </g>
+    <g>
+      <path d="M0 0 l7 -4 l7 4"/>
+      <animateMotion dur="38s" begin="2s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#birdPath"/>
+      </animateMotion>
+    </g>
+    <g>
+      <path d="M0 0 l7 -4 l7 4"/>
+      <animateMotion dur="38s" begin="4.5s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#birdPath"/>
+      </animateMotion>
+    </g>
+  </g>
+
+  <!-- falling petals -->
+  <g fill="#c9a0a0" opacity="0.35">
+    <ellipse rx="4" ry="6" transform="rotate(20)">
+      <animateMotion path="M200 80 C260 200 180 320 240 480" dur="18s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.4;0.35;0" dur="18s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse rx="3" ry="5" transform="rotate(-15)">
+      <animateMotion path="M900 60 C860 180 920 300 880 460" dur="22s" begin="3s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse rx="3" ry="5" fill="#d4b896" opacity="0.4">
+      <animateMotion path="M1100 100 C1050 220 1120 340 1080 500" dur="20s" begin="7s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- mist -->
+  <ellipse cx="720" cy="520" rx="560" ry="45" fill="#eef2f0" opacity="0.4">
+    <animate attributeName="cx" values="720;760;720;680;720" dur="30s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0.5;0.3" dur="15s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <!-- mountains parallax -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;28 0;0 0;-20 0;0 0" dur="45s" repeatCount="indefinite"/>
+    <path d="M0 560 C200 480 360 520 520 450 C680 380 820 420 980 360 C1140 300 1280 340 1440 300 L1440 900 L0 900 Z" fill="url(#m1)"/>
+  </g>
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;-24 0;0 0;32 0;0 0" dur="32s" repeatCount="indefinite"/>
+    <path d="M0 610 C180 550 340 580 500 520 C660 460 820 500 980 460 C1140 420 1280 450 1440 430 L1440 900 L0 900 Z" fill="url(#m2)"/>
+  </g>
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;20 0;0 0;-28 0;0 0" dur="24s" repeatCount="indefinite"/>
+    <path d="M0 660 C160 600 320 640 480 580 C640 520 800 560 960 520 C1120 480 1280 520 1440 500 L1440 900 L0 900 Z" fill="url(#m3)"/>
+    <!-- main peak -->
+    <path d="M620 520 L720 380 L820 520 Z" fill="#2a3530" opacity="0.35"/>
+  </g>
+  <g>
+    <path d="M0 710 L120 670 L280 700 L440 650 L600 690 L760 640 L920 680 L1080 630 L1240 670 L1440 650 L1440 900 L0 900 Z" fill="url(#m4)"/>
+  </g>
+
+  <!-- waterfall -->
+  <g opacity="0.5">
+    <path d="M718 400 L722 560" stroke="#eef2f0" stroke-width="2.5" stroke-linecap="round">
+      <animate attributeName="stroke-opacity" values="0.2;0.6;0.2" dur="3s" repeatCount="indefinite"/>
+    </path>
+    <path d="M710 560 Q700 575 690 590" fill="none" stroke="#eef2f0" stroke-width="1.2" opacity="0.4"/>
+  </g>
+
+  <!-- pines -->
+  <g fill="#1a2220" opacity="0.55">
+    <path d="M240 680 l-5 12 5 10 -8 18 8 12 -4 10 h8 l-4-10 6-12 -5-10 5-12z"/>
+    <path d="M1150 650 l-4 10 4 8 -7 16 7 10 -3 8 h6 l-3-8 5-10 -4-8 4-10z"/>
+  </g>
+
+  <!-- pavilion -->
+  <g transform="translate(920 560)" opacity="0.55">
+    <path d="M-24 0 Q0 -16 24 0" fill="none" stroke="#1a2220" stroke-width="1.6"/>
+    <rect x="-16" y="0" width="32" height="26" fill="#2a3530" rx="1"/>
+    <line x1="-16" y1="26" x2="-16" y2="40" stroke="#2a3530" stroke-width="2"/>
+    <line x1="16" y1="26" x2="16" y2="40" stroke="#2a3530" stroke-width="2"/>
+    <line x1="-16" y1="40" x2="16" y2="40" stroke="#2a3530" stroke-width="1.5"/>
+    <circle cx="0" cy="14" r="2" fill="#d4a574" opacity="0.8">
+      <animate attributeName="opacity" values="0.4;0.9;0.4" dur="4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- river -->
+  <rect x="0" y="770" width="1440" height="130" fill="url(#water)"/>
+
+  <!-- animated ripples -->
+  <g fill="none" stroke="#4a6b5c" stroke-width="1" opacity="0.35">
+    <path d="M0 795 Q360 785 720 795 T1440 795" stroke-dasharray="40 20">
+      <animate attributeName="stroke-dashoffset" values="0;-120" dur="6s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 820 Q360 810 720 820 T1440 820" stroke-dasharray="30 25">
+      <animate attributeName="stroke-dashoffset" values="0;110" dur="8s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 845 Q360 838 720 845 T1440 845" stroke-dasharray="50 15">
+      <animate attributeName="stroke-dashoffset" values="0;-130" dur="7s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 870 Q360 862 720 870 T1440 870" stroke-dasharray="35 20">
+      <animate attributeName="stroke-dashoffset" values="0;100" dur="9s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- boat -->
+  <g opacity="0.55">
+    <g>
+      <path d="M-30 0 Q0 10 30 0 L26 5 Q0 14 -26 5 Z" fill="#1e2824"/>
+      <line x1="0" y1="-20" x2="0" y2="0" stroke="#3d4a44" stroke-width="1.2"/>
+      <path d="M0 -20 L18 -10" fill="none" stroke="#3d4a44" stroke-width="0.9"/>
+      <animateTransform attributeName="transform" type="rotate" values="0;3;0;-2;0" dur="5s" repeatCount="indefinite"/>
+      <animateMotion dur="45s" repeatCount="indefinite">
+        <mpath href="#boatPath"/>
+      </animateMotion>
+    </g>
+  </g>
+
+  <!-- foreground mist -->
+  <ellipse cx="720" cy="760" rx="640" ry="40" fill="#fbf8f2" opacity="0.55">
+    <animate attributeName="rx" values="620;660;620" dur="20s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.45;0.65;0.45" dur="12s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <!-- shore rocks -->
+  <path d="M0 830 Q100 800 180 830 L180 900 L0 900 Z" fill="#1a2220" opacity="0.4"/>
+  <path d="M1260 820 Q1340 795 1440 815 L1440 900 L1260 900 Z" fill="#1a2220" opacity="0.35"/>
+</svg>

@@ -3,6 +3,8 @@ import '@/assets/styles/home.css'
 import { computed } from 'vue'
 import { useAppStore } from '@/store/app'
 import avatarUrl from '@/assets/touxiang.jpg'
+import homeBgInkUrl from '@/assets/background-ink.svg?url'
+import homeBgShapesUrl from '@/assets/background.svg?url'
 
 const appStore = useAppStore()
 
@@ -17,6 +19,12 @@ function changeTheme() {
 
 <template>
   <div class="site-container">
+    <!-- 独立图层：img/object 内嵌 SVG 时 SMIL 动画才会播放（CSS background 多为静态帧） -->
+    <div class="site-bg" aria-hidden="true">
+      <object class="site-bg-ink" :data="homeBgInkUrl" type="image/svg+xml"></object>
+      <object class="site-bg-shapes" :data="homeBgShapesUrl" type="image/svg+xml"></object>
+    </div>
+
     <div class="site-layui-main">
       <div class="site-zfj site-zfj-anim">
         <img :src="avatarUrl" alt="头像" />
@@ -29,10 +37,10 @@ function changeTheme() {
 
       <div class="site-download">
         <router-link class="layui-inline site-down site-down--primary" to="/bookmark">
-          Get Started
+          开始探索
         </router-link>
         <a class="layui-inline site-down" href="javascript:void(0);" @click="changeTheme">
-          {{ appStore.theme === 'dark' ? 'Turn Off' : 'Turn On' }}
+          {{ appStore.theme === 'dark' ? '浅色模式' : '深色模式' }}
         </a>
       </div>
 

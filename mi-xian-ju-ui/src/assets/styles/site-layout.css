@@ -74,9 +74,10 @@
 .layui-layout-website .layui-logo .title {
   margin-left: 12px;
   font-size: 20px;
-  letter-spacing: -0.2px;
-  opacity: 0.8;
-  color: #213547;
+  letter-spacing: 0.12em;
+  opacity: 0.88;
+  color: var(--site-ink, #2c3330);
+  font-family: var(--site-font-title, 'Songti SC', serif);
   font-weight: 700;
 }
 
@@ -134,7 +135,17 @@
   padding: 0 10px 10px;
 }
 
-.theme-panel > * {
-  margin-top: 9px;
-  margin-right: 9px;
+.site-theme-dark.layui-layout-website > .layui-header {
+  background-image: radial-gradient(transparent 1px, #1c2421 1px);
+  border-bottom-color: var(--site-border);
+}
+
+.site-theme-dark.layui-layout-website .layui-header .layui-nav .layui-nav-item *,
+.site-theme-dark.layui-layout-website .layui-header .layui-nav .layui-nav-item a,
+.site-theme-dark.layui-layout-website .layui-header .layui-nav .layui-nav-item a:hover {
+  color: rgba(229, 235, 232, 0.85);
+}
+
+.site-theme-dark.layui-layout-website .layui-logo .title {
+  color: var(--site-ink, #e5ebe8);
 }
