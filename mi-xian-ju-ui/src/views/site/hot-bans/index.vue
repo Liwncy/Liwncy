@@ -39,7 +39,15 @@ const {
         <SitePageHeader
           :title="('title' in currentMenu && currentMenu.title) || '热榜'"
           :subtitle="platformDesc"
-        />
+        >
+          <template #extra>
+            <div class="hot-summary-card">
+              <span>当前榜单</span>
+              <strong>{{ articleList.length }}</strong>
+              <em>条热点</em>
+            </div>
+          </template>
+        </SitePageHeader>
 
         <div class="hot-tab-panel">
           <lay-tab v-model="currentTab" type="brief" tab-position="top" @change="handleTabChange">
@@ -66,6 +74,9 @@ const {
                         <span v-if="item.author_info">{{ item.author_info }}</span>
                         <span v-if="item.hot_value" class="hotness">{{ item.hot_value }} 热度</span>
                       </div>
+                    </div>
+                    <div class="hot-open-indicator">
+                      <i class="layui-icon layui-icon-right" />
                     </div>
                   </div>
                 </div>

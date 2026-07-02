@@ -38,7 +38,15 @@ const {
         <SitePageHeader
           :title="('title' in currentMenu && currentMenu.title) || '今日热榜'"
           :subtitle="platformDesc"
-        />
+        >
+          <template #extra>
+            <div class="hot-summary-card">
+              <span>今日收录</span>
+              <strong>{{ hotList.length }}</strong>
+              <em>条热点</em>
+            </div>
+          </template>
+        </SitePageHeader>
 
         <div class="hot-container-panel">
           <div class="hot-container-inner">
@@ -56,6 +64,9 @@ const {
                     <span class="hotness">{{ formatHotValue(item.hotValue) }} 热度</span>
                     <span>{{ item.time }}</span>
                   </div>
+                </div>
+                <div class="hot-open-indicator">
+                  <i class="layui-icon layui-icon-right" />
                 </div>
               </div>
             </div>

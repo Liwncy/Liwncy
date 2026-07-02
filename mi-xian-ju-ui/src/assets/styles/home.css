@@ -101,7 +101,7 @@
 
 .site-download a.site-down--primary,
 .site-download a:first-child {
-  background: var(--site-accent-gradient, linear-gradient(90deg, #16baaa, #16b777));
+  background: var(--site-accent-gradient, linear-gradient(90deg, #1f9d8a, #2f8f68));
   color: #fff;
   border-color: transparent;
 }
@@ -199,7 +199,7 @@
 }
 
 .site-banner-other a:hover {
-  color: var(--site-accent, #16baaa);
+  color: var(--site-accent, #1f9d8a);
   border-color: rgba(22, 186, 170, 0.35);
   transform: translateY(-1px);
 }
@@ -231,7 +231,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--site-accent-gradient, linear-gradient(90deg, #16baaa, #16b777));
+  background: var(--site-accent-gradient, linear-gradient(90deg, #1f9d8a, #2f8f68));
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -273,7 +273,7 @@
 }
 
 .box .title a:hover {
-  color: var(--site-accent, #16baaa);
+  color: var(--site-accent, #1f9d8a);
 }
 
 .box .details {

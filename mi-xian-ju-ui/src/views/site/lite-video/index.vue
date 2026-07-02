@@ -119,7 +119,7 @@ const {
                 :percent="videoStats.loadProgress"
                 show-text
                 :height="8"
-                theme="#16b777"
+                theme="#2f8f68"
               />
             </div>
             <div v-else class="lite-video-status-tips">

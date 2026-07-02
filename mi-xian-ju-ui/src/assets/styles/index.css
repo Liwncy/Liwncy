@@ -5,19 +5,52 @@ body,
   margin: 0;
 }
 
-/* 与 GithubIo 一致：页面可滚动，但隐藏滚动条 */
+/* 全站滚动条：细轨道 + 品牌渐变，兼顾 Chrome/Edge/Firefox */
+:root {
+  --site-scrollbar-track: rgba(44, 51, 48, 0.035);
+  --site-scrollbar-thumb: rgba(22, 186, 170, 0.38);
+  --site-scrollbar-thumb-hover: rgba(22, 186, 170, 0.62);
+}
+
 html {
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--site-scrollbar-thumb) transparent;
 }
 
 body {
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 body::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 10px;
+  height: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, var(--site-scrollbar-thumb), rgba(22, 183, 119, 0.42))
+    border-box;
+  background-clip: padding-box;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, var(--site-scrollbar-thumb-hover), rgba(22, 183, 119, 0.68))
+    border-box;
+  background-clip: padding-box;
+}
+
+body::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /* 局部滚动区域隐藏滚动条（MenuSidebar 等） */
@@ -29,6 +62,59 @@ body::-webkit-scrollbar {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.site-theme-dark {
+  --site-scrollbar-track: rgba(229, 235, 232, 0.045);
+  --site-scrollbar-thumb: rgba(22, 186, 170, 0.34);
+  --site-scrollbar-thumb-hover: rgba(22, 186, 170, 0.58);
+}
+
+.layui-layout-website > .layui-layout > .layui-body,
+.layui-scroll,
+.layui-textarea,
+textarea {
+  scrollbar-width: thin;
+  scrollbar-color: var(--site-scrollbar-thumb) transparent;
+  scrollbar-gutter: stable;
+}
+
+.layui-layout-website > .layui-layout > .layui-body::-webkit-scrollbar,
+.layui-scroll::-webkit-scrollbar,
+.layui-textarea::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.layui-layout-website > .layui-layout > .layui-body::-webkit-scrollbar-track,
+.layui-scroll::-webkit-scrollbar-track,
+.layui-textarea::-webkit-scrollbar-track,
+textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.layui-layout-website > .layui-layout > .layui-body::-webkit-scrollbar-thumb,
+.layui-scroll::-webkit-scrollbar-thumb,
+.layui-textarea::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, var(--site-scrollbar-thumb), rgba(22, 183, 119, 0.42))
+    border-box;
+  background-clip: padding-box;
+}
+
+.layui-layout-website > .layui-layout > .layui-body::-webkit-scrollbar-thumb:hover,
+.layui-scroll::-webkit-scrollbar-thumb:hover,
+.layui-textarea::-webkit-scrollbar-thumb:hover,
+textarea::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, var(--site-scrollbar-thumb-hover), rgba(22, 183, 119, 0.68))
+    border-box;
+  background-clip: padding-box;
 }
 
 *,
@@ -56,9 +142,9 @@ a {
 /* NProgress 主题色 */
 #nprogress .bar {
   z-index: 9999999;
-  background: var(--global-primary-color, #009688) !important;
+  background: var(--global-primary-color, #1f9d8a) !important;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: var(--global-primary-color, #009688);
+  border-top-color: var(--global-primary-color, #1f9d8a);
 }

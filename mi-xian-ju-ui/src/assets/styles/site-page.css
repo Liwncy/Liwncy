@@ -11,8 +11,8 @@
   --site-radius: 12px;
   --site-shadow: 0 2px 12px rgba(44, 51, 48, 0.06);
   --site-shadow-hover: 0 8px 24px rgba(44, 51, 48, 0.1);
-  --site-accent: var(--global-primary-color, #16baaa);
-  --site-accent-light: var(--global-checked-color, #16b777);
+  --site-accent: var(--global-primary-color, #1f9d8a);
+  --site-accent-light: var(--global-checked-color, #2f8f68);
   --site-accent-gradient: linear-gradient(
     90deg,
     var(--site-accent) 0%,

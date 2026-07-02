@@ -83,6 +83,8 @@ function resetThemeVariable() {
 }
 
 onMounted(async () => {
+  appStore.hydrateThemeVariable()
+
   try {
     const res = await fetchTopMenus()
     if (res.data?.length) {
