@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const PEARK_ORIGIN = 'https://api.pearktrue.cn'
+
 const client = axios.create({
-  baseURL: '/peark-api',
+  baseURL: import.meta.env.DEV ? '/peark-api' : PEARK_ORIGIN,
   timeout: 15000,
 })
 

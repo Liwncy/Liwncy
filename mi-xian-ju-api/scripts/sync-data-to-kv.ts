@@ -4,7 +4,7 @@
  * 用法：
  *   pnpm sync:kv -- --dry-run
  *   pnpm sync:kv -- --prefix=common
- *   pnpm sync:kv                    # 默认写入本地 preview KV（wrangler dev 使用）
+ *   pnpm sync:kv                    # 默认写入本地 KV（wrangler dev --local 使用）
  *   pnpm sync:kv -- --remote        # 写入线上 production KV（deploy 前）
  */
 import { readdir, readFile, stat } from 'node:fs/promises'
@@ -20,9 +20,9 @@ const dryRun = args.includes('--dry-run')
 const remote = args.includes('--remote')
 const prefixArg = args.find((a: string) => a.startsWith('--prefix='))?.split('=')[1]
 
-/** wrangler dev 绑定 preview_id；本地开发须 --local --preview */
+/** 明确区分本地 Miniflare KV 与 Cloudflare 远端 production KV */
 function wranglerKvPutFlags(): string {
-  return remote ? '--preview false' : '--local --preview'
+  return remote ? '--remote --preview false' : '--local'
 }
 
 async function collectFiles(dir: string, base = ''): Promise<string[]> {
@@ -48,7 +48,7 @@ async function main() {
   const filtered = prefixArg ? files.filter((f) => f.startsWith(prefixArg)) : files
 
   console.log(
-    `Found ${filtered.length} file(s) under data/ → ${remote ? 'remote production KV' : 'local preview KV (wrangler dev)'}`,
+    `Found ${filtered.length} file(s) under data/ → ${remote ? 'remote production KV' : 'local KV (wrangler dev --local)'}`,
   )
 
   for (const rel of filtered) {

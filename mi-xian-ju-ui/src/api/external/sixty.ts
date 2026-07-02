@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const SIXTY_ORIGIN = 'https://60s.viki.moe'
+
 const client = axios.create({
-  baseURL: '/sixty-api',
+  baseURL: import.meta.env.DEV ? '/sixty-api' : SIXTY_ORIGIN,
   timeout: 15000,
 })
 

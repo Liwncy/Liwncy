@@ -1,31 +1,35 @@
 import axios from 'axios'
 
 const YUJN_ORIGIN = 'https://api.yujn.cn'
-
-const jsonClient = axios.create({
-  baseURL: '/yujn-api',
-  timeout: 20000,
-})
+const JSON_TIMEOUT = 20000
 
 function appendJsonType(path: string) {
   if (path.includes('type=')) return path
   return path.includes('?') ? `${path}&type=json` : `${path}?type=json`
 }
 
-/** 遇见 API JSON 请求（开发环境走 Vite 代理） */
+function withCorsProxy(target: string) {
+  const proxy = import.meta.env.VITE_CORS_PROXY_URL
+  return proxy ? `${proxy}?url=${encodeURIComponent(target)}` : target
+}
+
+function buildYujnJsonUrl(path: string) {
+  const jsonPath = appendJsonType(path)
+  if (import.meta.env.DEV) return `/yujn-api${jsonPath}`
+  return withCorsProxy(`${YUJN_ORIGIN}${jsonPath}`)
+}
+
+/** 遇见 API JSON 请求：开发走 Vite 代理，生产走真实域名/代理 */
 export async function fetchYujnJson<T = unknown>(path: string) {
-  const res = await jsonClient.get<T>(appendJsonType(path))
+  const res = await axios.get<T>(buildYujnJsonUrl(path), { timeout: JSON_TIMEOUT })
   return res.data
 }
 
 /** 视频 / 图片直链（经 CORS 代理，供 video/img 标签使用） */
 export function buildYujnMediaUrl(path: string) {
   const target = `${YUJN_ORIGIN}${path}`
-  const proxy = import.meta.env.VITE_CORS_PROXY_URL
-  if (proxy) {
-    return `${proxy}?url=${encodeURIComponent(target)}&_t=${Date.now()}`
-  }
-  return `/yujn-api${path}${path.includes('?') ? '&' : '?'}_t=${Date.now()}`
+  const base = import.meta.env.DEV ? `/yujn-api${path}` : withCorsProxy(target)
+  return `${base}${base.includes('?') ? '&' : '?'}_t=${Date.now()}`
 }
 
 export function isDirectMediaPath(path: string) {

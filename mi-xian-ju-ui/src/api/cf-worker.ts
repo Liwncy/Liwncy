@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const CF_WORKER_ORIGIN = 'https://lwcfworker.dpdns.org'
+
 const client = axios.create({
-  baseURL: '/cf-worker',
+  baseURL: import.meta.env.DEV ? '/cf-worker' : CF_WORKER_ORIGIN,
   timeout: 30000,
 })
 

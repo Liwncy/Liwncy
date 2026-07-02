@@ -8,8 +8,8 @@ port = 8787
 
 [[kv_namespaces]]
 binding = "DATA_KV"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
-preview_id = "REPLACE_WITH_PREVIEW_KV_NAMESPACE_ID"
+id = "3ea5f9c2de724a25b05f1d270aa5657b"
+# preview_id = "3ea5f9c2de724a25b05f1d270aa5657b"
 
 # [[d1_databases]]
 # binding = "DB"
