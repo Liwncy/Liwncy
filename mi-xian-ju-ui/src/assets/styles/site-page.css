@@ -312,8 +312,11 @@
   --site-border: rgba(229, 235, 232, 0.1);
   --site-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
   --site-shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.45);
+  --site-dark-panel: linear-gradient(135deg, #17211d 0%, #101714 100%);
+  --site-dark-panel-soft: linear-gradient(135deg, #1a2521 0%, #121a17 100%);
 }
 
+.layui-layout-website.site-theme-dark > .layui-layout.example > .layui-body#content,
 .site-theme-dark .layui-layout-website > .layui-layout.example > .layui-body#content {
   background-color: var(--site-bg);
   background-image:
@@ -321,6 +324,8 @@
     radial-gradient(circle at 88% 92%, rgba(22, 183, 119, 0.05) 0%, transparent 42%);
 }
 
+.layui-layout-website.site-theme-dark > .layui-layout.site-docs-layout > .layui-body#notesContent,
+.layui-layout-website.site-theme-dark > .layui-layout.site-docs-layout > .layui-body#readContent,
 .site-theme-dark .layui-layout-website > .layui-layout.site-docs-layout > .layui-body#notesContent,
 .site-theme-dark .layui-layout-website > .layui-layout.site-docs-layout > .layui-body#readContent,
 .site-theme-dark .site-docs-layout > .layui-body#notesContent,
@@ -343,4 +348,68 @@
 .site-theme-dark .site-page-spinner {
   border-color: rgba(255, 255, 255, 0.08);
   border-top-color: var(--site-accent);
+}
+
+/* 强制压掉各页面浅色宣纸背景在深色模式下透出的黄褐色 */
+.layui-layout-website.site-theme-dark .layui-menu-ref-1,
+.layui-layout-website.site-theme-dark .tool-badge,
+.layui-layout-website.site-theme-dark .tool-panel,
+.layui-layout-website.site-theme-dark .result-panel,
+.layui-layout-website.site-theme-dark .result-item,
+.layui-layout-website.site-theme-dark .result-content pre,
+.layui-layout-website.site-theme-dark .bookmark-overview,
+.layui-layout-website.site-theme-dark .bookmark-control-panel,
+.layui-layout-website.site-theme-dark .bookmark-card,
+.layui-layout-website.site-theme-dark .hot-summary-card,
+.layui-layout-website.site-theme-dark .hot-tab-panel,
+.layui-layout-website.site-theme-dark .hot-container-panel,
+.layui-layout-website.site-theme-dark .hot-item,
+.layui-layout-website.site-theme-dark .hot-loading,
+.layui-layout-website.site-theme-dark .hot-empty,
+.layui-layout-website.site-theme-dark .img-section,
+.layui-layout-website.site-theme-dark .lite-word-card,
+.layui-layout-website.site-theme-dark .lite-word-preview-content,
+.layui-layout-website.site-theme-dark .lite-video-source-card,
+.site-theme-dark .layui-menu-ref-1,
+.site-theme-dark .tool-badge,
+.site-theme-dark .tool-panel,
+.site-theme-dark .result-panel,
+.site-theme-dark .result-item,
+.site-theme-dark .result-content pre,
+.site-theme-dark .bookmark-overview,
+.site-theme-dark .bookmark-control-panel,
+.site-theme-dark .bookmark-card,
+.site-theme-dark .hot-summary-card,
+.site-theme-dark .hot-tab-panel,
+.site-theme-dark .hot-container-panel,
+.site-theme-dark .hot-item,
+.site-theme-dark .hot-loading,
+.site-theme-dark .hot-empty,
+.site-theme-dark .img-section,
+.site-theme-dark .lite-word-card,
+.site-theme-dark .lite-word-preview-content,
+.site-theme-dark .lite-video-source-card {
+  background: var(--site-dark-panel) !important;
+  background-color: #101714 !important;
+}
+
+.layui-layout-website.site-theme-dark .site-page-card,
+.layui-layout-website.site-theme-dark .placeholder-card,
+.site-theme-dark .site-page-card,
+.site-theme-dark .placeholder-card {
+  background: var(--site-dark-panel-soft) !important;
+  background-color: #121a17 !important;
+}
+
+.layui-layout-website.site-theme-dark .result-panel-header,
+.layui-layout-website.site-theme-dark .site-page-card-header,
+.layui-layout-website.site-theme-dark .sidebar-brand,
+.layui-layout-website.site-theme-dark .empty-menu,
+.layui-layout-website.site-theme-dark .sidebar-footer,
+.site-theme-dark .result-panel-header,
+.site-theme-dark .site-page-card-header,
+.site-theme-dark .sidebar-brand,
+.site-theme-dark .empty-menu,
+.site-theme-dark .sidebar-footer {
+  background: rgba(255, 255, 255, 0.04) !important;
 }

@@ -4,6 +4,7 @@ dist
 dist-ssr
 *.local
 .idea
+.vscode
 .codebuddy
 
 # Cloudflare Workers
@@ -14,6 +15,7 @@ mi-xian-ju-api/node_modules
 # Vue UI
 mi-xian-ju-ui/node_modules
 mi-xian-ju-ui/dist
+mi-xian-ju-ui/.vscode
 
 
 # 编译生成的文件

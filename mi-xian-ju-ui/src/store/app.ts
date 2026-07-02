@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { DEFAULT_THEME } from '@/config/setting'
 
-const THEME_VARIABLE_VERSION = 2
+const THEME_VARIABLE_VERSION = 3
 
 export const DEFAULT_THEME_VARIABLE = {
   '--global-primary-color': '#1f9d8a',
@@ -10,14 +10,14 @@ export const DEFAULT_THEME_VARIABLE = {
   '--global-danger-color': '#b85c4b',
   '--global-checked-color': '#2f8f68',
   '--global-border-radius': '12px',
-  '--global-neutral-color-1': '#fbf8f2',
-  '--global-neutral-color-2': '#f4efe5',
-  '--global-neutral-color-3': '#e9dfcf',
-  '--global-neutral-color-4': '#d8cbb8',
-  '--global-neutral-color-5': '#c8b99f',
-  '--global-neutral-color-6': '#aa9d89',
-  '--global-neutral-color-7': '#80766a',
-  '--global-neutral-color-8': '#5b554d',
+  '--global-neutral-color-1': '#f8faf7',
+  '--global-neutral-color-2': '#eef3ee',
+  '--global-neutral-color-3': '#dfe8df',
+  '--global-neutral-color-4': '#cbd8cf',
+  '--global-neutral-color-5': '#aebfb4',
+  '--global-neutral-color-6': '#8d9d93',
+  '--global-neutral-color-7': '#66766d',
+  '--global-neutral-color-8': '#46534d',
 }
 
 export const useAppStore = defineStore('app', {

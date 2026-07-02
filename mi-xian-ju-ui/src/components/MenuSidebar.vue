@@ -411,7 +411,7 @@ defineExpose({
 :global(.site-theme-dark) .layui-menu-ref-1 {
   background:
     radial-gradient(circle at 20% 8%, rgba(22, 186, 170, 0.12), transparent 34%),
-    linear-gradient(180deg, rgba(25, 34, 30, 0.96), rgba(19, 24, 22, 0.96));
+    linear-gradient(180deg, #17211d, #101714);
   border-right-color: rgba(255, 255, 255, 0.08);
   box-shadow: 10px 0 32px rgba(0, 0, 0, 0.24);
 }

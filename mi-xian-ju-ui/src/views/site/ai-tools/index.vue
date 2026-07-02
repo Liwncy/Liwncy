@@ -413,7 +413,7 @@ const {
 :global(.site-theme-dark) .result-item,
 :global(.site-theme-dark) .result-content pre {
   background:
-    linear-gradient(135deg, rgba(30, 39, 35, 0.94), rgba(22, 29, 26, 0.88));
+    linear-gradient(135deg, #17211d, #101714);
 }
 
 :global(.site-theme-dark) .result-panel-header {
