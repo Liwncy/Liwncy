@@ -16,6 +16,7 @@ import { AdminService } from '../modules/admin/admin.service'
 export function createServices(env: Bindings) {
   const kv = new KvDataRepository(env.DATA_KV)
   const platform = new D1PlatformRepository(env.DB)
+  const functions = new FunctionsService(platform)
 
   return {
     data: new DataService(kv),
@@ -23,8 +24,8 @@ export function createServices(env: Bindings) {
     bookMark: new BookMarkService(kv),
     hotBans: new HotBansService(kv),
     sideMenu: new SideMenuService(kv),
-    functions: new FunctionsService(platform),
-    admin: new AdminService(platform, env),
+    functions,
+    admin: new AdminService(platform, env, functions),
   }
 }
 

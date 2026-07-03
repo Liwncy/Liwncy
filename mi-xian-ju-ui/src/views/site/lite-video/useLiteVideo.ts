@@ -2,9 +2,8 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import XGPlayer from 'xgplayer'
 import 'xgplayer/dist/index.min.css'
 import { fetchLiteVideoMenus } from '@/api/lite-video'
-import { fetchHotVideo, getFunctionCategory } from '@/api/functions'
+import { fetchVideo, getMenuFunctionCategory } from '@/api/functions'
 import type { MenuNode } from '@/types/menu'
-import { getMenuApi } from '@/utils/normalize-menu'
 
 export function useLiteVideo() {
   const menus = ref<MenuNode[]>([])
@@ -101,20 +100,20 @@ export function useLiteVideo() {
     })
   }
 
-  async function resolveVideoUrl(api: string) {
-    const category = getFunctionCategory(api)
+  async function resolveVideoUrl(menu: MenuNode) {
+    const category = getMenuFunctionCategory(menu)
     if (!category) return ''
-    const res = await fetchHotVideo(category)
+    const res = await fetchVideo(category)
     return res.data?.data.url ?? ''
   }
 
   async function loadVideo() {
-    const api = getMenuApi(currentMenu.value)
-    if (!api) return
+    const category = getMenuFunctionCategory(currentMenu.value)
+    if (!category) return
 
     loading.value = true
     try {
-      videoUrl.value = await resolveVideoUrl(api)
+      videoUrl.value = await resolveVideoUrl(currentMenu.value)
       initPlayer()
     } catch {
       loading.value = false

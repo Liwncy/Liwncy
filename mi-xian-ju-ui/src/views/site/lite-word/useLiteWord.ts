@@ -1,10 +1,9 @@
 import { computed, onMounted, ref } from 'vue'
 import { layer } from '@layui/layer-vue'
 import { fetchLiteWordMenus } from '@/api/lite-word'
-import { fetchLiteWord, getFunctionCategory } from '@/api/functions'
+import { fetchText, getMenuFunctionCategory } from '@/api/functions'
 import { copyText } from '@/utils/clipboard'
 import type { MenuNode } from '@/types/menu'
-import { getMenuApi } from '@/utils/normalize-menu'
 
 export function useLiteWord() {
   const menus = ref<MenuNode[]>([])
@@ -15,7 +14,7 @@ export function useLiteWord() {
   const contentPreview = ref<string[]>([])
   const loading = ref(false)
 
-  const hasActiveMenu = computed(() => Boolean(getMenuApi(currentMenu.value)))
+  const hasActiveMenu = computed(() => Boolean(getMenuFunctionCategory(currentMenu.value)))
 
   async function handleMenuClick(menu: MenuNode) {
     currentMenu.value = menu
@@ -24,14 +23,12 @@ export function useLiteWord() {
   }
 
   async function loadContent() {
-    const api = getMenuApi(currentMenu.value)
-    if (!api) return
+    const category = getMenuFunctionCategory(currentMenu.value)
+    if (!category) return
 
     loading.value = true
     try {
-      const category = getFunctionCategory(api)
-      if (!category) return
-      const res = await fetchLiteWord(category)
+      const res = await fetchText(category)
       const lines = res.data?.data.items ?? []
       contentPreview.value = lines.length
         ? lines

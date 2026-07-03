@@ -81,6 +81,13 @@
                 <lay-button
                   size="xs"
                   border="blue"
+                  @click="openDebugLayer(item)"
+                >
+                  试运行
+                </lay-button>
+                <lay-button
+                  size="xs"
+                  border="blue"
                   :loading="updating === `function-params:${item.id}`"
                   @click="saveFunctionParams(item)"
                 >
@@ -190,7 +197,7 @@
         <lay-row space="10">
           <lay-col md="12">
             <lay-form-item label="接口编码" label-width="100">
-              <input v-model="functionForm.code" class="admin-form-input" placeholder="hot-video" />
+              <input v-model="functionForm.code" class="admin-form-input" placeholder="litevideo" />
             </lay-form-item>
           </lay-col>
           <lay-col md="12">
@@ -249,6 +256,93 @@
         <div class="admin-layer-actions">
           <lay-button size="sm" type="primary" :loading="saving" @click="saveFunction">保存</lay-button>
           <lay-button size="sm" @click="functionLayerVisible = false">取消</lay-button>
+        </div>
+      </div>
+    </lay-layer>
+
+    <lay-layer v-model="debugLayerVisible" title="功能接口试运行" :area="['920px', '720px']">
+      <div class="admin-layer-form">
+        <lay-row space="10">
+          <lay-col md="8">
+            <lay-form-item label="接口编码" label-width="90">
+              <input v-model="debugForm.code" class="admin-form-input" placeholder="litevideo" />
+            </lay-form-item>
+          </lay-col>
+          <lay-col md="6">
+            <lay-form-item label="方法" label-width="70">
+              <select v-model="debugForm.method" class="admin-form-input">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
+                <option value="PATCH">PATCH</option>
+                <option value="DELETE">DELETE</option>
+              </select>
+            </lay-form-item>
+          </lay-col>
+          <lay-col md="24">
+            <lay-form-item label="请求参数" label-width="90">
+              <textarea
+                v-model="debugForm.paramsJson"
+                class="admin-json-editor"
+                rows="6"
+                spellcheck="false"
+                placeholder='{"category":"xiaojiejie"}'
+              />
+            </lay-form-item>
+          </lay-col>
+        </lay-row>
+
+        <div class="admin-layer-actions">
+          <lay-button size="sm" type="primary" :loading="debugLoading" @click="runDebugFunction">
+            开始试运行
+          </lay-button>
+          <lay-button size="sm" @click="debugLayerVisible = false">关闭</lay-button>
+        </div>
+
+        <div v-if="debugResult" class="admin-debug-result">
+          <h3>调试摘要</h3>
+          <div class="admin-debug-grid">
+            <div><span>接口</span><strong>{{ debugResult.name }}({{ debugResult.code }})</strong></div>
+            <div><span>Route</span><strong>{{ debugResult.route?.routeKey || '-' }}</strong></div>
+            <div><span>响应类型</span><strong>{{ debugResult.responseType }}</strong></div>
+            <div><span>总耗时</span><strong>{{ debugResult.durationMs }}ms</strong></div>
+          </div>
+
+          <h3>公开参数</h3>
+          <pre class="admin-debug-json">{{ formatDebugValue(debugResult.publicParams) }}</pre>
+
+          <h3>Adapter 尝试</h3>
+          <table class="admin-table compact">
+            <thead>
+              <tr>
+                <th>Adapter</th>
+                <th>URL</th>
+                <th>状态</th>
+                <th>耗时</th>
+                <th>错误</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="attempt in debugResult.attempts" :key="`${attempt.bindingId}:${attempt.url}`">
+                <td>
+                  <strong>{{ attempt.adapterName }}</strong>
+                  <p><code>{{ attempt.adapterCode }}</code></p>
+                </td>
+                <td><code>{{ attempt.url || '-' }}</code></td>
+                <td>
+                  <span class="admin-status" :class="attempt.success ? 'enabled' : 'disabled'">
+                    {{ attempt.success ? 'success' : 'failed' }}
+                  </span>
+                  <p v-if="attempt.responseStatus">HTTP {{ attempt.responseStatus }}</p>
+                </td>
+                <td>{{ attempt.durationMs }}ms</td>
+                <td>{{ attempt.error || '-' }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>最终响应</h3>
+          <pre class="admin-debug-json">{{ formatDebugValue(debugResult.result ?? { errors: debugResult.errors }) }}</pre>
         </div>
       </div>
     </lay-layer>
@@ -338,8 +432,10 @@ import { layer } from '@layui/layer-vue'
 import {
   createAdminFunction,
   createAdminFunctionAdapter,
+  debugAdminFunction,
   updateAdminFunction,
   updateAdminFunctionAdapter,
+  type AdminFunctionDebugResponse,
   type AdminFunctionAdapterConfig,
   type AdminFunctionConfig,
 } from '@/api/admin'
@@ -363,8 +459,11 @@ const {
 const functionKeyword = ref('')
 const bindingKeyword = ref('')
 const saving = ref(false)
+const debugLoading = ref(false)
 const functionLayerVisible = ref(false)
 const bindingLayerVisible = ref(false)
+const debugLayerVisible = ref(false)
+const debugResult = ref<AdminFunctionDebugResponse | null>(null)
 
 const functionForm = reactive({
   id: '',
@@ -390,6 +489,12 @@ const bindingForm = reactive({
   fixedParamsJson: '{}',
   defaultParamsJson: '{}',
   status: 'enabled',
+})
+
+const debugForm = reactive({
+  code: '',
+  method: 'GET',
+  paramsJson: '{}',
 })
 
 const filteredFunctions = computed(() => {
@@ -468,6 +573,40 @@ function openBindingLayer(item?: AdminFunctionAdapterConfig) {
   bindingForm.defaultParamsJson = jsonText(item?.defaultParams ?? {}, '{}')
   bindingForm.status = item?.status ?? 'enabled'
   bindingLayerVisible.value = true
+}
+
+function openDebugLayer(item: AdminFunctionConfig) {
+  debugForm.code = item.code
+  debugForm.method = item.method
+  debugForm.paramsJson = jsonText(item.defaultParams ?? {}, '{}')
+  debugResult.value = null
+  debugLayerVisible.value = true
+}
+
+function formatDebugValue(value: unknown) {
+  return JSON.stringify(value ?? null, null, 2)
+}
+
+async function runDebugFunction() {
+  const params = parseJsonObject(debugForm.paramsJson, '请求参数')
+  if (!params) return
+
+  debugLoading.value = true
+  try {
+    const res = await debugAdminFunction({
+      code: debugForm.code,
+      method: debugForm.method,
+      params,
+    })
+    if (res.data) {
+      debugResult.value = res.data
+      layer.msg('试运行完成', { icon: 1 })
+    }
+  } catch {
+    // 请求层已提示错误。
+  } finally {
+    debugLoading.value = false
+  }
 }
 
 async function saveFunction() {

@@ -9,6 +9,7 @@ export function registerAdminModule(app: Hono<AppEnv>) {
   admin.post('/auth/login', (c) => adminController.login(c))
   admin.get('/me', (c) => adminController.me(c))
   admin.get('/config', (c) => adminController.config(c))
+  admin.post('/functions/debug', (c) => adminController.debugFunction(c))
   admin.post('/functions', (c) => adminController.createFunction(c))
   admin.post('/sources', (c) => adminController.createSource(c))
   admin.patch('/sources/:id', (c) => adminController.updateSource(c))

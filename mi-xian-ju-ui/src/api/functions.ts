@@ -1,5 +1,6 @@
 import { get } from '@/api/http'
 import type { ApiResult } from '@/types/global'
+import type { MenuNode } from '@/types/menu'
 
 export interface FunctionApiResponse<T = unknown> {
   code: string
@@ -29,14 +30,20 @@ export function getFunctionCategory(api?: string) {
   return category
 }
 
-export function fetchHotVideo(category: string) {
-  return invokeFunction<UrlFunctionData>('hot-video', { category })
+export function getMenuFunctionCategory(menu: MenuNode) {
+  const configured = menu.payload?.functionCategory ?? menu.payload?.category
+  if (typeof configured === 'string' && configured.trim()) return configured.trim()
+  return getFunctionCategory(typeof menu.payload?.api === 'string' ? menu.payload.api : undefined)
 }
 
-export function fetchRandomImage(category: string) {
-  return invokeFunction<UrlFunctionData>('random-image', { category })
+export function fetchVideo(category: string) {
+  return invokeFunction<UrlFunctionData>('litevideo', { category })
 }
 
-export function fetchLiteWord(category: string) {
-  return invokeFunction<TextLinesFunctionData>('lite-word', { category })
+export function fetchImage(category: string) {
+  return invokeFunction<UrlFunctionData>('liteimage', { category })
+}
+
+export function fetchText(category: string) {
+  return invokeFunction<TextLinesFunctionData>('liteword', { category })
 }

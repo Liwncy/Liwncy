@@ -4,22 +4,22 @@
     "title": "文案",
     "children": [
       {
-        "id": "daily",
-        "title": "每日一言",
-        "subTitle": "Daily",
-        "data": { "api": "/api/mrmy.php", "name": "每日一言" }
+        "id": "sad",
+        "title": "伤感语录",
+        "subTitle": "sgyl",
+        "data": { "api": "/api/sgyl.php", "name": "伤感语录", "category": "sgyl" }
       },
       {
         "id": "pyq",
         "title": "朋友圈文案",
         "subTitle": "PYQ",
-        "data": { "api": "/api/pyq.php", "name": "朋友圈文案" }
+        "data": { "api": "/api/pyq.php", "name": "朋友圈文案", "category": "pyq" }
       },
       {
-        "id": "yiyan",
-        "title": "一言",
-        "subTitle": "Hitokoto",
-        "data": { "api": "/api/yiyan.php", "name": "一言" }
+        "id": "soft",
+        "title": "温柔文案",
+        "subTitle": "wenrou",
+        "data": { "api": "/api/wenrou.php", "name": "温柔文案", "category": "wenrou" }
       }
     ]
   }

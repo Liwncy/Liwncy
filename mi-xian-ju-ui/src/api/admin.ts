@@ -151,6 +151,62 @@ export interface AdminConfigResponse {
   responseMaps: AdminResponseMapConfig[]
 }
 
+export interface AdminFunctionDebugAttempt {
+  bindingId: string
+  adapterId: string
+  adapterCode: string
+  adapterName: string
+  sourceCode: string
+  sourceName: string
+  priority: number
+  fallbackEnabled: boolean
+  method: string
+  url?: string
+  requestParams?: Record<string, unknown>
+  queryParams?: Record<string, unknown>
+  bodyParams?: Record<string, unknown>
+  responseStatus?: number
+  durationMs: number
+  success: boolean
+  error?: string
+  rawResponse?: unknown
+  mappedResponse?: unknown
+  normalizedResponse?: unknown
+}
+
+export interface AdminFunctionDebugResponse {
+  code: string
+  name: string
+  method: string
+  responseType: string
+  inputParams: Record<string, unknown>
+  publicParams: Record<string, unknown>
+  route: {
+    id: string
+    routeKey: string
+    name: string
+    match: Record<string, unknown>
+    defaultParams: Record<string, unknown>
+  } | null
+  adapters: Array<{
+    bindingId: string
+    adapterCode: string
+    adapterName: string
+    sourceCode: string
+    priority: number
+    fallbackEnabled: boolean
+  }>
+  attempts: AdminFunctionDebugAttempt[]
+  durationMs: number
+  result?: {
+    code: string
+    name: string
+    responseType: string
+    data: unknown
+  }
+  errors: string[]
+}
+
 function authHeaders() {
   const userStore = useUserStore()
   return {
@@ -169,6 +225,17 @@ export function loginAdmin(username: string, password: string) {
 export function fetchAdminConfig() {
   return get<ApiResult<AdminConfigResponse>>('/admin/config', {
     headers: authHeaders(),
+  })
+}
+
+export function debugAdminFunction(data: {
+  code: string
+  method: string
+  params: Record<string, unknown>
+}) {
+  return post<ApiResult<AdminFunctionDebugResponse>>('/admin/functions/debug', data, {
+    headers: authHeaders(),
+    timeout: 30000,
   })
 }
 

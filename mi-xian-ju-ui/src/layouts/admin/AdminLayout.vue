@@ -22,7 +22,7 @@
             <template #title>功能接口</template>
           </lay-menu-item>
           <lay-menu-item id="/admin/api/contracts">
-            <template #icon><lay-icon type="layui-icon-template-1" /></template>
+            <template #icon><lay-icon type="layui-icon-form" /></template>
             <template #title>参数契约</template>
           </lay-menu-item>
           <lay-menu-item id="/admin/api/adapters">

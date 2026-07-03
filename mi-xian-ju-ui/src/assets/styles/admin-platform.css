@@ -158,6 +158,61 @@
   background: #dff6ef;
 }
 
+.admin-debug-result {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(31, 157, 138, 0.16);
+}
+
+.admin-debug-result h3 {
+  margin: 14px 0 10px;
+  color: #18352d;
+  font-size: 14px;
+}
+
+.admin-debug-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.admin-debug-grid div {
+  padding: 10px 12px;
+  border: 1px solid rgba(31, 157, 138, 0.14);
+  border-radius: 10px;
+  background: rgba(31, 157, 138, 0.05);
+}
+
+.admin-debug-grid span,
+.admin-debug-grid strong {
+  display: block;
+}
+
+.admin-debug-grid span {
+  color: #7a8a85;
+  font-size: 12px;
+}
+
+.admin-debug-grid strong {
+  margin-top: 4px;
+  color: #17372f;
+  word-break: break-all;
+}
+
+.admin-debug-json {
+  max-height: 220px;
+  margin: 0;
+  padding: 10px 12px;
+  overflow: auto;
+  border: 1px solid rgba(31, 157, 138, 0.16);
+  border-radius: 10px;
+  color: #18352d;
+  background: #f8fbfa;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .admin-entry-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

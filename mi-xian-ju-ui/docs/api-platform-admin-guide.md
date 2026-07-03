@@ -28,9 +28,9 @@
 例如：
 
 ```text
-/api/v1/hot-video?category=xiaojiejie
-/api/v1/random-image?category=sjtp
-/api/v1/lite-word?category=wenrou
+/api/v1/litevideo?category=xiaojiejie
+/api/v1/liteimage?category=sjtp
+/api/v1/liteword?category=wenrou
 ```
 
 :::: table
@@ -51,13 +51,13 @@
 
 | 概念 | 说明 | 示例 |
 |------|------|------|
-| 功能接口 | 芈仙居对外固定暴露的接口 | `hot-video` |
+| 功能接口 | 芈仙居对外固定暴露的接口 | `litevideo` |
 | 平台源 | 第三方 API 平台基础信息 | `遇见 API` / `https://api.yujn.cn` |
 | Adapter | 某个平台上的一种调用方式 | `yujn-json` |
 | 公开参数 | 芈仙居接口允许用户传入的参数 | `category=xiaojiejie` |
 | Route 场景 | 根据公开参数匹配不同调用场景 | `{"category":"xiaojiejie"}` |
 | 参数映射 | 把公开参数转换为第三方请求参数 | `path=/api/{{category}}.php` |
-| 功能 Adapter 绑定 | 功能接口在某个 Route 下可调用的 Adapter | `hot-video + xiaojiejie + yujn-json` |
+| 功能 Adapter 绑定 | 功能接口在某个 Route 下可调用的 Adapter | `litevideo + xiaojiejie + yujn-json` |
 | 响应映射 | 把第三方返回值转换为芈仙居统一结构 | `{"url":"data.url"}` |
 
 ::::
@@ -128,8 +128,8 @@ https://api.yujn.cn/api/xiaojiejie.php
 
 | 字段 | 说明 | 示例 |
 |------|------|------|
-| 接口编码 | 公开接口 code，只能用小写字母、数字、中划线 | `hot-video` |
-| 名称 | 后台展示名称 | `热门视频` |
+| 接口编码 | 公开接口 code，优先使用小写单词；单词表达不清时再组合 | `litevideo` |
+| 名称 | 后台展示名称 | `轻视频` |
 | 方法 | 公开接口请求方法 | `GET` |
 | 响应类型 | 返回标准化类型 | `video-url` |
 | 描述 | 接口说明 | `随机热门视频` |
@@ -187,8 +187,8 @@ text-lines
 
 | 功能 | Route | Adapter | 优先级 | Fallback |
 |------|-------|---------|--------|----------|
-| `hot-video` | `xiaojiejie` | `yujn-json` | `100` | 开启 |
-| `hot-video` | `xiaojiejie` | `other-json` | `200` | 开启 |
+| `litevideo` | `xiaojiejie` | `yujn-json` | `100` | 开启 |
+| `litevideo` | `xiaojiejie` | `other-json` | `200` | 开启 |
 
 ::::
 
@@ -412,13 +412,13 @@ Items Path: list
 
 系统会先应用响应映射，再根据功能接口的响应类型做标准化。
 
-:::: title 完整示例：hot-video
+:::: title 完整示例：litevideo
 ::::
 
 目标：
 
 ```text
-/api/v1/hot-video?category=xiaojiejie
+/api/v1/litevideo?category=xiaojiejie
 ```
 
 调用第三方：
@@ -433,18 +433,18 @@ https://api.yujn.cn/api/xiaojiejie.php?type=json
 |------|----------|
 | 1. 平台源 | `yujn` / `遇见 API` / `https://api.yujn.cn` |
 | 2. Adapter | `yujn-json` / `GET` / `{{baseUrl}}{{path}}` / Query `{"type":"json"}` |
-| 3. 功能接口 | `hot-video` / `热门视频` / `GET` / `video-url` |
+| 3. 功能接口 | `litevideo` / `轻视频` / `GET` / `video-url` |
 | 4. 公开参数 | `category` / 默认值 `"zzxjj"` / 类型 `string` |
 | 5. Route | `xiaojiejie` / 匹配 `{"category":"xiaojiejie"}` |
 | 6. 参数映射 | `category` -> `param.path` / `/api/{{category}}.php` |
-| 7. Adapter 绑定 | `hot-video + xiaojiejie + yujn-json` / 优先级 `100` |
+| 7. Adapter 绑定 | `litevideo + xiaojiejie + yujn-json` / 优先级 `100` |
 
 ::::
 
 验证访问：
 
 ```text
-https://mxjapi.lwcfworker.dpdns.org/api/v1/hot-video?category=xiaojiejie
+https://mxjapi.lwcfworker.dpdns.org/api/v1/litevideo?category=xiaojiejie
 ```
 
 预期返回：
@@ -454,8 +454,8 @@ https://mxjapi.lwcfworker.dpdns.org/api/v1/hot-video?category=xiaojiejie
   "code": 200,
   "success": true,
   "data": {
-    "code": "hot-video",
-    "name": "热门视频",
+    "code": "litevideo",
+    "name": "轻视频",
     "responseType": "video-url",
     "data": {
       "url": "https://..."

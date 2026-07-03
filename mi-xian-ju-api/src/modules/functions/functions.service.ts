@@ -17,6 +17,67 @@ type FunctionResult = {
   data: unknown
 }
 
+type AdapterAttemptTrace = {
+  bindingId: string
+  adapterId: string
+  adapterCode: string
+  adapterName: string
+  sourceCode: string
+  sourceName: string
+  priority: number
+  fallbackEnabled: boolean
+  method: string
+  url?: string
+  requestParams?: JsonObject
+  queryParams?: JsonObject
+  bodyParams?: JsonObject
+  responseStatus?: number
+  durationMs: number
+  success: boolean
+  error?: string
+  rawResponse?: unknown
+  mappedResponse?: unknown
+  normalizedResponse?: unknown
+}
+
+export type FunctionDebugResult = {
+  code: string
+  name: string
+  method: string
+  responseType: string
+  inputParams: JsonObject
+  publicParams: JsonObject
+  route: {
+    id: string
+    routeKey: string
+    name: string
+    match: JsonObject
+    defaultParams: JsonObject
+  } | null
+  adapters: Array<{
+    bindingId: string
+    adapterCode: string
+    adapterName: string
+    sourceCode: string
+    priority: number
+    fallbackEnabled: boolean
+  }>
+  attempts: AdapterAttemptTrace[]
+  durationMs: number
+  result?: FunctionResult
+  errors: string[]
+}
+
+class AdapterAttemptError extends Error {
+  constructor(
+    message: string,
+    readonly trace: AdapterAttemptTrace,
+  ) {
+    super(message)
+    this.name = 'AdapterAttemptError'
+  }
+}
+
 function parseJsonObject(value: string | null): JsonObject {
   if (!value) return {}
   const parsed = JSON.parse(value) as unknown
@@ -190,6 +251,22 @@ export class FunctionsService {
   constructor(private readonly platform: D1PlatformRepository) {}
 
   async invoke(code: string, method: string, inputParams: JsonObject): Promise<FunctionResult> {
+    const trace = await this.invokeWithTrace(code, method, inputParams, false)
+    if (trace.result) return trace.result
+    throw new HttpError(502, `接口 ${code} 调用失败`, { errors: trace.errors })
+  }
+
+  async debugInvoke(code: string, method: string, inputParams: JsonObject): Promise<FunctionDebugResult> {
+    return this.invokeWithTrace(code, method, inputParams, true)
+  }
+
+  private async invokeWithTrace(
+    code: string,
+    method: string,
+    inputParams: JsonObject,
+    includePayloads: boolean,
+  ): Promise<FunctionDebugResult> {
+    const startedAt = Date.now()
     const apiFunction = await this.platform.findFunctionByCode(code)
     if (!apiFunction || !apiFunction.is_public) {
       throw new NotFoundError(`接口不存在或未启用：${code}`)
@@ -202,34 +279,91 @@ export class FunctionsService {
     const paramRules = await this.platform.listFunctionParams(apiFunction.id)
     const publicParams = this.normalizePublicParams(paramRules, inputParams)
     const route = this.matchRoute(await this.platform.listFunctionRoutes(apiFunction.id), publicParams)
+    const debug: FunctionDebugResult = {
+      code: apiFunction.code,
+      name: apiFunction.name,
+      method: apiFunction.method,
+      responseType: apiFunction.response_type,
+      inputParams,
+      publicParams,
+      route: route
+        ? {
+            id: route.id,
+            routeKey: route.route_key,
+            name: route.name,
+            match: parseJsonObject(route.match_json),
+            defaultParams: parseJsonObject(route.default_params_json),
+          }
+        : null,
+      adapters: [],
+      attempts: [],
+      durationMs: 0,
+      errors: [],
+    }
+
     if (!route) {
       throw new NotFoundError(`接口 ${code} 没有匹配的参数场景`)
     }
 
     const configs = await this.platform.listAdapterConfigs(apiFunction.id, route.id)
+    debug.adapters = configs.map((config) => ({
+      bindingId: config.binding.id,
+      adapterCode: config.adapter.code,
+      adapterName: config.adapter.name,
+      sourceCode: config.source.code,
+      priority: config.binding.priority,
+      fallbackEnabled: Boolean(config.binding.fallback_enabled),
+    }))
+
     if (configs.length === 0) {
       throw new NotFoundError(`接口 ${code} 场景 ${route.route_key} 暂无可用 adapter`)
     }
 
-    const errors: string[] = []
     for (const config of configs) {
       try {
         const paramMaps = await this.platform.listParamMaps(apiFunction.id, config.adapter.id, route.id)
-        const raw = await this.callAdapter(config, paramMaps, publicParams, parseJsonObject(route.default_params_json))
+        const { raw, trace } = await this.callAdapterWithTrace(
+          config,
+          paramMaps,
+          publicParams,
+          parseJsonObject(route.default_params_json),
+        )
         const mapped = applyResponseMap(raw, config.responseMap)
-        return {
+        const normalized = normalizeResponse(apiFunction.response_type, mapped)
+        const result = {
           code: apiFunction.code,
           name: apiFunction.name,
           responseType: apiFunction.response_type,
-          data: normalizeResponse(apiFunction.response_type, mapped),
+          data: normalized,
         }
+        debug.attempts.push({
+          ...trace,
+          success: true,
+          ...(includePayloads
+            ? {
+                rawResponse: raw,
+                mappedResponse: mapped,
+                normalizedResponse: normalized,
+              }
+            : {}),
+        })
+        debug.result = result
+        debug.durationMs = Date.now() - startedAt
+        return debug
       } catch (err) {
-        errors.push(err instanceof Error ? err.message : String(err))
+        const message = err instanceof Error ? err.message : String(err)
+        debug.errors.push(message)
+        if (err instanceof AdapterAttemptError) {
+          debug.attempts.push(err.trace)
+        } else if (!debug.attempts.some((attempt) => attempt.bindingId === config.binding.id)) {
+          debug.attempts.push(this.createFailedAttemptTrace(config, message))
+        }
         if (!config.binding.fallback_enabled) break
       }
     }
 
-    throw new HttpError(502, `接口 ${code} 调用失败`, { errors })
+    debug.durationMs = Date.now() - startedAt
+    return debug
   }
 
   private normalizePublicParams(paramRules: ApiFunctionParamRow[], inputParams: JsonObject) {
@@ -318,7 +452,7 @@ export class FunctionsService {
     return { adapterParams, queryParams, headerParams, bodyParams }
   }
 
-  private async callAdapter(
+  private buildAdapterRequest(
     config: ApiFunctionAdapterConfig,
     paramMaps: ApiAdapterParamMapRow[],
     publicParams: JsonObject,
@@ -367,15 +501,61 @@ export class FunctionsService {
       init.body = Object.values(mapped.bodyParams).map((item) => String(item)).join('\n')
     }
 
-    const response = await fetch(url, init)
+    return { mapped, params, query, url, init }
+  }
+
+  private createBaseAttemptTrace(config: ApiFunctionAdapterConfig): Omit<AdapterAttemptTrace, 'durationMs' | 'success'> {
+    return {
+      bindingId: config.binding.id,
+      adapterId: config.adapter.id,
+      adapterCode: config.adapter.code,
+      adapterName: config.adapter.name,
+      sourceCode: config.source.code,
+      sourceName: config.source.name,
+      priority: config.binding.priority,
+      fallbackEnabled: Boolean(config.binding.fallback_enabled),
+      method: config.adapter.method,
+    }
+  }
+
+  private createFailedAttemptTrace(config: ApiFunctionAdapterConfig, error: string): AdapterAttemptTrace {
+    return {
+      ...this.createBaseAttemptTrace(config),
+      durationMs: 0,
+      success: false,
+      error,
+    }
+  }
+
+  private async callAdapterWithTrace(
+    config: ApiFunctionAdapterConfig,
+    paramMaps: ApiAdapterParamMapRow[],
+    publicParams: JsonObject,
+    routeDefaultParams: JsonObject,
+  ): Promise<{ raw: unknown; trace: AdapterAttemptTrace }> {
+    const startedAt = Date.now()
+    const request = this.buildAdapterRequest(config, paramMaps, publicParams, routeDefaultParams)
+    const trace = {
+      ...this.createBaseAttemptTrace(config),
+      url: request.url,
+      requestParams: request.params,
+      queryParams: request.query,
+      bodyParams: request.mapped.bodyParams,
+      durationMs: 0,
+      success: false,
+    }
+
+    const response = await fetch(request.url, request.init)
+    trace.responseStatus = response.status
+    trace.durationMs = Date.now() - startedAt
+
     if (!response.ok) {
-      throw new HttpError(response.status, `adapter ${config.adapter.code} 返回 ${response.status}`)
+      trace.error = `adapter ${config.adapter.code} 返回 ${response.status}`
+      throw new AdapterAttemptError(trace.error, trace)
     }
 
     const contentType = response.headers.get('content-type') ?? ''
-    if (contentType.includes('application/json')) {
-      return response.json()
-    }
-    return response.text()
+    const raw = contentType.includes('application/json') ? await response.json() : await response.text()
+    return { raw, trace }
   }
 }

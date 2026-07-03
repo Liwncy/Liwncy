@@ -1,8 +1,7 @@
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { fetchLiteImageMenus } from '@/api/lite-image'
-import { fetchRandomImage, getFunctionCategory } from '@/api/functions'
+import { fetchImage, getMenuFunctionCategory } from '@/api/functions'
 import type { MenuNode } from '@/types/menu'
-import { getMenuApi } from '@/utils/normalize-menu'
 
 interface HistoryItem {
   url: string
@@ -81,14 +80,12 @@ export function useLiteImage() {
   }
 
   async function loadImage() {
-    const api = getMenuApi(currentMenu.value)
-    if (!api) return
+    const category = getMenuFunctionCategory(currentMenu.value)
+    if (!category) return
 
     loading.value = true
     try {
-      const category = getFunctionCategory(api)
-      if (!category) return
-      const res = await fetchRandomImage(category)
+      const res = await fetchImage(category)
       const normalized = res.data?.data.items?.length
         ? res.data.data.items
         : res.data?.data.url ?? ''

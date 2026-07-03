@@ -2,6 +2,7 @@ import { BadRequestError, UnauthorizedError } from '../../common/http-error'
 import { generateToken, hashPassword, hashToken, verifyPassword } from '../../common/crypto'
 import type { Bindings } from '../../config/env'
 import { D1PlatformRepository } from '../../repository/d1-platform.repository'
+import { FunctionsService } from '../functions/functions.service'
 
 const SESSION_DAYS = 7
 const STATUS_VALUES = new Set(['enabled', 'disabled'])
@@ -22,6 +23,7 @@ export class AdminService {
   constructor(
     private readonly platform: D1PlatformRepository,
     private readonly env: Bindings,
+    private readonly functions: FunctionsService,
   ) {}
 
   async login(input: { username?: string; password?: string }) {
@@ -100,6 +102,14 @@ export class AdminService {
     ])
 
     return { functions, sources, adapters, functionAdapters, functionParams, functionRoutes, adapterParamMaps, responseMaps }
+  }
+
+  async debugFunctionInvoke(input: { code?: string; method?: string; params?: unknown }) {
+    const code = this.normalizeCode(input.code, '接口编码')
+    const method = this.normalizeMethod(input.method)
+    const params = this.normalizeJsonObject(input.params ?? {}, '调试参数') ?? {}
+
+    return this.functions.debugInvoke(code, method, params)
   }
 
   async updateFunction(

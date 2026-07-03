@@ -4,22 +4,22 @@
     "title": "图片",
     "children": [
       {
-        "id": "acg",
-        "title": "ACG 美图",
-        "subTitle": "ACG",
-        "data": { "api": "/api/acg.php" }
+        "id": "heisi",
+        "title": "黑丝图片",
+        "subTitle": "黑丝",
+        "data": { "api": "/api/heisi.php", "category": "heisi" }
       },
       {
-        "id": "bing",
-        "title": "必应壁纸",
-        "subTitle": "Bing",
-        "data": { "api": "/api/bing.php" }
+        "id": "random-avatar",
+        "title": "随机头像",
+        "subTitle": "随机",
+        "data": { "api": "/api/sjtp.php", "category": "sjtp" }
       },
       {
-        "id": "random-img",
-        "title": "随机图片",
-        "subTitle": "Random",
-        "data": { "api": "/api/tupian.php" }
+        "id": "cat",
+        "title": "可爱猫咪",
+        "subTitle": "哈基米",
+        "data": { "api": "/api/maomi.php", "category": "maomi" }
       }
     ]
   }

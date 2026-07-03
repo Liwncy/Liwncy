@@ -9,7 +9,7 @@
               <cite>功能接口</cite>
             </router-link>
             <router-link class="admin-shortcut" to="/admin/api/contracts">
-              <i class="layui-icon layui-icon-template-1"></i>
+              <i class="layui-icon layui-icon-form"></i>
               <cite>参数契约</cite>
             </router-link>
             <router-link class="admin-shortcut" to="/admin/api/adapters">

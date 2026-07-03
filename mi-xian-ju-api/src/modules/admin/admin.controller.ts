@@ -68,6 +68,17 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async debugFunction(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const input = (await c.req.json().catch(() => ({}))) as {
+      code?: string
+      method?: string
+      params?: unknown
+    }
+    const data = await c.get('services').admin.debugFunctionInvoke(input)
+    return c.json(ok(data))
+  }
+
   async updateFunctionAdapter(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const id = c.req.param('id')
