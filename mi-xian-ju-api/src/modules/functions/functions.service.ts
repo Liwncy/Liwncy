@@ -1,5 +1,11 @@
 import { BadRequestError, HttpError, NotFoundError } from '../../common/http-error'
-import type { ApiFunctionAdapterConfig, ApiFunctionRow } from '../../common/platform.types'
+import type {
+  ApiAdapterParamMapRow,
+  ApiFunctionAdapterConfig,
+  ApiFunctionParamRow,
+  ApiFunctionRouteRow,
+  ApiResponseMapRow,
+} from '../../common/platform.types'
 import { D1PlatformRepository } from '../../repository/d1-platform.repository'
 
 type JsonObject = Record<string, unknown>
@@ -15,6 +21,17 @@ function parseJsonObject(value: string | null): JsonObject {
   if (!value) return {}
   const parsed = JSON.parse(value) as unknown
   return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? (parsed as JsonObject) : {}
+}
+
+function parseJsonValue(value: string | null): unknown {
+  if (!value) return undefined
+  return JSON.parse(value) as unknown
+}
+
+function parseJsonArray(value: string | null): unknown[] {
+  if (!value) return []
+  const parsed = JSON.parse(value) as unknown
+  return Array.isArray(parsed) ? parsed : []
 }
 
 function toStringRecord(value: JsonObject): Record<string, string> {
@@ -46,6 +63,49 @@ function appendQuery(url: string, query: JsonObject) {
     }
   }
   return target.toString()
+}
+
+function isRecord(value: unknown): value is JsonObject {
+  return Boolean(value && typeof value === 'object' && !Array.isArray(value))
+}
+
+function getByPath(value: unknown, path: string | null): unknown {
+  if (!path) return value
+  return path.split('.').reduce<unknown>((current, part) => {
+    if (current && typeof current === 'object') {
+      return (current as JsonObject)[part]
+    }
+    return undefined
+  }, value)
+}
+
+function mapFields(value: unknown, fields: JsonObject) {
+  if (!isRecord(value)) return value
+  if (Object.keys(fields).length === 0) return value
+
+  return Object.fromEntries(
+    Object.entries(fields).map(([targetKey, sourcePath]) => [
+      targetKey,
+      typeof sourcePath === 'string' ? getByPath(value, sourcePath) : sourcePath,
+    ]),
+  )
+}
+
+function applyResponseMap(raw: unknown, responseMap: ApiResponseMapRow | null) {
+  if (!responseMap) return raw
+
+  const base = getByPath(raw, responseMap.data_path)
+  const fields = parseJsonObject(responseMap.fields_json)
+  const items = responseMap.items_path ? getByPath(base, responseMap.items_path) : undefined
+
+  if (Array.isArray(items)) {
+    return { items: items.map((item) => mapFields(item, fields)) }
+  }
+  if (items !== undefined) {
+    return { items: [mapFields(items, fields)] }
+  }
+
+  return mapFields(base, fields)
 }
 
 function extractYujnPayload(data: unknown): unknown {
@@ -97,16 +157,16 @@ function normalizeTextLines(payload: unknown) {
 
 function normalizeUrl(payload: unknown) {
   const value = extractYujnPayload(payload)
-  if (typeof value === 'string') return value
+  if (typeof value === 'string') return value.trim()
   if (Array.isArray(value)) {
-    return value.find((item) => typeof item === 'string') ?? ''
+    return (value.find((item) => typeof item === 'string') as string | undefined)?.trim() ?? ''
   }
   if (value && typeof value === 'object') {
     const obj = value as JsonObject
     const candidate = obj.url ?? obj.data ?? obj.img ?? obj.image ?? obj.pic
-    if (typeof candidate === 'string') return candidate
+    if (typeof candidate === 'string') return candidate.trim()
     if (Array.isArray(candidate)) {
-      return candidate.find((item) => typeof item === 'string') ?? ''
+      return (candidate.find((item) => typeof item === 'string') as string | undefined)?.trim() ?? ''
     }
   }
   return ''
@@ -139,20 +199,29 @@ export class FunctionsService {
       throw new BadRequestError(`接口 ${code} 不支持 ${method} 请求`)
     }
 
-    const configs = await this.platform.listAdapterConfigs(apiFunction.id)
+    const paramRules = await this.platform.listFunctionParams(apiFunction.id)
+    const publicParams = this.normalizePublicParams(paramRules, inputParams)
+    const route = this.matchRoute(await this.platform.listFunctionRoutes(apiFunction.id), publicParams)
+    if (!route) {
+      throw new NotFoundError(`接口 ${code} 没有匹配的参数场景`)
+    }
+
+    const configs = await this.platform.listAdapterConfigs(apiFunction.id, route.id)
     if (configs.length === 0) {
-      throw new NotFoundError(`接口 ${code} 暂无可用 adapter`)
+      throw new NotFoundError(`接口 ${code} 场景 ${route.route_key} 暂无可用 adapter`)
     }
 
     const errors: string[] = []
     for (const config of configs) {
       try {
-        const raw = await this.callAdapter(apiFunction, config, inputParams)
+        const paramMaps = await this.platform.listParamMaps(apiFunction.id, config.adapter.id, route.id)
+        const raw = await this.callAdapter(config, paramMaps, publicParams, parseJsonObject(route.default_params_json))
+        const mapped = applyResponseMap(raw, config.responseMap)
         return {
           code: apiFunction.code,
           name: apiFunction.name,
           responseType: apiFunction.response_type,
-          data: normalizeResponse(apiFunction.response_type, raw),
+          data: normalizeResponse(apiFunction.response_type, mapped),
         }
       } catch (err) {
         errors.push(err instanceof Error ? err.message : String(err))
@@ -163,7 +232,98 @@ export class FunctionsService {
     throw new HttpError(502, `接口 ${code} 调用失败`, { errors })
   }
 
-  private async callAdapter(apiFunction: ApiFunctionRow, config: ApiFunctionAdapterConfig, inputParams: JsonObject) {
+  private normalizePublicParams(paramRules: ApiFunctionParamRow[], inputParams: JsonObject) {
+    const normalized: JsonObject = {}
+
+    for (const rule of paramRules) {
+      const rawValue = inputParams[rule.param_key] ?? parseJsonValue(rule.default_value_json)
+      if ((rawValue === undefined || rawValue === '') && rule.required) {
+        throw new BadRequestError(`缺少必填参数：${rule.param_key}`)
+      }
+      if (rawValue === undefined || rawValue === '') continue
+
+      const value = this.castParam(rule, rawValue)
+      const allowValues = parseJsonArray(rule.allow_values_json)
+      if (allowValues.length > 0 && !allowValues.includes(value)) {
+        throw new BadRequestError(`参数 ${rule.param_key} 不在允许范围内`)
+      }
+      normalized[rule.param_key] = value
+    }
+
+    return normalized
+  }
+
+  private castParam(rule: ApiFunctionParamRow, value: unknown) {
+    if (rule.type === 'number') {
+      const numberValue = Number(value)
+      if (!Number.isFinite(numberValue)) {
+        throw new BadRequestError(`参数 ${rule.param_key} 必须是数字`)
+      }
+      return numberValue
+    }
+
+    if (rule.type === 'boolean') {
+      if (typeof value === 'boolean') return value
+      if (value === 'true' || value === '1') return true
+      if (value === 'false' || value === '0') return false
+      throw new BadRequestError(`参数 ${rule.param_key} 必须是布尔值`)
+    }
+
+    if (rule.type === 'json') {
+      if (isRecord(value) || Array.isArray(value)) return value
+      if (typeof value === 'string') {
+        try {
+          return JSON.parse(value) as unknown
+        } catch {
+          throw new BadRequestError(`参数 ${rule.param_key} 必须是 JSON`)
+        }
+      }
+      throw new BadRequestError(`参数 ${rule.param_key} 必须是 JSON`)
+    }
+
+    return String(value)
+  }
+
+  private matchRoute(routes: ApiFunctionRouteRow[], publicParams: JsonObject) {
+    const matched = routes
+      .map((route) => ({
+        route,
+        match: parseJsonObject(route.match_json),
+      }))
+      .filter(({ match }) =>
+        Object.entries(match).every(([key, expected]) => String(publicParams[key]) === String(expected)),
+      )
+      .sort((left, right) => Object.keys(right.match).length - Object.keys(left.match).length)
+
+    return matched[0]?.route ?? null
+  }
+
+  private applyParamMaps(paramMaps: ApiAdapterParamMapRow[], publicParams: JsonObject) {
+    const adapterParams: JsonObject = {}
+    const queryParams: JsonObject = {}
+    const headerParams: JsonObject = {}
+    const bodyParams: JsonObject = {}
+
+    for (const map of paramMaps) {
+      const rawValue = publicParams[map.public_param] ?? parseJsonValue(map.default_value_json)
+      if (rawValue === undefined || rawValue === null || rawValue === '') continue
+      const rendered = map.template ? renderTemplate(map.template, { ...publicParams, [map.public_param]: rawValue }) : rawValue
+
+      if (map.target === 'query') queryParams[map.target_key] = rendered
+      else if (map.target === 'header') headerParams[map.target_key] = rendered
+      else if (map.target === 'body') bodyParams[map.target_key] = rendered
+      else adapterParams[map.target_key] = rendered
+    }
+
+    return { adapterParams, queryParams, headerParams, bodyParams }
+  }
+
+  private async callAdapter(
+    config: ApiFunctionAdapterConfig,
+    paramMaps: ApiAdapterParamMapRow[],
+    publicParams: JsonObject,
+    routeDefaultParams: JsonObject,
+  ) {
     if (config.adapter.type !== 'http_custom') {
       throw new BadRequestError(`暂不支持 adapter 类型：${config.adapter.type}`)
     }
@@ -171,27 +331,40 @@ export class FunctionsService {
       throw new BadRequestError(`adapter ${config.adapter.code} 缺少 URL 模板`)
     }
 
+    const mapped = this.applyParamMaps(paramMaps, publicParams)
     const params = {
       baseUrl: config.source.base_url,
-      ...parseJsonObject(apiFunction.default_params_json),
+      ...publicParams,
+      ...routeDefaultParams,
+      ...mapped.adapterParams,
       ...parseJsonObject(config.binding.default_params_json),
-      ...inputParams,
       ...parseJsonObject(config.binding.fixed_params_json),
     }
 
     const query = {
       ...parseJsonObject(config.adapter.query_template_json),
-      ...Object.fromEntries(Object.entries(params).filter(([key]) => key !== 'baseUrl' && key !== 'path')),
+      ...mapped.queryParams,
     }
 
     const url = appendQuery(renderTemplate(config.adapter.url_template, params), query)
     const init: RequestInit = {
       method: config.adapter.method,
-      headers: toStringRecord(parseJsonObject(config.adapter.headers_json)),
+      headers: toStringRecord({
+        ...parseJsonObject(config.adapter.headers_json),
+        ...mapped.headerParams,
+      }),
     }
 
     if (config.adapter.method !== 'GET' && config.adapter.body_template) {
       init.body = renderTemplate(config.adapter.body_template, params)
+    } else if (config.adapter.method !== 'GET' && config.adapter.body_type === 'json') {
+      init.headers = { ...init.headers, 'Content-Type': 'application/json' }
+      init.body = JSON.stringify(mapped.bodyParams)
+    } else if (config.adapter.method !== 'GET' && config.adapter.body_type === 'form') {
+      init.headers = { ...init.headers, 'Content-Type': 'application/x-www-form-urlencoded' }
+      init.body = new URLSearchParams(toStringRecord(mapped.bodyParams)).toString()
+    } else if (config.adapter.method !== 'GET' && config.adapter.body_type === 'text') {
+      init.body = Object.values(mapped.bodyParams).map((item) => String(item)).join('\n')
     }
 
     const response = await fetch(url, init)

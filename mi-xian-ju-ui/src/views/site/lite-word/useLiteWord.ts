@@ -1,7 +1,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { layer } from '@layui/layer-vue'
 import { fetchLiteWordMenus } from '@/api/lite-word'
-import { fetchYujnJson, normalizeTextLines } from '@/api/external/yujn'
+import { fetchLiteWord, getFunctionCategory } from '@/api/functions'
 import { copyText } from '@/utils/clipboard'
 import type { MenuNode } from '@/types/menu'
 import { getMenuApi } from '@/utils/normalize-menu'
@@ -29,8 +29,10 @@ export function useLiteWord() {
 
     loading.value = true
     try {
-      const res = await fetchYujnJson(api)
-      const lines = normalizeTextLines(res)
+      const category = getFunctionCategory(api)
+      if (!category) return
+      const res = await fetchLiteWord(category)
+      const lines = res.data?.data.items ?? []
       contentPreview.value = lines.length
         ? lines
         : ['文案内容为空，请换一个分类或稍后重试。']

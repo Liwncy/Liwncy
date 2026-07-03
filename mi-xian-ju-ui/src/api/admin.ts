@@ -34,23 +34,84 @@ export interface AdminSourceConfig {
   base_url: string
   status: string
   timeout_ms: number
+  rate_limit_json?: string | null
 }
 
 export interface AdminAdapterConfig {
   id: string
+  source_id: string
   code: string
   name: string
   type: string
+  builtin_key: string | null
   method: string
+  url_template: string | null
+  headers_json: string | null
+  query_template_json: string | null
+  body_template: string | null
+  body_type: string
+  timeout_ms: number
   status: string
   source_code: string
   source_name: string
+}
+
+export interface AdminFunctionParamConfig {
+  id: string
+  function_id: string
+  function_code: string
+  function_name: string
+  param_key: string
+  label: string
+  source: string
+  type: string
+  required: number
+  description: string
+  sort: number
+  status: string
+  defaultValue?: unknown
+  allowValues: unknown[]
+}
+
+export interface AdminFunctionRouteConfig {
+  id: string
+  function_id: string
+  function_code: string
+  function_name: string
+  route_key: string
+  name: string
+  match: Record<string, unknown>
+  defaultParams: Record<string, unknown>
+  sort: number
+  status: string
+}
+
+export interface AdminAdapterParamMapConfig {
+  id: string
+  function_id: string
+  adapter_id: string
+  route_id: string | null
+  function_code: string
+  function_name: string
+  adapter_code: string
+  adapter_name: string
+  route_key: string | null
+  route_name: string | null
+  public_param: string
+  target: string
+  target_key: string
+  template: string | null
+  status: string
+  defaultValue?: unknown
 }
 
 export interface AdminFunctionAdapterConfig {
   id: string
   function_id: string
   adapter_id: string
+  route_id: string | null
+  route_key: string | null
+  route_name: string | null
   function_code: string
   function_name: string
   adapter_code: string
@@ -65,11 +126,29 @@ export interface AdminFunctionAdapterConfig {
   defaultParams: Record<string, unknown>
 }
 
+export interface AdminResponseMapConfig {
+  id: string
+  function_id: string | null
+  adapter_id: string
+  function_code: string | null
+  function_name: string | null
+  adapter_code: string
+  adapter_name: string
+  data_path: string | null
+  items_path: string | null
+  fields: Record<string, unknown>
+  status: string
+}
+
 export interface AdminConfigResponse {
   functions: AdminFunctionConfig[]
   sources: AdminSourceConfig[]
   adapters: AdminAdapterConfig[]
   functionAdapters: AdminFunctionAdapterConfig[]
+  functionParams: AdminFunctionParamConfig[]
+  functionRoutes: AdminFunctionRouteConfig[]
+  adapterParamMaps: AdminAdapterParamMapConfig[]
+  responseMaps: AdminResponseMapConfig[]
 }
 
 function authHeaders() {
@@ -95,11 +174,7 @@ export function fetchAdminConfig() {
 
 export function updateAdminFunction(
   id: string,
-  data: {
-    status?: string
-    isPublic?: boolean
-    defaultParams?: Record<string, unknown>
-  },
+  data: AdminFunctionPayload,
 ) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/functions/${id}`, data, {
     headers: authHeaders(),
@@ -108,15 +183,187 @@ export function updateAdminFunction(
 
 export function updateAdminFunctionAdapter(
   id: string,
-  data: {
-    status?: string
-    priority?: number
-    fallbackEnabled?: boolean
-    defaultParams?: Record<string, unknown>
-    fixedParams?: Record<string, unknown>
-  },
+  data: AdminFunctionAdapterPayload,
 ) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/function-adapters/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export interface AdminFunctionPayload {
+  code?: string
+  name?: string
+  method?: string
+  description?: string
+  paramsSchema?: Record<string, unknown> | null
+  defaultParams?: Record<string, unknown>
+  responseType?: string
+  isPublic?: boolean
+  status?: string
+}
+
+export interface AdminFunctionAdapterPayload {
+  functionId?: string
+  adapterId?: string
+  routeId?: string | null
+  status?: string
+  priority?: number
+  weight?: number
+  fallbackEnabled?: boolean
+  defaultParams?: Record<string, unknown>
+  fixedParams?: Record<string, unknown>
+}
+
+export function createAdminFunction(data: AdminFunctionPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/functions', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function createAdminFunctionAdapter(data: AdminFunctionAdapterPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/function-adapters', data, {
+    headers: authHeaders(),
+  })
+}
+
+export interface AdminSourcePayload {
+  code?: string
+  name?: string
+  baseUrl?: string
+  status?: string
+  timeoutMs?: number
+  rateLimit?: Record<string, unknown>
+}
+
+export interface AdminAdapterPayload {
+  sourceId?: string
+  code?: string
+  name?: string
+  type?: string
+  builtinKey?: string | null
+  method?: string
+  urlTemplate?: string | null
+  headers?: Record<string, unknown>
+  queryTemplate?: Record<string, unknown>
+  bodyTemplate?: string | null
+  bodyType?: string
+  timeoutMs?: number
+  status?: string
+}
+
+export function createAdminSource(data: AdminSourcePayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/sources', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminSource(id: string, data: AdminSourcePayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/sources/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function createAdminAdapter(data: AdminAdapterPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/adapters', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminAdapter(id: string, data: AdminAdapterPayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/adapters/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export interface AdminFunctionParamPayload {
+  functionId?: string
+  paramKey?: string
+  label?: string
+  source?: string
+  type?: string
+  required?: boolean
+  defaultValue?: unknown
+  allowValues?: unknown[]
+  description?: string
+  sort?: number
+  status?: string
+}
+
+export interface AdminFunctionRoutePayload {
+  functionId?: string
+  routeKey?: string
+  name?: string
+  match?: Record<string, unknown>
+  defaultParams?: Record<string, unknown>
+  sort?: number
+  status?: string
+}
+
+export interface AdminAdapterParamMapPayload {
+  functionId?: string
+  adapterId?: string
+  routeId?: string | null
+  publicParam?: string
+  target?: string
+  targetKey?: string
+  template?: string | null
+  defaultValue?: unknown
+  status?: string
+}
+
+export function createAdminFunctionParam(data: AdminFunctionParamPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/function-params', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminFunctionParam(id: string, data: AdminFunctionParamPayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/function-params/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function createAdminFunctionRoute(data: AdminFunctionRoutePayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/function-routes', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminFunctionRoute(id: string, data: AdminFunctionRoutePayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/function-routes/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function createAdminAdapterParamMap(data: AdminAdapterParamMapPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/adapter-param-maps', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminAdapterParamMap(id: string, data: AdminAdapterParamMapPayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/adapter-param-maps/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export interface AdminResponseMapPayload {
+  functionId?: string | null
+  adapterId?: string
+  dataPath?: string | null
+  itemsPath?: string | null
+  fields?: Record<string, unknown>
+  status?: string
+}
+
+export function createAdminResponseMap(data: AdminResponseMapPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/response-maps', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminResponseMap(id: string, data: AdminResponseMapPayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/response-maps/${id}`, data, {
     headers: authHeaders(),
   })
 }

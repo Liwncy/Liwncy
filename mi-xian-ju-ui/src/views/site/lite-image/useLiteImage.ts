@@ -1,6 +1,6 @@
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { fetchLiteImageMenus } from '@/api/lite-image'
-import { fetchYujnJson, normalizeImageResult } from '@/api/external/yujn'
+import { fetchRandomImage, getFunctionCategory } from '@/api/functions'
 import type { MenuNode } from '@/types/menu'
 import { getMenuApi } from '@/utils/normalize-menu'
 
@@ -86,8 +86,12 @@ export function useLiteImage() {
 
     loading.value = true
     try {
-      const res = await fetchYujnJson(api)
-      const normalized = normalizeImageResult(res)
+      const category = getFunctionCategory(api)
+      if (!category) return
+      const res = await fetchRandomImage(category)
+      const normalized = res.data?.data.items?.length
+        ? res.data.data.items
+        : res.data?.data.url ?? ''
       imgUrl.value = normalized
       if (typeof normalized === 'string' && normalized) {
         historyImages.value.unshift({ url: normalized, time: new Date().toISOString() })

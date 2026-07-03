@@ -2,7 +2,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import XGPlayer from 'xgplayer'
 import 'xgplayer/dist/index.min.css'
 import { fetchLiteVideoMenus } from '@/api/lite-video'
-import { buildYujnMediaUrl, fetchYujnJson, isDirectMediaPath } from '@/api/external/yujn'
+import { fetchHotVideo, getFunctionCategory } from '@/api/functions'
 import type { MenuNode } from '@/types/menu'
 import { getMenuApi } from '@/utils/normalize-menu'
 
@@ -102,13 +102,10 @@ export function useLiteVideo() {
   }
 
   async function resolveVideoUrl(api: string) {
-    if (isDirectMediaPath(api)) {
-      return buildYujnMediaUrl(api)
-    }
-    const res = await fetchYujnJson<{ data?: string; url?: string }>(api)
-    const payload = res as Record<string, unknown>
-    const url = payload.data ?? payload.url
-    return typeof url === 'string' ? url : buildYujnMediaUrl(api)
+    const category = getFunctionCategory(api)
+    if (!category) return ''
+    const res = await fetchHotVideo(category)
+    return res.data?.data.url ?? ''
   }
 
   async function loadVideo() {

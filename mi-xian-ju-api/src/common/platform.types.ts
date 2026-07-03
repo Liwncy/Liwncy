@@ -2,6 +2,14 @@ export type PlatformStatus = 'enabled' | 'disabled'
 
 export type AdapterType = 'builtin' | 'http_custom'
 
+export type FunctionParamSource = 'query' | 'body' | 'any'
+
+export type FunctionParamType = 'string' | 'number' | 'boolean' | 'json'
+
+export type AdapterBodyType = 'none' | 'json' | 'form' | 'text'
+
+export type AdapterParamMapTarget = 'param' | 'query' | 'header' | 'body'
+
 export type ApiFunctionRow = {
   id: string
   code: string
@@ -41,6 +49,7 @@ export type ApiAdapterRow = {
   headers_json: string | null
   query_template_json: string | null
   body_template: string | null
+  body_type: AdapterBodyType
   timeout_ms: number
   status: PlatformStatus
   created_at: string
@@ -51,6 +60,7 @@ export type ApiFunctionAdapterRow = {
   id: string
   function_id: string
   adapter_id: string
+  route_id: string | null
   priority: number
   weight: number
   fallback_enabled: number
@@ -68,6 +78,51 @@ export type ApiResponseMapRow = {
   data_path: string | null
   items_path: string | null
   fields_json: string | null
+  status: PlatformStatus
+  created_at: string
+  updated_at: string
+}
+
+export type ApiFunctionParamRow = {
+  id: string
+  function_id: string
+  param_key: string
+  label: string
+  source: FunctionParamSource
+  type: FunctionParamType
+  required: number
+  default_value_json: string | null
+  allow_values_json: string | null
+  description: string
+  sort: number
+  status: PlatformStatus
+  created_at: string
+  updated_at: string
+}
+
+export type ApiFunctionRouteRow = {
+  id: string
+  function_id: string
+  route_key: string
+  name: string
+  match_json: string
+  default_params_json: string | null
+  sort: number
+  status: PlatformStatus
+  created_at: string
+  updated_at: string
+}
+
+export type ApiAdapterParamMapRow = {
+  id: string
+  function_id: string
+  adapter_id: string
+  route_id: string | null
+  public_param: string
+  target: AdapterParamMapTarget
+  target_key: string
+  template: string | null
+  default_value_json: string | null
   status: PlatformStatus
   created_at: string
   updated_at: string
@@ -109,6 +164,8 @@ export type ApiFunctionAdapterSummary = Omit<
   ApiFunctionAdapterRow,
   'fixed_params_json' | 'default_params_json'
 > & {
+  route_key: string | null
+  route_name: string | null
   function_code: string
   function_name: string
   adapter_code: string
@@ -117,4 +174,45 @@ export type ApiFunctionAdapterSummary = Omit<
   source_name: string
   fixedParams: Record<string, unknown>
   defaultParams: Record<string, unknown>
+}
+
+export type ApiFunctionParamSummary = Omit<
+  ApiFunctionParamRow,
+  'default_value_json' | 'allow_values_json'
+> & {
+  function_code: string
+  function_name: string
+  defaultValue: unknown
+  allowValues: unknown[]
+}
+
+export type ApiFunctionRouteSummary = Omit<
+  ApiFunctionRouteRow,
+  'match_json' | 'default_params_json'
+> & {
+  function_code: string
+  function_name: string
+  match: Record<string, unknown>
+  defaultParams: Record<string, unknown>
+}
+
+export type ApiAdapterParamMapSummary = Omit<
+  ApiAdapterParamMapRow,
+  'default_value_json'
+> & {
+  function_code: string
+  function_name: string
+  adapter_code: string
+  adapter_name: string
+  route_key: string | null
+  route_name: string | null
+  defaultValue: unknown
+}
+
+export type ApiResponseMapSummary = Omit<ApiResponseMapRow, 'fields_json'> & {
+  function_code: string | null
+  function_name: string | null
+  adapter_code: string
+  adapter_name: string
+  fields: Record<string, unknown>
 }
