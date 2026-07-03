@@ -11,10 +11,10 @@ binding = "DATA_KV"
 id = "3ea5f9c2de724a25b05f1d270aa5657b"
 # preview_id = "3ea5f9c2de724a25b05f1d270aa5657b"
 
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "mi-xian-ju"
-# database_id = "REPLACE_WITH_D1_DATABASE_ID"
+[[d1_databases]]
+binding = "DB"
+database_name = "mi-xian-ju"
+database_id = "32be8755-a6e9-401f-a9ab-d9b64b7150a9"
 
 [vars]
 APP_NAME = "芈仙居 API"

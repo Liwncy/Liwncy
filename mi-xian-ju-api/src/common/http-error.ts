@@ -22,3 +22,17 @@ export class BadRequestError extends HttpError {
     this.name = 'BadRequestError'
   }
 }
+
+export class UnauthorizedError extends HttpError {
+  constructor(message = 'Unauthorized', body?: Record<string, unknown>) {
+    super(401, message, body)
+    this.name = 'UnauthorizedError'
+  }
+}
+
+export class ForbiddenError extends HttpError {
+  constructor(message = 'Forbidden', body?: Record<string, unknown>) {
+    super(403, message, body)
+    this.name = 'ForbiddenError'
+  }
+}

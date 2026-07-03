@@ -9,7 +9,7 @@ export const errorHandlerMiddleware: MiddlewareHandler<AppEnv> = async (c, next)
     await next()
   } catch (err) {
     if (err instanceof HttpError) {
-      return c.json(fail(err.status, err.message), err.status as 400 | 404 | 500)
+      return c.json(fail(err.status, err.message), err.status as 400 | 401 | 403 | 404 | 500 | 502)
     }
     console.error(err)
     return c.json(fail(500, 'Internal Server Error'), 500)
