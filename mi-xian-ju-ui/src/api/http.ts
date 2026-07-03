@@ -24,4 +24,8 @@ export function post<T>(url: string, data?: unknown, config?: AxiosRequestConfig
   return http.post(url, data, config)
 }
 
+export function patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+  return http.patch(url, data, config)
+}
+
 export default http

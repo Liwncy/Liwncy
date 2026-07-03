@@ -104,3 +104,17 @@ export type ApiFunctionSummary = Omit<ApiFunctionRow, 'params_schema_json' | 'de
   paramsSchema: Record<string, unknown> | null
   defaultParams: Record<string, unknown>
 }
+
+export type ApiFunctionAdapterSummary = Omit<
+  ApiFunctionAdapterRow,
+  'fixed_params_json' | 'default_params_json'
+> & {
+  function_code: string
+  function_name: string
+  adapter_code: string
+  adapter_name: string
+  source_code: string
+  source_name: string
+  fixedParams: Record<string, unknown>
+  defaultParams: Record<string, unknown>
+}

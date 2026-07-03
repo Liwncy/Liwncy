@@ -1,5 +1,5 @@
 import type { Context } from 'hono'
-import { UnauthorizedError } from '../../common/http-error'
+import { BadRequestError, UnauthorizedError } from '../../common/http-error'
 import { ok } from '../../common/response'
 import type { AppEnv } from '../../config/env'
 
@@ -27,6 +27,38 @@ export class AdminController {
   async config(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const data = await c.get('services').admin.listConfig()
+    return c.json(ok(data))
+  }
+
+  async updateFunction(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少功能接口 ID')
+    }
+    const input = (await c.req.json().catch(() => ({}))) as {
+      status?: string
+      isPublic?: boolean
+      defaultParams?: unknown
+    }
+    const data = await c.get('services').admin.updateFunction(id, input)
+    return c.json(ok(data))
+  }
+
+  async updateFunctionAdapter(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少绑定 ID')
+    }
+    const input = (await c.req.json().catch(() => ({}))) as {
+      status?: string
+      priority?: unknown
+      fallbackEnabled?: boolean
+      defaultParams?: unknown
+      fixedParams?: unknown
+    }
+    const data = await c.get('services').admin.updateFunctionAdapter(id, input)
     return c.json(ok(data))
   }
 }

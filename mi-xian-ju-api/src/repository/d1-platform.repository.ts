@@ -4,6 +4,8 @@ import type {
   ApiAdapterRow,
   ApiFunctionAdapterConfig,
   ApiFunctionRow,
+  ApiFunctionAdapterSummary,
+  ApiFunctionAdapterRow,
   ApiFunctionSummary,
   ApiResponseMapRow,
   ApiSourceRow,
@@ -54,6 +56,53 @@ export class D1PlatformRepository {
       .all<ApiAdapterRow & { source_code: string; source_name: string }>()
 
     return result.results
+  }
+
+  async listFunctionAdapters(): Promise<ApiFunctionAdapterSummary[]> {
+    const result = await this.db
+      .prepare(
+        `SELECT
+           fa.*,
+           f.code AS function_code,
+           f.name AS function_name,
+           a.code AS adapter_code,
+           a.name AS adapter_name,
+           s.code AS source_code,
+           s.name AS source_name
+         FROM api_function_adapters fa
+         INNER JOIN api_functions f ON f.id = fa.function_id
+         INNER JOIN api_adapters a ON a.id = fa.adapter_id
+         INNER JOIN api_sources s ON s.id = a.source_id
+         ORDER BY f.code ASC, fa.priority ASC, a.code ASC`,
+      )
+      .all<ApiFunctionAdapterRow & {
+        function_code: string
+        function_name: string
+        adapter_code: string
+        adapter_name: string
+        source_code: string
+        source_name: string
+      }>()
+
+    return result.results.map((row) => ({
+      id: row.id,
+      function_id: row.function_id,
+      adapter_id: row.adapter_id,
+      priority: row.priority,
+      weight: row.weight,
+      fallback_enabled: row.fallback_enabled,
+      status: row.status,
+      created_at: row.created_at,
+      updated_at: row.updated_at,
+      function_code: row.function_code,
+      function_name: row.function_name,
+      adapter_code: row.adapter_code,
+      adapter_name: row.adapter_name,
+      source_code: row.source_code,
+      source_name: row.source_name,
+      fixedParams: parseJsonObject(row.fixed_params_json),
+      defaultParams: parseJsonObject(row.default_params_json),
+    }))
   }
 
   async listAdapterConfigs(functionId: string): Promise<ApiFunctionAdapterConfig[]> {
@@ -243,5 +292,63 @@ export class D1PlatformRepository {
       )
       .bind(tokenHash)
       .first<AdminSessionRow>()
+  }
+
+  async updateFunction(
+    id: string,
+    input: {
+      status?: 'enabled' | 'disabled'
+      isPublic?: boolean
+      defaultParams?: Record<string, unknown>
+    },
+  ) {
+    await this.db
+      .prepare(
+        `UPDATE api_functions
+         SET status = COALESCE(?, status),
+             is_public = COALESCE(?, is_public),
+             default_params_json = COALESCE(?, default_params_json),
+             updated_at = datetime('now')
+         WHERE id = ?`,
+      )
+      .bind(
+        input.status ?? null,
+        input.isPublic === undefined ? null : input.isPublic ? 1 : 0,
+        input.defaultParams === undefined ? null : JSON.stringify(input.defaultParams),
+        id,
+      )
+      .run()
+  }
+
+  async updateFunctionAdapter(
+    id: string,
+    input: {
+      status?: 'enabled' | 'disabled'
+      priority?: number
+      fallbackEnabled?: boolean
+      defaultParams?: Record<string, unknown>
+      fixedParams?: Record<string, unknown>
+    },
+  ) {
+    await this.db
+      .prepare(
+        `UPDATE api_function_adapters
+         SET status = COALESCE(?, status),
+             priority = COALESCE(?, priority),
+             fallback_enabled = COALESCE(?, fallback_enabled),
+             default_params_json = COALESCE(?, default_params_json),
+             fixed_params_json = COALESCE(?, fixed_params_json),
+             updated_at = datetime('now')
+         WHERE id = ?`,
+      )
+      .bind(
+        input.status ?? null,
+        input.priority ?? null,
+        input.fallbackEnabled === undefined ? null : input.fallbackEnabled ? 1 : 0,
+        input.defaultParams === undefined ? null : JSON.stringify(input.defaultParams),
+        input.fixedParams === undefined ? null : JSON.stringify(input.fixedParams),
+        id,
+      )
+      .run()
   }
 }

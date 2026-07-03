@@ -41,6 +41,7 @@
             <th>响应类型</th>
             <th>状态</th>
             <th>默认参数</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -53,7 +54,93 @@
             <td>{{ item.method }}</td>
             <td>{{ item.response_type }}</td>
             <td><span class="status" :class="item.status">{{ item.status }}</span></td>
-            <td><code>{{ formatJson(item.defaultParams) }}</code></td>
+            <td>
+              <textarea
+                v-model="functionParamDrafts[item.id]"
+                class="json-editor"
+                rows="3"
+                spellcheck="false"
+              />
+            </td>
+            <td>
+              <div class="table-actions">
+                <lay-button
+                  size="xs"
+                  :type="item.status === 'enabled' ? 'warm' : 'primary'"
+                  :loading="updating === `function-status:${item.id}`"
+                  @click="toggleFunctionStatus(item)"
+                >
+                  {{ item.status === 'enabled' ? '停用' : '启用' }}
+                </lay-button>
+                <lay-button
+                  size="xs"
+                  border="green"
+                  :loading="updating === `function-params:${item.id}`"
+                  @click="saveFunctionParams(item)"
+                >
+                  保存参数
+                </lay-button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </lay-card>
+
+    <lay-card title="功能 Adapter 绑定" class="config-card">
+      <table class="config-table">
+        <thead>
+          <tr>
+            <th>功能</th>
+            <th>Adapter</th>
+            <th>平台源</th>
+            <th>优先级</th>
+            <th>Fallback</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in config.functionAdapters" :key="item.id">
+            <td>
+              <strong>{{ item.function_name }}</strong>
+              <p><code>{{ item.function_code }}</code></p>
+            </td>
+            <td>
+              {{ item.adapter_name }}
+              <p><code>{{ item.adapter_code }}</code></p>
+            </td>
+            <td>{{ item.source_name }}</td>
+            <td>
+              <input
+                v-model.number="adapterPriorityDrafts[item.id]"
+                class="priority-input"
+                type="number"
+                min="0"
+              />
+            </td>
+            <td>{{ item.fallback_enabled ? '开启' : '关闭' }}</td>
+            <td><span class="status" :class="item.status">{{ item.status }}</span></td>
+            <td>
+              <div class="table-actions">
+                <lay-button
+                  size="xs"
+                  :type="item.status === 'enabled' ? 'warm' : 'primary'"
+                  :loading="updating === `binding-status:${item.id}`"
+                  @click="toggleBindingStatus(item)"
+                >
+                  {{ item.status === 'enabled' ? '停用' : '启用' }}
+                </lay-button>
+                <lay-button
+                  size="xs"
+                  border="green"
+                  :loading="updating === `binding-priority:${item.id}`"
+                  @click="saveBindingPriority(item)"
+                >
+                  保存排序
+                </lay-button>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -113,18 +200,56 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { layer } from '@layui/layer-vue'
-import { fetchAdminConfig, type AdminConfigResponse } from '@/api/admin'
+import {
+  fetchAdminConfig,
+  updateAdminFunction,
+  updateAdminFunctionAdapter,
+  type AdminConfigResponse,
+  type AdminFunctionAdapterConfig,
+  type AdminFunctionConfig,
+} from '@/api/admin'
 
 const loading = ref(false)
+const updating = ref('')
 const config = reactive<AdminConfigResponse>({
   functions: [],
   sources: [],
   adapters: [],
+  functionAdapters: [],
 })
+const functionParamDrafts = reactive<Record<string, string>>({})
+const adapterPriorityDrafts = reactive<Record<string, number>>({})
 
-function formatJson(value: Record<string, unknown>) {
-  const text = JSON.stringify(value)
-  return text.length > 80 ? `${text.slice(0, 80)}...` : text
+function formatJsonPretty(value: Record<string, unknown>) {
+  return JSON.stringify(value, null, 2)
+}
+
+function applyConfig(data: AdminConfigResponse) {
+  config.functions = data.functions
+  config.sources = data.sources
+  config.adapters = data.adapters
+  config.functionAdapters = data.functionAdapters
+
+  for (const item of data.functions) {
+    functionParamDrafts[item.id] = formatJsonPretty(item.defaultParams)
+  }
+  for (const item of data.functionAdapters) {
+    adapterPriorityDrafts[item.id] = item.priority
+  }
+}
+
+function parseJsonObject(raw: string) {
+  try {
+    const value = JSON.parse(raw || '{}') as unknown
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      layer.msg('默认参数必须是 JSON 对象', { icon: 2 })
+      return null
+    }
+    return value as Record<string, unknown>
+  } catch {
+    layer.msg('JSON 格式不正确', { icon: 2 })
+    return null
+  }
 }
 
 async function loadConfig() {
@@ -135,11 +260,74 @@ async function loadConfig() {
       layer.msg(res.msg ?? '加载配置失败', { icon: 2 })
       return
     }
-    config.functions = res.data.functions
-    config.sources = res.data.sources
-    config.adapters = res.data.adapters
+    applyConfig(res.data)
   } finally {
     loading.value = false
+  }
+}
+
+async function toggleFunctionStatus(item: AdminFunctionConfig) {
+  updating.value = `function-status:${item.id}`
+  try {
+    const res = await updateAdminFunction(item.id, {
+      status: item.status === 'enabled' ? 'disabled' : 'enabled',
+    })
+    if (res.data) applyConfig(res.data)
+    layer.msg('状态已更新', { icon: 1 })
+  } catch {
+    // 请求层已提示错误。
+  } finally {
+    updating.value = ''
+  }
+}
+
+async function saveFunctionParams(item: AdminFunctionConfig) {
+  const defaultParams = parseJsonObject(functionParamDrafts[item.id])
+  if (!defaultParams) return
+
+  updating.value = `function-params:${item.id}`
+  try {
+    const res = await updateAdminFunction(item.id, { defaultParams })
+    if (res.data) applyConfig(res.data)
+    layer.msg('默认参数已保存', { icon: 1 })
+  } catch {
+    // 请求层已提示错误。
+  } finally {
+    updating.value = ''
+  }
+}
+
+async function toggleBindingStatus(item: AdminFunctionAdapterConfig) {
+  updating.value = `binding-status:${item.id}`
+  try {
+    const res = await updateAdminFunctionAdapter(item.id, {
+      status: item.status === 'enabled' ? 'disabled' : 'enabled',
+    })
+    if (res.data) applyConfig(res.data)
+    layer.msg('绑定状态已更新', { icon: 1 })
+  } catch {
+    // 请求层已提示错误。
+  } finally {
+    updating.value = ''
+  }
+}
+
+async function saveBindingPriority(item: AdminFunctionAdapterConfig) {
+  const priority = Number(adapterPriorityDrafts[item.id])
+  if (!Number.isInteger(priority) || priority < 0) {
+    layer.msg('优先级必须是非负整数', { icon: 2 })
+    return
+  }
+
+  updating.value = `binding-priority:${item.id}`
+  try {
+    const res = await updateAdminFunctionAdapter(item.id, { priority })
+    if (res.data) applyConfig(res.data)
+    layer.msg('优先级已保存', { icon: 1 })
+  } catch {
+    // 请求层已提示错误。
+  } finally {
+    updating.value = ''
   }
 }
 
@@ -237,6 +425,43 @@ onMounted(loadConfig)
   color: #1b6f63;
   white-space: pre-wrap;
   word-break: break-all;
+}
+
+.json-editor,
+.priority-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(31, 157, 138, 0.2);
+  border-radius: 10px;
+  color: #18352d;
+  background: rgba(255, 255, 255, 0.88);
+  outline: none;
+}
+
+.json-editor {
+  min-width: 220px;
+  padding: 8px 10px;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.priority-input {
+  max-width: 90px;
+  padding: 7px 9px;
+}
+
+.json-editor:focus,
+.priority-input:focus {
+  border-color: rgba(31, 157, 138, 0.55);
+  box-shadow: 0 0 0 3px rgba(31, 157, 138, 0.12);
+}
+
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .compact th,

@@ -1,4 +1,4 @@
-import { get, post } from '@/api/http'
+import { get, patch, post } from '@/api/http'
 import { useUserStore } from '@/store/user'
 import type { ApiResult } from '@/types/global'
 
@@ -47,10 +47,29 @@ export interface AdminAdapterConfig {
   source_name: string
 }
 
+export interface AdminFunctionAdapterConfig {
+  id: string
+  function_id: string
+  adapter_id: string
+  function_code: string
+  function_name: string
+  adapter_code: string
+  adapter_name: string
+  source_code: string
+  source_name: string
+  priority: number
+  weight: number
+  fallback_enabled: number
+  status: string
+  fixedParams: Record<string, unknown>
+  defaultParams: Record<string, unknown>
+}
+
 export interface AdminConfigResponse {
   functions: AdminFunctionConfig[]
   sources: AdminSourceConfig[]
   adapters: AdminAdapterConfig[]
+  functionAdapters: AdminFunctionAdapterConfig[]
 }
 
 function authHeaders() {
@@ -70,6 +89,34 @@ export function loginAdmin(username: string, password: string) {
 
 export function fetchAdminConfig() {
   return get<ApiResult<AdminConfigResponse>>('/admin/config', {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminFunction(
+  id: string,
+  data: {
+    status?: string
+    isPublic?: boolean
+    defaultParams?: Record<string, unknown>
+  },
+) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/functions/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminFunctionAdapter(
+  id: string,
+  data: {
+    status?: string
+    priority?: number
+    fallbackEnabled?: boolean
+    defaultParams?: Record<string, unknown>
+    fixedParams?: Record<string, unknown>
+  },
+) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/function-adapters/${id}`, data, {
     headers: authHeaders(),
   })
 }
