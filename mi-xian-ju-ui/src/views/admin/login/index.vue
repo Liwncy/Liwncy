@@ -2,9 +2,9 @@
   <div class="login-page">
     <lay-card class="login-card">
       <h2>芈仙居 · 管理登录</h2>
-      <p class="hint">骨架阶段：任意账号密码即可进入（后续对接 mi-xian-ju-api）</p>
+      <p class="hint">登录后可维护 API 平台接口、平台源与 adapter 配置</p>
 
-      <lay-form :model="form" @submit.prevent="handleLogin">
+      <lay-form :model="form" @submit="handleLogin">
         <lay-form-item label="账号">
           <lay-input v-model="form.username" placeholder="admin" />
         </lay-form-item>
@@ -26,6 +26,7 @@ import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { layer } from '@layui/layer-vue'
 import { useUserStore } from '@/store/user'
+import { loginAdmin } from '@/api/admin'
 
 const router = useRouter()
 const route = useRoute()
@@ -34,17 +35,30 @@ const userStore = useUserStore()
 const loading = ref(false)
 const form = reactive({
   username: 'admin',
-  password: 'admin',
+  password: '',
 })
 
 async function handleLogin() {
   loading.value = true
   try {
-    // TODO: 对接 mi-xian-ju-api 登录接口
-    userStore.login('dev-token', form.username)
+    const res = await loginAdmin(form.username, form.password)
+    if (!res.success || !res.data) {
+      layer.msg(res.msg ?? '登录失败', { icon: 2 })
+      return
+    }
+
+    userStore.login({
+      token: res.data.token,
+      expiresAt: res.data.expiresAt,
+      userId: res.data.user.id,
+      username: res.data.user.username,
+      nickname: res.data.user.displayName,
+    })
     layer.msg('登录成功', { icon: 1 })
     const redirect = (route.query.redirect as string) || '/admin/dashboard'
     router.push(redirect)
+  } catch {
+    // 请求层已经弹出错误提示，这里只负责吞掉异常，避免 Vue 报未处理错误。
   } finally {
     loading.value = false
   }
