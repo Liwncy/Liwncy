@@ -1,0 +1,41 @@
+@import './code.css';
+@import './markdown.css';
+
+:root {
+  --docs-border-color: #d8dde3;
+  --docs-border-color-dark: rgba(255, 255, 255, 0.18);
+  --docs-title-line-color: #b8c2cc;
+  --docs-title-line-color-dark: rgba(255, 255, 255, 0.32);
+}
+
+.site-theme-dark {
+  --docs-border-color: var(--docs-border-color-dark);
+}
+
+.layui-menu-lg li {
+  line-height: 32px;
+}
+
+.layui-menu-lg .layui-menu-body-title a:hover,
+.layui-menu-lg li:hover {
+  background: 0 0;
+  color: var(--global-checked-color);
+}
+
+.layui-menu .layui-menu-item-checked,
+.layui-menu .layui-menu-item-checked2 {
+  border-radius: 4px;
+  background-color: var(--global-neutral-color-2) !important;
+}
+
+.layui-menu .layui-menu-item-checked a,
+.layui-menu .layui-menu-item-checked2 a {
+  color: var(--global-checked-color);
+}
+
+.layui-menu-body-title a {
+  display: block;
+  margin: -5px -15px;
+  color: rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}

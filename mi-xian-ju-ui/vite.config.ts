@@ -1,9 +1,19 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import Markdown from 'vite-plugin-md'
+import container from 'markdown-it-container'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from '@layui/unplugin-vue-components/vite'
 import { LayuiVueResolver } from '@layui/unplugin-vue-components/resolvers'
 import { resolve } from 'path'
+import highlight from './plugin/highlight'
+import preWrapper from './plugin/pre-wrapper'
+import demo from './plugin/create-demo'
+import createAnchor from './plugin/create-anchor'
+import createDescribe from './plugin/create-describe'
+import createQuote from './plugin/create-quote'
+import createTable from './plugin/create-table'
+import createTitle from './plugin/create-title'
 
 export default defineConfig({
   base: '/',
@@ -13,7 +23,26 @@ export default defineConfig({
     },
   },
   plugins: [
-    vue(),
+    vue({
+      include: [/\.vue$/, /\.md$/],
+    }),
+    Markdown({
+      markdownItOptions: {
+        html: true,
+        linkify: true,
+        typographer: true,
+        highlight,
+      },
+      markdownItSetup(md) {
+        md.use(preWrapper)
+          .use(container, 'demo', demo)
+          .use(...createTable('table'))
+          .use(...createQuote('quote'))
+          .use(...createTitle('title'))
+          .use(...createDescribe('describe'))
+          .use(...createAnchor('anchor'))
+      },
+    }),
     AutoImport({
       resolvers: [LayuiVueResolver()],
     }),

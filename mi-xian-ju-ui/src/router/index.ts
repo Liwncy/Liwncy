@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { siteRoutes } from './site.routes'
+import { docsRoutes } from './docs.routes'
 import { adminRoutes } from './admin.routes'
 import { useUserStore } from '@/store/user'
 import { APP_NAME } from '@/config/setting'
@@ -10,7 +11,7 @@ NProgress.configure({ showSpinner: false })
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
-  routes: [...siteRoutes, ...adminRoutes],
+  routes: [...siteRoutes, ...docsRoutes, ...adminRoutes],
   scrollBehavior: () => ({ top: 0 }),
 })
 

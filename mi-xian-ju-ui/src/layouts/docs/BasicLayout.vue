@@ -1,78 +1,13 @@
 <script setup lang="ts">
-import '@/assets/styles/site-layout.css'
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { fetchTopMenus } from '@/api/layout'
 import { useAppStore } from '@/store/app'
-import type { MenuNode } from '@/types/menu'
-import { filterNavItems, normalizeNavItem } from '@/utils/nav-path'
 import avatarUrl from '@/assets/touxiang.jpg'
 
 const appStore = useAppStore()
 const route = useRoute()
 const router = useRouter()
 const currentPath = ref(route.path)
-
-const defaultNav: MenuNode[] = [
-  { id: 'index', title: '首页', path: '/', sort: 1, enabled: true },
-  {
-    id: 'xysx',
-    title: '闲隅时序',
-    path: '/hot-bans',
-    sort: 2,
-    enabled: true,
-    children: [
-      { id: 'rbxw', title: '🕘热榜新闻', path: '/hot-bans', sort: 1, enabled: true },
-      { id: 'jrrb', title: '🕘今日热榜', path: '/daily-hot', sort: 2, enabled: true },
-    ],
-  },
-  {
-    id: 'xjbb',
-    title: '璇玑百宝',
-    path: '/ai-tools',
-    sort: 3,
-    enabled: true,
-    children: [
-      { id: 'aigj', title: '🤖智能工具', path: '/ai-tools', sort: 1, enabled: true },
-      { id: 'cysq', title: '✨常用书签', path: '/bookmark', sort: 2, enabled: true },
-    ],
-  },
-  {
-    id: 'rjyh',
-    title: '人间烟火',
-    path: '/personality-test',
-    sort: 4,
-    enabled: true,
-    children: [
-      { id: 'xgcs', title: '💗性格测试', path: '/personality-test', sort: 1, enabled: true },
-    ],
-  },
-  {
-    id: 'lzxy',
-    title: '乐在逍遥',
-    path: '/lite-video',
-    sort: 5,
-    enabled: true,
-    children: [
-      { id: 'gltq', title: '💃勾栏听曲', path: '/lite-video', sort: 1, enabled: true },
-      { id: 'zmgh', title: '🌸走马观花', path: '/lite-image', sort: 2, enabled: true },
-      { id: 'ycsd', title: '📜吟诗作对', path: '/lite-word', sort: 3, enabled: true },
-    ],
-  },
-  {
-    id: 'docs',
-    title: '文档',
-    path: '/docs',
-    sort: 6,
-    enabled: true,
-    children: [
-      { id: 'api-docs', title: '📘接口平台', path: '/docs/api-platform-admin-guide', sort: 1, enabled: true },
-      { id: 'deploy-docs', title: '🚀部署笔记', path: '/docs/github-pages-spa-fallback', sort: 2, enabled: true },
-    ],
-  },
-]
-
-const topMenuList = ref<MenuNode[]>([...defaultNav])
 
 watch(
   () => route.path,
@@ -82,65 +17,32 @@ watch(
   { immediate: true },
 )
 
-function isMenuActive(menu: MenuNode) {
-  const path = menu.path ?? ''
-  if (path === '/' && route.path === '/') return true
-  if (path && path !== '/' && route.path.startsWith(path)) return true
-  return menu.children?.some((child) => child.path && route.path.startsWith(child.path)) ?? false
-}
-
 function resetThemeVariable() {
   appStore.resetThemeVariable()
 }
-
-onMounted(async () => {
-  appStore.hydrateThemeVariable()
-
-  try {
-    const res = await fetchTopMenus()
-    if (res.data?.length) {
-      topMenuList.value = filterNavItems(res.data.map(normalizeNavItem))
-    }
-  } catch {
-    // 后端未启动时使用默认导航
-  }
-})
 </script>
 
 <template>
   <lay-config-provider :theme="appStore.theme" :themeVariable="appStore.themeVariable">
-    <lay-layout class="layui-layout-website" :class="{ 'site-theme-dark': appStore.theme === 'dark' }">
+    <lay-layout
+      class="layui-layout-document"
+      :class="{ 'site-theme-dark': appStore.theme === 'dark' }"
+    >
       <lay-header>
-        <lay-logo @click="router.push('/')">
+        <lay-logo @click="router.push('/docs')">
           <img :src="avatarUrl" alt="logo" />
-          <span class="title">芈 仙 居</span>
+          <span class="title">芈仙居文档</span>
         </lay-logo>
 
-        <ul class="layui-nav layui-layout-left no-margin">
+        <ul class="layui-nav layui-layout-left" style="margin-top: 0; margin-bottom: 0">
+          <li class="layui-nav-item">
+            <router-link to="/">首页</router-link>
+          </li>
           <li
-            v-for="menu in topMenuList"
-            :key="menu.id"
             class="layui-nav-item"
-            :class="{ 'layui-active': isMenuActive(menu) }"
-            @click="currentPath = menu.path ?? '/'"
+            :class="{ 'layui-active': currentPath.includes('/docs/guide') }"
           >
-            <router-link v-if="!menu.children?.length" :to="menu.path ?? '/'">
-              {{ menu.title }}
-            </router-link>
-            <lay-dropdown v-else trigger="hover">
-              <a href="javascript:void(0);">{{ menu.title }}</a>
-              <template #content>
-                <lay-dropdown-menu class="layui-dropdown-menu-website">
-                  <lay-dropdown-menu-item
-                    v-for="item in menu.children"
-                    :key="item.id"
-                    @click="currentPath = item.path ?? '/'"
-                  >
-                    <router-link :to="item.path ?? '/'">{{ item.title }}</router-link>
-                  </lay-dropdown-menu-item>
-                </lay-dropdown-menu>
-              </template>
-            </lay-dropdown>
+            <router-link to="/docs/guide">指南</router-link>
           </li>
         </ul>
 
@@ -261,3 +163,89 @@ onMounted(async () => {
     </lay-layout>
   </lay-config-provider>
 </template>
+
+<style scoped>
+.layui-layout-document {
+  min-height: 100vh;
+}
+
+.layui-layout-document > .layui-header {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  border-bottom: 1px solid #eeeeee;
+  background-image: radial-gradient(transparent 1px, #ffffff 1px);
+  background-size: 4px 4px;
+  backdrop-filter: saturate(50%) blur(4px);
+}
+
+.layui-layout-document .layui-header > .layui-nav {
+  background-color: transparent;
+}
+
+.layui-layout-document .layui-header .layui-nav .layui-nav-item *,
+.layui-layout-document .layui-header .layui-nav .layui-nav-item a,
+.layui-layout-document .layui-header .layui-nav .layui-nav-item a:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.layui-layout-document .layui-header > .layui-nav .layui-active * {
+  color: var(--global-checked-color) !important;
+}
+
+.layui-layout-document .layui-header .layui-logo {
+  padding-left: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.layui-layout-document .layui-logo img {
+  left: 15px;
+  height: 42px;
+  margin-top: -4px;
+  border-radius: 10px;
+}
+
+.layui-layout-document .layui-logo .title {
+  margin-left: 12px;
+  color: #213547;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  opacity: 0.86;
+}
+
+.layui-layout-document .layui-header .layui-form-switch {
+  border: 1px solid rgba(60, 60, 60, 0.29);
+  background-color: #f1f1f1 !important;
+}
+
+.switch svg {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+}
+
+.theme-panel {
+  width: 380px;
+  padding: 0 10px 10px;
+}
+
+.theme-panel > * {
+  margin-top: 9px;
+  margin-right: 9px;
+}
+
+.layui-layout-document.site-theme-dark > .layui-header {
+  border-bottom-color: var(--site-border);
+  background: rgba(20, 27, 24, 0.9);
+}
+
+.layui-layout-document.site-theme-dark .layui-header .layui-nav .layui-nav-item *,
+.layui-layout-document.site-theme-dark .layui-header .layui-nav .layui-nav-item a,
+.layui-layout-document.site-theme-dark .layui-logo .title {
+  color: rgba(255, 255, 255, 0.86);
+}
+</style>
