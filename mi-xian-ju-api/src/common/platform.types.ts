@@ -128,6 +128,23 @@ export type ApiAdapterParamMapRow = {
   updated_at: string
 }
 
+export type ApiMenuRow = {
+  id: string
+  parent_id: string | null
+  scope: 'top' | 'side'
+  module: string
+  title: string
+  subtitle: string | null
+  icon: string | null
+  path: string | null
+  i18n_key: string | null
+  sort: number
+  status: PlatformStatus
+  payload_json: string | null
+  created_at: string
+  updated_at: string
+}
+
 export type ApiFunctionAdapterConfig = {
   binding: ApiFunctionAdapterRow
   adapter: ApiAdapterRow
@@ -215,4 +232,12 @@ export type ApiResponseMapSummary = Omit<ApiResponseMapRow, 'fields_json'> & {
   adapter_code: string
   adapter_name: string
   fields: Record<string, unknown>
+}
+
+export type ApiMenuSummary = Omit<ApiMenuRow, 'payload_json'> & {
+  payload: Record<string, unknown>
+}
+
+export type ApiMenuTreeSummary = ApiMenuSummary & {
+  children?: ApiMenuTreeSummary[]
 }

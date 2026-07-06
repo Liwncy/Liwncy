@@ -29,6 +29,10 @@
             <template #icon><lay-icon type="layui-icon-set" /></template>
             <template #title>平台适配</template>
           </lay-menu-item>
+          <lay-menu-item id="/admin/api/menus">
+            <template #icon><lay-icon type="layui-icon-template" /></template>
+            <template #title>菜单配置</template>
+          </lay-menu-item>
         </lay-menu>
         </div>
       </lay-side>

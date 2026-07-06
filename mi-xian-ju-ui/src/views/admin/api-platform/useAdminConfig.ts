@@ -19,6 +19,7 @@ export function createEmptyAdminConfig(): AdminConfigResponse {
     functionRoutes: [],
     adapterParamMaps: [],
     responseMaps: [],
+    menus: [],
   }
 }
 
@@ -48,6 +49,7 @@ export function useAdminConfig() {
     config.functionRoutes = data.functionRoutes
     config.adapterParamMaps = data.adapterParamMaps
     config.responseMaps = data.responseMaps
+    config.menus = data.menus ?? []
 
     for (const item of data.functions) {
       functionParamDrafts[item.id] = formatJsonPretty(item.defaultParams)

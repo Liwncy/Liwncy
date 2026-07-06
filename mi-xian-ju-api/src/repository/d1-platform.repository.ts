@@ -13,6 +13,9 @@ import type {
   ApiFunctionRouteRow,
   ApiFunctionRouteSummary,
   ApiFunctionSummary,
+  ApiMenuRow,
+  ApiMenuSummary,
+  ApiMenuTreeSummary,
   ApiResponseMapRow,
   ApiResponseMapSummary,
   ApiSourceRow,
@@ -225,6 +228,51 @@ export class D1PlatformRepository {
       adapter_name: row.adapter_name,
       fields: parseJsonObject(row.fields_json),
     }))
+  }
+
+  async listMenus(): Promise<ApiMenuSummary[]> {
+    const result = await this.db
+      .prepare(
+        `SELECT * FROM api_menus
+         ORDER BY scope ASC, module ASC, parent_id ASC, sort ASC, title ASC`,
+      )
+      .all<ApiMenuRow>()
+
+    return result.results.map((row) => ({
+      ...row,
+      payload: parseJsonObject(row.payload_json),
+    }))
+  }
+
+  async listMenuTree(scope: 'top' | 'side', module: string): Promise<ApiMenuTreeSummary[]> {
+    const result = await this.db
+      .prepare(
+        `SELECT * FROM api_menus
+         WHERE scope = ?
+           AND module = ?
+           AND status = 'enabled'
+         ORDER BY sort ASC, title ASC`,
+      )
+      .bind(scope, module)
+      .all<ApiMenuRow>()
+
+    const rows = result.results.map((row) => ({
+      ...row,
+      payload: parseJsonObject(row.payload_json),
+    }))
+    const byParent = new Map<string, ApiMenuSummary[]>()
+    for (const row of rows) {
+      const key = row.parent_id ?? ''
+      byParent.set(key, [...(byParent.get(key) ?? []), row])
+    }
+
+    const build = (parentId: string | null): ApiMenuTreeSummary[] =>
+      (byParent.get(parentId ?? '') ?? []).map((row) => ({
+        ...row,
+        children: build(row.id),
+      }))
+
+    return build(null)
   }
 
   async listFunctionAdapters(): Promise<ApiFunctionAdapterSummary[]> {
@@ -657,6 +705,105 @@ export class D1PlatformRepository {
         input.status,
         input.timeoutMs,
         input.rateLimit === undefined ? null : JSON.stringify(input.rateLimit),
+      )
+      .run()
+  }
+
+  async createMenu(input: {
+    id: string
+    parentId?: string | null
+    scope: 'top' | 'side'
+    module: string
+    title: string
+    subtitle?: string | null
+    icon?: string | null
+    path?: string | null
+    i18nKey?: string | null
+    sort: number
+    status: 'enabled' | 'disabled'
+    payload?: Record<string, unknown>
+  }) {
+    await this.db
+      .prepare(
+        `INSERT INTO api_menus (
+           id, parent_id, scope, module, title, subtitle, icon, path,
+           i18n_key, sort, status, payload_json
+         )
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .bind(
+        input.id,
+        input.parentId ?? null,
+        input.scope,
+        input.module,
+        input.title,
+        input.subtitle ?? null,
+        input.icon ?? null,
+        input.path ?? null,
+        input.i18nKey ?? null,
+        input.sort,
+        input.status,
+        input.payload === undefined ? '{}' : JSON.stringify(input.payload),
+      )
+      .run()
+  }
+
+  async updateMenu(
+    id: string,
+    input: {
+      parentId?: string | null
+      parentIdTouched?: boolean
+      scope?: 'top' | 'side'
+      module?: string
+      title?: string
+      subtitle?: string | null
+      subtitleTouched?: boolean
+      icon?: string | null
+      iconTouched?: boolean
+      path?: string | null
+      pathTouched?: boolean
+      i18nKey?: string | null
+      i18nKeyTouched?: boolean
+      sort?: number
+      status?: 'enabled' | 'disabled'
+      payload?: Record<string, unknown>
+    },
+  ) {
+    await this.db
+      .prepare(
+        `UPDATE api_menus
+         SET parent_id = CASE WHEN ? THEN ? ELSE parent_id END,
+             scope = COALESCE(?, scope),
+             module = COALESCE(?, module),
+             title = COALESCE(?, title),
+             subtitle = CASE WHEN ? THEN ? ELSE subtitle END,
+             icon = CASE WHEN ? THEN ? ELSE icon END,
+             path = CASE WHEN ? THEN ? ELSE path END,
+             i18n_key = CASE WHEN ? THEN ? ELSE i18n_key END,
+             sort = COALESCE(?, sort),
+             status = COALESCE(?, status),
+             payload_json = COALESCE(?, payload_json),
+             updated_at = datetime('now')
+         WHERE id = ?`,
+      )
+      .bind(
+        input.parentIdTouched ? 1 : 0,
+        input.parentId ?? null,
+        input.scope ?? null,
+        input.module ?? null,
+        input.title ?? null,
+        input.subtitleTouched ? 1 : 0,
+        input.subtitle ?? null,
+        input.iconTouched ? 1 : 0,
+        input.icon ?? null,
+        input.pathTouched ? 1 : 0,
+        input.path ?? null,
+        input.i18nKeyTouched ? 1 : 0,
+        input.i18nKey ?? null,
+        input.sort ?? null,
+        input.status ?? null,
+        input.payload === undefined ? null : JSON.stringify(input.payload),
+        id,
       )
       .run()
   }

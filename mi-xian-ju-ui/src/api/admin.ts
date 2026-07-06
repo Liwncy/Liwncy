@@ -140,6 +140,21 @@ export interface AdminResponseMapConfig {
   status: string
 }
 
+export interface AdminMenuConfig {
+  id: string
+  parent_id: string | null
+  scope: string
+  module: string
+  title: string
+  subtitle: string | null
+  icon: string | null
+  path: string | null
+  i18n_key: string | null
+  sort: number
+  status: string
+  payload: Record<string, unknown>
+}
+
 export interface AdminConfigResponse {
   functions: AdminFunctionConfig[]
   sources: AdminSourceConfig[]
@@ -149,6 +164,7 @@ export interface AdminConfigResponse {
   functionRoutes: AdminFunctionRouteConfig[]
   adapterParamMaps: AdminAdapterParamMapConfig[]
   responseMaps: AdminResponseMapConfig[]
+  menus: AdminMenuConfig[]
 }
 
 export interface AdminFunctionDebugAttempt {
@@ -423,6 +439,21 @@ export interface AdminResponseMapPayload {
   status?: string
 }
 
+export interface AdminMenuPayload {
+  id?: string
+  parentId?: string | null
+  scope?: string
+  module?: string
+  title?: string
+  subtitle?: string | null
+  icon?: string | null
+  path?: string | null
+  i18nKey?: string | null
+  sort?: number
+  status?: string
+  payload?: Record<string, unknown>
+}
+
 export function createAdminResponseMap(data: AdminResponseMapPayload) {
   return post<ApiResult<AdminConfigResponse>>('/admin/response-maps', data, {
     headers: authHeaders(),
@@ -431,6 +462,18 @@ export function createAdminResponseMap(data: AdminResponseMapPayload) {
 
 export function updateAdminResponseMap(id: string, data: AdminResponseMapPayload) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/response-maps/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function createAdminMenu(data: AdminMenuPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/menus', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminMenu(id: string, data: AdminMenuPayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/menus/${id}`, data, {
     headers: authHeaders(),
   })
 }

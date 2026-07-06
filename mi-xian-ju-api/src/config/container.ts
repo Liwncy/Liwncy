@@ -23,7 +23,7 @@ export function createServices(env: Bindings) {
     layout: new LayoutService(kv),
     bookMark: new BookMarkService(kv),
     hotBans: new HotBansService(kv),
-    sideMenu: new SideMenuService(kv),
+    sideMenu: new SideMenuService(kv, platform),
     functions,
     admin: new AdminService(platform, env, functions),
   }

@@ -79,6 +79,49 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async createMenu(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const input = (await c.req.json().catch(() => ({}))) as {
+      id?: string
+      parentId?: string | null
+      scope?: string
+      module?: string
+      title?: string
+      subtitle?: string | null
+      icon?: string | null
+      path?: string | null
+      i18nKey?: string | null
+      sort?: unknown
+      status?: string
+      payload?: unknown
+    }
+    const data = await c.get('services').admin.createMenu(input)
+    return c.json(ok(data))
+  }
+
+  async updateMenu(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少菜单 ID')
+    }
+    const input = (await c.req.json().catch(() => ({}))) as {
+      parentId?: string | null
+      scope?: string
+      module?: string
+      title?: string
+      subtitle?: string | null
+      icon?: string | null
+      path?: string | null
+      i18nKey?: string | null
+      sort?: unknown
+      status?: string
+      payload?: unknown
+    }
+    const data = await c.get('services').admin.updateMenu(id, input)
+    return c.json(ok(data))
+  }
+
   async updateFunctionAdapter(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const id = c.req.param('id')

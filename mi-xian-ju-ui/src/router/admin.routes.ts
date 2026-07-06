@@ -42,6 +42,12 @@ export const adminRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/admin/api-platform/adapters.vue'),
         meta: { title: '平台适配', requireAuth: true },
       },
+      {
+        path: 'api/menus',
+        name: 'AdminApiMenus',
+        component: () => import('@/views/admin/api-platform/menus.vue'),
+        meta: { title: '菜单配置', requireAuth: true },
+      },
     ],
   },
 ]

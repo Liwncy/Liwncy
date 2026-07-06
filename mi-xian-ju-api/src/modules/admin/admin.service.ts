@@ -12,6 +12,7 @@ const HTTP_METHODS = new Set(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 const PARAM_SOURCES = new Set(['query', 'body', 'any'])
 const PARAM_TYPES = new Set(['string', 'number', 'boolean', 'json'])
 const PARAM_MAP_TARGETS = new Set(['param', 'query', 'header', 'body'])
+const MENU_SCOPES = new Set(['top', 'side'])
 
 function addDays(date: Date, days: number) {
   const next = new Date(date)
@@ -90,6 +91,7 @@ export class AdminService {
       functionRoutes,
       adapterParamMaps,
       responseMaps,
+      menus,
     ] = await Promise.all([
       this.platform.listFunctions(),
       this.platform.listSources(),
@@ -99,9 +101,10 @@ export class AdminService {
       this.platform.listFunctionRouteSummaries(),
       this.platform.listAdapterParamMapSummaries(),
       this.platform.listResponseMapSummaries(),
+      this.platform.listMenus(),
     ])
 
-    return { functions, sources, adapters, functionAdapters, functionParams, functionRoutes, adapterParamMaps, responseMaps }
+    return { functions, sources, adapters, functionAdapters, functionParams, functionRoutes, adapterParamMaps, responseMaps, menus }
   }
 
   async debugFunctionInvoke(input: { code?: string; method?: string; params?: unknown }) {
@@ -110,6 +113,76 @@ export class AdminService {
     const params = this.normalizeJsonObject(input.params ?? {}, '调试参数') ?? {}
 
     return this.functions.debugInvoke(code, method, params)
+  }
+
+  async createMenu(input: {
+    id?: string
+    parentId?: string | null
+    scope?: string
+    module?: string
+    title?: string
+    subtitle?: string | null
+    icon?: string | null
+    path?: string | null
+    i18nKey?: string | null
+    sort?: unknown
+    status?: string
+    payload?: unknown
+  }) {
+    await this.platform.createMenu({
+      id: this.normalizeRequiredString(input.id, '菜单 ID'),
+      parentId: this.normalizeNullableString(input.parentId),
+      scope: this.normalizeMenuScope(input.scope),
+      module: this.normalizeRequiredString(input.module, '模块'),
+      title: this.normalizeRequiredString(input.title, '菜单标题'),
+      subtitle: this.normalizeNullableString(input.subtitle),
+      icon: this.normalizeNullableString(input.icon),
+      path: this.normalizeNullableString(input.path),
+      i18nKey: this.normalizeNullableString(input.i18nKey),
+      sort: this.normalizePriority(input.sort) ?? 100,
+      status: this.normalizeStatus(input.status) ?? 'enabled',
+      payload: this.normalizeJsonObject(input.payload ?? {}, '菜单 Payload') ?? {},
+    })
+
+    return this.listConfig()
+  }
+
+  async updateMenu(
+    id: string,
+    input: {
+      parentId?: string | null
+      scope?: string
+      module?: string
+      title?: string
+      subtitle?: string | null
+      icon?: string | null
+      path?: string | null
+      i18nKey?: string | null
+      sort?: unknown
+      status?: string
+      payload?: unknown
+    },
+  ) {
+    await this.platform.updateMenu(id, {
+      parentId: this.normalizeNullableString(input.parentId),
+      parentIdTouched: input.parentId !== undefined,
+      scope: input.scope === undefined ? undefined : this.normalizeMenuScope(input.scope),
+      module: input.module === undefined ? undefined : this.normalizeRequiredString(input.module, '模块'),
+      title: input.title === undefined ? undefined : this.normalizeRequiredString(input.title, '菜单标题'),
+      subtitle: this.normalizeNullableString(input.subtitle),
+      subtitleTouched: input.subtitle !== undefined,
+      icon: this.normalizeNullableString(input.icon),
+      iconTouched: input.icon !== undefined,
+      path: this.normalizeNullableString(input.path),
+      pathTouched: input.path !== undefined,
+      i18nKey: this.normalizeNullableString(input.i18nKey),
+      i18nKeyTouched: input.i18nKey !== undefined,
+      sort: this.normalizePriority(input.sort),
+      status: this.normalizeStatus(input.status),
+      payload: this.normalizeJsonObject(input.payload, '菜单 Payload'),
+    })
+
+    return this.listConfig()
   }
 
   async updateFunction(
@@ -625,6 +698,14 @@ export class AdminService {
       throw new BadRequestError('映射目标只能是 param、query、header 或 body')
     }
     return target as 'param' | 'query' | 'header' | 'body'
+  }
+
+  private normalizeMenuScope(scope: string | undefined) {
+    const value = (scope || 'side').trim()
+    if (!MENU_SCOPES.has(value)) {
+      throw new BadRequestError('菜单范围只能是 top 或 side')
+    }
+    return value as 'top' | 'side'
   }
 
   private normalizeMethod(method: string | undefined) {

@@ -16,6 +16,10 @@
               <i class="layui-icon layui-icon-set"></i>
               <cite>平台适配</cite>
             </router-link>
+            <router-link class="admin-shortcut" to="/admin/api/menus">
+              <i class="layui-icon layui-icon-template"></i>
+              <cite>菜单配置</cite>
+            </router-link>
             <a class="admin-shortcut" @click="loadConfig">
               <i class="layui-icon layui-icon-refresh-one"></i>
               <cite>{{ loading ? '刷新中' : '刷新概览' }}</cite>
@@ -49,6 +53,12 @@
               <div class="admin-agency">
                 <h3>Adapters</h3>
                 <p><cite>{{ config.adapters.length }}</cite></p>
+              </div>
+            </lay-col>
+            <lay-col md="12" xs="12">
+              <div class="admin-agency">
+                <h3>菜单配置</h3>
+                <p><cite>{{ config.menus.length }}</cite></p>
               </div>
             </lay-col>
           </lay-row>
