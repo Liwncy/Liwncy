@@ -13,6 +13,8 @@ export function useLiteWord() {
   const menuVisible = computed(() => (isMenuVisible.value ? '240px' : '0px'))
   const contentPreview = ref<string[]>([])
   const loading = ref(false)
+  const errorMessage = ref('')
+  let requestSeq = 0
 
   const hasActiveMenu = computed(() => Boolean(getMenuFunctionCategory(currentMenu.value)))
 
@@ -24,19 +26,34 @@ export function useLiteWord() {
 
   async function loadContent() {
     const category = getMenuFunctionCategory(currentMenu.value)
-    if (!category) return
+    if (!category) {
+      errorMessage.value = '当前文案分类未配置 API 分类。'
+      return false
+    }
 
+    const seq = ++requestSeq
     loading.value = true
+    errorMessage.value = ''
     try {
       const res = await fetchText(category)
+      if (seq !== requestSeq) return false
       const lines = res.data?.data.items ?? []
       contentPreview.value = lines.length
         ? lines
         : ['文案内容为空，请换一个分类或稍后重试。']
+      if (!lines.length) {
+        errorMessage.value = '接口没有返回文案内容。'
+        return false
+      }
+      return true
     } catch {
-      contentPreview.value = ['文案获取失败，请检查网络或接口状态。']
+      if (seq === requestSeq) {
+        errorMessage.value = '文案获取失败，请检查网络或接口状态。'
+        contentPreview.value = [errorMessage.value]
+      }
+      return false
     } finally {
-      loading.value = false
+      if (seq === requestSeq) loading.value = false
     }
   }
 
@@ -47,8 +64,8 @@ export function useLiteWord() {
   }
 
   async function refreshContent() {
-    await loadContent()
-    layer.msg('文案已刷新', { icon: 1 })
+    const ok = await loadContent()
+    layer.msg(ok ? '文案已刷新' : errorMessage.value || '文案刷新失败', { icon: ok ? 1 : 2 })
   }
 
   async function initPage() {
@@ -68,6 +85,7 @@ export function useLiteWord() {
     menuVisible,
     contentPreview,
     loading,
+    errorMessage,
     hasActiveMenu,
     handleMenuClick,
     copyContent,

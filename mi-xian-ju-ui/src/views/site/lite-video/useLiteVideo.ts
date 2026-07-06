@@ -1,4 +1,5 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { layer } from '@layui/layer-vue'
 import XGPlayer from 'xgplayer'
 import 'xgplayer/dist/index.min.css'
 import { fetchLiteVideoMenus } from '@/api/lite-video'
@@ -17,6 +18,8 @@ export function useLiteVideo() {
 
   const videoUrl = ref('')
   const loading = ref(false)
+  const errorMessage = ref('')
+  let requestSeq = 0
   const videoStats = ref({
     playCount: 0,
     resolution: '1080p',
@@ -56,6 +59,7 @@ export function useLiteVideo() {
   function initPlayer() {
     if (!xgPlayerRef.value || !videoUrl.value) return
     destroyPlayer()
+    errorMessage.value = ''
 
     xgPlayer = new XGPlayer({
       el: xgPlayerRef.value,
@@ -74,8 +78,13 @@ export function useLiteVideo() {
       videoStats.value.playCount += 1
     })
 
+    xgPlayer.on('loadeddata', () => {
+      loading.value = false
+    })
+
     xgPlayer.on('error', () => {
       loading.value = false
+      errorMessage.value = '视频播放失败，请换一个视频或稍后重试。'
     })
 
     xgPlayer.on('timeupdate', () => {
@@ -109,14 +118,35 @@ export function useLiteVideo() {
 
   async function loadVideo() {
     const category = getMenuFunctionCategory(currentMenu.value)
-    if (!category) return
+    if (!category) {
+      errorMessage.value = '当前视频源未配置 API 分类。'
+      return false
+    }
 
+    const seq = ++requestSeq
     loading.value = true
+    errorMessage.value = ''
     try {
-      videoUrl.value = await resolveVideoUrl(currentMenu.value)
+      const url = await resolveVideoUrl(currentMenu.value)
+      if (seq !== requestSeq) return false
+      if (!url) {
+        destroyPlayer()
+        videoUrl.value = ''
+        errorMessage.value = '接口没有返回可播放的视频地址，请换一个视频源。'
+        return false
+      }
+      videoUrl.value = url
       initPlayer()
+      return true
     } catch {
-      loading.value = false
+      if (seq === requestSeq) {
+        destroyPlayer()
+        videoUrl.value = ''
+        errorMessage.value = '视频获取失败，请检查网络或接口状态。'
+      }
+      return false
+    } finally {
+      if (seq === requestSeq) loading.value = false
     }
   }
 
@@ -128,7 +158,8 @@ export function useLiteVideo() {
   }
 
   async function refreshVideo() {
-    await loadVideo()
+    const ok = await loadVideo()
+    if (!ok) layer.msg(errorMessage.value || '视频刷新失败', { icon: 2 })
   }
 
   async function initPage() {
@@ -150,6 +181,7 @@ export function useLiteVideo() {
     menuVisible,
     xgPlayerRef,
     loading,
+    errorMessage,
     videoStats,
     recentSources,
     getSourceIcon,

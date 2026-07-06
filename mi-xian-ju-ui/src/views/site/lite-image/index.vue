@@ -14,6 +14,7 @@ const {
   imgUrl,
   currentImageIndex,
   loading,
+  errorMessage,
   zoomLevel,
   rotation,
   imageOrientation,
@@ -22,7 +23,7 @@ const {
   imgWrapperRef,
   currentImageUrl,
   handleMenuClick,
-  loadImage,
+  refreshImage,
   handleImgLoad,
   handleImgError,
   prevImage,
@@ -134,8 +135,12 @@ const {
                   </div>
                 </div>
 
-                <lay-empty v-else description="暂无图片，点击换一张加载" />
+                <lay-empty v-else :description="errorMessage || '暂无图片，点击换一张加载'" />
               </lay-loading>
+              <div v-if="errorMessage" class="lite-image-error">
+                <i class="layui-icon layui-icon-tips" />
+                <span>{{ errorMessage }}</span>
+              </div>
             </div>
           </lay-col>
 
@@ -165,7 +170,7 @@ const {
                 <span class="value">{{ imageOrientation }}</span>
               </div>
               <div class="action-buttons">
-                <lay-button type="primary" @click="loadImage">换一张</lay-button>
+                <lay-button type="primary" :loading="loading" @click="refreshImage">换一张</lay-button>
                 <lay-button v-if="currentImageUrl" @click="downloadImage">下载</lay-button>
               </div>
               <lay-button-group class="fit-buttons">

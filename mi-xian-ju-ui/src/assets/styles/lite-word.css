@@ -62,6 +62,25 @@
   font-family: inherit;
 }
 
+.lite-word-error {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 143, 102, 0.32);
+  border-radius: 14px;
+  color: #a34720;
+  background: rgba(255, 143, 102, 0.1);
+  font-size: 14px;
+}
+
+.site-theme-dark .lite-word-error {
+  color: #ffbd94;
+}
+
 .lite-word-preview-content {
   position: relative;
   padding: 34px 38px;

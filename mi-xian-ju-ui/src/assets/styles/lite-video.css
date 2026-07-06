@@ -74,6 +74,21 @@
   box-shadow: 0 18px 54px rgba(0, 0, 0, 0.34);
 }
 
+.lite-video-error {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 184, 77, 0.32);
+  border-radius: 14px;
+  color: #ffd28a;
+  background: rgba(255, 184, 77, 0.1);
+  font-size: 14px;
+}
+
 .lite-video-player-controls {
   position: relative;
   z-index: 1;

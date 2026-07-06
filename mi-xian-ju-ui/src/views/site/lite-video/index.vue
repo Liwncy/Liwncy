@@ -14,6 +14,7 @@ const {
   menuVisible,
   xgPlayerRef,
   loading,
+  errorMessage,
   videoStats,
   recentSources,
   getSourceIcon,
@@ -68,6 +69,10 @@ const {
           <lay-loading :type="3" :loading="loading" :full="true" text="视频加载中...">
             <div ref="xgPlayerRef" class="xg-player-container" />
           </lay-loading>
+          <div v-if="errorMessage" class="lite-video-error">
+            <i class="layui-icon layui-icon-tips" />
+            <span>{{ errorMessage }}</span>
+          </div>
         </div>
 
         <div class="lite-video-player-controls">

@@ -13,6 +13,7 @@ const {
   menuVisible,
   contentPreview,
   loading,
+  errorMessage,
   hasActiveMenu,
   handleMenuClick,
   copyContent,
@@ -51,6 +52,10 @@ const {
               <div class="site-page-card-body lite-word-card-body">
                 <div class="lite-word-preview">
                   <h4 class="lite-word-preview-title">文案内容</h4>
+                  <div v-if="errorMessage" class="lite-word-error">
+                    <i class="layui-icon layui-icon-tips" />
+                    <span>{{ errorMessage }}</span>
+                  </div>
                   <lay-loading :loading="loading">
                     <div class="lite-word-preview-content">
                       <p
@@ -65,7 +70,13 @@ const {
                 </div>
 
                 <div class="lite-word-actions">
-                  <lay-button type="primary" size="lg" :loading="loading" @click="copyContent">
+                  <lay-button
+                    type="primary"
+                    size="lg"
+                    :loading="loading"
+                    :disabled="Boolean(errorMessage)"
+                    @click="copyContent"
+                  >
                     <i class="layui-icon layui-icon-templeate-one" />
                     复制文案
                   </lay-button>

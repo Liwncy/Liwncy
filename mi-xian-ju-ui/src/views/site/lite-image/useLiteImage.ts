@@ -1,4 +1,5 @@
 import { computed, nextTick, onMounted, ref } from 'vue'
+import { layer } from '@layui/layer-vue'
 import { fetchLiteImageMenus } from '@/api/lite-image'
 import { fetchImage, getMenuFunctionCategory } from '@/api/functions'
 import type { MenuNode } from '@/types/menu'
@@ -18,6 +19,8 @@ export function useLiteImage() {
   const imgUrl = ref<string | string[]>('')
   const currentImageIndex = ref(0)
   const loading = ref(false)
+  const errorMessage = ref('')
+  let requestSeq = 0
   const zoomLevel = ref(1)
   const rotation = ref(0)
   const fitMode = ref<'auto' | 'contain' | 'fill'>('auto')
@@ -81,23 +84,41 @@ export function useLiteImage() {
 
   async function loadImage() {
     const category = getMenuFunctionCategory(currentMenu.value)
-    if (!category) return
+    if (!category) {
+      errorMessage.value = '当前图源未配置 API 分类。'
+      return false
+    }
 
+    const seq = ++requestSeq
     loading.value = true
+    errorMessage.value = ''
     try {
       const res = await fetchImage(category)
+      if (seq !== requestSeq) return false
       const normalized = res.data?.data.items?.length
         ? res.data.data.items
         : res.data?.data.url ?? ''
       imgUrl.value = normalized
-      if (typeof normalized === 'string' && normalized) {
-        historyImages.value.unshift({ url: normalized, time: new Date().toISOString() })
+      const firstUrl = Array.isArray(normalized) ? normalized[0] : normalized
+      if (firstUrl) {
+        historyImages.value.unshift({ url: firstUrl, time: new Date().toISOString() })
         historyImages.value = historyImages.value.slice(0, 10)
       }
       currentImageIndex.value = 0
       resetImageControls()
+      if (!firstUrl) {
+        errorMessage.value = '接口没有返回可展示的图片，请换一个图源。'
+        return false
+      }
+      return true
+    } catch {
+      if (seq === requestSeq) {
+        imgUrl.value = ''
+        errorMessage.value = '图片获取失败，请检查网络或接口状态。'
+      }
+      return false
     } finally {
-      loading.value = false
+      if (seq === requestSeq) loading.value = false
     }
   }
 
@@ -111,6 +132,12 @@ export function useLiteImage() {
 
   function handleImgError(event: Event) {
     ;(event.target as HTMLImageElement).src = 'https://www.layui-vue.com/assets/404-CWJ6jsKv.svg'
+    errorMessage.value = '图片加载失败，已显示占位图。'
+  }
+
+  async function refreshImage() {
+    const ok = await loadImage()
+    layer.msg(ok ? '图片已刷新' : errorMessage.value || '图片刷新失败', { icon: ok ? 1 : 2 })
   }
 
   function prevImage() {
@@ -197,6 +224,7 @@ export function useLiteImage() {
     imgUrl,
     currentImageIndex,
     loading,
+    errorMessage,
     zoomLevel,
     rotation,
     imageOrientation,
@@ -206,6 +234,7 @@ export function useLiteImage() {
     currentImageUrl,
     handleMenuClick,
     loadImage,
+    refreshImage,
     handleImgLoad,
     handleImgError,
     prevImage,
