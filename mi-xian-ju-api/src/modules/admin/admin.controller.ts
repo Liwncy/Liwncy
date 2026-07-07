@@ -122,6 +122,17 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async importMenus(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const input = (await c.req.json().catch(() => ({}))) as {
+      scope?: string
+      module?: string
+      replace?: boolean
+    }
+    const data = await c.get('services').admin.importMenus(input)
+    return c.json(ok(data))
+  }
+
   async updateFunctionAdapter(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const id = c.req.param('id')

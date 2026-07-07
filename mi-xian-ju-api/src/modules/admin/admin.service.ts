@@ -3,6 +3,9 @@ import { generateToken, hashPassword, hashToken, verifyPassword } from '../../co
 import type { Bindings } from '../../config/env'
 import { D1PlatformRepository } from '../../repository/d1-platform.repository'
 import { FunctionsService } from '../functions/functions.service'
+import { canonicalizeMenuTree } from '../../common/canonicalize-menu'
+import { normalizeMenuTree } from '../../common/normalize-menu'
+import type { MenuNode } from '../../common/menu.types'
 
 const SESSION_DAYS = 7
 const STATUS_VALUES = new Set(['enabled', 'disabled'])
@@ -181,6 +184,30 @@ export class AdminService {
       status: this.normalizeStatus(input.status),
       payload: this.normalizeJsonObject(input.payload, '菜单 Payload'),
     })
+
+    return this.listConfig()
+  }
+
+  async importMenus(input: {
+    scope?: string
+    module?: string
+    replace?: boolean
+  }) {
+    const scope = this.normalizeMenuScope(input.scope)
+    const module = this.normalizeRequiredString(input.module ?? (scope === 'top' ? 'layout' : undefined), '模块')
+    const kvKey = scope === 'top' ? 'webs/layout/topMenu/index' : `webs/${module}/sideMenu/index`
+    const raw = (await this.env.DATA_KV.get(kvKey, 'json')) as unknown
+    const menus = canonicalizeMenuTree(normalizeMenuTree(raw), { topMenu: scope === 'top' })
+    if (!menus.length) {
+      throw new BadRequestError(`KV 中没有可导入的菜单: ${kvKey}`)
+    }
+
+    const rows = this.flattenMenusForStorage(menus, scope, module)
+    if (input.replace ?? true) {
+      await this.platform.replaceMenus(scope, module, rows)
+    } else {
+      await this.platform.upsertMenus(scope, module, rows)
+    }
 
     return this.listConfig()
   }
@@ -706,6 +733,67 @@ export class AdminService {
       throw new BadRequestError('菜单范围只能是 top 或 side')
     }
     return value as 'top' | 'side'
+  }
+
+  private flattenMenusForStorage(nodes: MenuNode[], scope: 'top' | 'side', module: string) {
+    const normalizedModule = module.replace(/[^A-Za-z0-9]+/g, '-').toLowerCase()
+    const normalizeId = (id: string | number) =>
+      `${scope}-${normalizedModule}-${String(id).replace(/[^A-Za-z0-9_-]+/g, '-').toLowerCase()}`
+    const rows: Array<{
+      id: string
+      parentId?: string | null
+      title: string
+      subtitle?: string | null
+      icon?: string | null
+      path?: string | null
+      i18nKey?: string | null
+      sort: number
+      status: 'enabled' | 'disabled'
+      payload?: Record<string, unknown>
+    }> = []
+
+    const walk = (items: MenuNode[], parentId: string | null) => {
+      items.forEach((item, index) => {
+        const id = normalizeId(item.id)
+        rows.push({
+          id,
+          parentId,
+          title: item.title,
+          subtitle: item.subtitle ?? null,
+          icon: item.icon ?? null,
+          path: item.path ?? null,
+          i18nKey: item.i18nKey ?? null,
+          sort: item.sort ?? index + 1,
+          status: item.enabled === false ? 'disabled' : 'enabled',
+          payload: this.enrichImportedPayload(item.payload),
+        })
+        if (item.children?.length) {
+          walk(item.children, id)
+        }
+      })
+    }
+
+    walk(nodes, null)
+    return rows
+  }
+
+  private enrichImportedPayload(payload?: Record<string, unknown>) {
+    if (!payload) return undefined
+    const next = { ...payload }
+    const data = next.data
+    if (!data && typeof next.api === 'string') {
+      next.data = {
+        api: next.api,
+        category: this.inferCategoryFromApi(next.api),
+      }
+    }
+    return next
+  }
+
+  private inferCategoryFromApi(api: string) {
+    const path = api.split('?')[0] ?? api
+    const fileName = path.split('/').filter(Boolean).pop() ?? api
+    return fileName.replace(/\.[^.]+$/, '')
   }
 
   private normalizeMethod(method: string | undefined) {

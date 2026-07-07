@@ -454,6 +454,12 @@ export interface AdminMenuPayload {
   payload?: Record<string, unknown>
 }
 
+export interface AdminMenuImportPayload {
+  scope?: string
+  module?: string
+  replace?: boolean
+}
+
 export function createAdminResponseMap(data: AdminResponseMapPayload) {
   return post<ApiResult<AdminConfigResponse>>('/admin/response-maps', data, {
     headers: authHeaders(),
@@ -474,6 +480,12 @@ export function createAdminMenu(data: AdminMenuPayload) {
 
 export function updateAdminMenu(id: string, data: AdminMenuPayload) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/menus/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function importAdminMenus(data: AdminMenuImportPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/menus/import', data, {
     headers: authHeaders(),
   })
 }

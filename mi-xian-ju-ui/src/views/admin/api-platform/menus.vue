@@ -21,6 +21,7 @@
               <lay-button type="normal" size="sm" @click="resetSearch">重置</lay-button>
               <lay-button type="primary" size="sm" :loading="loading" @click="loadConfig">查询</lay-button>
               <lay-button size="sm" type="primary" @click="openMenuLayer()">新增菜单</lay-button>
+              <lay-button size="sm" type="warm" @click="openImportLayer">从 KV 导入</lay-button>
             </lay-form-item>
           </lay-col>
         </lay-row>
@@ -134,13 +135,53 @@
         </div>
       </div>
     </lay-layer>
+
+    <lay-layer v-model="importLayerVisible" title="从 KV 导入菜单" :area="['620px', '360px']">
+      <div class="admin-layer-form">
+        <lay-form>
+          <lay-row space="10">
+            <lay-col md="12">
+              <lay-form-item label="范围" label-width="90">
+                <select v-model="importForm.scope" class="admin-form-input">
+                  <option value="side">side</option>
+                  <option value="top">top</option>
+                </select>
+              </lay-form-item>
+            </lay-col>
+            <lay-col md="12">
+              <lay-form-item label="模块" label-width="90">
+                <input v-model="importForm.module" class="admin-form-input" placeholder="liteImage" />
+              </lay-form-item>
+            </lay-col>
+            <lay-col md="24">
+              <lay-form-item label="导入方式" label-width="90">
+                <select v-model="importForm.replace" class="admin-form-input">
+                  <option :value="true">覆盖当前范围和模块</option>
+                  <option :value="false">仅新增或更新同 ID 菜单</option>
+                </select>
+              </lay-form-item>
+            </lay-col>
+            <lay-col md="24">
+              <p class="admin-page-tip">
+                side 会读取 <code>webs/{{ importForm.module }}/sideMenu/index</code>；
+                top 会读取 <code>webs/layout/topMenu/index</code>。
+              </p>
+            </lay-col>
+          </lay-row>
+        </lay-form>
+        <div class="admin-layer-actions">
+          <lay-button size="sm" type="primary" :loading="importing" @click="importMenus">开始导入</lay-button>
+          <lay-button size="sm" @click="importLayerVisible = false">取消</lay-button>
+        </div>
+      </div>
+    </lay-layer>
   </lay-container>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
 import { layer } from '@layui/layer-vue'
-import { createAdminMenu, updateAdminMenu, type AdminMenuConfig } from '@/api/admin'
+import { createAdminMenu, importAdminMenus, updateAdminMenu, type AdminMenuConfig } from '@/api/admin'
 import { useAdminConfig } from '@/views/admin/api-platform/useAdminConfig'
 import '@/assets/styles/admin-platform.css'
 
@@ -148,7 +189,9 @@ const { loading, config, applyConfig, loadConfig } = useAdminConfig()
 const keyword = ref('')
 const moduleFilter = ref('')
 const menuLayerVisible = ref(false)
+const importLayerVisible = ref(false)
 const saving = ref(false)
+const importing = ref(false)
 const menuForm = reactive({
   editingId: '',
   id: '',
@@ -160,6 +203,11 @@ const menuForm = reactive({
   sort: 100,
   status: 'enabled',
   payloadText: '{\n  "data": {\n    "category": ""\n  }\n}',
+})
+const importForm = reactive({
+  scope: 'side',
+  module: 'liteImage',
+  replace: true,
 })
 
 const modules = computed(() => Array.from(new Set(config.menus.map((item) => item.module))).sort())
@@ -198,6 +246,13 @@ function openMenuLayer(item?: AdminMenuConfig) {
   menuForm.status = item?.status ?? 'enabled'
   menuForm.payloadText = JSON.stringify(item?.payload ?? { data: { category: '' } }, null, 2)
   menuLayerVisible.value = true
+}
+
+function openImportLayer() {
+  importForm.scope = 'side'
+  importForm.module = moduleFilter.value || 'liteImage'
+  importForm.replace = true
+  importLayerVisible.value = true
 }
 
 function parsePayload() {
@@ -248,6 +303,23 @@ async function toggleMenuStatus(item: AdminMenuConfig) {
   })
   if (res.data) applyConfig(res.data)
   layer.msg('菜单状态已更新', { icon: 1 })
+}
+
+async function importMenus() {
+  importing.value = true
+  try {
+    const res = await importAdminMenus({
+      scope: importForm.scope,
+      module: importForm.scope === 'top' ? 'layout' : importForm.module,
+      replace: importForm.replace,
+    })
+    if (res.data) applyConfig(res.data)
+    moduleFilter.value = importForm.scope === 'top' ? 'layout' : importForm.module
+    importLayerVisible.value = false
+    layer.msg('菜单已从 KV 导入', { icon: 1 })
+  } finally {
+    importing.value = false
+  }
 }
 
 onMounted(loadConfig)

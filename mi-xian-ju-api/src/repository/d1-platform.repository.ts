@@ -748,6 +748,93 @@ export class D1PlatformRepository {
       .run()
   }
 
+  async replaceMenus(scope: 'top' | 'side', module: string, menus: Array<{
+    id: string
+    parentId?: string | null
+    title: string
+    subtitle?: string | null
+    icon?: string | null
+    path?: string | null
+    i18nKey?: string | null
+    sort: number
+    status: 'enabled' | 'disabled'
+    payload?: Record<string, unknown>
+  }>) {
+    await this.db.prepare('DELETE FROM api_menus WHERE scope = ? AND module = ?').bind(scope, module).run()
+    for (const menu of menus) {
+      await this.upsertMenu({ ...menu, scope, module })
+    }
+  }
+
+  async upsertMenus(scope: 'top' | 'side', module: string, menus: Array<{
+    id: string
+    parentId?: string | null
+    title: string
+    subtitle?: string | null
+    icon?: string | null
+    path?: string | null
+    i18nKey?: string | null
+    sort: number
+    status: 'enabled' | 'disabled'
+    payload?: Record<string, unknown>
+  }>) {
+    for (const menu of menus) {
+      await this.upsertMenu({ ...menu, scope, module })
+    }
+  }
+
+  private async upsertMenu(input: {
+    id: string
+    parentId?: string | null
+    scope: 'top' | 'side'
+    module: string
+    title: string
+    subtitle?: string | null
+    icon?: string | null
+    path?: string | null
+    i18nKey?: string | null
+    sort: number
+    status: 'enabled' | 'disabled'
+    payload?: Record<string, unknown>
+  }) {
+    await this.db
+      .prepare(
+        `INSERT INTO api_menus (
+           id, parent_id, scope, module, title, subtitle, icon, path,
+           i18n_key, sort, status, payload_json
+         )
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+           parent_id = excluded.parent_id,
+           scope = excluded.scope,
+           module = excluded.module,
+           title = excluded.title,
+           subtitle = excluded.subtitle,
+           icon = excluded.icon,
+           path = excluded.path,
+           i18n_key = excluded.i18n_key,
+           sort = excluded.sort,
+           status = excluded.status,
+           payload_json = excluded.payload_json,
+           updated_at = datetime('now')`,
+      )
+      .bind(
+        input.id,
+        input.parentId ?? null,
+        input.scope,
+        input.module,
+        input.title,
+        input.subtitle ?? null,
+        input.icon ?? null,
+        input.path ?? null,
+        input.i18nKey ?? null,
+        input.sort,
+        input.status,
+        input.payload === undefined ? '{}' : JSON.stringify(input.payload),
+      )
+      .run()
+  }
+
   async updateMenu(
     id: string,
     input: {
