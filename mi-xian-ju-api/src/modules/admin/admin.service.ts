@@ -16,6 +16,14 @@ const PARAM_SOURCES = new Set(['query', 'body', 'any'])
 const PARAM_TYPES = new Set(['string', 'number', 'boolean', 'json'])
 const PARAM_MAP_TARGETS = new Set(['param', 'query', 'header', 'body'])
 const MENU_SCOPES = new Set(['top', 'side'])
+const CHAIN_STEP_TYPES = new Set([
+  'normalize_params',
+  'match_route',
+  'map_request',
+  'call_adapter',
+  'map_response',
+  'normalize_response',
+])
 
 function addDays(date: Date, days: number) {
   const next = new Date(date)
@@ -94,6 +102,8 @@ export class AdminService {
       functionRoutes,
       adapterParamMaps,
       responseMaps,
+      chains,
+      chainSteps,
       menus,
     ] = await Promise.all([
       this.platform.listFunctions(),
@@ -104,10 +114,24 @@ export class AdminService {
       this.platform.listFunctionRouteSummaries(),
       this.platform.listAdapterParamMapSummaries(),
       this.platform.listResponseMapSummaries(),
+      this.platform.listChainSummaries(),
+      this.platform.listChainStepSummaries(),
       this.platform.listMenus(),
     ])
 
-    return { functions, sources, adapters, functionAdapters, functionParams, functionRoutes, adapterParamMaps, responseMaps, menus }
+    return {
+      functions,
+      sources,
+      adapters,
+      functionAdapters,
+      functionParams,
+      functionRoutes,
+      adapterParamMaps,
+      responseMaps,
+      chains,
+      chainSteps,
+      menus,
+    }
   }
 
   async debugFunctionInvoke(input: { code?: string; method?: string; params?: unknown }) {
@@ -245,6 +269,11 @@ export class AdminService {
     return this.listConfig()
   }
 
+  async deleteFunction(id: string) {
+    await this.platform.deleteFunction(id)
+    return this.listConfig()
+  }
+
   async createFunction(input: {
     code?: string
     name?: string
@@ -269,6 +298,107 @@ export class AdminService {
       status: this.normalizeStatus(input.status) ?? 'enabled',
     })
 
+    return this.listConfig()
+  }
+
+  async createChain(input: {
+    functionId?: string
+    code?: string
+    name?: string
+    description?: string
+    isDefault?: boolean
+    sort?: unknown
+    status?: string
+  }) {
+    await this.platform.createChain({
+      id: `chain_${crypto.randomUUID()}`,
+      functionId: this.normalizeRequiredString(input.functionId, '功能接口'),
+      code: this.normalizeCode(input.code, '链编码'),
+      name: this.normalizeRequiredString(input.name, '链名称'),
+      description: input.description?.trim() ?? '',
+      isDefault: input.isDefault ?? true,
+      sort: this.normalizePriority(input.sort) ?? 100,
+      status: this.normalizeStatus(input.status) ?? 'enabled',
+    })
+
+    return this.listConfig()
+  }
+
+  async updateChain(
+    id: string,
+    input: {
+      functionId?: string
+      code?: string
+      name?: string
+      description?: string
+      isDefault?: boolean
+      sort?: unknown
+      status?: string
+    },
+  ) {
+    await this.platform.updateChain(id, {
+      functionId: input.functionId === undefined ? undefined : this.normalizeRequiredString(input.functionId, '功能接口'),
+      code: input.code === undefined ? undefined : this.normalizeCode(input.code, '链编码'),
+      name: input.name === undefined ? undefined : this.normalizeRequiredString(input.name, '链名称'),
+      description: input.description?.trim(),
+      isDefault: input.isDefault,
+      sort: this.normalizePriority(input.sort),
+      status: this.normalizeStatus(input.status),
+    })
+
+    return this.listConfig()
+  }
+
+  async createChainStep(input: {
+    chainId?: string
+    stepKey?: string
+    type?: string
+    name?: string
+    config?: unknown
+    sort?: unknown
+    status?: string
+  }) {
+    await this.platform.createChainStep({
+      id: `step_${crypto.randomUUID()}`,
+      chainId: this.normalizeRequiredString(input.chainId, '执行链'),
+      stepKey: this.normalizeCode(input.stepKey, '步骤编码'),
+      type: this.normalizeChainStepType(input.type),
+      name: this.normalizeRequiredString(input.name, '步骤名称'),
+      config: this.normalizeJsonObject(input.config ?? {}, '步骤配置') ?? {},
+      sort: this.normalizePriority(input.sort) ?? 100,
+      status: this.normalizeStatus(input.status) ?? 'enabled',
+    })
+
+    return this.listConfig()
+  }
+
+  async updateChainStep(
+    id: string,
+    input: {
+      chainId?: string
+      stepKey?: string
+      type?: string
+      name?: string
+      config?: unknown
+      sort?: unknown
+      status?: string
+    },
+  ) {
+    await this.platform.updateChainStep(id, {
+      chainId: input.chainId === undefined ? undefined : this.normalizeRequiredString(input.chainId, '执行链'),
+      stepKey: input.stepKey === undefined ? undefined : this.normalizeCode(input.stepKey, '步骤编码'),
+      type: input.type === undefined ? undefined : this.normalizeChainStepType(input.type),
+      name: input.name === undefined ? undefined : this.normalizeRequiredString(input.name, '步骤名称'),
+      config: this.normalizeJsonObject(input.config, '步骤配置'),
+      sort: this.normalizePriority(input.sort),
+      status: this.normalizeStatus(input.status),
+    })
+
+    return this.listConfig()
+  }
+
+  async deleteChainStep(id: string) {
+    await this.platform.deleteChainStep(id)
     return this.listConfig()
   }
 
@@ -305,6 +435,11 @@ export class AdminService {
       fixedParams,
     })
 
+    return this.listConfig()
+  }
+
+  async deleteFunctionAdapter(id: string) {
+    await this.platform.deleteFunctionAdapter(id)
     return this.listConfig()
   }
 
@@ -376,6 +511,11 @@ export class AdminService {
       rateLimit: this.normalizeJsonObject(input.rateLimit, '限流配置'),
     })
 
+    return this.listConfig()
+  }
+
+  async deleteSource(id: string) {
+    await this.platform.deleteSource(id)
     return this.listConfig()
   }
 
@@ -451,6 +591,11 @@ export class AdminService {
     return this.listConfig()
   }
 
+  async deleteAdapter(id: string) {
+    await this.platform.deleteAdapter(id)
+    return this.listConfig()
+  }
+
   async createFunctionParam(input: {
     functionId?: string
     paramKey?: string
@@ -515,6 +660,11 @@ export class AdminService {
     return this.listConfig()
   }
 
+  async deleteFunctionParam(id: string) {
+    await this.platform.deleteFunctionParam(id)
+    return this.listConfig()
+  }
+
   async createFunctionRoute(input: {
     functionId?: string
     routeKey?: string
@@ -560,6 +710,11 @@ export class AdminService {
       status: this.normalizeStatus(input.status),
     })
 
+    return this.listConfig()
+  }
+
+  async deleteFunctionRoute(id: string) {
+    await this.platform.deleteFunctionRoute(id)
     return this.listConfig()
   }
 
@@ -620,6 +775,11 @@ export class AdminService {
     return this.listConfig()
   }
 
+  async deleteAdapterParamMap(id: string) {
+    await this.platform.deleteAdapterParamMap(id)
+    return this.listConfig()
+  }
+
   async createResponseMap(input: {
     functionId?: string | null
     adapterId?: string
@@ -662,6 +822,11 @@ export class AdminService {
       status: this.normalizeStatus(input.status),
     })
 
+    return this.listConfig()
+  }
+
+  async deleteResponseMap(id: string) {
+    await this.platform.deleteResponseMap(id)
     return this.listConfig()
   }
 
@@ -832,6 +997,14 @@ export class AdminService {
     if (value === undefined) return undefined
     const normalized = value?.trim()
     return normalized || null
+  }
+
+  private normalizeChainStepType(value: string | undefined) {
+    const normalized = this.normalizeRequiredString(value, '步骤类型')
+    if (!CHAIN_STEP_TYPES.has(normalized)) {
+      throw new BadRequestError('步骤类型不支持')
+    }
+    return normalized
   }
 
   private normalizePriority(priority: unknown) {

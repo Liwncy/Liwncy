@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { layer } from '@layui/layer-vue'
 import {
   fetchAdminConfig,
@@ -19,6 +19,8 @@ export function createEmptyAdminConfig(): AdminConfigResponse {
     functionRoutes: [],
     adapterParamMaps: [],
     responseMaps: [],
+    chains: [],
+    chainSteps: [],
     menus: [],
   }
 }
@@ -36,6 +38,7 @@ export function formatValue(value: unknown) {
 export function useAdminConfig() {
   const loading = ref(false)
   const updating = ref('')
+  const selectedFunctionId = ref('')
   const config = reactive<AdminConfigResponse>(createEmptyAdminConfig())
   const functionParamDrafts = reactive<Record<string, string>>({})
   const adapterPriorityDrafts = reactive<Record<string, number>>({})
@@ -49,6 +52,8 @@ export function useAdminConfig() {
     config.functionRoutes = data.functionRoutes
     config.adapterParamMaps = data.adapterParamMaps
     config.responseMaps = data.responseMaps
+    config.chains = data.chains ?? []
+    config.chainSteps = data.chainSteps ?? []
     config.menus = data.menus ?? []
 
     for (const item of data.functions) {
@@ -56,6 +61,10 @@ export function useAdminConfig() {
     }
     for (const item of data.functionAdapters) {
       adapterPriorityDrafts[item.id] = item.priority
+    }
+
+    if (!data.functions.some((item) => item.id === selectedFunctionId.value)) {
+      selectedFunctionId.value = data.functions[0]?.id ?? ''
     }
   }
 
@@ -86,6 +95,40 @@ export function useAdminConfig() {
       loading.value = false
     }
   }
+
+  function selectFunction(id: string) {
+    selectedFunctionId.value = id
+  }
+
+  const selectedFunction = computed(() =>
+    config.functions.find((item) => item.id === selectedFunctionId.value) ?? null,
+  )
+
+  const selectedFunctionParams = computed(() =>
+    selectedFunctionId.value
+      ? config.functionParams.filter((item) => item.function_id === selectedFunctionId.value)
+      : [],
+  )
+
+  const selectedFunctionRoutes = computed(() =>
+    selectedFunctionId.value
+      ? config.functionRoutes.filter((item) => item.function_id === selectedFunctionId.value)
+      : [],
+  )
+
+  const selectedFunctionAdapters = computed(() =>
+    selectedFunctionId.value
+      ? config.functionAdapters.filter((item) => item.function_id === selectedFunctionId.value)
+      : [],
+  )
+
+  const selectedFunctionResponseMaps = computed(() =>
+    selectedFunctionId.value
+      ? config.responseMaps.filter(
+          (item) => item.function_id === selectedFunctionId.value || item.function_id === null,
+        )
+      : [],
+  )
 
   async function toggleFunctionStatus(item: AdminFunctionConfig) {
     updating.value = `function-status:${item.id}`
@@ -157,6 +200,14 @@ export function useAdminConfig() {
     updating,
     config,
     applyConfig,
+    formatValue,
+    selectedFunctionId,
+    selectedFunction,
+    selectedFunctionParams,
+    selectedFunctionRoutes,
+    selectedFunctionAdapters,
+    selectedFunctionResponseMaps,
+    selectFunction,
     functionParamDrafts,
     adapterPriorityDrafts,
     loadConfig,

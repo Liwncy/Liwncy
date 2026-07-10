@@ -28,4 +28,8 @@ export function patch<T>(url: string, data?: unknown, config?: AxiosRequestConfi
   return http.patch(url, data, config)
 }
 
+export function del<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  return http.delete(url, config)
+}
+
 export default http

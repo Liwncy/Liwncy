@@ -51,6 +51,16 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async deleteFunction(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少功能接口 ID')
+    }
+    const data = await c.get('services').admin.deleteFunction(id)
+    return c.json(ok(data))
+  }
+
   async createFunction(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const input = (await c.req.json().catch(() => ({}))) as {
@@ -76,6 +86,84 @@ export class AdminController {
       params?: unknown
     }
     const data = await c.get('services').admin.debugFunctionInvoke(input)
+    return c.json(ok(data))
+  }
+
+  async createChain(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const input = (await c.req.json().catch(() => ({}))) as {
+      functionId?: string
+      code?: string
+      name?: string
+      description?: string
+      isDefault?: boolean
+      sort?: unknown
+      status?: string
+    }
+    const data = await c.get('services').admin.createChain(input)
+    return c.json(ok(data))
+  }
+
+  async updateChain(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少执行链 ID')
+    }
+    const input = (await c.req.json().catch(() => ({}))) as {
+      functionId?: string
+      code?: string
+      name?: string
+      description?: string
+      isDefault?: boolean
+      sort?: unknown
+      status?: string
+    }
+    const data = await c.get('services').admin.updateChain(id, input)
+    return c.json(ok(data))
+  }
+
+  async createChainStep(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const input = (await c.req.json().catch(() => ({}))) as {
+      chainId?: string
+      stepKey?: string
+      type?: string
+      name?: string
+      config?: unknown
+      sort?: unknown
+      status?: string
+    }
+    const data = await c.get('services').admin.createChainStep(input)
+    return c.json(ok(data))
+  }
+
+  async updateChainStep(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少执行链步骤 ID')
+    }
+    const input = (await c.req.json().catch(() => ({}))) as {
+      chainId?: string
+      stepKey?: string
+      type?: string
+      name?: string
+      config?: unknown
+      sort?: unknown
+      status?: string
+    }
+    const data = await c.get('services').admin.updateChainStep(id, input)
+    return c.json(ok(data))
+  }
+
+  async deleteChainStep(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少执行链步骤 ID')
+    }
+    const data = await c.get('services').admin.deleteChainStep(id)
     return c.json(ok(data))
   }
 
@@ -154,6 +242,16 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async deleteFunctionAdapter(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少绑定 ID')
+    }
+    const data = await c.get('services').admin.deleteFunctionAdapter(id)
+    return c.json(ok(data))
+  }
+
   async createFunctionAdapter(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const input = (await c.req.json().catch(() => ({}))) as {
@@ -203,6 +301,16 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async deleteSource(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少平台 ID')
+    }
+    const data = await c.get('services').admin.deleteSource(id)
+    return c.json(ok(data))
+  }
+
   async createAdapter(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const input = (await c.req.json().catch(() => ({}))) as {
@@ -249,6 +357,16 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async deleteAdapter(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少 Adapter ID')
+    }
+    const data = await c.get('services').admin.deleteAdapter(id)
+    return c.json(ok(data))
+  }
+
   async createFunctionParam(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const input = (await c.req.json().catch(() => ({}))) as {
@@ -291,6 +409,16 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async deleteFunctionParam(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少参数 ID')
+    }
+    const data = await c.get('services').admin.deleteFunctionParam(id)
+    return c.json(ok(data))
+  }
+
   async createFunctionRoute(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const input = (await c.req.json().catch(() => ({}))) as {
@@ -322,6 +450,16 @@ export class AdminController {
       status?: string
     }
     const data = await c.get('services').admin.updateFunctionRoute(id, input)
+    return c.json(ok(data))
+  }
+
+  async deleteFunctionRoute(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少 Route ID')
+    }
+    const data = await c.get('services').admin.deleteFunctionRoute(id)
     return c.json(ok(data))
   }
 
@@ -363,6 +501,16 @@ export class AdminController {
     return c.json(ok(data))
   }
 
+  async deleteAdapterParamMap(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少参数映射 ID')
+    }
+    const data = await c.get('services').admin.deleteAdapterParamMap(id)
+    return c.json(ok(data))
+  }
+
   async createResponseMap(c: Context<AppEnv>) {
     await c.get('services').admin.getCurrentUser(getBearerToken(c))
     const input = (await c.req.json().catch(() => ({}))) as {
@@ -392,6 +540,16 @@ export class AdminController {
       status?: string
     }
     const data = await c.get('services').admin.updateResponseMap(id, input)
+    return c.json(ok(data))
+  }
+
+  async deleteResponseMap(c: Context<AppEnv>) {
+    await c.get('services').admin.getCurrentUser(getBearerToken(c))
+    const id = c.req.param('id')
+    if (!id) {
+      throw new BadRequestError('缺少响应映射 ID')
+    }
+    const data = await c.get('services').admin.deleteResponseMap(id)
     return c.json(ok(data))
   }
 }

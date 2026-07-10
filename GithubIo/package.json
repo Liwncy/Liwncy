@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "packageManager": "pnpm@8.14.0",
   "scripts": {
-    "dev": "vite",
+    "dev:old": "vite",
     "build": "vite build",
     "build:check": "vue-tsc --noEmit && vite build",
     "build:prod": "vue-tsc --noEmit && vite build --mode production",

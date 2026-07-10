@@ -2,6 +2,7 @@ import { BadRequestError, HttpError, NotFoundError } from '../../common/http-err
 import type {
   ApiAdapterParamMapRow,
   ApiFunctionAdapterConfig,
+  ApiFunctionRow,
   ApiFunctionParamRow,
   ApiFunctionRouteRow,
   ApiResponseMapRow,
@@ -53,6 +54,16 @@ export type FunctionDebugResult = {
     name: string
     match: JsonObject
     defaultParams: JsonObject
+  } | null
+  chain?: {
+    id: string
+    code: string
+    name: string
+    steps: Array<{
+      key: string
+      type: string
+      name: string
+    }>
   } | null
   adapters: Array<{
     bindingId: string
@@ -295,6 +306,7 @@ export class FunctionsService {
             defaultParams: parseJsonObject(route.default_params_json),
           }
         : null,
+      chain: null,
       adapters: [],
       attempts: [],
       durationMs: 0,

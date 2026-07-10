@@ -1,5 +1,15 @@
 <template>
   <lay-container fluid="true" class="admin-page">
+    <lay-card class="admin-card admin-page-hero">
+      <div>
+        <p class="admin-page-eyebrow">API Platform</p>
+        <h1>菜单配置</h1>
+        <p class="admin-page-desc">
+          这里管理前台菜单结构，D1 优先、KV 兜底，支持直接从旧配置导入后再做细化调整。
+        </p>
+      </div>
+    </lay-card>
+
     <lay-card class="admin-card">
       <lay-form class="admin-search-form">
         <lay-row>

@@ -4,6 +4,11 @@ import type {
   ApiAdapterRow,
   ApiAdapterParamMapRow,
   ApiAdapterParamMapSummary,
+  ApiChainConfig,
+  ApiChainRow,
+  ApiChainStepRow,
+  ApiChainStepSummary,
+  ApiChainSummary,
   ApiFunctionAdapterConfig,
   ApiFunctionRow,
   ApiFunctionAdapterSummary,
@@ -197,6 +202,85 @@ export class D1PlatformRepository {
       route_name: row.route_name,
       defaultValue: parseJsonValue(row.default_value_json),
     }))
+  }
+
+  async listChainSummaries(): Promise<ApiChainSummary[]> {
+    const result = await this.db
+      .prepare(
+        `SELECT c.*, f.code AS function_code, f.name AS function_name
+         FROM api_chains c
+         INNER JOIN api_functions f ON f.id = c.function_id
+         ORDER BY f.code ASC, c.sort ASC, c.code ASC`,
+      )
+      .all<ApiChainRow & { function_code: string; function_name: string }>()
+
+    return result.results.map((row) => ({
+      ...row,
+      function_code: row.function_code,
+      function_name: row.function_name,
+    }))
+  }
+
+  async listChainStepSummaries(): Promise<ApiChainStepSummary[]> {
+    const result = await this.db
+      .prepare(
+        `SELECT
+           s.*,
+           c.code AS chain_code,
+           c.name AS chain_name,
+           c.function_id,
+           f.code AS function_code,
+           f.name AS function_name
+         FROM api_chain_steps s
+         INNER JOIN api_chains c ON c.id = s.chain_id
+         INNER JOIN api_functions f ON f.id = c.function_id
+         ORDER BY f.code ASC, c.sort ASC, s.sort ASC, s.step_key ASC`,
+      )
+      .all<ApiChainStepRow & {
+        chain_code: string
+        chain_name: string
+        function_id: string
+        function_code: string
+        function_name: string
+      }>()
+
+    return result.results.map((row) => ({
+      ...row,
+      chain_code: row.chain_code,
+      chain_name: row.chain_name,
+      function_id: row.function_id,
+      function_code: row.function_code,
+      function_name: row.function_name,
+      config: parseJsonObject(row.config_json),
+    }))
+  }
+
+  async findDefaultChain(functionId: string): Promise<ApiChainConfig | null> {
+    const chain = await this.db
+      .prepare(
+        `SELECT * FROM api_chains
+         WHERE function_id = ?
+           AND is_default = 1
+           AND status = 'enabled'
+         ORDER BY sort ASC, code ASC
+         LIMIT 1`,
+      )
+      .bind(functionId)
+      .first<ApiChainRow>()
+
+    if (!chain) return null
+
+    const steps = await this.db
+      .prepare(
+        `SELECT * FROM api_chain_steps
+         WHERE chain_id = ?
+           AND status = 'enabled'
+         ORDER BY sort ASC, step_key ASC`,
+      )
+      .bind(chain.id)
+      .all<ApiChainStepRow>()
+
+    return { chain, steps: steps.results }
   }
 
   async listResponseMapSummaries(): Promise<ApiResponseMapSummary[]> {
@@ -603,6 +687,150 @@ export class D1PlatformRepository {
       .run()
   }
 
+  async deleteFunction(id: string) {
+    await this.db.prepare('DELETE FROM api_functions WHERE id = ?').bind(id).run()
+  }
+
+  async createChain(input: {
+    id: string
+    functionId: string
+    code: string
+    name: string
+    description: string
+    isDefault: boolean
+    sort: number
+    status: 'enabled' | 'disabled'
+  }) {
+    await this.db
+      .prepare(
+        `INSERT INTO api_chains (
+           id, function_id, code, name, description, is_default, sort, status
+         )
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .bind(
+        input.id,
+        input.functionId,
+        input.code,
+        input.name,
+        input.description,
+        input.isDefault ? 1 : 0,
+        input.sort,
+        input.status,
+      )
+      .run()
+  }
+
+  async updateChain(
+    id: string,
+    input: {
+      functionId?: string
+      code?: string
+      name?: string
+      description?: string
+      isDefault?: boolean
+      sort?: number
+      status?: 'enabled' | 'disabled'
+    },
+  ) {
+    await this.db
+      .prepare(
+        `UPDATE api_chains
+         SET function_id = COALESCE(?, function_id),
+             code = COALESCE(?, code),
+             name = COALESCE(?, name),
+             description = COALESCE(?, description),
+             is_default = COALESCE(?, is_default),
+             sort = COALESCE(?, sort),
+             status = COALESCE(?, status),
+             updated_at = datetime('now')
+         WHERE id = ?`,
+      )
+      .bind(
+        input.functionId ?? null,
+        input.code ?? null,
+        input.name ?? null,
+        input.description ?? null,
+        input.isDefault === undefined ? null : input.isDefault ? 1 : 0,
+        input.sort ?? null,
+        input.status ?? null,
+        id,
+      )
+      .run()
+  }
+
+  async createChainStep(input: {
+    id: string
+    chainId: string
+    stepKey: string
+    type: string
+    name: string
+    config: Record<string, unknown>
+    sort: number
+    status: 'enabled' | 'disabled'
+  }) {
+    await this.db
+      .prepare(
+        `INSERT INTO api_chain_steps (
+           id, chain_id, step_key, type, name, config_json, sort, status
+         )
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .bind(
+        input.id,
+        input.chainId,
+        input.stepKey,
+        input.type,
+        input.name,
+        JSON.stringify(input.config),
+        input.sort,
+        input.status,
+      )
+      .run()
+  }
+
+  async updateChainStep(
+    id: string,
+    input: {
+      chainId?: string
+      stepKey?: string
+      type?: string
+      name?: string
+      config?: Record<string, unknown>
+      sort?: number
+      status?: 'enabled' | 'disabled'
+    },
+  ) {
+    await this.db
+      .prepare(
+        `UPDATE api_chain_steps
+         SET chain_id = COALESCE(?, chain_id),
+             step_key = COALESCE(?, step_key),
+             type = COALESCE(?, type),
+             name = COALESCE(?, name),
+             config_json = COALESCE(?, config_json),
+             sort = COALESCE(?, sort),
+             status = COALESCE(?, status),
+             updated_at = datetime('now')
+         WHERE id = ?`,
+      )
+      .bind(
+        input.chainId ?? null,
+        input.stepKey ?? null,
+        input.type ?? null,
+        input.name ?? null,
+        input.config === undefined ? null : JSON.stringify(input.config),
+        input.sort ?? null,
+        input.status ?? null,
+        id,
+      )
+      .run()
+  }
+
+  async deleteChainStep(id: string) {
+    await this.db.prepare('DELETE FROM api_chain_steps WHERE id = ?').bind(id).run()
+  }
+
   async createFunctionAdapter(input: {
     id: string
     functionId: string
@@ -681,6 +909,10 @@ export class D1PlatformRepository {
         id,
       )
       .run()
+  }
+
+  async deleteFunctionAdapter(id: string) {
+    await this.db.prepare('DELETE FROM api_function_adapters WHERE id = ?').bind(id).run()
   }
 
   async createSource(input: {
@@ -895,6 +1127,10 @@ export class D1PlatformRepository {
       .run()
   }
 
+  async deleteMenu(id: string) {
+    await this.db.prepare('DELETE FROM api_menus WHERE id = ?').bind(id).run()
+  }
+
   async updateSource(
     id: string,
     input: {
@@ -928,6 +1164,10 @@ export class D1PlatformRepository {
         id,
       )
       .run()
+  }
+
+  async deleteSource(id: string) {
+    await this.db.prepare('DELETE FROM api_sources WHERE id = ?').bind(id).run()
   }
 
   async createAdapter(input: {
@@ -1029,6 +1269,10 @@ export class D1PlatformRepository {
       .run()
   }
 
+  async deleteAdapter(id: string) {
+    await this.db.prepare('DELETE FROM api_adapters WHERE id = ?').bind(id).run()
+  }
+
   async createFunctionParam(input: {
     id: string
     functionId: string
@@ -1118,6 +1362,10 @@ export class D1PlatformRepository {
       .run()
   }
 
+  async deleteFunctionParam(id: string) {
+    await this.db.prepare('DELETE FROM api_function_params WHERE id = ?').bind(id).run()
+  }
+
   async createFunctionRoute(input: {
     id: string
     functionId: string
@@ -1184,6 +1432,10 @@ export class D1PlatformRepository {
         id,
       )
       .run()
+  }
+
+  async deleteFunctionRoute(id: string) {
+    await this.db.prepare('DELETE FROM api_function_routes WHERE id = ?').bind(id).run()
   }
 
   async createAdapterParamMap(input: {
@@ -1267,6 +1519,10 @@ export class D1PlatformRepository {
       .run()
   }
 
+  async deleteAdapterParamMap(id: string) {
+    await this.db.prepare('DELETE FROM api_adapter_param_maps WHERE id = ?').bind(id).run()
+  }
+
   async createResponseMap(input: {
     id: string
     functionId?: string | null
@@ -1330,5 +1586,9 @@ export class D1PlatformRepository {
         id,
       )
       .run()
+  }
+
+  async deleteResponseMap(id: string) {
+    await this.db.prepare('DELETE FROM api_response_maps WHERE id = ?').bind(id).run()
   }
 }

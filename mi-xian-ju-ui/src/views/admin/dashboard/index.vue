@@ -1,5 +1,15 @@
 <template>
   <div class="admin-page">
+    <lay-card class="admin-card admin-page-hero">
+      <div>
+        <p class="admin-page-eyebrow">Dashboard</p>
+        <h1>控制台</h1>
+        <p class="admin-page-desc">
+          这里是芈仙居后台的总览入口，配置、接口、菜单和适配器状态都会在这里快速汇总。
+        </p>
+      </div>
+    </lay-card>
+
     <lay-row space="10">
       <lay-col md="8" sm="12" xs="24">
         <lay-card title="快捷方式" class="admin-card">
@@ -8,13 +18,13 @@
               <i class="layui-icon layui-icon-app"></i>
               <cite>功能接口</cite>
             </router-link>
-            <router-link class="admin-shortcut" to="/admin/api/contracts">
-              <i class="layui-icon layui-icon-form"></i>
-              <cite>参数契约</cite>
+            <router-link class="admin-shortcut" to="/admin/api/sources">
+              <i class="layui-icon layui-icon-website"></i>
+              <cite>平台源</cite>
             </router-link>
             <router-link class="admin-shortcut" to="/admin/api/adapters">
               <i class="layui-icon layui-icon-set"></i>
-              <cite>平台适配</cite>
+              <cite>Adapter</cite>
             </router-link>
             <router-link class="admin-shortcut" to="/admin/api/menus">
               <i class="layui-icon layui-icon-template"></i>

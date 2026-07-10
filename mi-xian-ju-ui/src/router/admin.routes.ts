@@ -31,16 +31,22 @@ export const adminRoutes: RouteRecordRaw[] = [
         meta: { title: '功能接口', requireAuth: true },
       },
       {
-        path: 'api/contracts',
-        name: 'AdminApiContracts',
-        component: () => import('@/views/admin/api-platform/contracts.vue'),
-        meta: { title: '参数契约', requireAuth: true },
+        path: 'api/functions/:id/configs',
+        name: 'AdminApiFunctionConfigs',
+        component: () => import('@/views/admin/api-platform/function-configs.vue'),
+        meta: { title: '接口详情', requireAuth: true },
+      },
+      {
+        path: 'api/sources',
+        name: 'AdminApiSources',
+        component: () => import('@/views/admin/api-platform/sources.vue'),
+        meta: { title: '平台源', requireAuth: true },
       },
       {
         path: 'api/adapters',
         name: 'AdminApiAdapters',
         component: () => import('@/views/admin/api-platform/adapters.vue'),
-        meta: { title: '平台适配', requireAuth: true },
+        meta: { title: 'Adapter', requireAuth: true },
       },
       {
         path: 'api/menus',

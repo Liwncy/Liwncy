@@ -1,4 +1,4 @@
-import { get, patch, post } from '@/api/http'
+import { del, get, patch, post } from '@/api/http'
 import { useUserStore } from '@/store/user'
 import type { ApiResult } from '@/types/global'
 
@@ -140,6 +140,35 @@ export interface AdminResponseMapConfig {
   status: string
 }
 
+export interface AdminChainConfig {
+  id: string
+  function_id: string
+  function_code: string
+  function_name: string
+  code: string
+  name: string
+  description: string
+  is_default: number
+  sort: number
+  status: string
+}
+
+export interface AdminChainStepConfig {
+  id: string
+  chain_id: string
+  chain_code: string
+  chain_name: string
+  function_id: string
+  function_code: string
+  function_name: string
+  step_key: string
+  type: string
+  name: string
+  config: Record<string, unknown>
+  sort: number
+  status: string
+}
+
 export interface AdminMenuConfig {
   id: string
   parent_id: string | null
@@ -164,6 +193,8 @@ export interface AdminConfigResponse {
   functionRoutes: AdminFunctionRouteConfig[]
   adapterParamMaps: AdminAdapterParamMapConfig[]
   responseMaps: AdminResponseMapConfig[]
+  chains: AdminChainConfig[]
+  chainSteps: AdminChainStepConfig[]
   menus: AdminMenuConfig[]
 }
 
@@ -221,6 +252,16 @@ export interface AdminFunctionDebugResponse {
     data: unknown
   }
   errors: string[]
+  chain?: {
+    id: string
+    code: string
+    name: string
+    steps: Array<{
+      key: string
+      type: string
+      name: string
+    }>
+  } | null
 }
 
 function authHeaders() {
@@ -264,11 +305,23 @@ export function updateAdminFunction(
   })
 }
 
+export function deleteAdminFunction(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/functions/${id}`, {
+    headers: authHeaders(),
+  })
+}
+
 export function updateAdminFunctionAdapter(
   id: string,
   data: AdminFunctionAdapterPayload,
 ) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/function-adapters/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function deleteAdminFunctionAdapter(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/function-adapters/${id}`, {
     headers: authHeaders(),
   })
 }
@@ -346,6 +399,12 @@ export function updateAdminSource(id: string, data: AdminSourcePayload) {
   })
 }
 
+export function deleteAdminSource(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/sources/${id}`, {
+    headers: authHeaders(),
+  })
+}
+
 export function createAdminAdapter(data: AdminAdapterPayload) {
   return post<ApiResult<AdminConfigResponse>>('/admin/adapters', data, {
     headers: authHeaders(),
@@ -354,6 +413,12 @@ export function createAdminAdapter(data: AdminAdapterPayload) {
 
 export function updateAdminAdapter(id: string, data: AdminAdapterPayload) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/adapters/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function deleteAdminAdapter(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/adapters/${id}`, {
     headers: authHeaders(),
   })
 }
@@ -406,6 +471,12 @@ export function updateAdminFunctionParam(id: string, data: AdminFunctionParamPay
   })
 }
 
+export function deleteAdminFunctionParam(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/function-params/${id}`, {
+    headers: authHeaders(),
+  })
+}
+
 export function createAdminFunctionRoute(data: AdminFunctionRoutePayload) {
   return post<ApiResult<AdminConfigResponse>>('/admin/function-routes', data, {
     headers: authHeaders(),
@@ -418,6 +489,12 @@ export function updateAdminFunctionRoute(id: string, data: AdminFunctionRoutePay
   })
 }
 
+export function deleteAdminFunctionRoute(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/function-routes/${id}`, {
+    headers: authHeaders(),
+  })
+}
+
 export function createAdminAdapterParamMap(data: AdminAdapterParamMapPayload) {
   return post<ApiResult<AdminConfigResponse>>('/admin/adapter-param-maps', data, {
     headers: authHeaders(),
@@ -426,6 +503,12 @@ export function createAdminAdapterParamMap(data: AdminAdapterParamMapPayload) {
 
 export function updateAdminAdapterParamMap(id: string, data: AdminAdapterParamMapPayload) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/adapter-param-maps/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function deleteAdminAdapterParamMap(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/adapter-param-maps/${id}`, {
     headers: authHeaders(),
   })
 }
@@ -454,6 +537,26 @@ export interface AdminMenuPayload {
   payload?: Record<string, unknown>
 }
 
+export interface AdminChainPayload {
+  functionId?: string
+  code?: string
+  name?: string
+  description?: string
+  isDefault?: boolean
+  sort?: number
+  status?: string
+}
+
+export interface AdminChainStepPayload {
+  chainId?: string
+  stepKey?: string
+  type?: string
+  name?: string
+  config?: Record<string, unknown>
+  sort?: number
+  status?: string
+}
+
 export interface AdminMenuImportPayload {
   scope?: string
   module?: string
@@ -466,8 +569,44 @@ export function createAdminResponseMap(data: AdminResponseMapPayload) {
   })
 }
 
+export function createAdminChain(data: AdminChainPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/chains', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminChain(id: string, data: AdminChainPayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/chains/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function createAdminChainStep(data: AdminChainStepPayload) {
+  return post<ApiResult<AdminConfigResponse>>('/admin/chain-steps', data, {
+    headers: authHeaders(),
+  })
+}
+
+export function updateAdminChainStep(id: string, data: AdminChainStepPayload) {
+  return patch<ApiResult<AdminConfigResponse>>(`/admin/chain-steps/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function deleteAdminChainStep(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/chain-steps/${id}`, {
+    headers: authHeaders(),
+  })
+}
+
 export function updateAdminResponseMap(id: string, data: AdminResponseMapPayload) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/response-maps/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function deleteAdminResponseMap(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/response-maps/${id}`, {
     headers: authHeaders(),
   })
 }
@@ -480,6 +619,12 @@ export function createAdminMenu(data: AdminMenuPayload) {
 
 export function updateAdminMenu(id: string, data: AdminMenuPayload) {
   return patch<ApiResult<AdminConfigResponse>>(`/admin/menus/${id}`, data, {
+    headers: authHeaders(),
+  })
+}
+
+export function deleteAdminMenu(id: string) {
+  return del<ApiResult<AdminConfigResponse>>(`/admin/menus/${id}`, {
     headers: authHeaders(),
   })
 }

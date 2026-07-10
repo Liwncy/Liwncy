@@ -10,6 +10,14 @@ export type AdapterBodyType = 'none' | 'json' | 'form' | 'text'
 
 export type AdapterParamMapTarget = 'param' | 'query' | 'header' | 'body'
 
+export type ApiChainStepType =
+  | 'normalize_params'
+  | 'match_route'
+  | 'map_request'
+  | 'call_adapter'
+  | 'map_response'
+  | 'normalize_response'
+
 export type ApiFunctionRow = {
   id: string
   code: string
@@ -128,6 +136,32 @@ export type ApiAdapterParamMapRow = {
   updated_at: string
 }
 
+export type ApiChainRow = {
+  id: string
+  function_id: string
+  code: string
+  name: string
+  description: string
+  is_default: number
+  sort: number
+  status: PlatformStatus
+  created_at: string
+  updated_at: string
+}
+
+export type ApiChainStepRow = {
+  id: string
+  chain_id: string
+  step_key: string
+  type: ApiChainStepType
+  name: string
+  config_json: string
+  sort: number
+  status: PlatformStatus
+  created_at: string
+  updated_at: string
+}
+
 export type ApiMenuRow = {
   id: string
   parent_id: string | null
@@ -224,6 +258,25 @@ export type ApiAdapterParamMapSummary = Omit<
   route_key: string | null
   route_name: string | null
   defaultValue: unknown
+}
+
+export type ApiChainSummary = Omit<ApiChainRow, never> & {
+  function_code: string
+  function_name: string
+}
+
+export type ApiChainStepSummary = Omit<ApiChainStepRow, 'config_json'> & {
+  chain_code: string
+  chain_name: string
+  function_id: string
+  function_code: string
+  function_name: string
+  config: Record<string, unknown>
+}
+
+export type ApiChainConfig = {
+  chain: ApiChainRow
+  steps: ApiChainStepRow[]
 }
 
 export type ApiResponseMapSummary = Omit<ApiResponseMapRow, 'fields_json'> & {

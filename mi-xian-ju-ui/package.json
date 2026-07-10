@@ -5,7 +5,7 @@
   "packageManager": "pnpm@8.14.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev:ui": "vite",
     "build": "vite build",
     "build:check": "vue-tsc --noEmit && vite build",
     "build:prod": "vue-tsc --noEmit && vite build --mode production",
