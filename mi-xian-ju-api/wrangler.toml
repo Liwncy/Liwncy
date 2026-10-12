@@ -1,0 +1,9 @@
+name = "mi-xian-ju-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-10"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mi-xian-ju"
+database_id = "00000000-0000-0000-0000-000000000001"
+migrations_dir = "migrations"

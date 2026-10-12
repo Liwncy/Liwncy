@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-10T17:06:00+08:00",
+  "title": "Design System: 芈仙居",
+  "extensions": {
+    "colorMeta": {
+      "site-bg": {
+        "role": "neutral",
+        "displayName": "Cool Paper",
+        "canonical": "#f0f4f3",
+        "tonalRamp": ["#090c0b", "#232625", "#404342", "#5f6261", "#808382", "#a2a6a5", "#c6cac9", "#ebefee"]
+      },
+      "site-surface": {
+        "role": "neutral",
+        "displayName": "Warm Sheet",
+        "canonical": "#faf9f7",
+        "tonalRamp": ["#0c0b0a", "#262523", "#434240", "#62615f", "#838280", "#a6a5a3", "#cac9c7", "#efeeec"]
+      },
+      "site-ink": {
+        "role": "neutral",
+        "displayName": "Pine Ink",
+        "canonical": "#2c3330",
+        "tonalRamp": ["#070d0a", "#202724", "#3d4441", "#5c6360", "#7c8581", "#9fa7a4", "#c3cbc8", "#e8f1ed"]
+      },
+      "site-muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "#6b736f",
+        "tonalRamp": ["#070d0a", "#202724", "#3d4440", "#5c635f", "#7c8580", "#9fa7a3", "#c3ccc7", "#e8f1ec"]
+      },
+      "site-border": {
+        "role": "neutral",
+        "displayName": "Ink Hairline",
+        "canonical": "rgba(44, 51, 48, 0.1)",
+        "tonalRamp": ["#070d0a", "#202724", "#3d4441", "#5c6360", "#7c8581", "#9fa7a4", "#c3cbc8", "#e8f1ed"]
+      },
+      "site-accent": {
+        "role": "primary",
+        "displayName": "Active Teal",
+        "canonical": "#1f9d8a",
+        "tonalRamp": ["#00160c", "#003427", "#005344", "#007463", "#129784", "#48bba7", "#71e0cb", "#98fff1"]
+      },
+      "site-accent-light": {
+        "role": "primary",
+        "displayName": "Gradient Leaf",
+        "canonical": "#2f8f68",
+        "tonalRamp": ["#001600", "#003314", "#005330", "#00744e", "#38966f", "#5eba91", "#84dfb4", "#a9ffd9"]
+      },
+      "site-accent-wash": {
+        "role": "primary",
+        "displayName": "Teal Wash",
+        "canonical": "rgba(31, 157, 138, 0.12)",
+        "tonalRamp": ["#00160c", "#003427", "#005344", "#007463", "#129784", "#48bba7", "#71e0cb", "#98fff1"]
+      },
+      "site-bg-dark": {
+        "role": "neutral",
+        "displayName": "Night Ground",
+        "canonical": "#151a18",
+        "tonalRamp": ["#080c0b", "#212624", "#3e4341", "#5d6360", "#7e8481", "#a0a7a4", "#c4cbc8", "#e9f0ed"]
+      },
+      "site-surface-dark": {
+        "role": "neutral",
+        "displayName": "Night Sheet",
+        "canonical": "#1c2421",
+        "tonalRamp": ["#060d0a", "#1f2724", "#3c4441", "#5a6460", "#7b8581", "#9ea8a4", "#c1ccc8", "#e7f1ed"]
+      },
+      "site-ink-dark": {
+        "role": "neutral",
+        "displayName": "Mist Ink",
+        "canonical": "#e5ebe8",
+        "tonalRamp": ["#080c0a", "#222624", "#3e4341", "#5d6360", "#7e8481", "#a1a7a4", "#c5cbc8", "#eaf0ed"]
+      },
+      "site-muted-dark": {
+        "role": "neutral",
+        "displayName": "Ash Muted",
+        "canonical": "#93a099",
+        "tonalRamp": ["#050e09", "#1d2822", "#3a453f", "#59655e", "#79867f", "#9ca9a2", "#bfcdc6", "#e4f2eb"]
+      },
+      "site-border-dark": {
+        "role": "neutral",
+        "displayName": "Mist Hairline",
+        "canonical": "rgba(229, 235, 232, 0.1)",
+        "tonalRamp": ["#080c0a", "#222624", "#3e4341", "#5d6360", "#7e8481", "#a1a7a4", "#c5cbc8", "#eaf0ed"]
+      },
+      "site-danger": {
+        "role": "danger",
+        "displayName": "Brick Alert",
+        "canonical": "#b85c4b",
+        "tonalRamp": ["#2e0000", "#510000", "#761f11", "#9b4232", "#c06452", "#e78774", "#ffab97", "#ffd0bb"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Homepage name at 52px, tracking 0.28em. Header wordmark is the same face at 20px, tracking 0.12em."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Bookmark and admin page titles at 2rem, tracking 0.06em."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Bookmark row titles at 1.15rem. Homepage card titles are 17px."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "System gothic stack. Navigation and actions are 15px; the root sets line-height 1.5 and no size."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Muted hosts and admin field labels at 0.85rem."
+      }
+    },
+    "shadows": [
+      {
+        "name": "rest",
+        "value": "0 2px 12px rgba(44, 51, 48, 0.06)",
+        "purpose": "Homepage cards and large pills at rest. Dark theme uses 0 2px 16px rgba(0, 0, 0, 0.35)."
+      },
+      {
+        "name": "hover",
+        "value": "0 8px 24px rgba(44, 51, 48, 0.1)",
+        "purpose": "Homepage cards and large pills on hover. Dark theme uses 0 8px 28px rgba(0, 0, 0, 0.45)."
+      },
+      {
+        "name": "portrait",
+        "value": "0 8px 32px rgba(44, 51, 48, 0.12)",
+        "purpose": "Homepage portrait only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-lift",
+        "value": "0.3s ease",
+        "purpose": "Homepage cards and large pills."
+      },
+      {
+        "name": "ease-chip",
+        "value": "0.25s ease",
+        "purpose": "Banner chips."
+      },
+      {
+        "name": "rise",
+        "value": "0.6s ease",
+        "purpose": "Homepage portrait and name rise 12px. The name is delayed 0.12s."
+      }
+    ],
+    "breakpoints": [
+      { "name": "shell", "value": "720px" },
+      { "name": "home-type", "value": "768px" },
+      { "name": "home-grid", "value": "992px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "button-action",
+      "description": "Homepage lead action. Accent gradient, white text, 42px pill.",
+      "html": "<a class=\"ds-btn-action\" href=\"#\">开始探索</a>",
+      "css": ".ds-btn-action { display: inline-block; height: 42px; padding: 0 22px; border: 1px solid transparent; border-radius: 21px; background: linear-gradient(90deg, var(--site-accent, #1f9d8a) 0%, var(--site-accent-light, #2f8f68) 100%); color: #fff; font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; font-size: 15px; font-weight: 500; line-height: 42px; letter-spacing: 0.06em; text-decoration: none; box-shadow: var(--site-shadow, 0 2px 12px rgba(44, 51, 48, 0.06)); transition: transform 0.3s ease, box-shadow 0.3s ease; } .ds-btn-action:hover { transform: translateY(-2px); box-shadow: var(--site-shadow-hover, 0 8px 24px rgba(44, 51, 48, 0.1)); } .ds-btn-action:focus-visible { outline: 2px solid var(--site-accent, #1f9d8a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Quiet Action",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Paired homepage action. Warm sheet, pine ink, hairline, same pill.",
+      "html": "<button class=\"ds-btn-quiet\" type=\"button\">深色模式</button>",
+      "css": ".ds-btn-quiet { height: 42px; padding: 0 22px; border: 1px solid var(--site-border, rgba(44, 51, 48, 0.1)); border-radius: 21px; background: var(--site-surface, #faf9f7); color: var(--site-ink, #2c3330); font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; font-size: 15px; font-weight: 500; line-height: 42px; letter-spacing: 0.06em; box-shadow: var(--site-shadow, 0 2px 12px rgba(44, 51, 48, 0.06)); transition: transform 0.3s ease, box-shadow 0.3s ease; } .ds-btn-quiet:hover { transform: translateY(-2px); box-shadow: var(--site-shadow-hover, 0 8px 24px rgba(44, 51, 48, 0.1)); } .ds-btn-quiet:focus-visible { outline: 2px solid var(--site-accent, #1f9d8a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Save Button",
+      "kind": "button",
+      "refersTo": "button-save",
+      "description": "Admin form action. Flat Active Teal and white text.",
+      "html": "<button class=\"ds-btn-save\" type=\"button\">添加链接</button>",
+      "css": ".ds-btn-save { padding: 8px 14px; border: 1px solid transparent; border-radius: 10px; background: var(--site-accent, #1f9d8a); color: #fff; font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; } .ds-btn-save:focus-visible { outline: 2px solid var(--site-accent, #1f9d8a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Bookmark search. Warm sheet, 12px radius, teal caret.",
+      "html": "<input class=\"ds-search\" type=\"search\" placeholder=\"搜索标题或描述\" />",
+      "css": ".ds-search { width: min(100%, 36rem); padding: 12px 14px; border: 1px solid var(--site-border, rgba(44, 51, 48, 0.1)); border-radius: 12px; background: var(--site-surface, #faf9f7); color: var(--site-ink, #2c3330); caret-color: var(--site-accent, #1f9d8a); font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; } .ds-search::placeholder { color: var(--site-muted, #6b736f); } .ds-search:focus-visible { outline: 2px solid var(--site-accent, #1f9d8a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Site Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Header links at 15px. The current item is Active Teal.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">首页</a><a class=\"ds-nav-current\" href=\"#\" aria-current=\"page\">书签</a><a href=\"#\">后台</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 22px; font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; font-size: 15px; } .ds-nav a { color: var(--site-ink, #2c3330); text-decoration: none; } .ds-nav a.ds-nav-current { color: var(--site-accent, #1f9d8a); } .ds-nav a:focus-visible { outline: 2px solid var(--site-accent, #1f9d8a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Category Rail",
+      "kind": "nav",
+      "refersTo": "rail-category",
+      "description": "Bookmark categories. The current one sits on Teal Wash.",
+      "html": "<div class=\"ds-rail\"><button type=\"button\">分类</button><button type=\"button\" aria-current=\"true\">全部</button></div>",
+      "css": ".ds-rail { display: grid; gap: 4px; width: 220px; padding: 16px; background: var(--site-surface, #faf9f7); } .ds-rail button { width: 100%; padding: 10px 12px; border: 0; border-radius: 10px; background: transparent; color: var(--site-ink, #2c3330); font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; text-align: left; } .ds-rail button[aria-current=\"true\"] { background: var(--site-accent-wash, rgba(31, 157, 138, 0.12)); color: var(--site-accent, #1f9d8a); } .ds-rail button:focus-visible { outline: 2px solid var(--site-accent, #1f9d8a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Bookmark Row",
+      "kind": "custom",
+      "refersTo": "bookmark-row",
+      "description": "Title, muted host, and description. The title underlines on hover.",
+      "html": "<a class=\"ds-bookmark-row\" href=\"#\"><strong>个人笔记本</strong><span class=\"ds-bookmark-host\">example.com</span><p>平时工作中的笔记以及灵感。</p></a>",
+      "css": ".ds-bookmark-row { display: grid; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--site-border, rgba(44, 51, 48, 0.1)); color: var(--site-ink, #2c3330); text-decoration: none; font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; } .ds-bookmark-row strong { font-family: var(--site-font-title, \"Noto Serif SC\", \"Songti SC\", \"STSong\", \"SimSun\", serif); font-size: 1.15rem; font-weight: 700; } .ds-bookmark-host, .ds-bookmark-row p { margin: 0; color: var(--site-muted, #6b736f); } .ds-bookmark-host { font-size: 0.85rem; } .ds-bookmark-row:hover strong { text-decoration: underline; text-underline-offset: 0.18em; } .ds-bookmark-row:focus-visible { outline: 2px solid var(--site-accent, #1f9d8a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Home Card",
+      "kind": "card",
+      "refersTo": "card-home",
+      "description": "Warm sheet card with a rest shadow. Hover lifts it and shows a teal top band.",
+      "html": "<article class=\"ds-card\"><h2 class=\"ds-card-title\"><a href=\"#\">个人笔记本</a></h2><p class=\"ds-card-details\">平时工作中的笔记以及灵感。</p></article>",
+      "css": ".ds-card { position: relative; overflow: hidden; background: var(--site-surface, #faf9f7); border: 1px solid var(--site-border, rgba(44, 51, 48, 0.1)); border-radius: 12px; padding: 28px 24px; box-shadow: var(--site-shadow, 0 2px 12px rgba(44, 51, 48, 0.06)); transition: transform 0.3s ease, box-shadow 0.3s ease; } .ds-card::before { content: \"\"; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--site-accent, #1f9d8a) 0%, var(--site-accent-light, #2f8f68) 100%); opacity: 0; transition: opacity 0.3s ease; } .ds-card:hover { transform: translateY(-4px); box-shadow: var(--site-shadow-hover, 0 8px 24px rgba(44, 51, 48, 0.1)); } .ds-card:hover::before { opacity: 1; } .ds-card-title { margin: 0; font-family: var(--site-font-title, \"Noto Serif SC\", \"Songti SC\", \"STSong\", \"SimSun\", serif); font-size: 17px; font-weight: 600; line-height: 1.4; letter-spacing: 0.04em; } .ds-card-title a { color: var(--site-ink, #2c3330); text-decoration: none; } .ds-card-title a:hover { color: var(--site-accent, #1f9d8a); } .ds-card-details { margin: 10px 0 0; color: var(--site-muted, #6b736f); font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; font-size: 14px; line-height: 1.65; letter-spacing: 0.02em; }"
+    },
+    {
+      "name": "Banner Chip",
+      "kind": "chip",
+      "refersTo": "chip-banner",
+      "description": "Homepage banner link. Muted ink on a warm sheet; the label turns teal on hover.",
+      "html": "<a class=\"ds-chip\" href=\"#\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z\"/></svg>Github</a>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px; border: 1px solid var(--site-border, rgba(44, 51, 48, 0.1)); border-radius: 16px; background: var(--site-surface, #faf9f7); color: var(--site-muted, #6b736f); font-family: \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif; font-size: 13px; line-height: 32px; text-decoration: none; transition: color 0.25s ease, transform 0.25s ease; } .ds-chip svg { width: 18px; height: 18px; } .ds-chip:hover { color: var(--site-accent, #1f9d8a); transform: translateY(-1px); } .ds-chip:focus-visible { outline: 2px solid var(--site-accent, #1f9d8a); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Songti on Cool Paper",
+    "overview": "芈仙居 sits on cool paper: a gray-green ground, warm sheets, and pine ink. Titles use a self-hosted Songti, Noto Serif SC at weight 700. Body text, navigation, and controls use the system gothic stack. One teal accent marks what is current or actionable.\n\nThe homepage centers a circular portrait, a widely tracked name, and paper cards over an ink wash. Pages that extend this world keep those tokens. The bookmark page is a category rail on the sheet color and a line list of title, muted host, and description. The admin reuses the same paper, hairline, radius, and accent for its panels and save actions.\n\nDark mode reassigns the ground, sheet, ink, muted text, hairline, and the two shadows. The accent stays the same teal.",
+    "keyCharacteristics": [
+      "Cool paper ground, warm sheet surfaces, pine ink text",
+      "Self-hosted Noto Serif SC 700 for titles; system gothic for body",
+      "One teal accent for the active category, the current nav item, and explicit actions",
+      "Bookmark hosts in muted ink; row titles underline on hover",
+      "Homepage cards lift; bookmark rows stay flat hairlines",
+      "Dark theme reassigns the same custom properties"
+    ],
+    "rules": [
+      {
+        "name": "The Teal Marks State Rule",
+        "body": "Use Active Teal for the active category, the current navigation item, focus and the text caret, and explicit actions. The homepage also turns a card title and a banner link teal on hover. Bookmark hosts stay Muted Ink. A bookmark row title underlines on hover and keeps Pine Ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Title Face Rule",
+        "body": "The header wordmark, the homepage name, the poem line, page titles, and bookmark row titles use the title face: self-hosted Noto Serif SC at 700, then Songti SC, STSong, SimSun, serif. Body, navigation, fields, and buttons stay on the system gothic stack.",
+        "section": "typography"
+      },
+      {
+        "name": "The Shared Shell Rule",
+        "body": "Pages sit under a fixed 60px header, and the main column starts below it. The shell, the bookmark rail, and the admin columns collapse at 720px.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat List Rule",
+        "body": "Bookmark rows are hairline-separated lines. They take neither the homepage card shadow nor its hover lift.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Half-Height Pill Rule",
+        "body": "A fully rounded control uses half its height as its radius: 42px actions are 21px, 32px chips are 16px. Panels and the bookmark search use 12px. Rail buttons and admin fields use 10px.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do Set titles, the header wordmark, and the homepage name in `--site-font-title` (Noto Serif SC 700, then Songti SC, STSong, SimSun, serif).",
+      "Do Keep body copy, navigation, fields, and buttons on the system gothic stack: Segoe UI, PingFang SC, Microsoft YaHei, sans-serif.",
+      "Do Use Active Teal for the active category, the current navigation item, and explicit actions.",
+      "Do Keep bookmark hosts in Muted Ink, and underline the row title on hover with a 0.18em offset.",
+      "Do Paint the category rail, the search field, homepage cards, and quiet pills with Warm Sheet.",
+      "Do Separate bookmark rows with the ink hairline only.",
+      "Do Switch to dark by reassigning the same custom properties."
+    ],
+    "donts": [
+      "Don't Draw bookmark links as shadowed, rounded cards.",
+      "Don't Color a bookmark host, description, or resting row title with Active Teal.",
+      "Don't Add a second accent hue.",
+      "Don't Load another display face for titles. The shipped title file is weight 700.",
+      "Don't Underline navigation or card titles. The bookmark row title is the underline, and only on hover."
+    ]
+  }
+}

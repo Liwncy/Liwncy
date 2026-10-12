@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("@fontsource/noto-serif-sc/files/noto-serif-sc-chinese-simplified-700-normal.woff2") format("woff2");
+}
+
+:root {
+  --site-bg: #f0f4f3;
+  --site-surface: #faf9f7;
+  --site-ink: #2c3330;
+  --site-muted: #6b736f;
+  --site-border: rgba(44, 51, 48, 0.1);
+  --site-radius: 12px;
+  --site-shadow: 0 2px 12px rgba(44, 51, 48, 0.06);
+  --site-shadow-hover: 0 8px 24px rgba(44, 51, 48, 0.1);
+  --site-accent: #1f9d8a;
+  --site-accent-light: #2f8f68;
+  --site-accent-gradient: linear-gradient(90deg, var(--site-accent) 0%, var(--site-accent-light) 100%);
+  --site-font-title: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  color: var(--site-ink);
+  background: var(--site-bg);
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.5;
+}
+
+.site-theme-dark {
+  --site-bg: #151a18;
+  --site-surface: #1c2421;
+  --site-ink: #e5ebe8;
+  --site-muted: #93a099;
+  --site-border: rgba(229, 235, 232, 0.1);
+  --site-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+  --site-shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--site-bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

@@ -1,0 +1,20 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import SiteLayout from '../layout/SiteLayout.vue'
+import AdminView from '../views/admin/index.vue'
+import BookmarkView from '../views/bookmark/index.vue'
+import HomeView from '../views/home/index.vue'
+
+export const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      component: SiteLayout,
+      children: [
+        { path: '', name: 'home', component: HomeView },
+        { path: 'bookmark', name: 'bookmark', component: BookmarkView },
+        { path: 'admin', name: 'admin', component: AdminView },
+      ],
+    },
+  ],
+})

@@ -1,0 +1,137 @@
+.site {
+  min-height: 100vh;
+  background: var(--site-bg);
+  color: var(--site-ink);
+}
+
+.site-header {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 18px;
+  border-bottom: 1px solid #eeeeee;
+  background-image: radial-gradient(transparent 1px, #ffffff 1px);
+  background-size: 4px 4px;
+  backdrop-filter: saturate(50%) blur(4px);
+}
+
+.site-logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  margin-right: 28px;
+}
+
+.site-logo img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.site-logo span {
+  margin-left: 12px;
+  font-family: var(--site-font-title);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.site-nav {
+  display: flex;
+  gap: 22px;
+  font-size: 15px;
+}
+
+.site-nav a.router-link-active {
+  color: var(--site-accent);
+}
+
+.site-header-side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.site-header-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--site-ink);
+}
+
+.site-theme-button {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--site-border);
+  border-radius: 16px;
+  background: transparent;
+  color: var(--site-ink);
+  cursor: pointer;
+  font: inherit;
+}
+
+.site-main {
+  padding-top: 60px;
+}
+
+.site-theme-dark .site-header {
+  border-bottom-color: var(--site-border);
+  background-image: radial-gradient(transparent 1px, #1c2421 1px);
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    gap: 8px;
+    padding: 0 12px;
+  }
+
+  .site-logo {
+    margin-right: 12px;
+  }
+
+  .site-logo span {
+    font-size: 16px;
+  }
+
+  .site-nav {
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  .site-header-link {
+    display: none;
+  }
+}
+
+.page {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.page h1 {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 2rem;
+  font-weight: 650;
+}
+
+.page p {
+  margin: 0;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--site-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
