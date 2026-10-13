@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from "vue";
+import type { HTMLAttributes } from "vue";
+import { cn } from "@/utils";
+import { onMounted, ref, watch } from "vue";
 
 interface ColorRGB {
   r: number;
@@ -22,6 +24,7 @@ interface Props {
   colorUpdateSpeed?: number;
   backColor?: ColorRGB;
   transparent?: boolean;
+  class?: HTMLAttributes["class"];
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -70,16 +73,8 @@ function pointerPrototype(): Pointer {
 }
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
-let stopFluid: (() => void) | null = null;
-
-onUnmounted(() => {
-  stopFluid?.();
-  stopFluid = null;
-});
 
 onMounted(() => {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
   const canvas = canvasRef.value;
   if (!canvas) return;
 
@@ -105,20 +100,8 @@ onMounted(() => {
   };
 
   // Get WebGL context (WebGL1 or WebGL2)
-  let gl: WebGL2RenderingContext;
-  let ext: {
-    formatRGBA: { internalFormat: number; format: number } | null;
-    formatRG: { internalFormat: number; format: number } | null;
-    formatR: { internalFormat: number; format: number } | null;
-    halfFloatTexType: number;
-    supportLinearFiltering: boolean;
-  };
-  try {
-    ({ gl, ext } = getWebGLContext(canvas));
-  } catch {
-    return;
-  }
-  if (!ext.formatRGBA) return;
+  const { gl, ext } = getWebGLContext(canvas);
+  if (!gl || !ext) return;
 
   // If no linear filtering, reduce resolution
   if (!ext.supportLinearFiltering) {
@@ -142,7 +125,9 @@ onMounted(() => {
         canvas.getContext("experimental-webgl", params)) as WebGL2RenderingContext | null;
     }
 
-    if (!gl) throw new Error("Unable to initialize WebGL.");
+    if (!gl) {
+      throw new Error("Unable to initialize WebGL.");
+    }
 
     const isWebGL2 = "drawBuffers" in gl;
 
@@ -165,9 +150,9 @@ onMounted(() => {
       ? (gl as WebGL2RenderingContext).HALF_FLOAT
       : (halfFloat && halfFloat.HALF_FLOAT_OES) || 0;
 
-    let formatRGBA: { internalFormat: number; format: number } | null = null;
-    let formatRG: { internalFormat: number; format: number } | null = null;
-    let formatR: { internalFormat: number; format: number } | null = null;
+    let formatRGBA: unknown;
+    let formatRG: unknown;
+    let formatR: unknown;
 
     if (isWebGL2) {
       formatRGBA = getSupportedFormat(
@@ -846,7 +831,6 @@ onMounted(() => {
     const rgba = ext.formatRGBA;
     const rg = ext.formatRG;
     const r = ext.formatR;
-    if (!rgba || !rg || !r) return;
     const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
     gl.disable(gl.BLEND);
 
@@ -942,18 +926,14 @@ onMounted(() => {
   let lastUpdateTime = Date.now();
   let colorUpdateTimer = 0.0;
 
-  let frameId = 0;
-  let alive = true;
-
   function updateFrame() {
-    if (!alive) return;
     const dt = calcDeltaTime();
     if (resizeCanvas()) initFramebuffers();
     updateColors(dt);
     applyInputs();
     step(dt);
     render(null);
-    frameId = requestAnimationFrame(updateFrame);
+    requestAnimationFrame(updateFrame);
   }
 
   function calcDeltaTime() {
@@ -1300,84 +1280,83 @@ onMounted(() => {
   }
 
   // -------------------- Event Listeners --------------------
-  function onMouseDown(e: MouseEvent) {
+  window.addEventListener("mousedown", (e) => {
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
     updatePointerDownData(pointer, -1, posX, posY);
     clickSplat(pointer);
-  }
+  });
 
+  // Start rendering on first mouse move
   function handleFirstMouseMove(e: MouseEvent) {
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
-    updatePointerMoveData(pointer, posX, posY, generateColor());
+    const color = generateColor();
+    updateFrame();
+    updatePointerMoveData(pointer, posX, posY, color);
     document.body.removeEventListener("mousemove", handleFirstMouseMove);
   }
+  document.body.addEventListener("mousemove", handleFirstMouseMove);
 
-  function onMouseMove(e: MouseEvent) {
+  window.addEventListener("mousemove", (e) => {
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
-    updatePointerMoveData(pointer, posX, posY, pointer.color);
-  }
+    const color = pointer.color;
+    updatePointerMoveData(pointer, posX, posY, color);
+  });
 
+  // Start rendering on first touch
   function handleFirstTouchStart(e: TouchEvent) {
     const touches = e.targetTouches;
     const pointer = pointers[0];
     for (let i = 0; i < touches.length; i++) {
       const posX = scaleByPixelRatio(touches[i].clientX);
       const posY = scaleByPixelRatio(touches[i].clientY);
+      updateFrame();
       updatePointerDownData(pointer, touches[i].identifier, posX, posY);
     }
     document.body.removeEventListener("touchstart", handleFirstTouchStart);
   }
-
-  function onTouchStart(e: TouchEvent) {
-    const touches = e.targetTouches;
-    const pointer = pointers[0];
-    for (let i = 0; i < touches.length; i++) {
-      const posX = scaleByPixelRatio(touches[i].clientX);
-      const posY = scaleByPixelRatio(touches[i].clientY);
-      updatePointerDownData(pointer, touches[i].identifier, posX, posY);
-    }
-  }
-
-  function onTouchMove(e: TouchEvent) {
-    const touches = e.targetTouches;
-    const pointer = pointers[0];
-    for (let i = 0; i < touches.length; i++) {
-      const posX = scaleByPixelRatio(touches[i].clientX);
-      const posY = scaleByPixelRatio(touches[i].clientY);
-      updatePointerMoveData(pointer, posX, posY, pointer.color);
-    }
-  }
-
-  function onTouchEnd() {
-    updatePointerUpData(pointers[0]);
-  }
-
-  function onVisibility() {
-    if (document.hidden) {
-      alive = false;
-      cancelAnimationFrame(frameId);
-      return;
-    }
-    if (alive) return;
-    alive = true;
-    lastUpdateTime = Date.now();
-    frameId = requestAnimationFrame(updateFrame);
-  }
-
-  window.addEventListener("mousedown", onMouseDown);
-  document.body.addEventListener("mousemove", handleFirstMouseMove);
-  window.addEventListener("mousemove", onMouseMove);
   document.body.addEventListener("touchstart", handleFirstTouchStart);
-  window.addEventListener("touchstart", onTouchStart);
-  window.addEventListener("touchmove", onTouchMove);
-  window.addEventListener("touchend", onTouchEnd);
-  document.addEventListener("visibilitychange", onVisibility);
+
+  window.addEventListener(
+    "touchstart",
+    (e) => {
+      const touches = e.targetTouches;
+      const pointer = pointers[0];
+      for (let i = 0; i < touches.length; i++) {
+        const posX = scaleByPixelRatio(touches[i].clientX);
+        const posY = scaleByPixelRatio(touches[i].clientY);
+        updatePointerDownData(pointer, touches[i].identifier, posX, posY);
+      }
+    },
+    false,
+  );
+
+  window.addEventListener(
+    "touchmove",
+    (e) => {
+      const touches = e.targetTouches;
+      const pointer = pointers[0];
+      for (let i = 0; i < touches.length; i++) {
+        const posX = scaleByPixelRatio(touches[i].clientX);
+        const posY = scaleByPixelRatio(touches[i].clientY);
+        updatePointerMoveData(pointer, posX, posY, pointer.color);
+      }
+    },
+    false,
+  );
+
+  window.addEventListener("touchend", (e) => {
+    const touches = e.changedTouches;
+    const pointer = pointers[0];
+    for (let i = 0; i < touches.length; i++) {
+      updatePointerUpData(pointer);
+    }
+  });
   // ------------------------------------------------------------
   // Add watchers for prop changes
   watch(
@@ -1404,41 +1383,17 @@ onMounted(() => {
     },
   );
 
-  stopFluid = () => {
-    alive = false;
-    cancelAnimationFrame(frameId);
-    window.removeEventListener("mousedown", onMouseDown);
-    document.body.removeEventListener("mousemove", handleFirstMouseMove);
-    window.removeEventListener("mousemove", onMouseMove);
-    document.body.removeEventListener("touchstart", handleFirstTouchStart);
-    window.removeEventListener("touchstart", onTouchStart);
-    window.removeEventListener("touchmove", onTouchMove);
-    window.removeEventListener("touchend", onTouchEnd);
-    document.removeEventListener("visibilitychange", onVisibility);
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
-  };
-
+  // Start the animation
   updateFrame();
 });
 </script>
 
 <template>
-  <div class="fluid-cursor" aria-hidden="true">
-    <canvas ref="canvasRef" />
+  <div :class="cn(`pointer-events-none fixed top-0 left-0 z-50 size-full`, props.class)">
+    <canvas
+      id="fluid"
+      ref="canvasRef"
+      class="block h-screen w-screen"
+    />
   </div>
 </template>
-
-<style scoped>
-.fluid-cursor {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.fluid-cursor canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-</style>

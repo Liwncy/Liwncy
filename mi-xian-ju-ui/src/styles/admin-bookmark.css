@@ -72,6 +72,31 @@
   padding: 8px 10px;
 }
 
+.admin-link span:last-of-type {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-icon {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: rgba(31, 157, 138, 0.12);
+}
+
+.admin-icon-empty {
+  display: grid;
+  place-items: center;
+  color: var(--site-accent);
+  font-family: var(--site-font-title);
+  font-size: 13px;
+}
+
 .admin-category button[aria-current='true'] {
   border-color: transparent;
   background: rgba(31, 157, 138, 0.12);

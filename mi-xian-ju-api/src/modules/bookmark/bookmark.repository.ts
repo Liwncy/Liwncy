@@ -12,6 +12,7 @@ export type LinkRow = {
   title: string
   url: string
   description: string
+  avatar: string
   sort_order: number
 }
 
@@ -25,7 +26,7 @@ export async function listCategoryRows(db: BookmarkDatabase) {
 export async function listLinkRows(db: BookmarkDatabase) {
   const result = await db
     .prepare(
-      'SELECT id, category_id, title, url, description, sort_order FROM bookmark_links ORDER BY sort_order, title',
+      'SELECT id, category_id, title, url, description, avatar, sort_order FROM bookmark_links ORDER BY sort_order, title',
     )
     .all<LinkRow>()
   return result.results
@@ -64,23 +65,33 @@ export async function deleteCategoryRow(db: BookmarkDatabase, id: string) {
 
 export async function insertLink(
   db: BookmarkDatabase,
-  link: { id: string; categoryId: string; title: string; url: string; description: string; sortOrder: number },
+  link: {
+    id: string
+    categoryId: string
+    title: string
+    url: string
+    description: string
+    avatar: string
+    sortOrder: number
+  },
 ) {
   await db
     .prepare(
-      'INSERT INTO bookmark_links (id, category_id, title, url, description, sort_order) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO bookmark_links (id, category_id, title, url, description, avatar, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)',
     )
-    .bind(link.id, link.categoryId, link.title, link.url, link.description, link.sortOrder)
+    .bind(link.id, link.categoryId, link.title, link.url, link.description, link.avatar, link.sortOrder)
     .run()
 }
 
 export async function updateLinkRow(
   db: BookmarkDatabase,
-  link: { id: string; categoryId: string; title: string; url: string; description: string },
+  link: { id: string; categoryId: string; title: string; url: string; description: string; avatar: string },
 ) {
   await db
-    .prepare('UPDATE bookmark_links SET category_id = ?, title = ?, url = ?, description = ? WHERE id = ?')
-    .bind(link.categoryId, link.title, link.url, link.description, link.id)
+    .prepare(
+      'UPDATE bookmark_links SET category_id = ?, title = ?, url = ?, description = ?, avatar = ? WHERE id = ?',
+    )
+    .bind(link.categoryId, link.title, link.url, link.description, link.avatar, link.id)
     .run()
 }
 

@@ -23,6 +23,7 @@ const editingId = ref('')
 const linkTitle = ref('')
 const linkUrl = ref('')
 const linkDescription = ref('')
+const linkAvatar = ref('')
 
 const selected = computed(() => categories.value.find((category) => category.id === selectedId.value))
 
@@ -82,6 +83,7 @@ function resetLinkForm() {
   linkTitle.value = ''
   linkUrl.value = ''
   linkDescription.value = ''
+  linkAvatar.value = ''
 }
 
 function startEdit(link: BookmarkCategory['links'][number]) {
@@ -89,6 +91,7 @@ function startEdit(link: BookmarkCategory['links'][number]) {
   linkTitle.value = link.title
   linkUrl.value = link.url
   linkDescription.value = link.description
+  linkAvatar.value = link.avatar
 }
 
 async function saveLink() {
@@ -101,6 +104,7 @@ async function saveLink() {
     title: linkTitle.value,
     url: linkUrl.value,
     description: linkDescription.value,
+    avatar: linkAvatar.value,
   }
   const id = editingId.value
   await run(() => (id ? updateLink(id, input) : createLink(input)))
@@ -153,6 +157,8 @@ async function removeLink(id: string, title: string) {
         <h2>{{ selected?.name ?? '先选一个分类' }}</h2>
         <ul v-if="selected">
           <li v-for="link in selected.links" :key="link.id" class="admin-link">
+            <img v-if="link.avatar" class="admin-icon" :src="link.avatar" alt="" referrerpolicy="no-referrer" />
+            <span v-else class="admin-icon admin-icon-empty">{{ link.title.trim().slice(0, 1) }}</span>
             <span>{{ link.title }}</span>
             <button type="button" @click="startEdit(link)">编辑</button>
             <button class="admin-danger" type="button" @click="removeLink(link.id, link.title)">删除</button>
@@ -170,6 +176,10 @@ async function removeLink(id: string, title: string) {
           <label>
             描述
             <textarea v-model="linkDescription" rows="3"></textarea>
+          </label>
+          <label>
+            图标
+            <input v-model="linkAvatar" type="url" placeholder="https:// 图片地址，可以留空" />
           </label>
           <button type="submit">{{ editingId ? '保存链接' : '添加链接' }}</button>
           <button v-if="editingId" type="button" @click="resetLinkForm">取消编辑</button>

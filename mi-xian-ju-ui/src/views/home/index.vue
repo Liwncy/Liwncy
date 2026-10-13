@@ -3,7 +3,6 @@ import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import avatarUrl from '../../assets/touxiang.jpg'
 import BrandIcon from '../../components/BrandIcon.vue'
-import FluidCursor from '../../components/FluidCursor.vue'
 import homeBgInkUrl from '../../assets/background-ink.svg?url'
 import homeBgShapesUrl from '../../assets/background.svg?url'
 import { useAppStore } from '../../store/app'
@@ -18,7 +17,6 @@ const lifeDays = computed(() =>
 
 <template>
   <div class="site-container">
-    <FluidCursor />
     <div class="site-bg" aria-hidden="true">
       <object class="site-bg-ink" :data="homeBgInkUrl" type="image/svg+xml"></object>
       <object class="site-bg-shapes" :data="homeBgShapesUrl" type="image/svg+xml"></object>

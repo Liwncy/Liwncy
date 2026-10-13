@@ -18,6 +18,7 @@ export type BookmarkLink = {
   title: string
   url: string
   description: string
+  avatar: string
 }
 
 export type BookmarkCategory = {
@@ -47,6 +48,7 @@ export async function listCatalog(db: BookmarkDatabase): Promise<BookmarkCategor
         title: link.title,
         url: link.url,
         description: link.description,
+        avatar: link.avatar,
       })),
   }))
 }
@@ -72,7 +74,7 @@ export async function removeCategory(db: BookmarkDatabase, id: string) {
 
 export async function createLink(
   db: BookmarkDatabase,
-  input: { categoryId: string; title: string; url: string; description?: string },
+  input: { categoryId: string; title: string; url: string; description?: string; avatar?: string },
 ) {
   await requireCategory(db, input.categoryId)
   const id = crypto.randomUUID()
@@ -82,6 +84,7 @@ export async function createLink(
     title: requireText(input.title, '请填写标题'),
     url: requireHttpUrl(input.url),
     description: input.description?.trim() ?? '',
+    avatar: optionalHttpUrl(input.avatar),
     sortOrder: await nextLinkSort(db, input.categoryId),
   })
   return listCatalog(db)
@@ -90,7 +93,7 @@ export async function createLink(
 export async function editLink(
   db: BookmarkDatabase,
   id: string,
-  input: { categoryId: string; title: string; url: string; description?: string },
+  input: { categoryId: string; title: string; url: string; description?: string; avatar?: string },
 ) {
   await requireCategory(db, input.categoryId)
   await updateLinkRow(db, {
@@ -99,6 +102,7 @@ export async function editLink(
     title: requireText(input.title, '请填写标题'),
     url: requireHttpUrl(input.url),
     description: input.description?.trim() ?? '',
+    avatar: optionalHttpUrl(input.avatar),
   })
   return listCatalog(db)
 }
@@ -117,15 +121,25 @@ function requireText(value: string | undefined, message: string) {
 }
 
 function requireHttpUrl(value: string | undefined) {
-  const trimmed = requireText(value, '请填写链接')
+  return parseHttpUrl(value, '请填写链接', '链接需要是 http 或 https 地址')
+}
+
+function optionalHttpUrl(value: string | undefined) {
+  const trimmed = value?.trim() ?? ''
+  if (!trimmed) return ''
+  return parseHttpUrl(trimmed, '请填写链接', '图标需要是 http 或 https 地址')
+}
+
+function parseHttpUrl(value: string | undefined, emptyMessage: string, invalidMessage: string) {
+  const trimmed = requireText(value, emptyMessage)
   let parsed: URL
   try {
     parsed = new URL(trimmed)
   } catch {
-    throw new BookmarkError('链接需要是 http 或 https 地址', 400)
+    throw new BookmarkError(invalidMessage, 400)
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-    throw new BookmarkError('链接需要是 http 或 https 地址', 400)
+    throw new BookmarkError(invalidMessage, 400)
   }
   return trimmed
 }

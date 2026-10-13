@@ -3,6 +3,7 @@ export type BookmarkLink = {
   title: string
   url: string
   description: string
+  avatar: string
 }
 
 export type BookmarkCategory = {
@@ -46,6 +47,7 @@ export async function createLink(input: {
   title: string
   url: string
   description: string
+  avatar: string
 }) {
   return requestCatalog('/api/bookmarks/links', {
     method: 'POST',
@@ -55,7 +57,7 @@ export async function createLink(input: {
 
 export async function updateLink(
   id: string,
-  input: { categoryId: string; title: string; url: string; description: string },
+  input: { categoryId: string; title: string; url: string; description: string; avatar: string },
 ) {
   return requestCatalog(`/api/bookmarks/links/${id}`, {
     method: 'PATCH',

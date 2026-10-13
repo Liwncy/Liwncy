@@ -32,25 +32,39 @@ bookmarkController.delete('/api/bookmarks/categories/:id', async (c) => {
 })
 
 bookmarkController.post('/api/bookmarks/links', async (c) => {
-  const body = await c.req.json<{ categoryId?: string; title?: string; url?: string; description?: string }>()
+  const body = await c.req.json<{
+    categoryId?: string
+    title?: string
+    url?: string
+    description?: string
+    avatar?: string
+  }>()
   return c.json({
     categories: await createLink(c.env.DB, {
       categoryId: body.categoryId ?? '',
       title: body.title ?? '',
       url: body.url ?? '',
       description: body.description,
+      avatar: body.avatar,
     }),
   })
 })
 
 bookmarkController.patch('/api/bookmarks/links/:id', async (c) => {
-  const body = await c.req.json<{ categoryId?: string; title?: string; url?: string; description?: string }>()
+  const body = await c.req.json<{
+    categoryId?: string
+    title?: string
+    url?: string
+    description?: string
+    avatar?: string
+  }>()
   return c.json({
     categories: await editLink(c.env.DB, c.req.param('id'), {
       categoryId: body.categoryId ?? '',
       title: body.title ?? '',
       url: body.url ?? '',
       description: body.description,
+      avatar: body.avatar,
     }),
   })
 })

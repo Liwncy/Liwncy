@@ -13,14 +13,14 @@ The public page lets a visitor choose a category and search, then open a link. T
 
 ## Direction contract
 
-THESIS: A fixed category rail beside a grid of paper cards, the same sheets as the homepage. A search-first blank page stays refused.
+THESIS: A category column beside a summary sheet and a three-column card grid. The site header stays in place. A right-hand page index stays refused.
 
-OWN-WORLD: The homepage palette and Songti titles. The rail sits on the surface color. Each link is a warm sheet with a hairline, a rest shadow, and a lift on hover. Hosts stay muted ink. Teal marks the active category, and a card title only when that card is hovered.
+OWN-WORLD: Cool Paper, warm sheets, Songti titles, one teal. The current category is teal text with a teal dot. The summary sheet names the category and two counts taken from the loaded links. Each link is a compact sheet: a 32px mark, a title, a two-line description, and a muted host.
 
-STORY: The visitor selects a category or types a query, reads the matching cards, and opens one.
+STORY: The visitor picks a category or types a query, reads the counts, scans the cards, and opens one link.
 
-FIRST VIEWPORT: A left rail about 220px wide lists 全部 and the category names. The right column opens with the active category name, then the search field, then the card grid. The primary action is the first card.
+FIRST VIEWPORT: The header is unchanged. A 180px column lists 分类, 全部, and the category names. The reading column opens with the sheet 书签 and the three counts, then the search field, then three cards across. The primary action is the first card.
 
-FORM: Left rail plus cards. The visitor replaced the earlier text list after seeing it. Seed 5601c900.
+FORM: Category column plus catalog grid. Seed 5601c900.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.

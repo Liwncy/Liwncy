@@ -1,3 +1,32 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --color-background: var(--site-bg);
+  --color-foreground: var(--site-ink);
+  --color-card: var(--site-surface);
+  --color-card-foreground: var(--site-ink);
+  --color-popover: var(--site-surface);
+  --color-popover-foreground: var(--site-ink);
+  --color-primary: var(--site-accent);
+  --color-primary-foreground: #faf9f7;
+  --color-secondary: var(--site-surface);
+  --color-secondary-foreground: var(--site-ink);
+  --color-muted: var(--site-bg);
+  --color-muted-foreground: var(--site-muted);
+  --color-accent: var(--site-accent);
+  --color-accent-foreground: #faf9f7;
+  --color-destructive: #b85c4b;
+  --color-destructive-foreground: #faf9f7;
+  --color-border: var(--site-border);
+  --color-input: var(--site-border);
+  --color-ring: var(--site-accent);
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
 @font-face {
   font-family: "Noto Serif SC";
   font-style: normal;

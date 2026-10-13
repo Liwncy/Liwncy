@@ -83,7 +83,7 @@ components:
     textColor: "{colors.site-ink}"
     rounded: "{rounded.site-radius}"
     padding: "12px 14px"
-    width: "min(100%, 36rem)"
+    width: "min(100%, 16rem)"
   input-field:
     backgroundColor: "{colors.site-bg}"
     textColor: "{colors.site-ink}"
@@ -94,14 +94,12 @@ components:
     backgroundColor: "transparent"
     textColor: "{colors.site-ink}"
     rounded: "{rounded.rail}"
-    padding: "10px 12px"
-    width: "100%"
+    padding: "8px 14px"
   rail-category-current:
     backgroundColor: "{colors.site-accent-wash}"
     textColor: "{colors.site-accent}"
     rounded: "{rounded.rail}"
-    padding: "10px 12px"
-    width: "100%"
+    padding: "8px 14px"
   card-home:
     backgroundColor: "{colors.site-surface}"
     textColor: "{colors.site-ink}"
@@ -134,7 +132,7 @@ components:
 
 芈仙居 sits on cool paper: a gray-green ground, warm sheets, and pine ink. Titles use a self-hosted Songti, Noto Serif SC at weight 700. Body text, navigation, and controls use the system gothic stack. One teal accent marks what is current or actionable.
 
-The homepage centers a circular portrait, a widely tracked name, and paper cards over an ink wash. Pages that extend this world keep those tokens. The bookmark page is a category rail on the sheet color and a grid of the same paper cards: title, muted host, and description. The admin reuses the same paper, hairline, radius, and accent for its panels and save actions.
+The homepage centers a circular portrait, a widely tracked name, and paper cards over an ink wash. Pages that extend this world keep those tokens. The bookmark page is a catalog on Cool Paper: a category column, a summary sheet with three real counts, a search field, then a grid of compact paper cards. The admin reuses the same paper, hairline, radius, and accent for its panels and save actions.
 
 Dark mode reassigns the ground, sheet, ink, muted text, hairline, and the two shadows. The accent stays the same teal.
 
@@ -144,7 +142,7 @@ Dark mode reassigns the ground, sheet, ink, muted text, hairline, and the two sh
 - Self-hosted Noto Serif SC 700 for titles; system gothic for body
 - One teal accent for the active category, the current nav item, and explicit actions
 - Bookmark hosts in muted ink; a hovered card title turns Active Teal
-- Homepage cards and bookmark cards both lift off the paper
+- Homepage cards lift off the paper. Bookmark cards lift 2px.
 - Dark theme reassigns the same custom properties
 
 ## Colors
@@ -164,7 +162,7 @@ The palette is a cool ground, a warmer sheet, pine ink, and one teal. Dark mode 
 ### Neutral
 
 - **Cool Paper** (`site-bg`, #f0f4f3): the page ground. In the dark theme the same property is **Night Ground** (`site-bg-dark`, #151a18).
-- **Warm Sheet** (`site-surface`, #faf9f7): the category rail, homepage cards, the bookmark search, quiet pills, and banner chips. Dark: **Night Sheet** (`site-surface-dark`, #1c2421).
+- **Warm Sheet** (`site-surface`, #faf9f7): homepage cards, bookmark cards, the bookmark search, quiet pills, and banner chips. Dark: **Night Sheet** (`site-surface-dark`, #1c2421).
 - **Pine Ink** (`site-ink`, #2c3330): text and quiet controls. Dark: **Mist Ink** (`site-ink-dark`, #e5ebe8).
 - **Muted Ink** (`site-muted`, #6b736f): bookmark hosts, descriptions, placeholders, and meta. Dark: **Ash Muted** (`site-muted-dark`, #93a099).
 - **Ink Hairline** (`site-border`, rgba(44, 51, 48, 0.1)): panel borders, field borders, and bookmark card edges. Dark: **Mist Hairline** (`site-border-dark`, rgba(229, 235, 232, 0.1)).
@@ -198,17 +196,17 @@ The shell is a fixed header, 60px tall, with the page starting beneath it. Light
 
 The homepage is a centered column (padding 48px 24px 32px) over a fixed ink wash, then a card grid. The grid is 3 columns, max width 1200px, gap 30px, padding 40px 80px 64px. It becomes 2 columns under 992px and 1 column under 768px, with padding 24px 20px 48px.
 
-The bookmark page is a 220px sheet rail plus a fluid column, at least the height below the header. The column padding is 36px 40px 64px. Cards fill the column at a minimum of 320px, with a 20px gap. Under 720px the rail becomes one horizontal scrolling row (padding 12px, gap 8px) and the column padding becomes 24px 16px 48px.
+The bookmark page is the first page on the shared frame: a 220px menu and a stage, both painted with the site tokens. The menu is text only — 仙居卷轴, 择一处清闲, 书签总览, and 书签分类 — with the current category in Active Teal and a 6px dot. The stage holds 常用书签, one short line, the three counts 当前分类 / 可见书签 / 总收藏, then a category select and search. Cards stay three columns of horizontal sheets: a 40px mark, the title, one muted line, and a chevron. They become two columns under 980px and one column under 720px, when the menu stacks above the stage. The header keeps 首页 / 书签 / 后台; Gitee, Github, and the theme switch live in a 更多 dropdown. The header avatar is the only avatar.
 
 The admin page is a centered column, max width 960px, padding 36px 24px 64px. Inside it, a 240px column and a fluid column sit 28px apart. They stack under 720px.
 
 ### Named Rules
 
-**The Shared Shell Rule.** Pages sit under a fixed 60px header, and the main column starts below it. The shell, the bookmark rail, and the admin columns collapse at 720px.
+**The Shared Shell Rule.** Pages sit under a fixed 60px header, and the main column starts below it. The shell, the bookmark category column, and the admin columns collapse at 720px.
 
 ## Elevation & Depth
 
-The shell is flat. Depth on the homepage and the bookmark cards comes from a soft ink shadow, a short lift, and, on the homepage, the ink-wash background. The header's depth is a dotted veil and a 4px backdrop blur at 50% saturation, with no drop shadow.
+The shell is flat. Homepage depth is a soft ink shadow, a short lift, and the ink-wash background. Bookmark cards use the same shadow and a 2px lift. The header's depth is a dotted veil and a 4px backdrop blur at 50% saturation, with no drop shadow.
 
 Homepage cards and the large pills use a 0.3s ease transition. Banner chips use 0.25s ease. The portrait and the name rise 12px over 0.6s ease; the name is delayed 0.12s.
 
@@ -220,17 +218,17 @@ Homepage cards and the large pills use a 0.3s ease transition. Banner chips use 
 
 ### Named Rules
 
-**The Paper Card Rule.** Bookmark links use the homepage card: Warm Sheet, 12px radius, Ink Hairline, the rest shadow, and a 4px lift into the hover shadow. The title turns Active Teal. The host stays Muted Ink.
+**The Paper Card Rule.** Bookmark links are compact catalog cards: Warm Sheet, 12px radius, Ink Hairline, the rest shadow, and a 2px lift into the hover shadow. A 32px mark, radius 8px, sits on the same line as the title. The mark holds the title's first character in the title face, or the Github or Gitee mark when the host is one of those. The category name is a Teal Wash pill at the end of that line. The description, when present, is clamped to two lines. In 全部, the category name is a Teal Wash pill at the end of the title line. The host stays Muted Ink along the bottom edge. The title turns Active Teal on hover. Reduced motion keeps the color change and skips the lift.
 
 ## Shapes
 
-Panels, homepage cards, and the bookmark search use the 12px radius (`site-radius`). Rail buttons and admin fields use 10px. Circular marks — the header logo at 36px and the homepage portrait at 168px — are full circles. The portrait has a 4px Warm Sheet border.
+Panels and homepage cards use the 12px radius (`site-radius`). The bookmark search and the category pills use 16px, half of their 32px height. The bookmark mark uses 8px. Admin fields use 10px. Circular marks — the header logo at 36px and the homepage portrait at 168px — are full circles. The portrait has a 4px Warm Sheet border.
 
 Pills take their radius from half their height.
 
 ### Named Rules
 
-**The Half-Height Pill Rule.** A fully rounded control uses half its height as its radius: 42px actions are 21px, 32px chips are 16px. Panels and the bookmark search use 12px. Rail buttons and admin fields use 10px.
+**The Half-Height Pill Rule.** A fully rounded control uses half its height as its radius: 42px actions are 21px, 32px chips are 16px. Panels, the bookmark search, and the summary sheet use 12px. Admin fields use 10px. The bookmark mark uses 8px. The current category is marked with a 6px dot.
 
 ## Components
 
@@ -266,7 +264,7 @@ Admin panels are flat sheets: 12px radius, Ink Hairline, padding 18px. Panel tit
 
 ### Inputs / Fields
 
-- **Search:** Warm Sheet, Pine Ink, Ink Hairline, 12px radius, padding 12px 14px, width up to 36rem. The caret is Active Teal. The placeholder is Muted Ink. The face is the gothic stack.
+- **Search:** Warm Sheet, Pine Ink, Ink Hairline, 12px radius, padding 12px 14px, the full width of the reading column, under the summary sheet. The caret is Active Teal. The placeholder is Muted Ink. The face is the gothic stack.
 - **Admin fields:** Cool Paper, Pine Ink, Ink Hairline, 10px radius, padding 10px 12px, full width of the panel. The caret is Active Teal. Labels are 0.85rem Muted Ink.
 - **Focus:** 2px Active Teal outline, 2px offset, on bookmark and admin fields.
 
@@ -276,9 +274,9 @@ The header is fixed, 60px, and shared. In the light theme its bottom edge is a `
 
 ### Bookmark cards
 
-A bookmark card is a title, a host, and an optional description, stacked with an 8px gap and 22px 20px of padding. The title is the title face at 17px, weight 700, tracking 0.04em. The host is Muted Ink at 0.85rem. The description is 14px Muted Ink, line-height 1.65. Hover lifts the card 4px and turns the title Active Teal. Selected text on the bookmark page is Active Teal at 28% opacity (`rgba(31, 157, 138, 0.28)`).
+A bookmark card is a compact catalog card, at least 148px tall, padding 16px. The top line is a 32px mark, the title, and a category pill. The mark uses radius 8px and the homepage icon wash (`rgba(22, 186, 170, 0.1)`). Its letter is the title face at 16px, weight 700, in Active Teal. Github and Gitee use their marks instead of a letter. The title is the title face at 16px, weight 700, tracking 0.04em. The category pill is Teal Wash, Active Teal text, 12px, padding 2px 8px. The description is 13px Muted Ink, line-height 1.6, clamped to two lines. The host is Muted Ink at 12px, along the bottom edge. Hover lifts the card 2px and turns the title Active Teal. Selected text on the bookmark page is Active Teal at 28% opacity (`rgba(31, 157, 138, 0.28)`).
 
-The rail button is full width, radius 10px, padding 10px 12px, stacked with 4px between. The current category uses Teal Wash and Active Teal. Under 720px the buttons shrink to their text and sit in one scrolling row.
+Category names form a 180px column, sticky 16px below the header. A 12px Muted Ink label, 分类, sits above them. Each name is a text row, padding 8px 10px, with a 6px dot. The current row is Active Teal, and its dot is filled Active Teal. Under 720px the names sit in one wrapping row above the summary. The summary sheet holds the title and three counts: 当前分类, 可见, and 一共. The counts use Teal Wash, Active Teal Songti figures, and 12px Muted Ink labels.
 
 ### Portrait
 
@@ -292,8 +290,8 @@ The homepage portrait is a 168px circle with a 4px Warm Sheet border and the por
 - **Do** Keep body copy, navigation, fields, and buttons on the system gothic stack: Segoe UI, PingFang SC, Microsoft YaHei, sans-serif.
 - **Do** Use Active Teal for the active category, the current navigation item, and explicit actions.
 - **Do** Keep bookmark hosts in Muted Ink, and turn the card title Active Teal on hover.
-- **Do** Paint the category rail, the search field, homepage cards, bookmark cards, and quiet pills with Warm Sheet.
-- **Do** Lift a bookmark card with the homepage rest shadow and hover shadow.
+- **Do** Paint the search field, homepage cards, bookmark cards, and quiet pills with Warm Sheet.
+- **Do** Give a bookmark card the homepage rest shadow and a 2px lift. Put a 32px mark on the same line as the title.
 - **Do** Switch to dark by reassigning the same custom properties.
 
 ### Don't:
