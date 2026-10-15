@@ -3,6 +3,7 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 import avatarUrl from '../assets/touxiang.jpg'
 import BrandIcon from '../components/BrandIcon.vue'
 import { FluidCursor } from '@/components/shadcn/fluid-cursor'
+import Live2D from '../components/Live2D.vue'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -35,6 +36,7 @@ function groupCurrent(group: NavGroup) {
 <template>
   <div class="site" :class="{ 'site-theme-dark': theme === 'dark' }">
     <FluidCursor />
+    <Live2D />
     <header class="site-header">
       <RouterLink class="site-logo" to="/">
         <img :src="avatarUrl" alt="" />
