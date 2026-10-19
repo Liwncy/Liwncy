@@ -7,8 +7,9 @@ const props = withDefaults(
   defineProps<{
     class?: HTMLAttributes['class']
     placeholder?: string
+    label?: string
   }>(),
-  { placeholder: '搜索书签、描述...' },
+  { placeholder: '搜索书签、描述...', label: '搜索书签' },
 )
 </script>
 
@@ -23,7 +24,7 @@ const props = withDefaults(
       :placeholder="props.placeholder"
       type="search"
       class="search-field"
-      aria-label="搜索书签"
+      :aria-label="props.label"
     />
   </label>
 </template>

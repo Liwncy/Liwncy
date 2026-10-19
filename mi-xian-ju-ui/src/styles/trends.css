@@ -1,0 +1,246 @@
+.trend-brand {
+  margin-bottom: 18px;
+  padding: 4px 10px 12px;
+  border-bottom: 1px solid var(--site-border);
+}
+
+.trend-brand strong {
+  display: block;
+  font-family: var(--site-font-title);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.trend-brand span {
+  display: block;
+  margin-top: 4px;
+  color: var(--site-muted);
+  font-size: 12px;
+}
+
+.trend-cats p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 16px 0 6px;
+  color: var(--site-muted);
+  font-size: 12px;
+}
+
+.trend-cats p::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--site-accent);
+}
+
+.trend-cats button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--site-ink);
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.trend-cats button::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.trend-cats button[aria-current='true'] {
+  color: var(--site-accent);
+}
+
+.trend-cats button[aria-current='true']::before {
+  background: var(--site-accent);
+}
+
+.trend {
+  min-width: 0;
+  max-width: 100%;
+  padding: 20px;
+  border: 1px solid var(--site-border);
+  border-radius: 12px;
+  background: var(--site-surface);
+  box-shadow: var(--site-shadow);
+}
+
+.trend-summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.trend-summary h1 {
+  margin: 0;
+  font-family: var(--site-font-title);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.trend-summary p {
+  margin: 8px 0 0;
+  color: var(--site-muted);
+  font-size: 13px;
+}
+
+.trend-summary dl {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+}
+
+.trend-summary dl div {
+  min-width: 88px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(31, 157, 138, 0.1);
+  text-align: center;
+}
+
+.trend-summary dt {
+  color: var(--site-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.trend-summary dd {
+  margin: 4px 0 0;
+  color: var(--site-accent);
+  font-family: var(--site-font-title);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.trend-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.trend-tools [data-slot='select-trigger'] {
+  font: inherit;
+  font-size: 14px;
+}
+
+.trend-list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trend-row {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--site-border);
+  color: inherit;
+  text-decoration: none;
+}
+
+a.trend-row:hover .trend-title {
+  color: var(--site-accent);
+}
+
+.trend-rank {
+  color: var(--site-muted);
+  font-family: var(--site-font-title);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.trend-rank[data-top='true'] {
+  color: var(--site-accent);
+}
+
+.trend-copy {
+  min-width: 0;
+}
+
+.trend-title,
+.trend-meta {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trend-title {
+  font-size: 15px;
+}
+
+.trend-meta,
+.trend-hot,
+.trend-status {
+  color: var(--site-muted);
+  font-size: 12px;
+}
+
+.trend-hot {
+  white-space: nowrap;
+}
+
+.trend-status {
+  margin: 18px 0 0;
+  font-size: 14px;
+}
+
+.trend button:focus-visible,
+.trend a:focus-visible,
+.trend-cats button:focus-visible {
+  outline: 2px solid var(--site-accent);
+  outline-offset: 2px;
+}
+
+.trend [data-slot='select-trigger']:focus-visible {
+  outline: none;
+}
+
+.trend ::selection {
+  background: rgba(31, 157, 138, 0.28);
+}
+
+@media (max-width: 980px) {
+  .trend-summary {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 720px) {
+  .trend-tools {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .trend-tools [data-slot='select-trigger'] {
+    width: 100%;
+  }
+
+  .trend-hot {
+    display: none;
+  }
+}

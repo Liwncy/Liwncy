@@ -4,12 +4,12 @@ export interface D1PreparedStatement {
   run(): Promise<{ success: boolean }>
 }
 
-export interface BookmarkDatabase {
+export interface AppDatabase {
   prepare(query: string): D1PreparedStatement
 }
 
 export type AppEnv = {
   Bindings: {
-    DB: BookmarkDatabase
+    DB: AppDatabase
   }
 }

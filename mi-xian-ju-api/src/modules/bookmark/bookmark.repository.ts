@@ -1,4 +1,4 @@
-import type { BookmarkDatabase } from '../../env'
+import type { AppDatabase } from '../../env'
 
 export type CategoryRow = {
   id: string
@@ -16,14 +16,14 @@ export type LinkRow = {
   sort_order: number
 }
 
-export async function listCategoryRows(db: BookmarkDatabase) {
+export async function listCategoryRows(db: AppDatabase) {
   const result = await db
     .prepare('SELECT id, name, sort_order FROM bookmark_categories ORDER BY sort_order, name')
     .all<CategoryRow>()
   return result.results
 }
 
-export async function listLinkRows(db: BookmarkDatabase) {
+export async function listLinkRows(db: AppDatabase) {
   const result = await db
     .prepare(
       'SELECT id, category_id, title, url, description, avatar, sort_order FROM bookmark_links ORDER BY sort_order, title',
@@ -32,14 +32,14 @@ export async function listLinkRows(db: BookmarkDatabase) {
   return result.results
 }
 
-export async function nextCategorySort(db: BookmarkDatabase) {
+export async function nextCategorySort(db: AppDatabase) {
   const result = await db
     .prepare('SELECT COALESCE(MAX(sort_order), 0) AS max_sort FROM bookmark_categories')
     .all<{ max_sort: number }>()
   return (result.results[0]?.max_sort ?? 0) + 1
 }
 
-export async function nextLinkSort(db: BookmarkDatabase, categoryId: string) {
+export async function nextLinkSort(db: AppDatabase, categoryId: string) {
   const result = await db
     .prepare('SELECT COALESCE(MAX(sort_order), 0) AS max_sort FROM bookmark_links WHERE category_id = ?')
     .bind(categoryId)
@@ -47,24 +47,24 @@ export async function nextLinkSort(db: BookmarkDatabase, categoryId: string) {
   return (result.results[0]?.max_sort ?? 0) + 1
 }
 
-export async function insertCategory(db: BookmarkDatabase, id: string, name: string, sortOrder: number) {
+export async function insertCategory(db: AppDatabase, id: string, name: string, sortOrder: number) {
   await db
     .prepare('INSERT INTO bookmark_categories (id, name, sort_order) VALUES (?, ?, ?)')
     .bind(id, name, sortOrder)
     .run()
 }
 
-export async function updateCategoryName(db: BookmarkDatabase, id: string, name: string) {
+export async function updateCategoryName(db: AppDatabase, id: string, name: string) {
   await db.prepare('UPDATE bookmark_categories SET name = ? WHERE id = ?').bind(name, id).run()
 }
 
-export async function deleteCategoryRow(db: BookmarkDatabase, id: string) {
+export async function deleteCategoryRow(db: AppDatabase, id: string) {
   await db.prepare('DELETE FROM bookmark_links WHERE category_id = ?').bind(id).run()
   await db.prepare('DELETE FROM bookmark_categories WHERE id = ?').bind(id).run()
 }
 
 export async function insertLink(
-  db: BookmarkDatabase,
+  db: AppDatabase,
   link: {
     id: string
     categoryId: string
@@ -84,7 +84,7 @@ export async function insertLink(
 }
 
 export async function updateLinkRow(
-  db: BookmarkDatabase,
+  db: AppDatabase,
   link: { id: string; categoryId: string; title: string; url: string; description: string; avatar: string },
 ) {
   await db
@@ -95,11 +95,11 @@ export async function updateLinkRow(
     .run()
 }
 
-export async function deleteLinkRow(db: BookmarkDatabase, id: string) {
+export async function deleteLinkRow(db: AppDatabase, id: string) {
   await db.prepare('DELETE FROM bookmark_links WHERE id = ?').bind(id).run()
 }
 
-export async function categoryExists(db: BookmarkDatabase, id: string) {
+export async function categoryExists(db: AppDatabase, id: string) {
   const result = await db.prepare('SELECT id FROM bookmark_categories WHERE id = ?').bind(id).all<{ id: string }>()
   return result.results.length > 0
 }

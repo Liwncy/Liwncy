@@ -1,4 +1,4 @@
-import type { BookmarkDatabase } from '../../env'
+import type { AppDatabase } from '../../env'
 import {
   categoryExists,
   deleteCategoryRow,
@@ -36,7 +36,7 @@ export class BookmarkError extends Error {
   }
 }
 
-export async function listCatalog(db: BookmarkDatabase): Promise<BookmarkCategory[]> {
+export async function listCatalog(db: AppDatabase): Promise<BookmarkCategory[]> {
   const [categories, links] = await Promise.all([listCategoryRows(db), listLinkRows(db)])
   return categories.map((category) => ({
     id: category.id,
@@ -53,27 +53,27 @@ export async function listCatalog(db: BookmarkDatabase): Promise<BookmarkCategor
   }))
 }
 
-export async function createCategory(db: BookmarkDatabase, name: string) {
+export async function createCategory(db: AppDatabase, name: string) {
   const trimmed = requireText(name, '请填写分类名称')
   const id = crypto.randomUUID()
   await insertCategory(db, id, trimmed, await nextCategorySort(db))
   return listCatalog(db)
 }
 
-export async function renameCategory(db: BookmarkDatabase, id: string, name: string) {
+export async function renameCategory(db: AppDatabase, id: string, name: string) {
   await requireCategory(db, id)
   await updateCategoryName(db, id, requireText(name, '请填写分类名称'))
   return listCatalog(db)
 }
 
-export async function removeCategory(db: BookmarkDatabase, id: string) {
+export async function removeCategory(db: AppDatabase, id: string) {
   await requireCategory(db, id)
   await deleteCategoryRow(db, id)
   return listCatalog(db)
 }
 
 export async function createLink(
-  db: BookmarkDatabase,
+  db: AppDatabase,
   input: { categoryId: string; title: string; url: string; description?: string; avatar?: string },
 ) {
   await requireCategory(db, input.categoryId)
@@ -91,7 +91,7 @@ export async function createLink(
 }
 
 export async function editLink(
-  db: BookmarkDatabase,
+  db: AppDatabase,
   id: string,
   input: { categoryId: string; title: string; url: string; description?: string; avatar?: string },
 ) {
@@ -107,7 +107,7 @@ export async function editLink(
   return listCatalog(db)
 }
 
-export async function removeLink(db: BookmarkDatabase, id: string) {
+export async function removeLink(db: AppDatabase, id: string) {
   await deleteLinkRow(db, id)
   return listCatalog(db)
 }
@@ -144,7 +144,7 @@ function parseHttpUrl(value: string | undefined, emptyMessage: string, invalidMe
   return trimmed
 }
 
-async function requireCategory(db: BookmarkDatabase, id: string) {
+async function requireCategory(db: AppDatabase, id: string) {
   if (!id || !(await categoryExists(db, id))) {
     throw new BookmarkError('分类不存在', 404)
   }

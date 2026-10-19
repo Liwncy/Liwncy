@@ -4,6 +4,6 @@ compatibility_date = "2026-10-10"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "mi-xian-ju"
-database_id = "00000000-0000-0000-0000-000000000001"
+database_name = "lwcdata"
+database_id = "32be8755-a6e9-401f-a9ab-d9b64b7150a9"
 migrations_dir = "migrations"
