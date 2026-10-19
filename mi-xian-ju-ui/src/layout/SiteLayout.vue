@@ -25,7 +25,14 @@ const groups: NavGroup[] = [
   { title: '闲暇时序', items: [{ title: '今日热榜', to: '/trends' }] },
   { title: '璇玑百宝', items: [{ title: '常用书签', to: '/bookmark' }] },
   { title: '人间烟火', items: [] },
-  { title: '乐在逍遥', items: [{ title: '勾栏听曲', to: '/videos' }, { title: '走马观花', to: '/images' }] },
+  {
+    title: '乐在逍遥',
+    items: [
+      { title: '勾栏听曲', to: '/videos' },
+      { title: '走马观花', to: '/images' },
+      { title: '吟诗作对', to: '/words' },
+    ],
+  },
 ]
 
 function groupCurrent(group: NavGroup) {

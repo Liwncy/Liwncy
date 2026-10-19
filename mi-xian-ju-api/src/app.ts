@@ -6,6 +6,7 @@ import { registerHealthModule } from './modules/health/health.module'
 import { registerImagesModule } from './modules/images/images.module'
 import { registerTrendsModule } from './modules/trends/trends.module'
 import { registerVideosModule } from './modules/videos/videos.module'
+import { registerWordsModule } from './modules/words/words.module'
 
 export function createApp() {
   const app = new Hono<AppEnv>()
@@ -15,5 +16,6 @@ export function createApp() {
   registerTrendsModule(app)
   registerImagesModule(app)
   registerVideosModule(app)
+  registerWordsModule(app)
   return app
 }
