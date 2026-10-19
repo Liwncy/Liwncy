@@ -3,6 +3,7 @@ import SiteLayout from '../layout/SiteLayout.vue'
 import AdminView from '../views/admin/index.vue'
 import BookmarkView from '../views/bookmark/index.vue'
 import HomeView from '../views/home/index.vue'
+import ImagesView from '../views/images/index.vue'
 import TrendsView from '../views/trends/index.vue'
 
 export const router = createRouter({
@@ -15,6 +16,7 @@ export const router = createRouter({
         { path: '', name: 'home', component: HomeView },
         { path: 'bookmark', name: 'bookmark', component: BookmarkView },
         { path: 'trends', name: 'trends', component: TrendsView },
+        { path: 'images', name: 'images', component: ImagesView },
         { path: 'admin', name: 'admin', component: AdminView },
       ],
     },

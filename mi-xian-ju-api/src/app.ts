@@ -3,6 +3,7 @@ import { cors } from 'hono/cors'
 import type { AppEnv } from './env'
 import { registerBookmarkModule } from './modules/bookmark/bookmark.module'
 import { registerHealthModule } from './modules/health/health.module'
+import { registerImagesModule } from './modules/images/images.module'
 import { registerTrendsModule } from './modules/trends/trends.module'
 
 export function createApp() {
@@ -11,5 +12,6 @@ export function createApp() {
   registerHealthModule(app)
   registerBookmarkModule(app)
   registerTrendsModule(app)
+  registerImagesModule(app)
   return app
 }
