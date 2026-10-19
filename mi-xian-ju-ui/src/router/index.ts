@@ -5,6 +5,7 @@ import BookmarkView from '../views/bookmark/index.vue'
 import HomeView from '../views/home/index.vue'
 import ImagesView from '../views/images/index.vue'
 import TrendsView from '../views/trends/index.vue'
+import VideosView from '../views/videos/index.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -17,6 +18,7 @@ export const router = createRouter({
         { path: 'bookmark', name: 'bookmark', component: BookmarkView },
         { path: 'trends', name: 'trends', component: TrendsView },
         { path: 'images', name: 'images', component: ImagesView },
+        { path: 'videos', name: 'videos', component: VideosView },
         { path: 'admin', name: 'admin', component: AdminView },
       ],
     },
