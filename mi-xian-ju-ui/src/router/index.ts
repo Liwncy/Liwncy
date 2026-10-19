@@ -4,6 +4,7 @@ import AdminView from '../views/admin/index.vue'
 import BookmarkView from '../views/bookmark/index.vue'
 import HomeView from '../views/home/index.vue'
 import ImagesView from '../views/images/index.vue'
+import PersonalityView from '../views/personality/index.vue'
 import TrendsView from '../views/trends/index.vue'
 import VideosView from '../views/videos/index.vue'
 import WordsView from '../views/words/index.vue'
@@ -21,6 +22,7 @@ export const router = createRouter({
         { path: 'images', name: 'images', component: ImagesView },
         { path: 'videos', name: 'videos', component: VideosView },
         { path: 'words', name: 'words', component: WordsView },
+        { path: 'personality', name: 'personality', component: PersonalityView },
         { path: 'admin', name: 'admin', component: AdminView },
       ],
     },

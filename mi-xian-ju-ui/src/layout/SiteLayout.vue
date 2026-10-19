@@ -24,7 +24,7 @@ type NavGroup = { title: string; items: NavLink[] }
 const groups: NavGroup[] = [
   { title: '闲暇时序', items: [{ title: '今日热榜', to: '/trends' }] },
   { title: '璇玑百宝', items: [{ title: '常用书签', to: '/bookmark' }] },
-  { title: '人间烟火', items: [] },
+  { title: '人间烟火', items: [{ title: '性格测试', to: '/personality' }] },
   {
     title: '乐在逍遥',
     items: [

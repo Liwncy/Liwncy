@@ -1,0 +1,82 @@
+.personality-page {
+  max-width: 960px;
+  margin: 28px auto;
+  padding: 0 20px 28px;
+}
+
+.personality-summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.personality-summary h1 {
+  margin: 0;
+  font-family: var(--site-font-title);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.personality-summary p,
+.personality-note {
+  margin: 8px 0 0;
+  color: var(--site-muted);
+  font-size: 13px;
+}
+
+.personality-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.personality-actions button {
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--site-border);
+  border-radius: 18px;
+  background: var(--site-surface);
+  color: var(--site-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.personality-primary {
+  border: 0;
+  background: var(--site-accent-gradient);
+  color: #fff;
+}
+
+.personality-frame {
+  height: calc(100vh - 220px);
+  min-height: 560px;
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid var(--site-border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--site-shadow);
+}
+
+.personality-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.personality-actions button:focus-visible {
+  outline: 2px solid var(--site-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 720px) {
+  .personality-summary {
+    flex-direction: column;
+  }
+
+  .personality-frame {
+    min-height: 520px;
+  }
+}
