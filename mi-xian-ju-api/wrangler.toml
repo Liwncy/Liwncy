@@ -7,3 +7,8 @@ binding = "DB"
 database_name = "lwcdata"
 database_id = "32be8755-a6e9-401f-a9ab-d9b64b7150a9"
 migrations_dir = "migrations"
+
+[[services]]
+binding = "CF_WORKER"
+service = "cf-worker"
+remote = true

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import {
   createCategory,
   createLink,
@@ -120,7 +121,7 @@ async function removeLink(id: string, title: string) {
 <template>
   <section class="admin-bookmark">
     <h1>书签</h1>
-    <p class="admin-lead">这里改的内容，会显示在访客的书签页。</p>
+    <p class="admin-lead">这里改的内容，会显示在访客的书签页。<RouterLink to="/admin/apis">去改接口</RouterLink></p>
     <p v-if="status" role="status">{{ status }}</p>
     <p v-if="error" class="admin-alert" role="alert">{{ error }}</p>
 

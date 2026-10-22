@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import SiteLayout from '../layout/SiteLayout.vue'
+import AdminApisView from '../views/admin/apis.vue'
 import AdminView from '../views/admin/index.vue'
 import BookmarkView from '../views/bookmark/index.vue'
 import HomeView from '../views/home/index.vue'
@@ -24,6 +25,7 @@ export const router = createRouter({
         { path: 'words', name: 'words', component: WordsView },
         { path: 'personality', name: 'personality', component: PersonalityView },
         { path: 'admin', name: 'admin', component: AdminView },
+        { path: 'admin/apis', name: 'admin-apis', component: AdminApisView },
       ],
     },
   ],
